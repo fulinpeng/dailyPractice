@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>图片切换实例：2种图片切换思路</title>
+<style>
+	*{
+		padding:0;
+		margin:0;
+		list-style:none;
+	}
+	body{
+		background:#444;
+	}
+	#main{
+		width:400px;
+		height:500px;
+		margin:0 auto;
+		position:relative;
+		background: url("img/load.gif") ;
+	}
+	#main img{
+		width:400px;
+		height:500px;
+		
+	}
+	#title{
+		width:400px;
+		line-height:30px;
+		text-align:center;
+		position:absolute;
+		top:0;
+		left:0;
+		background:#666;
+	}
+	#descript{
+		width:400px;
+		line-height:30px;
+		text-align:center;
+		position:absolute;
+		bottom:0;
+		left:0;
+		background:#666;
+	}
+	#main ul{
+		width:30px;
+		position:absolute;
+		top:0;
+		right:-40px;
+	}
+	#main ul li{
+		width:30px;
+		height:30px;
+		float:left;
+		margin-bottom:10px;
+		background:#ccc;
+	}
+	#main .active{
+		background:yellow;
+	}
+</style>
+<script>
+window.onload=function(){
+	var oMain=document.getElementById('main');
+	var oImg=document.getElementById('img');
+	var oTitle=document.getElementById('title');
+	var oDscript=document.getElementById('descript');
+	var oUl=document.getElementById('ul');
+	var aLi=document.getElementsByTagName('li');
+	var aUrl=['img/1.png','img/2.png','img/3.png','img/4.png'];
+	var aDescript=['一只老鹰','美女图片二','美女图片三','独眼钢铁侠'];
+	num=0;
+	for(var i=0; i<aLi.length; i++){
+		oUl.innerHTML +='<li></li>';
+	};
+	//初始化
+	oImg.src=aUrl[num];
+	oTitle.innerHTML=num+1 +'/'+ aUrl.length;
+	oDscript.innerHTML=aDescript[num];
+	
+	
+
+	
+	
+};
+</script>
+
+
+
+
+</head>
+
+<body>
+<p>
+
+</p>
+
+<div id="main">
+	<img id="img" src=""/>
+	<span id="title"></span>
+	<span id="descript"></span>
+	<ul id="ul">
+	</ul>
+	
+</div>
+
+
+
+
+
+</body>
+</html>

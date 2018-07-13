@@ -1,0 +1,293 @@
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.74) inset; }
+
+body{
+    min-width:768px;
+}
+.header{
+    position:relative;
+    height:550px;
+    background: url('../images/banner_bg.png') no-repeat;
+    background-size: cover ;
+}
+.headfont{
+    width: 500px;
+    position: absolute;
+    left: 12.5%;
+    top: 180px;
+}
+.headfont img{
+    width:90%;
+}
+.loginbox{
+    width:230px;
+    position:absolute;
+    right:12.5%;
+    top: 200px;
+}
+.loginbox .info{
+    width:100%;
+    height:30px;
+    margin-bottom:15px;
+    position:relative;
+}
+.loginbox .info span,input{
+    height:100%;
+    line-height:28px;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position:absolute;
+}
+.loginbox .info input{
+    height:100%;
+    border-radius: 5px;
+    line-height:28px;
+    position:absolute;
+}
+.loginbox .info span{
+    width: 15%;
+    left:0;
+}
+.loginbox .info.error{
+    display:none;
+    border-radius: 5px;
+    background: white;
+    text-align: center;
+    line-height: 30px;
+    color: red;
+}
+.loginbox .info input{
+    border:2px solid #d2b067;
+    width: 100%;
+    height:100%;
+    left:0;
+    text-indent: 15%;
+    outline: none;
+    background: rgba(255, 255, 255, 0.5);
+}
+.loginbox .user .ico{
+    background: url('../images/user.png') no-repeat center center;
+    background-size: 15px auto;
+    z-index:10;
+}
+.loginbox .pasw .ico{
+    background: url('../images/psw.png') no-repeat center center;
+    background-size: 15px auto;
+    z-index:10;
+}
+.loginbox .yanzheng input{
+    width: 47%;
+}
+.loginbox .yanzheng .yzmdes{
+    width:60px;
+    left:53%;
+    border:1px solid black;
+}
+.loginbox .yanzheng .yzmdes img{
+    width:100%;
+    height:100%;
+}
+.loginbox .yanzheng .new{
+    cursor:pointer;
+    width:30px;
+    height:30px;
+    right:0;
+    left:auto;
+    background:url('../images/new.png') no-repeat center center;
+    background-size: 24px auto;
+}
+.loginbox .info.login{
+    width:100%;
+    border-radius: 5px;
+    cursor:pointer;
+    background:url('../images/login.png') no-repeat;
+    background-size: cover;
+    color:white;
+    line-height: 30px;
+    font-size:16px;
+    text-align: center;
+    border: none;
+    text-indent: 0;
+}
+.loginbox .info .error{
+    display: none;
+    width:30px;
+    position:absolute;
+    left:auto;
+    right:5px;
+    line-height: 30px;
+}
+.loginbox .info .error img{
+    width:60%;
+    height:60%;
+    position:absolute;
+    top:20%;
+}
+.loginbox .yanzheng .error{
+    left: 32%;
+    right: auto;
+}
+.section{
+    position:relative;
+}
+.section.data{
+    margin-top:75px;
+    padding-bottom:75px;
+}
+.section>.tit{
+    line-height:30px;
+    font-size:30px;
+    text-align: center;
+}
+.section>.tit-eng{
+    line-height:30px;
+    font-size:14px;
+    text-align: center;
+}
+.data>.data-img{
+    width:75%;
+    margin:0 auto;
+}
+.data>.desbox {
+    width:75%;
+    margin:0 auto;
+}
+.data>.data-img img{
+    width:100%;
+}
+.data>.desbox>.data-des{
+    width:25%;
+    text-align: center;
+    float:left;
+}
+.data>.desbox>.data-des>hr{
+    width:20%;
+    height:1px;
+    background: #8f90a0;
+    margin:0 auto;
+}
+.data>.desbox>.data-des>p{
+    line-height: 25px;
+}
+.data>.desbox>.data-des>.tit{
+    margin:10px 0;
+    font-size:18px;
+    color:#d2b067;
+}
+
+.section.archit{
+    width:100%;
+    height: 500px;
+    padding:75px 0;
+    background:#d2b067;
+    color:white;
+    overflow:hidden;
+}
+.archit .contentbox{
+    width:50%;
+    height:290px;
+    margin-top:20px;
+    margin-left:25%;
+    position:relative;
+    overflow: hidden;
+}
+.archit .contentbox ul{
+    position:relative;
+    width:300%;
+    height:290px;
+}
+.contentbox ul .content{
+    float:left;
+    width:33.33%;
+}
+.content .desbox{
+    float:left;
+    width:45%;
+    margin-top:40px;
+}
+.content .desbox .liu{
+    margin-left:30%;
+    padding-left:40px;
+    line-height: 40px;
+    font-size:24px;
+    font-weight:bold;
+    background:url('../images/liu.png') no-repeat left center;
+    background-size: auto 30px;
+}
+.content .desbox .yuan .item{
+    margin-left:30%;
+    padding-left:40px;
+    height:40px;
+    background:url('../images/yuan.png') no-repeat 7px center;
+    background-size: 20px 20px;
+}
+.content .desbox .yuan .item p{
+    line-height: 40px;
+    font-size:16px;
+}
+.content .desbox .yuan .hastwo .p_one{
+    line-height: 20px;
+    height:20px;
+}
+.content .desbox .yuan .hastwo .p_two{
+    font-size:14px;
+    line-height: 20px;
+    height:20px;
+}
+.content .imgbox{
+    float:left;
+    width:50%;
+    height:260px;
+    overflow: hidden;
+}
+.content .imgbox img{
+    width:100%;
+    max-width:360px!important;
+}
+.archit .btn{
+    width:40px;
+    height:70px;
+    position:absolute;
+    top:55%;
+    cursor:pointer;
+    margin-top:-35px;
+}
+.archit .pre{
+    left:15%;
+    background: url('../images/pre.png') no-repeat center center;
+    background-size:cover;
+}
+.archit .next{
+    right:15%;
+    background: url('../images/next.png') no-repeat center center;
+    background-size:cover;
+}
+.section.read{
+    width:100%;
+    padding:75px 0;
+}
+.read-img{
+    height:250px;
+    margin:30px 0;
+    background: url('../images/read.png') no-repeat center center;
+    background-size:auto 100%;
+}
+.read-btn{
+    margin:0 auto;
+    width:150px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    font-size:24px;
+    color:white;
+    cursor:pointer;
+    background:#d2b067;
+}
+.read-btn:hover{
+    background: #555;
+}
+
+
+
+

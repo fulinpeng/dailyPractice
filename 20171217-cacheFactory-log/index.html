@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtroller">
+
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.controller('mainCtroller', ['$scope', '$cacheFactory', '$log', function ($scope, $cacheFactory, $log) {
+
+        console.log('////////////////////$cacheFactory//////////////');
+        var cache=$cacheFactory('myCache', {capacity:5});
+        cache.put('name', 'hello');
+        cache.put('age', '22');
+        cache.put('del', '22');
+        console.log('cache.info', cache.info());
+        console.log('cache.get', cache.get('name'));
+        cache.remove('del');
+        console.log('cache.remove', cache.info());
+
+
+        $log.debug
+        console.log('/////////////////////$log/////////////////////');
+        $log.log('$log.log');
+        $log.info('$log.info');
+        $log.warn('$log.warn');
+        $log.error('$log.error');
+        $log.debug('$log.debug'); //没反应啊
+
+
+
+
+    }]);
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<select name="sheng" id="select1">
+</select>
+<select name="shi" id="select2">
+</select>
+<select name="xian" id="select3">
+</select>
+<script>
+    var data=[
+        {
+            name:'四川',
+            arear:[
+                {
+                    name:'成都',
+                    arear:['庆阳','午后','靖江']
+                },
+                {
+                    name:'达县',
+                    arear:['达州','大足','曲线']
+                },
+                {
+                    name:'内江',
+                    arear:['资中','资阳','威远']
+                }
+            ]
+        },{
+            name:'贵州',
+            arear:[
+                {
+                    name:'贵阳',
+                    arear:['贵贵','阳阳']
+                }
+            ]
+        }
+    ];
+    var select=document.getElementsByTagName("select");
+    key1=0;
+    key2=0;
+
+
+    function init(key1,key2) {
+        var content1=data.map(function (item,index) {
+            return '<option value="'+index+'">'+item.name+'</option>'
+        });
+        select[0].innerHTML=content1.join('');
+
+        var content2=data[key1].arear.map(function (item,index) {
+            return '<option value="'+index+'">'+item.name+'</option>'
+        });
+        select[1].innerHTML=content2.join('');
+
+        var content3=data[key1].arear[key2].arear.map(function (item,index) {
+            return '<option value="'+index+'">'+item+'</option>'
+        });
+        select[2].innerHTML=content3.join('');
+
+    };
+    init(key1,key2);
+
+    select[0].onchange=function () {
+        key1=this.options[this.options.selectedIndex].value;
+
+        var content2=data[key1].arear.map(function (item,index) {
+            return '<option value="'+index+'">'+item.name+'</option>'
+        });
+        select[1].innerHTML=content2.join('');
+
+        var content3=data[key1].arear[0].arear.map(function (item,index) {
+            return '<option value="'+index+'">'+item+'</option>'
+        });
+        select[2].innerHTML=content3.join('');
+    };
+
+    select[1].onchange=function () {
+        key2=this.options[this.options.selectedIndex].value;
+
+        var content3=data[key1].arear[key2].arear.map(function (item,index) {
+            return '<option value="'+index+'">'+item+'</option>'
+        });
+        select[2].innerHTML=content3.join('');
+    };
+
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-8-2-通过class获取元素</title>
+<style>
+
+	div{
+		width:100px;
+		height:60px;
+		margin-top:20px;
+		left:0;
+		background:red;
+		filter:alpha(opacity:30);
+		opacity:0.3;
+	}
+	
+</style>
+<script>
+	function getByClass(oParent,sClass){
+		var aEle=document.getElementsByTagName('*');
+		var aResult=[];
+		for(var i=0; i<aEle.length; i++){
+			if(aEle[i].className==sClass){
+				aResult.push(aEle[i]);
+			};
+			
+		};
+	};
+	
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div style="width:100px;"></div>
+<div class="div2">
+	<ul class="ul1">
+	<li class="li1"></li>
+	<li></li>
+	<li></li>
+</ul>
+</div>
+<div></div>
+<div></div>
+<ul class="ul1">
+<li class="li1"></li>
+<li></li>
+<li></li>
+</ul>
+</body>
+</html>

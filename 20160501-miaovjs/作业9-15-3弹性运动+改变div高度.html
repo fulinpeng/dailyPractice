@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-15-3弹性运动+改变div高度</title>
+<style>
+*{margin:0;padding:0;}
+#div1{width:200px;height:50px;background:red;margin:20px auto 0}
+</style>
+<script>
+	
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	oDiv.onmouseover=function(){
+		startMove(this,200);
+	};
+	oDiv.onmouseout=function(){
+		startMove(this,50);
+	};
+};
+	
+var iSpeed=0;
+var height=50;
+function startMove(obj,iTarget){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		iSpeed+=(iTarget-height)/5;
+		iSpeed*=0.7;
+		
+		if(Math.abs(iSpeed)<1 && Math.abs(iTarget-height)<1){
+			clearInterval(obj.timer);
+			obj.style.height=iTarget+'px';;
+		}else{
+			height+=iSpeed;
+			obj.style.height=height+'px';
+		};
+	},30);
+};
+	
+</script>
+</head>
+<body>
+<div id="div1"></div>
+
+</body>
+</html>

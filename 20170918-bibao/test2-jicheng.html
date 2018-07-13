@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+    // 修改系统中的Object对象，添加一个创建方法，指定要创建对象的原型，实现类似继承功能：
+    if (typeof Object.create !== "function") {
+        Object.create = function (o) {
+            //构造函数，用于创建对象
+            var F = function () { };
+            //指定由构造函数创建的对象的原型
+            F.prototype = o;
+            //调用构造方法创建新对象
+            return new F();
+        }
+    }
+    var rose = {
+        name: "rose",
+        show: function () {
+            console.log("姓名：" + this.name);
+        }
+    };
+    rose.show(); // 姓名：rose
+    var lucy = Object.create(rose); //简单认为是：创建一个对象且继承rose
+    lucy.name = "lucy"; //重写
+    lucy.show(); // 姓名：lucy
+    
+</script>
+
+</html>

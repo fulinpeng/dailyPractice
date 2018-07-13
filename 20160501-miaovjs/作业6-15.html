@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	font-size:20px;
+}
+#content{
+	width:900px;
+	height:450px;
+	margin:0 auto;
+	position:relative;
+	border:1px solid #666666;
+}
+#butn{
+	background-color:red;
+	color:#fff;
+}
+#bian{
+	width:40px;
+	height:40px;
+	margin:10px 0 0 50px;
+	border:5px solid #333;
+}
+#content2{
+	width:900px;
+	height:450px;
+	position:absolute;
+	display:none;
+	top:0;
+	left:0;
+	background-color:#000;
+	opacity:0.4;
+}
+#shezhi{
+	width:350px;
+	height:150px;
+	position:absolute;
+	right:0;
+	bottom:0;
+	background-color:white;
+}
+#shezhi p{
+	line-height:40px;
+	margin:0;
+	padding:0;
+}
+#red{
+	background-color:red;
+	padding:0 10px;
+}
+#yellow{
+	background-color:yellow;
+	padding:0 10px;
+}
+#blue{
+	background-color:rgba(0, 0, 255, 0.58);;
+	padding:0 10px;
+}
+</style>
+<script>
+window.onload = function (){
+
+	var shezhi=document.getElementById('shezhi');
+	var oButn=document.getElementById('butn');
+	var bian=document.getElementById('bian');
+	var content2=document.getElementById('content2');
+	var oRed=document.getElementById('red');
+	var oYellow=document.getElementById('yellow');
+	var oBlue=document.getElementById('blue');
+	var oK200=document.getElementById('k200');
+	var oK300=document.getElementById('k300');
+	var oK400=document.getElementById('k400');
+	var oG200=document.getElementById('g200');
+	var oG300=document.getElementById('g300');
+	var oG400=document.getElementById('g400');
+	var oQueding=document.getElementById('queding');
+	var oQuxiao=document.getElementById('quxiao');
+	oButn.onclick=show;
+	function show(){
+		content2.style.display='block';
+	};
+	oRed.onclick=red;
+	function red(){
+		bian.style.background='red';
+	};
+	oYellow.onclick=yellow;
+	function yellow(){
+		bian.style.background='yellow';
+	};
+	oBlue.onclick=blue;
+	function blue(){
+		bian.style.background='blue';
+	};
+	oK200.onclick=k200;
+	function k200(){
+		bian.style.width='200px';
+		oK200.style.background='yellow';
+	};
+	oK300.onclick=k300;
+	function k300(){
+		bian.style.width='300px';
+	};
+	oK400.onclick=k400;
+	function k400(){
+		bian.style.width='400px';
+	};
+	oG200.onclick=g200;
+	function g200(){
+		bian.style.height='200px';
+	};
+	oG300.onclick=g300;
+	function g300(){
+		bian.style.height='300px';
+	};
+	oG400.onclick=g400;
+	function g400(){
+		bian.style.height='400px';
+	};
+	oQueding.onclick=queding;
+	function queding(){
+		content2.style.display='none';
+	};
+	oQuxiao.onclick=quxiao;
+	function quxiao(){
+		bian.style.width='40px';
+		bian.style.height='40px';
+		bian.style.background='#fff';
+	};
+};
+
+
+</script>
+</head>
+
+<body>
+<div id="content">
+	<div>
+		请为那个div设置样式：
+		<input  id="butn" type="button" value="点击设置"/>
+	</div>
+	
+	<div id="bian">
+	</div>
+	<div id="content2">
+	   <div id="shezhi">
+		<p>请选择背景颜色：
+		<input type="button" id="red" value="红" />
+		<input type="button" id="yellow" value="黄" />
+		<input type="button" id="blue" value="蓝" />
+		</p>
+		<p>请选择图层宽度：
+		<input type="button" id="k200" value="200" />
+		<input type="button" id="k300" value="300" />
+		<input type="button" id="k400" value="400" />
+		</p>
+		<p>请选择图层高度：
+		<input type="button" id="g200" value="200" />
+		<input type="button" id="g300" value="300" />
+		<input type="button" id="g400" value="400" />
+		</p>
+		<input type="button" id="queding" value="确定"/>
+		<input type="button" id="quxiao" value="恢复"/>
+	   </div>
+	</div>
+<div>
+
+
+
+
+
+
+
+</body>
+</html>

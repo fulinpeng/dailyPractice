@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-modle="text">{{text}}
+        <input type="text" v-modle="text">{{text}}
+        <input type="text" v-modle="text">{{text}}
+        <input type="text" v-modle="text">{{text}}
+        <input type="text" v-modle="text">{{text}}
+        <span></span>
+    </div>
+    <script>
+        function Vue(option) {
+            this.data = option.data;
+            var data = this.data;
+            observe(data, this);
+            var el = option.el;
+            var dom = new Compile(this, document.getElementById(el));
+            document.getElementById(el).appendChild(dom);
+        }
+
+        function observe(data, vm) {
+            Object.keys(data).forEach(function(key) {
+                defineReactive(vm, key, data[key]);
+            });
+        }
+
+        function defineReactive(vm, key, val) {
+            var dep = new Dep();
+            Object.defineProperty(vm, key, {
+                get: function() {
+                    // console.log('get', val);
+                    if (Dep.target) {
+                        dep.addSub(Dep.target);
+                    }
+                    return val;
+                },
+                set: function(newVal) {
+                    if (newVal === val) return;
+                    // console.log('set', newVal);
+                    val = newVal;
+                    dep.notify();
+                },
+            });
+        }
+
+        function Compile(vm, node) {
+            if (node) {
+                var frag = this.nodeToFragment(vm, node);
+                return frag;
+            }
+        }
+        Compile.prototype = {
+            constructor: Compile,
+            nodeToFragment: function(vm, node) {
+                var _frag = document.createDocumentFragment();
+                var child;
+                while (child = node.firstChild) {
+                    this.compileElement(vm, child);
+                    _frag.append(child);
+                }
+                return _frag;
+            },
+            compileElement: function(vm, vnode) {
+                var reg = /\{\{(.*)\}\}/;
+                if (vnode.nodeType === 1) {
+                    var attrs = vnode.attributes;
+                    for (var i = 0; i < attrs.length; i++) {
+                        if (attrs[i].nodeName === 'v-modle') {
+                            var name = attrs[i].nodeValue;
+                            vnode.value = vm[name];
+                            vnode.addEventListener('input', function(e) {
+                                vm[name] = e.target.value;
+
+                            });
+                            new Watcher(vm, vnode, name, 'value');
+                        }
+                    }
+                } else if (vnode.nodeType === 3) {
+                    // console.log(vnode.nodeValue);
+                    if (reg.test(vnode.nodeValue)) {
+                        var name = RegExp.$1.trim();
+                        vnode.nodeValue = vm[name];
+                        new Watcher(vm, vnode, name, 'nodeValue');
+                    }
+                }
+            }
+        }
+
+        function Watcher(vm, node, name, type) {
+            Dep.target = this;
+            this.vm = vm;
+            this.node = node;
+            this.name = name;
+            this.type = type;
+            // this.update();
+            this.get();
+            Dep.target = null;
+        }
+        Watcher.prototype = {
+            constructor: Watcher,
+            update: function() {
+                this.get();
+                // var batcher = new Batcher();
+                // batcher.push(this);
+            },
+            get: function() {
+                this.value = this.vm[this.name];
+            },
+            cb: function() {
+                // console.log(this.value);
+                this.node[this.type] = this.value;
+            }
+        }
+
+        function Dep() {
+            this.subs = [];
+        }
+        Dep.prototype = {
+            constructor: Dep,
+            addSub: function(sub) {
+                this.subs.push(sub);
+            },
+            notify: function() {
+                this.subs.forEach((sub) => {
+                    // console.log(sub);
+                    sub.update();
+                    sub.cb();
+                })
+            }
+        }
+
+        // Batcher 就是更新绑定过的数据，但是可以直接调用sub.cb()嘛，这里显得多此一举，不知道该怎么理解？？？
+        function Batcher() {
+            this.reset();
+        }
+        Batcher.prototype = {
+            constructor: Batcher,
+            reset: function() {
+                this.has = {};
+                this.queue = [];
+                this.waiting = false;
+            },
+            push: function(job) {
+                if (!this.has[job.name]) {
+                    this.queue.push(job);
+                    this.has[job.name] = job;
+                    if (!this.waiting) {
+                        this.waiting = true;
+                        setTimeout(() => {
+                            this.flush();
+                        });
+                    }
+                }
+            },
+            flush: function() {
+                console.log('queue', this.queue);
+                this.queue.forEach((job) => {
+                    job.cb();
+                });
+                this.reset();
+            }
+        }
+
+        var vm = new Vue({
+            el: 'app',
+            data: {
+                text: 'hello'
+            }
+        });
+        // console.log(vm);
+    </script>
+</body>
+
+</html>

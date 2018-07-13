@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var obj1 = {
+            num: 1,
+            add: function(num) {
+                this.num = ++num;
+            }
+        }
+        var obj2 = {
+            num: 1
+        }
+
+        // call
+        // obj1.add.call(obj2, obj2.num);
+        // console.log('obj1', obj1);
+        // console.log('obj2', obj2);
+
+        // apply
+        // obj1.add.apply(obj2, [obj2.num]);
+        // console.log('obj1', obj1);
+        // console.log('obj2', obj2);
+
+        // bind
+        var altwrite = document.write;
+        // altwrite("hello"); // 报错，this 指向了 window
+        // 报错，用下面的方法解决：
+        // bind 的目的是绑定方法的执行上下文是原来的this(不是为了改变，一般不改变执行上下文)
+        altwrite.bind(document)("hello");
+        // 这里 altwrite.bind(document) 返回的是一个函数，还要执行一次。。。///////////重点////////////
+
+        var add1 = obj1.add.bind(obj1);
+        add1(2);
+        console.log('obj1', obj1);
+        var obj3 = {
+            num: 1,
+            // add: function(num) {
+            //     this.num = ++num;
+            // }.bind(obj3) // 直接写在这里居然没用，下面那样写才对
+        }
+        obj3.add = function(num) {
+            this.num = ++num;
+        }.bind(obj3);
+        var add3 = obj3.add;
+        add3(2);
+        console.log('obj3', obj3);
+
+        // 那么bind函数背后做了什么呢？ 我们可以用以下代码来模拟：
+        Function.prototype.myBind = function(scope) {
+            var fn = this; // this 指向的是调用myBind方法的函数
+            return function() {
+                return fn.apply(scope, arguments);
+            }
+        };
+
+
+        // Function.prototype.bind.call(console.log, console).apply(console, arguments);
+        function fn() {}
+        console.log(fn.call === Function.prototype.call);
+        // true 说明 fn.call 是 Function 原型上的一个方法
+        //
+    </script>
+</body>
+
+</html>

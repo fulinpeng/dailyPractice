@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+        }
+        
+        #canvas-keleyi-com {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas-keleyi-com"></canvas>
+    <script type="text/javascript">
+        window.onload = function() {
+            var c = document.getElementById("canvas-kel" + "eyi-com");
+            var ctx = c.getContext("2d");
+            var W = window.innerWidth,
+                H = window.innerHeight;
+            c.width = W;
+            c.height = H;
+            ctx.translate(W / 2, H / 2);
+
+            var r = 1;
+            draw();
+
+            function draw() {
+                r = r >= 50 ? 1 : ++r;
+                ctx.clearRect(-50, -50, W, H);
+                ctx.globalCompositeOperation = "source-over";
+                ctx.beginPath();
+                ctx.arc(0, 0, r, 0, 2 * Math.PI);
+                var grd = ctx.createRadialGradient(0, 0, 1, 0, 0, r);
+                grd.addColorStop(0, "black");
+                grd.addColorStop(1, "yellow");
+                ctx.fillStyle = grd;
+                ctx.fill();
+                setTimeout(function() {
+                    draw();
+                }, 20);
+            }
+
+        }
+    </script>
+</body>
+
+</html>

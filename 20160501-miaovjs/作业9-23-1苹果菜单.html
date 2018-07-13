@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-24-苹果菜单</title>
+<style>
+body{margin:0;}
+#div1{width:100%;position:absolute;bottom:0;text-align:center;}
+#div1 img{width:64px;}
+input{margin-right:10px;width:200px;}
+</style>
+<script>
+window.onload=function(){
+	var aInp=document.getElementsByTagName('input');
+	var oDiv=document.getElementById('div1');
+	var aImg=document.getElementsByTagName('img');
+	
+	document.onmousemove=function(ev){
+		oEv=ev||event;
+		
+		for(var i=0; i<aImg.length; i++){
+			var x=aImg[i].offsetLeft+aImg[i].offsetWidth/2;
+			var y=aImg[i].offsetTop+oDiv.offsetTop+aImg[i].offsetHeight/2;
+			
+			var a=x-oEv.clientX;
+			var b=y-oEv.clientY;
+			var dis=parseInt(Math.sqrt(a*a+b*b));
+			var s=dis/200;
+			s=1-s.toFixed(2);
+			s=s<0.5?0.5 : s;
+			aImg[i].style.width=s*128+'px';//最后才参与运算，不然又问题
+			
+			
+			//aInp[i].value='x:'+x+',y:'+y+',dis:'+dis+',s:'+s.toFixed(2);
+			
+			
+		};
+	};
+
+	
+};
+</script>
+</head>
+<body>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<input type="text"/>
+<div id="div1">
+	<img src="apple/1.png" />
+	<img src="apple/2.png" />
+	<img src="apple/3.png" />
+	<img src="apple/4.png" />
+	<img src="apple/5.png" />
+	<img src="apple/1.png" />
+	<img src="apple/2.png" />
+	<img src="apple/3.png" />
+	<img src="apple/4.png" />
+	<img src="apple/5.png" />
+</div>
+</body>
+</html>

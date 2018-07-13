@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-3-5事件冒泡</title>
+<style>
+	#div1{
+		width:100px;
+		height:200px;
+		background:red;
+		display:none;
+	}
+</style>
+<script>
+window.onload=function(){
+	var oBtn=document.getElementById('btn');
+	var oDiv=document.getElementById('div1');
+	
+	oBtn.onclick=function(ev){
+		var ev=ev||event;
+		ev.cancelBubble=true;	//阻止‘当前’对象的‘当前’事件冒泡
+		oDiv.style.display='block';
+	};
+	
+	/*document.onclick=function(){
+		setTimeout(function(){
+			oDiv.style.display='none';
+		},1000);
+	};*/
+	
+	document.onclick=function(){
+		oDiv.style.display='none';
+	};
+};
+</script>
+</head>
+<body>
+<input type="button" id="btn" value="按钮">
+<div id="div1" ></div>
+
+</body>
+</html>

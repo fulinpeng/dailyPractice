@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-7-2多个div淡入淡出</title>
+<style>
+
+	div{
+		width:100px;
+		height:60px;
+		margin-top:20px;
+		left:0;
+		background:red;
+		filter:alpha(opacity:30);
+		opacity:0.3;
+	}
+	
+</style>
+<script>//只有一个opacity，所以给每个div都加一个opacity的思路！！！
+	window.onload=function(){
+		var aDiv=document.getElementsByTagName('div');
+		for(var i=0; i<aDiv.length; i++){
+			aDiv[i].timer=null;
+			aDiv[i].opacity=30;
+			aDiv[i].onmouseover=function(){
+				startMove(this,100);//注意这里要用this啊！！！！
+			};
+			aDiv[i].onmouseout=function(){
+				startMove(this,30);
+			};
+		};
+		//alert(typeof(aDiv[1].style.width));
+	};
+	/*
+	function startMove(obj,iTarget){
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			var iSpeed=(iTarget-obj.opacity)/8;
+			iSpeed=iSpeed>0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+			
+			if(iSpeed==0){
+				clearInterval(obj.timer);
+			}else{
+				obj.opacity += iSpeed;//这是加一个自定义属性和index类似
+				obj.style.filter='alpha(opacity:'+obj.opacity+')';
+				obj.style.opacity=obj.opacity/100;
+			};
+		},30);
+	};
+	*/
+	function startMove(obj,iTarget){
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			iSpeed=(iTarget-obj.opacity)/8;
+			iSpeed=iSpeed>0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iSpeed==0){
+				clearInterval(obj.timer);
+			}else{
+				obj.opacity+=iSpeed;
+				obj.style.filter='alpha(opacity:'+obj.opacity+')';
+				obj.style.opacity=obj.opacity/100;
+			};
+		},30);
+	};
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div style="width:100px;"></div>
+<div></div>
+<div></div>
+<div></div>
+
+</body>
+</html>

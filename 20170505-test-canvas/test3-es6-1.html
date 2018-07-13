@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6</title>
+</head>
+<body>
+<script>
+//    obj新增的方法有：
+//    obj.is(x,y)
+//    obj.assign(obj1,obj2,obj3)//有深拷贝与浅拷贝之分，
+//    浅拷贝，得到的是这个对象的引用。这个对象的任何变化，都会反映到目标对象上面。
+//    属性名表达式与简洁表示法，不能同时使用，会报错。
+    var lastWord = 'lastWord';
+
+    var a = {
+        'first word': 'hello',
+        [lastWord]: 'world'
+    };
+    console.log(a['first word'] )
+    console.log(a[lastWord])
+    console.log(a['lastWord'])
+
+//    属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串[object Object]
+    const keyA = {a: 1};
+    const keyB = {b: 2};
+
+    const myObject = {
+        [keyA]: 'valueA',
+        [keyB]: 'valueB'
+    };
+    console.log(myObject)
+
+//Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+//如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+    var target = { a: 1, b: 1 };
+    var source1 = { b: 2, c: 2 };
+    var source2 = { c: 3 };
+
+    Object.assign(target, source1, source2);
+    console.log(target);
+//    如果该参数不是对象，则会先转成对象，然后返回[[PrimitiveValue]]:2
+//    undefined和null无法转成对象，所以如果它们作为参数，就会报错
+    console.log(Object.assign(2));
+//    obj.keys()返回一个对象中可枚举的属性名数组；
+    var keies={
+        target,
+        source1,
+        myObject
+    };
+    console.log(Object.keys(keies));
+// 另外，一个容易忽略的地方是，如果参数默认值是变量，那么参数就不是传值的，
+// 而是每次都重新计算默认值表达式的值。也就是说，参数默认值是惰性求值的。
+    let x = 99;
+    function foo(p = x + 1) {
+        console.log(p);
+    }
+    foo(); // 100
+    x = 100;
+    foo(); // 101
+//    length属性的返回值，等于函数的参数个数减去指定了默认值的参数个数。
+    (function (a) {}).length ;// 1
+    (function (a = 5) {}).length; // 0
+    (function (a, b, c = 5) {}).length ;// 2
+//    如果设置了默认值的参数不是尾参数，那么length属性也不再计入后面的参数了。
+    (function (a = 0, b, c) {}).length; // 0
+    (function (a, b = 1, c) {}).length; // 1
+//    请问下面的代码之中有几个this？
+    function foo() {
+        return () => {
+            return () => {
+                return () => {
+                    console.log('id:', this.id);
+                };
+            };
+        };
+    }
+    var f = foo.call({id: 1});
+    var t1 = f.call({id: 2})()(); // id: 1
+    var t2 = f().call({id: 3})(); // id: 1
+    var t3 = f()().call({id: 4}); // id: 1
+//    数组实例的entries()，keys()和values()
+    console.log(Object.keys(['a', 'b']));
+    console.log(Object.values(['a', 'b']));
+    console.log(Object.entries(['a', 'b']));
+    for (let index of ['a', 'b'].keys()) {
+        console.log(index);
+    }
+    // 0
+    // 1
+    for (let elem of Object.values(['a', 'b'])) {
+        console.log(elem);
+    }
+    // 'a'
+    // 'b'
+    for (let [index, elem] of ['a', 'b'].entries()) {
+        console.log(index, elem);
+    }
+    // 0 "a"
+    // 1 "b"
+//ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是JavaScript语言的第七种数据类型
+    let s = Symbol();
+    console.log(typeof s)
+    // "symbol"
+//    Array.from方法可以将 Set 结构转为数组。
+    const items = new Set([1, 2, 3, 4, 5]);
+    const array = Array.from(items);
+//    这就提供了去除数组重复成员的另一种方法。
+    function dedupe(array) {
+        return Array.from(new Set(array));
+    }
+    dedupe([1, 1, 2, 3]) // [1, 2, 3]
+// Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。
+    let set = new Set([1, 2, 3]);
+    set = new Set(Array.from(set, val => val * 2));
+    console.log(set);
+    // set的值是2, 4, 6
+//    扩展运算符和 Set 结构相结合，就可以去除数组的重复成员。
+    let arr = [3, 5, 2, 2, 5, 5];
+    let unique = [...new Set(arr)];
+    // [3, 5, 2]
+    (function () {
+        let a = new Set([1, 2, 3]);
+        let b = new Set([4, 3, 2]);
+        // 并集
+        let union = new Set([...a, ...b]);
+        console.log(union);
+        // Set {1, 2, 3, 4}
+        // 交集
+        let intersect = new Set([...a].filter(x => b.has(x)));
+        console.log(intersect);
+        // set {2, 3}
+        // 差集
+        let difference = new Set([...a].filter(x => !b.has(x)));
+        console.log(difference);
+        // Set {1}
+    })();
+// 字符串中嵌入变量
+    var name = "Bob", time = "today";
+    console.log(`Hello ${name}, how are you ${time}?`);
+// 写法一
+    let str = 'return ' + '`Hello ${name}!`';
+    let func = new Function('name', str);
+    console.log(func('Jack')); // "Hello Jack!"
+    console.log(func);
+// 写法二
+    let str2 = '(name) => `Hello ${name}!`';
+    let func2 = eval.call(null, str2);//eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。
+    func2('Jack');// "Hello Jack!"
+//    for...of循环不会返回数组arr的foo属性。
+    let arr2 = [3, 5, 7];
+    arr2.foo = 'hello';
+    for (let i in arr2) {
+        console.log(i); // "0", "1", "2", "foo"
+    }
+    for (let i of arr) {
+        console.log(i); //  "3", "5", "7"
+    }
+//    class关键字用法：
+//    前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。
+//    另外，方法之间不需要逗号分隔，加了会报错。
+//    b是B类的实例，它的constructor方法就是B类原型的constructor方法。
+//    b.constructor === B.prototype.constructor // true
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

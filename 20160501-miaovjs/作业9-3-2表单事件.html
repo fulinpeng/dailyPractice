@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-3表格操作</title>
+
+<script>
+window.onload=function(){
+
+	var oForm=document.getElementById('form1');
+	//submit有提交事件：onsubmit，在提交表单时触发
+	//submit有方法：submit()，会直接提交表单，
+	
+	/*setTimeout(function(){
+			oForm.submit();
+		},1000);
+	*/
+	
+	//oForm.onreset.onclick=function(){  };  这种就是错误的了，该给oForm加onreset事件
+	
+	oForm.onreset=function(){
+		return confirm('确定要重置吗？');
+	};
+	oForm.onsubmit=function(){
+		return confirm('确定要提交吗？');
+	};
+	
+};
+</script>
+</head>
+<body>
+
+<form id="form1" action="http://127.0.0.1">
+	<input type="text" name="text1" value="" />
+	<input type="text" name="text2" value="" />
+	<input type="submit" name="dosubmit" value="提交"/>
+	<input type="reset" name="doreset" value="重置"/>
+
+</form>
+
+</body>
+</html>

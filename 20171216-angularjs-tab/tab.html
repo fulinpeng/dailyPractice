@@ -1,0 +1,13 @@
+<div id="{{tabdata.tabid}}" class="mainBox">
+    <div class="header">
+        <input type="button"
+               ng-repeat="data in tabdata.datas"
+               ng-class="{active:$first}"
+               ng-value="data.btnName">
+    </div>
+    <div class="contente"
+         ng-repeat="data in tabdata.datas"
+         ng-class="{active:$first}"
+         ng-bind="data.contente">
+    </div>
+</div>

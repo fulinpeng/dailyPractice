@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <title>视差动画</title>
+    <style>
+        body {
+            background: #dddddd;
+        }
+        
+        #canvas {
+            position: absolute;
+            left: 20px;
+            top: 30px;
+            background: #ffffff;
+            cursor: crosshair;
+            margin-left: 10px;
+            margin-top: 10px;
+            -webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <input id='animateButton' type='button' value='Animate' />
+    <canvas id='canvas' width='1000' height='440'> Canvas not supported </canvas>
+
+    <script>
+        var c = document.getElementById("canvas"),
+            cvs = c.getContext("2d"),
+            btn = document.getElementById("animateButton"),
+            timer,
+            start = false,
+            sky = new Image(),
+            tree = new Image(),
+            nearTree = new Image(),
+            grass = new Image(),
+            posSky = 0,
+            posTree = 0,
+            posNearTree = 0,
+            posGrass = 0,
+            velSky = 1,
+            velTree = 2,
+            velNearTree = 5,
+            velGrass = 10,
+            bottom_tree = 200,
+            bottom_nearTree = 220,
+            bottom_grass = 52;
+
+        sky.src = 'images/sky.png';
+        tree.src = 'images/smalltree.png';
+        nearTree.src = 'images/tree-twotrunks.png';
+        grass.src = 'images/grass.png';
+
+        function play() {
+            posSky = posSky > -1000 ? posSky - velSky : 0;
+            posTree = posTree > -1000 ? posTree - velTree : 0;
+            posNearTree = posNearTree > -1000 ? posNearTree - velNearTree : 0;
+            posGrass = posGrass > -1000 ? posGrass - velGrass : 0;
+            draw();
+            if (start) {
+                timer = setTimeout(play, 100);
+            }
+        }
+
+        function draw() {
+            cvs.save();
+            cvs.translate(posSky, 0);
+            cvs.drawImage(sky, 0, 0);
+            cvs.drawImage(sky, 1000, 0);
+            cvs.restore();
+
+            cvs.save();
+            cvs.translate(posTree, 0);
+            cvs.drawImage(tree, 0, c.height - bottom_tree);
+            cvs.drawImage(tree, 2 * c.width / 6, c.height - bottom_tree);
+            cvs.drawImage(tree, 2 * c.width / 6 * 2, c.height - bottom_tree);
+            cvs.drawImage(tree, 2 * c.width / 6 * 3, c.height - bottom_tree);
+            cvs.drawImage(tree, 2 * c.width / 6 * 4, c.height - bottom_tree);
+            cvs.drawImage(tree, 2 * c.width / 6 * 5, c.height - bottom_tree);
+            cvs.drawImage(tree, 2 * c.width / 6 * 6, c.height - bottom_tree);
+            cvs.restore();
+
+            cvs.save();
+            cvs.translate(posNearTree, 0);
+            cvs.drawImage(nearTree, 0, c.height - bottom_nearTree);
+            cvs.drawImage(nearTree, 2 * c.width / 4, c.height - bottom_nearTree);
+            cvs.drawImage(nearTree, 2 * c.width / 4 * 2, c.height - bottom_nearTree);
+            cvs.drawImage(nearTree, 2 * c.width / 4 * 3, c.height - bottom_nearTree);
+            cvs.drawImage(nearTree, 2 * c.width / 4 * 4, c.height - bottom_nearTree);
+            cvs.restore();
+
+            cvs.save();
+            cvs.translate(posGrass, 0);
+            cvs.drawImage(grass, 0, c.height - bottom_grass);
+            cvs.drawImage(grass, 1005, c.height - bottom_grass);
+            cvs.restore();
+
+        }
+        btn.onclick = function() {
+            if (this.value == "Animate") {
+                this.value = "pause";
+                start = true;
+                play();
+            } else {
+                start = false;
+                this.value = "Animate";
+            }
+
+        };
+        play();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<head></head>
+
+<body>
+    <div id="app">
+        <input type="text" id="a" v-model="text">{{text}}
+        <input type="text" id="a" v-model="text">{{text}}
+        <input type="text" id="a" v-model="text">{{text}}
+        <span>{{text}}</span>
+    </div>
+    <script src="src/Batcher.js"></script>
+    <script src="src/Dep.js"></script>
+    <script src="src/Observe.js"></script>
+    <script src="src/Watcher.js"></script>
+    <script src="src/Compile.js"></script>
+    <script src="src/MVVM.js"></script>
+    <script>
+        var vm = new Vue({
+            el: 'app',
+            data: {
+                text: 'hello world'
+            }
+        });
+        // 下面这帮助理解append方法
+        // var dom = document.getElementById('app');
+        // var div = document.createElement('div');
+        // var node1;
+        // while (node1 = dom.firstChild) {
+        //     console.log(node1); // 每次dom.firstChild的值与你想的可能不一样 ~ ~
+        //     div.append(node1); // 因为这里是移动，不是复制，可理解为“按引用传递”
+        // }
+        // dom.appendChild(div); // 没有这句页面时空白，说明上面的append是移动node到了DIV上
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+.mymain{
+    margin-top: 100px;
+}
+.unitBox{
+    margin-left: 300px;
+    display: block;
+}
+.unit_detail{
+    float: left;
+    margin-left: 2px;
+    background: cyan;
+    width: 41px;
+    text-align: center;
+    font-size: 12px;
+}
+.inputBox{
+    margin-left: 253px;
+    margin-top: 20px;
+}
+.myinput{
+    height: 90px;
+    width: 700px;
+    font-size: 69.93px;
+    line-height: 90px;
+    text-align: right;
+    letter-spacing: 4px;
+    box-sizing: border-box;
+    padding-right: 127px;;
+}
+.button{
+    width: 60px;
+    height:40px;
+    background: cyan;
+    margin-left: 500px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.newDiv{
+    margin-top: -88px;
+    margin-left: 300px;
+    display: block;
+}
+.newDivDetail{
+    float: left;
+    margin-left: 2px;
+    background: cyan;
+    width: 35px;
+    text-align: center;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+}
+::-ms-clear,
+::-ms-reveal
+{
+    display:none;
+}

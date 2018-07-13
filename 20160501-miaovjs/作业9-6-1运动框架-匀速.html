@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-6-1运动框架-匀速</title>
+<style>
+
+	#div1{
+		width:100px;
+		height:100px;
+		top:50px;
+		left:0;
+		background:red;
+		position:absolute;
+	}
+	span{
+		width:1px;
+		height:400px;
+		position:absolute;
+		background:green;
+		left:300px;
+	}
+</style>
+<script>
+	
+	var timer=null;
+	function starMove(){
+	
+		clearInterval(timer);
+		var oDiv=document.getElementById('div1');
+		speed=7;
+		timer=setInterval(
+			function(){
+				if(oDiv.offsetLeft>=300){
+					clearInterval(timer);
+				}else{
+					oDiv.style.left=oDiv.offsetLeft + speed + 'px';
+				};
+			},30);
+	};
+	
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<input type="button" value="开始运动" onclick="starMove()">
+<div id="div1" ></div>
+<span></span>
+</body>
+</html>

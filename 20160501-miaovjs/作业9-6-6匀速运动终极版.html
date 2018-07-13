@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-6-6匀速运动终极版</title>
+<style>
+
+	#div1{
+		width:100px;
+		height:100px;
+		top:50px;
+		left:0;
+		background:red;
+		position:absolute;
+	}
+	span{
+		width:1px;
+		height:400px;
+		position:absolute;
+		background:green;
+		left:300px;
+	}
+</style>
+<script>
+	window.onload=function(){
+		var aBtn=document.getElementsByTagName('input');
+		var oDiv=document.getElementById('div1');
+		var onOff=true;
+		
+		aBtn[1].onclick=function(){
+			if(onOff){
+				oDiv.style.left='500px'
+				onOff=false;
+			}else{
+				oDiv.style.left='0'
+				onOff=true;
+			};
+		};
+		aBtn[0].onclick=function(){
+			starMove(oDiv,10,300);
+		};
+	};
+	var timer=null;
+	function starMove(obj,iSpeed,iTarget){
+		clearInterval(timer);
+		iSpeed=iTarget>obj.offsetLeft ? Math.ceil(iSpeed): -Math.floor(iSpeed);
+		timer=setInterval(
+			function(){
+				if(Math.abs(obj.offsetLeft-iTarget)<Math.abs(iSpeed)){
+					obj.style.left=iTarget+'px';
+					clearInterval(timer);
+				}else{
+					obj.style.left=obj.offsetLeft + iSpeed + 'px';
+				};
+			},30);
+	};
+	
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<input type="button" value="开始运动" />
+<input type="button" value="转换div位置"/ >
+<div id="div1" ></div>
+<span></span>
+</body>
+</html>

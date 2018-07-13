@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+    <style>
+        .item{
+            width:20%;
+            height:350px;
+            border:1px solid red;
+            margin-bottom:30px;
+        }
+        #nav{
+            position:fixed;
+            top:0;
+            right:0;
+        }
+        #nav li{
+            width:200px;
+            line-height:30px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body ng-controller="mainCtroller">
+    <ul id="nav">
+        <li ng-repeat="item in items" ng-click="goto('div'+item)">点击跳转到:div{{item}}</li>
+    </ul>
+    <div id="div{{item}}" class="item" ng-repeat="item in items">{{item}}</div>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.controller('mainCtroller', ['$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll) {
+        $scope.items=[1,2,3,4,5,6,7,8];
+        $scope.goto=function (id) {
+            $location.hash(id);
+            $anchorScroll();
+        }
+    }]);
+</script>
+</html>

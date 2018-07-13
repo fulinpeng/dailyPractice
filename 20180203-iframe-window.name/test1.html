@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="content"></div>
+<script>
+    var iframe=document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src='http://192.168.24.1:8200/20180126-iframe-cross-domain/test3.html';
+    var state=0; // 为了防止多次加载
+    iframe.onload=function () {
+        if (state==0) {
+            console.log('iframe加载，定义location值');
+            state=1;
+            // 重新定义location值后，会自动触发iframe.onload事件
+            iframe.contentWindow.location='http://192.168.24.1:3000/20180203-iframe-window.name/proxy.html';
+        } else {
+            console.log('已经加载了~~~，可以访问iframe的window.name');
+            var str=iframe.contentWindow.name;
+            console.log(str);
+            document.getElementById('content').innerHTML='<h1>'+str+'</h1>';
+
+            // 获取到数据后，清除创建的iframe
+//            iframe.contentWindow.document.write('');
+            iframe.contentWindow.close();
+            document.body.removeChild(iframe);
+        }
+    };
+    document.body.appendChild(iframe);
+
+
+
+
+</script>
+</body>
+</html>

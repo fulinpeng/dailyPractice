@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtroller">
+正文：<input type="text" ng-model="name">
+插值：<input type="text" ng-model="body">
+<p>{{bodyText}}</p>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.controller('mainCtroller', ['$scope', '$interpolate', function ($scope, $interpolate) {
+
+        $scope.$watch('body', function (newBody) {
+            if (newBody) {
+                var temp=$interpolate(newBody);
+                // 会将输入框中的name变量替换成$scope.name的值
+                $scope.bodyText=temp({name:$scope.name});
+            }
+        })
+
+
+
+
+
+    }]);
+</script>
+</html>

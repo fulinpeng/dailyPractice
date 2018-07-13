@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>查找+替换+删除</title>
+<style>
+p,div,a,span,ul,li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#div1{
+	width:400px;
+	height:auto;
+	margin:0 auto;
+	padding:15px;
+	border:10px solid #ccc;
+	font-size:16px;
+	line-height:30px;
+	background:#ffc;
+	position:relative;
+}
+#show{
+	position:absolute;
+	right:-75px;
+	top:-10px;
+}
+li{
+	cursor:pointer;
+	padding:0 15px;
+	color:#000;
+	margin-bottom:1px;
+	background:#ddd;
+}
+#show .li1{
+	background:#bbb;
+	color:#fff;
+}
+#show ul{
+	display:none;
+}
+#div2{
+	border:10px solid #bbb;
+	width:400px;
+	height:auto;
+	margin:0 auto;
+	padding:15px;
+	font-size:16px;
+	line-height:30px;
+	margin-top:10px;
+	background:#ffb;
+	display:none;
+}
+#div3{
+	border-bottom:2px solid #bbb;
+	width:400px;
+	height:auto;
+	margin-bottom:10px;
+	position:relative;
+}
+#div3 a{
+	line-height:30px;
+	padding:0 15px;
+	background:#ccc;
+	cursor:pointer;
+}
+#div1 p span{
+	background:yellow;
+}
+#div3 span{
+	position:absolute;
+	top:-18px;
+	right:-8px;
+	cursor:pointer;
+}
+.active{
+	background:red;
+	color:yellow;
+}
+</style>
+<script>
+	window.onload=function(){
+		var oP=document.getElementsByTagName('p')[0];
+		var oShow=document.getElementById('show');
+		var oDiv2=document.getElementById('div2');
+		var oDiv3=document.getElementById('div3');
+		var oUl=oShow.getElementsByTagName('ul')[0];
+		var oLi1=oShow.getElementsByTagName('li')[0];
+		var aLi=oUl.getElementsByTagName('li');
+		var aInp=oDiv2.getElementsByTagName('input');
+		var aA=oDiv3.getElementsByTagName('a');
+		var oSpan=oDiv3.getElementsByTagName('span')[0];
+		var str='';
+		var str1=oP.innerHTML;
+		var m='';
+		
+		//展开、收缩按钮
+		oLi1.onclick=function(){
+			show();
+		};
+		function show(){
+			if(this.onOff){
+				oUl.style.display='none';
+				oLi1.innerHTML='展开';
+				this.onOff=false;
+			}else{
+				oUl.style.display='block';
+				oLi1.innerHTML='收缩';
+				this.onOff=true;
+			};
+		};
+		//查找、替换按钮的鼠标移入事件
+		aLi[0].onmouseover=function(){
+			aLi[1].className='';
+			aLi[0].className='active';
+		};
+		aLi[1].onmouseover=function(){
+			aLi[0].className='';
+			aLi[1].className='active';
+		};
+		oUl.onmouseout=function(){
+			aLi[0].className='';
+			aLi[1].className='';
+		};
+		//关闭按钮span
+		oSpan.onclick=function(){
+			oDiv2.style.display='none';
+		};
+		//查找、替换按钮,展开div2
+		aLi[0].onclick=function(){
+			cha();
+		};
+		aLi[1].onclick=function(){
+			huan();
+		};
+		//div2中的查找、替换
+		aA[0].onclick=function(){
+			cha();
+		};
+		aA[1].onclick=function(){
+			huan();
+		};
+		//查找、展现查找的input
+		function cha(){
+			oDiv2.style.display='block';
+			aA[1].className='';
+			aA[0].className='active';
+			aInp[2].value='查找';
+			m='查找'
+			aInp[1].style.display='none';
+		};
+		//替换、展现替换的input
+		function huan(){
+			oDiv2.style.display='block';
+			aA[0].className='';
+			aA[1].className='active';
+			aInp[2].value='替换';
+			m='替换'
+			aInp[1].style.display='inline-block';
+		};
+		//查找按钮
+		aInp[2].onclick=function(){
+		
+		if(m==='查找'){
+			str=aInp[0].value;
+			//if (!str)return(alert('请输入内容！'));
+			//oP.innerHTML=oP.innerHTML.split(str).join('<span>'+str+'</span>');
+			if(aInp[0].value==''){
+				alert('请输入内容！');
+			}else{
+				oP.innerHTML=oP.innerHTML.split(str).join('<span>'+str+'</span>');
+			};
+		}else{
+			str=aInp[0].value;
+			strNew=aInp[1].value;
+			if (!str)return(alert('请输入内容！'));
+			if (!strNew){
+				if (confirm('是否删除？')){
+					oP.innerHTML=oP.innerHTML.split(str).join(strNew);
+				}else{
+					return;
+				};
+			}else{
+				oP.innerHTML=oP.innerHTML.split(str).join(strNew);
+			};
+			
+			
+				
+		};
+		};
+	};
+</script>
+</head>
+<body>
+
+<div id="div1">
+	<p>妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一种全新的快乐学习方法！<br />
+		2013年底，妙味课堂最新推出"远程培训"服务，受到很多朋友们的喜爱与追捧，我们必将更加努力的帮助远程学习的朋友实现技术提升……
+	</p>
+	<ul id="show">
+		<li class="li1">展开</li>
+		<ul>
+			<li>查找</li>
+			<li>替换</li>
+		</ul>
+	</ul>
+</div>
+
+<div id="div2">
+	<div id="div3">
+		<a>查找</a>
+		<a>替换</a>
+		<span>×</span>
+	</div>
+	<input type="text" value=""/>
+	<input type="text" value=""/>
+	<input type="button" value="替换"/>
+	
+</div>
+</body>
+</html>

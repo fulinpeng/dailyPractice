@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-5碰撞检测+九宫格排除法</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#div1{
+		width:100px;
+		height:100px;
+		background:red;
+		position:absolute;
+	}
+	#img{
+		top:150px;
+		left:400px;
+		position:absolute;
+	}
+	#div2{
+		width:100px;
+		height:100px;
+		background:green;
+		position:absolute;
+		top:200px;
+		left:300px;
+	}
+	
+</style>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById('img');
+	var oDiv1=document.getElementById('div1');
+	
+	
+	drag(oImg);
+	drag(oDiv1);
+	
+	function drag( obj ){
+	obj.onmousedown=function(ev){
+		if(this.setCapture){
+			this.setCapture();
+		};
+		
+		var ev=ev || event;
+		var disX=ev.clientX - this.offsetLeft;
+		var disY=ev.clientY - this.offsetTop;
+		
+
+		
+		document.onmousemove=function(ev){
+			var ev=ev || event;
+			var x=ev.clientX - disX;
+			var y=ev.clientY - disY;	
+			
+			obj.style.left=x+'px';
+			obj.style.top=y+'px';
+		/////////////////////////////碰撞测试+九宫格排除法////////////////////////////////////////////
+			var L1=x;
+			var T1=y;
+			var R1=x + obj.offsetWidth;
+			var B1=y + obj.offsetHeight;
+			var L2=oImg.offsetLeft;
+			var T2=oImg.offsetTop;
+			var R2=L2 + oImg.offsetWidth;
+			var B2=T2 + oImg.offsetHeight;
+			
+			if(R1<L2 || L1>R2 || B1<T2 || T1>B2){//必须用排除法，否则不行的
+				oImg.src='img/mouse1.jpg';
+				obj.style.background='red';
+			}else{
+				oImg.src='img/mouse.jpg';
+				obj.style.background='green';
+			};
+			
+		};
+		document.onmouseup=function(){
+			document.onmouseup=document.onmousemove=null;
+			if(this.releaseCapture){
+				this.releaseCapture();
+			};
+		};
+		return false;
+	};
+	};
+};
+	
+	
+	
+
+
+</script>
+</head>
+<body >
+
+<img id="img" src="img/mouse1.jpg"/>
+<div id="div1" ></div>
+</body>
+</html>

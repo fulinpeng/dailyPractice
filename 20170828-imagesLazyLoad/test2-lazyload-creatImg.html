@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            overflow: hidden;
+        }
+
+        li {
+            list-style: none;
+            width: 10rem;
+            height: 12rem;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            float: left;
+            overflow: hidden;
+            position: relative;
+        }
+
+        li i {
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            position: absolute;
+            border: 2px solid #6feb95;
+            z-index: 0;
+            left: 50%;
+            top: 50%;
+            margin-top: -11px;
+            margin-left: -11px;
+            animation: move 1s infinite;
+            -webkit-animation: move 1s infinite;
+        }
+
+        li i:before {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 4px;
+            content: '';
+            box-shadow: 0 0 10px #666;
+            -webkit-box-shadow: 0 0 10px #666;
+            background: #fff;
+            border: 1px solid #fff;
+            top: -3px;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        img {
+            vertical-align: middle;
+            border-width: 0;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes move {
+            0% {
+                transform: rotateZ(0);
+            }
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        @-webkit-keyframes move {
+            0% {
+                -webkit-transform: rotateZ(0);
+            }
+            100% {
+                -webkit-transform: rotateZ(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p01N203pHTU7/Wr5314kcLAtVCi.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p01a3SXHo2hZ/XYAC5TLk4uYWXn.jpg!t"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+</ul>
+</body>
+<script>
+    /* 获取节点 */
+    var oUl = document.getElementsByTagName('ul')[0];
+    var aLi = oUl.getElementsByTagName('li');
+    var html=document.getElementsByTagName('html')[0];
+    html.style.fontSize=parseInt(window.innerWidth*48/1000)+'px';
+    window.onresize=function () {
+        html.style.fontSize=parseInt(window.innerWidth*48/1000)+'px';
+    };
+    var timer=null;
+    var n=0;
+
+    /* 创建img标签函数 */
+    function createImg(obj) {
+        var src = '';
+        if (obj.dataset.src) {
+            src = obj.dataset.src;
+        } else {
+            src = obj.getAttribute('data-src');
+        }
+        var img = document.createElement('img');
+        img.src = src;
+        obj.appendChild(img);
+    }
+
+    /* 计算节点到文档顶部的距离 */
+    function getTop(obj) {
+        var h = 0;
+        while (obj) {
+            h += obj.offsetTop;
+            obj = obj.offsetParent;
+        }
+        return h;
+    }
+
+    /* 滚动实时计算所到区域并进行相关计算 */
+//    window.onscroll = function () {
+////        clearTimeout(timer);
+//        var t = document.documentElement.clientHeight + (document.body.scrollTop || document.documentElement.scrollTop);
+//        for (var i = 0; i < aLi.length; i++) {
+//            if (getTop(aLi[i]) < t) {
+//                console.log(i);
+//                timer=setTimeout(function (obj) {
+//                    createImg(obj);
+//                }, 500, aLi[i]);
+//            }
+//        }
+//    };
+
+    function isShow() {console.log('isShowisShow');
+        var t = document.documentElement.clientHeight + (document.body.scrollTop || document.documentElement.scrollTop);
+        for (var i = n; i < aLi.length; i++) {
+            if (getTop(aLi[i]) < t) {
+                createImg(aLi[i]);
+                n=i;
+            }
+        }
+    }
+
+    //节流函数
+    function throttle(fn, delay){
+        var timer = null;
+        return function(){
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
+
+    window.onscroll = throttle(isShow, 300);
+//    document.onclick = throttle(isShow, 300);
+
+    /* 页面加载完便执行一次滚动函数 */
+
+    window.onload = function () {
+//        window.onscroll();
+    }
+
+</script>
+</html>

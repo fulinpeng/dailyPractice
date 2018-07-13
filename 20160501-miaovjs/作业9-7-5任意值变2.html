@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-7-5任意值变化</title>
+<style>
+
+	div{
+		width:100px;
+		height:60px;
+		border:1px solid black;
+		margin-top:20px;
+		left:0;
+		background:red;
+	}
+</style>
+<script>
+
+
+	window.onload=function(){
+		
+		var aDiv=document.getElementsByTagName('div');
+		for(var i=0; i<aDiv.length; i++){
+			aDiv[i].timer=null;
+		};
+			
+		
+		aDiv[0].onmouseover=function(){
+			startMove(this,'width',300);//要打引号
+		};
+		aDiv[0].onmouseout=function(){
+			startMove(this,'opacity',30);//要打引号
+		};
+		aDiv[1].onmouseover=function(){
+			startMove(this,'height',100);//要打引号
+		};
+		aDiv[2].onmouseover=function(){
+			startMove(this,'font-size',30);//要打引号
+		};
+	};
+	/*
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else{
+			return getComputedStyle(obj,false)[attr];
+		};
+	};
+	
+	function startMove(obj,attr,iTarget){
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			var iCur=parseInt(getStyle(obj,attr));
+			var iSpeed=(iTarget-iCur)/8;
+			iSpeed=iSpeed>0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iSpeed==0){
+				clearInterval(obj.timer);
+			}else{
+				obj.style[attr]=iCur+iSpeed+'px';//这里的attr要写在中括号中
+			};
+		},30);
+	};
+	*/
+	
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else{
+			return getComputedStyle(obj,false)[attr];
+		};
+	};
+	
+	function startMove(obj,attr,iTarget){
+		var iCur=0;
+		var iSpeed=0;
+		var t=0;
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			if(attr=='opacity'){
+				iCur=parseInt(parseFloat(getStyle(obj,attr))*100);
+				iSpeed=(iTarget-iCur)/8;
+				iSpeed=iSpeed>0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+				t=iCur+iSpeed;
+				if(iSpeed==0){
+					clearInterval(obj.timer);
+				}else{
+					obj.style.filter='alpha(opacity:'+t+')';
+					obj.style.opacity=t/100;
+				};
+			}else{
+				iCur=parseInt(getStyle(obj,attr));
+				iSpeed=(iTarget-iCur)/8;
+				iSpeed=iSpeed>0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+				t=iCur+iSpeed;
+				if(iSpeed==0){
+					clearInterval(obj.timer);
+				}else{
+					obj.style[attr]=t+'px';
+				};
+			};
+		},30);
+	};
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div></div>
+<div></div>
+<div>kjfytogfoufouf</div>
+
+</body>
+</html>

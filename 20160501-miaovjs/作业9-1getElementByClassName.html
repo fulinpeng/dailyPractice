@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-1getElementByClassName</title>
+
+<script>
+window.onload=function(){
+	console.log(aLi);
+	var aLi=getElementsByClassName('box');
+	
+	function getElementsByClassName(cn){
+		var aEl=document.getElementsByTagName('*');
+		var arr=[];
+		for(var i=0; i<aEl.length; i++){
+			var cnSon=aEl[i].className.split(' ');
+			for(var j=0; j<cnSon.length; j++){
+				if(cnSon[j]==cn){
+					arr.push(aEl);
+					break;
+				};
+			};
+		};
+		return arr;//返回的值会传到调用这个函数的变量，就是传给了aLi
+	};
+	alert(aLi.length);
+};
+</script>
+</head>
+<body>
+<ul id="ul1">
+	<li class="box box">111111</li>
+	<li class="box">222222</li>
+	<li>333333</li>
+	<li class="box">444444</li>
+
+</ul>
+
+</body>
+</html>

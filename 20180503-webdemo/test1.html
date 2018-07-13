@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+<script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script>
+<script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
+<script type="module">
+    // generator 部署ajax
+    function* main() {
+        console.log('start');
+        var result = yield request("http://some.url");
+        console.log(result);
+        // var resp = JSON.parse(result);
+        // console.log(resp.value);
+        console.log('end');
+    }
+
+    function request(url) {
+        makeAjaxCall(url, function (response) {
+            it.next(response);
+        });
+    }
+
+    // 模拟ajax
+    function makeAjaxCall(url, fn) {
+        var res = '{"value":"success"}';
+        fn(res);
+    }
+
+    var it = main();
+    console.log(it);
+    it.next();
+
+/*
+详细见：http://es6.ruanyifeng.com/#docs/generator-async#Generator-%E5%87%BD%E6%95%B0
+var fs = require('fs');
+
+var readFile = function (fileName){
+  return new Promise(function (resolve, reject){
+    fs.readFile(fileName, function(error, data){
+      if (error) return reject(error);
+      resolve(data);
+    });
+  });
+};
+
+var gen = function* (){
+  var f1 = yield readFile('/etc/fstab');
+  var f2 = yield readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+
+
+*/
+</script>
+
+</html>

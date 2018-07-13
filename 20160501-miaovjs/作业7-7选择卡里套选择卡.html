@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>选择卡里套选择卡</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+		font-size:14px;
+	}
+	#main{
+		width:900px;
+		height:307px;
+		margin:20px auto;
+		border:3px solid #ccc;
+		position:relative;
+	}
+	#left{
+		width:200px;
+		
+		position:absolute;
+		left:0;
+		top:0;
+	}
+	#left li{
+		width:200px;
+		height:75px;
+		float:left;
+		border-top:1px solid #4ff;
+		border-bottom:1px solid #4ff;
+		background-color:#ccc;
+	}
+	#left .active{
+		background-color:#fff;
+	}
+	img{
+		width:700px;
+		height:307px;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	#bottom{
+		width:700px;
+		heigth:40px;
+		position:absolute;
+		bottom:1px;
+		right:-3px;
+	}
+	#bottom li{
+		width:170px;
+		height:30px;
+		float:left;
+		margin-right:5px;
+		background-color:#000;
+		filter:alpha(opacity=50);
+		opacity:0.5;
+		color:#fff;
+		text-align:center;
+		line-height:30px;
+	}
+	#bottom .active{
+		background-color:red;
+	}
+	
+</style>
+<script>
+	window.onload=function(){
+		var oImg=document.getElementsByTagName('img')[0];
+		var oBottom=document.getElementById('bottom');
+		var oLeft=document.getElementById('left');
+		var aLeftLi=oLeft.getElementsByTagName('li');
+		var aSrc1=['img/1.jpg','img/2.jpg','img/3.jpg']
+		var aSrc2=['img/1.png','img/2.png','img/3.png','img/4.png']
+		var aDesc1=['图片11111','图片2222','图片33332'];
+		var aDesc2=['11图片11111','22图片2222','33图片33332','45图片44444'];
+		num=0;
+		oOld='';
+		
+	fn0(aSrc1,aDesc1);
+	
+	aLeftLi[0].onclick=function(){
+		fn0(aSrc1,aDesc1);
+		fn1(aLeftLi[0],aSrc1,aDesc1);
+	};
+	aLeftLi[1].onclick=function(){
+		fn0(aSrc1,aDesc1);
+		fn1(aLeftLi[1],aSrc2,aDesc2);
+	};
+	function fn1(oLeftLi,aSrc,aDesc){
+		oImg.style.display='none';
+		oBottom.innerHTML='';
+		for(var i=0;i<aLeftLi.length;i++){
+			aLeftLi[i].className='';
+		};
+		oLeftLi.className='active';
+		oImg.style.display='block';
+		fn0(aSrc,aDesc);
+	};
+	
+	
+	
+	function fn0(aSrc,aDesc){
+		//初始化
+		for(var i=0;i<aSrc.length;i++){
+			oBottom.innerHTML +='<li>' +aDesc[i]+'</li>';
+		};
+		var aLi=oBottom.getElementsByTagName('li');
+		function fn2(){
+			oOld.className='';
+			oImg.src=aSrc[num];
+			aLi[num].className='active';
+			oOld=aLi[num];
+		};
+		fn2();
+		//添加点击事件
+		for(var i=0;i<aSrc.length;i++){
+			aLi[i].index=i;
+			aLi[i].onclick=function (){
+				num=this.index;
+				fn2();
+			};
+		};	
+	};	
+	
+	};
+</script>
+</head>
+<body>
+	<div id="main">
+		<ul id="left">
+			<li class="active"></li>
+			<li> </li>
+			<li> </li>
+			<li> </li>
+		</ul>
+		<img src="" />
+			<ul id="bottom"></ul>
+	</div>
+	
+	
+	
+	
+	
+	
+</body>
+</html>

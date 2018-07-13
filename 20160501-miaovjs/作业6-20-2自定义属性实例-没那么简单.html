@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>js添加自定义属性，没那么简单</title>
+<style>
+  li{
+    width:127px;
+	height:141px;
+	float:left;
+	margin-right:20px;
+	list-style:none;
+	background:url("img/normal.png");
+  }
+</style>
+<script>
+   window.onload=function(){
+     
+     var aImg=document.getElementsByTagName('li');
+	 
+	 for( var i=0;i<aImg.length;i++){
+	     aImg[i].onOff=true;				//精髓所在；
+	     aImg[i].onclick=function(){		//先用点击函数，再判断
+		 if ( this.onOff ){
+		 
+	       this.style.background='url("img/abnormal.png")';
+		   this.onOff=false;
+		 }else{ 
+		   this.style.background='url("img/normal.png")';
+		   this.onOff=true;
+	     };
+
+	   };
+	 };
+   };
+</script>
+
+
+</head>
+
+<body>
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+
+
+
+</body>
+</html>

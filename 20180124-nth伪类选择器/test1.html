@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /*!*就这两种了：*/
+        /*nth-child(n) 与 nth-of-type(n)*!*/
+        p:nth-child(odd) {
+            background: #ff0000;
+        }
+        p:nth-of-type(even) {
+            background: #0000ff;
+        }
+        h4~p{
+            color: #2aff50;
+        }
+        div>p{
+            color: #ff2408;
+        }
+    </style>
+</head>
+<body>
+
+<h1>这是标题</h1>
+<h1>这是标题</h1>
+<p>第一个段落。</p>
+<p>第二个段落。</p>
+<p>第三个段落。</p>
+<p>第四个段落。</p>
+<p>第五个段落。</p>
+<div class="parent">
+    <h4>这是标题这是标题</h4>
+    <p>这是标题这是标题</p>
+</div>
+</body>
+</html>

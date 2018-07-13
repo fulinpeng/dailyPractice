@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js练习5-28-2</title>
+<style>
+.red{
+width:400px;
+border:10px solid black;
+background:red;
+color:yellow;
+}
+.green{
+width:400px;
+border:10px solid black;
+background:green;
+color:yellow;
+}
+</style>
+
+<script>
+window.onload=function(){
+var oVal=document.getElementById('val');
+var oValz=document.getElementById('valz');
+var oDiv=document.getElementById('div1');
+var oBtn=document.getElementById('btn');
+
+oBtn.onclick=function(){
+
+oDiv.style[oVal.value]=oValz.value;//这两个地方不能加引号，不晓得是啥原因
+
+
+};
+};
+</script>
+
+
+</head>
+
+<body>
+
+
+
+ <div>请输入属性：</div><input type="text" id="val"/>
+ <div>输入属性值：</div><input type="text" id="valz"/><input type="button" id="btn" value="确定"/>
+ 
+<p id="div1">
+加大了房间爱都杀死对方后卫闻女加大了房间爱都杀死对方后卫闻女加大了
+房间爱都杀死对方后卫闻女加大了房间爱都杀死对方后卫闻女加大了
+房间爱都杀死对方后卫闻女加大了房间爱都杀死对方后卫闻女
+</p>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     *
+     * @param fn            目标函数
+     * @param delay         延迟时间
+     * @param type          触发目标函数的类型
+     *
+     * @varable safe=trsafe 类控制什么时候触发目标函数
+     * @varable timer       来控制这个开关的状态
+     * @varable context     传入目标函数的执行上下文
+     * @varable delay       延迟毫秒数
+     * @varable args        将传参数的位置给变了，不是加载fn身上的了，哈哈
+     *
+     * @returns {func}         三个类型的函数
+     */
+    function rateControl(fn, delay, type) {
+        var safe=true,
+            timer = null,
+            context,
+            delay=delay || 500,
+            args;
+        function throttle() {
+            if (safe) {
+                args = arguments;
+                fn.apply(context,args);
+                safe = false;
+                setTimeout(function() {
+                    safe = true;
+                }, delay);
+            }
+        }
+        function debounce() {
+            args = arguments;
+            context = this;
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                fn.apply(context, args);
+            }, delay);
+        }
+        function immediate() {
+            if (safe) {
+                args = arguments;
+                fn.apply(context, args);
+                safe = false;
+            }
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                safe = true;
+            }, delay);
+        }
+        switch (type) {
+            case 'throttle':
+                return throttle;
+            case 'debounce':
+                return debounce;
+            case 'immediate':
+                return immediate;
+        }
+    }
+    var handler=rateControl(function (args) {
+        console.log(args)
+    }, 1000, 'immediate');
+    window.onmousemove=function () {
+        handler('hahhahahah+'+Math.random());
+    }
+</script>
+</body>
+</html>

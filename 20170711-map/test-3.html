@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        #map{
+            width:100%;
+            height:660px;
+        }
+    </style>
+    <script src="js/echarts.js"></script>
+
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script src="map/china.js"></script>
+</head>
+<body>
+<div id="map"></div>
+<script>
+    const myChart = echarts.init(document.getElementById('map'));
+    const option = {
+        textStyle:{
+            fontSize:16
+        },
+        series: [{
+            type: 'map',
+            map:'china',
+            label: {
+                normal: {
+                    show: true,//显示省份标签
+                    textStyle:{color:"#c71585"}//省份标签字体颜色
+                },
+                emphasis: {//对应的鼠标悬浮效果
+                    show: true,
+                    textStyle:{color:"#800080"}
+                }
+            },
+            itemStyle: {
+                normal: {
+                    borderWidth: 1,
+                    borderColor: '#ffefd5',
+                    areaColor:"#ffefd5",
+                },
+                emphasis: {
+                    borderWidth: 1,
+                    borderColor: '#ffefd5',
+                    areaColor:"#558aff",
+                }
+
+            },
+            data:[
+                {
+                    name:'华南地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#f06159",
+                        }
+                    }
+                },
+                {
+                    name:'华东地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#ffefd5"
+                        }
+                    }
+                },
+                {
+                    name:'华中地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#f0c545",
+                        }
+                    }
+                },
+                {
+                    name:'东北地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#c8abff",
+                        }
+                    }
+                },
+                {
+                    name:'华北地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#9cf042",
+                        }
+                    }
+                },
+                {
+                    name:'西北地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#f07c46",
+                        }
+                    }
+                },
+                {
+                    name:'西南地区',
+                    itemStyle:{
+                        normal:{
+                            borderWidth: 1,
+                            borderColor: '#ffefd5',
+                            areaColor:"#23b8f0",
+                        }
+                    }
+                }
+            ]
+        }],
+    };
+    $.getJSON('map/china7.json', function (data) {
+        echarts.registerMap('china', data);
+        myChart.setOption(option);
+    });
+
+    myChart.on('mouseover', function (params) {
+        const dataIndex = params.dataIndex;
+//        console.log(params);
+    });
+
+
+</script>
+</body>
+</html>

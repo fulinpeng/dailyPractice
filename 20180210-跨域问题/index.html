@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            text-align: center;
+            color: rgb(171, 177, 33);
+        }
+        .top{
+            height:50px;
+            background: #2aff50;
+        }
+        .contentbox{
+            height:500px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content:space-around;
+        }
+        .sidebar{
+            width:20%;
+            background: #e02db3;
+        }
+        .content{
+            width:80%;
+            background: #dca568;
+            overflow: auto;
+        }
+        .bottom{
+            height:50px;
+            background: #1ce0a3;
+        }
+        #iframe{
+            border:none;
+            position:fixed;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <p>我是iframe</p>
+</div>
+<div class="contentbox">
+    <div class="sidebar">
+        <p>我是iframe</p></div>
+        <div class="content" id="content"></div>
+</div>
+<div class="bottom">
+    <p>我是iframe</p>
+</div>
+<script>
+    var content=document.getElementById('content');
+    content.onclick=function () {
+        // 发送一个消息：执行addIframe
+        var message='addIframe';
+        console.log('发送一个消息:', message);
+        top.postMessage(message, '*');
+    };
+</script>
+</body>
+</html>

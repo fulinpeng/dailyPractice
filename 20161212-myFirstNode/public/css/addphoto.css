@@ -1,0 +1,71 @@
+body{
+    font-family: "Î¢ÈíÑÅºÚ ";
+    background: #EFEFEF;
+}
+section{
+    padding-top: 30px;
+}
+.add-title{
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #EEEEEE;
+}
+.add-select{
+    font-size: 16px;
+}
+.add{
+    /*background: white;*/
+    /*border-radius: 15px;*/
+    /*border: 1px solid red;*/
+}
+.add-l{
+    padding-left: 50px;
+    /*border: 1px solid red;*/
+}
+.glyphicon{
+    color: #39ADB4;
+}
+.radio-inline{
+    text-indent: 1em;
+    padding-bottom: 10px;
+}
+.photoup{
+    margin: 0 auto;
+}
+.add-scr{
+    outline: none;
+}
+.add-subbutton{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+.add-up{
+    border: 1px solid red;
+}
+.framebox{
+    margin:1%;
+    width:98%;
+    background:white;
+    float:left;
+    border-radius: 10px;
+    position:relative;
+    border:none;
+}
+.mybtn{
+    border: 1px solid #39ADB4;
+    background: none;
+    padding: 5px 20px;
+    outline: none;
+    -webkit-transition: all .2s linear;
+}
+.mybtn:hover{
+    background:#39ADB4;
+    color:white;
+}
+.add-textarea{
+    margin-top: 20px ;
+}
+.add-sephoto{
+    font-weight: lighter;
+}

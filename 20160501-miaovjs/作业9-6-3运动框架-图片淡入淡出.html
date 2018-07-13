@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-6-3运动框架-图片淡入淡出</title>
+<style>
+
+	img{
+		position:absolute;
+		width:500px;
+		height:300px;
+		filter:alpha(opacity:40);
+		opacity:0.4;
+	}
+	
+</style>
+<script>
+	window.onload=function(){
+		var oImg=document.getElementsByTagName('img')[0];
+		var opacity=0;
+		oImg.onmouseover=function(){
+			startMove(oImg,40,100);
+		};
+		oImg.onmouseout=function(){
+			startMove(oImg,100,40);
+		};
+	};
+	
+	var timer=null;
+	function startMove(obj,opacity,target){
+		clearInterval(timer);
+		timer=setInterval(function(){
+			speed=opacity<=target ? 5 : -5;
+			if(opacity==target){
+				clearInterval(timer);
+			}else{
+				opacity += speed;
+				
+				obj.style.filter='alpha(opacity:'+ opacity +');';
+				obj.style.opacity=opacity/100;
+			};
+		},30);
+	};
+	
+</script>
+</head>
+<body style="height:1000px;">
+	<img src="img/1.jpg"/>
+
+<span></span>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas style="background: black" id="canvas1" width="1000" height="700"></canvas>
+<script>
+
+    var oC=document.getElementById("canvas1");
+    var ctx=oC.getContext("2d");
+
+    create5star(ctx,200,200,100,"orange",0);
+
+    function create5star(context,sx,sy,radius,color,rotato){
+        context.save();
+        context.fillStyle=color;
+        context.translate(sx,sy);//移动坐标原点
+        context.rotate(Math.PI+rotato);//旋转
+        context.beginPath();//创建路径
+        var dig = Math.PI/5 *4;
+        for(var i = 0;i< 5;i++){//画五角星的五条边
+            var x = radius*Math.sin(i*dig);
+            var y = radius*Math.cos(i*dig);
+            context.lineTo(x,y);
+        }
+        context.closePath();
+        context.stroke();
+        context.fill();
+        context.restore();
+    }
+</script>
+</body>
+</html>

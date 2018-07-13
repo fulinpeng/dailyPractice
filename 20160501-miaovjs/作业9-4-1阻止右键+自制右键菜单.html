@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-1阻止右键+自制右键菜单</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#div1{
+		width:100px;
+		height:200px;
+		border:1px solid red;
+		position:absolute;
+		display:none;
+	}
+	
+</style>
+<script>
+window.onload=function(){
+	
+	var oDiv1=document.getElementById('div1');
+	document.oncontextmenu=function(ev){
+		var ev=ev || event;
+		var scrollTop=document.documentElement.scrollTop || document.body.scrollTop;
+		oDiv1.style.left=ev.clientX + 'px';
+		oDiv1.style.top=ev.clientY + scrollTop + 'px';
+		
+		oDiv1.style.display='block';
+		
+		return false;
+	};
+	document.onclick=function(){
+		oDiv1.style.display='none';
+	};
+	
+};
+</script>
+</head>
+<body style="height:2000px;">
+
+<div id="div1" ></div>
+
+</body>
+</html>

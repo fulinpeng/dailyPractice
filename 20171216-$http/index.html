@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtroller">
+
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.controller('mainCtroller', ['$scope', '$http', function ($scope, $http) {
+        $http({
+            methed:'GET',
+            url:'data.php'
+        }).success(function (data, state, header, config) {
+            console.log(data, state, header, config);
+        }).error(function (err) {
+            console.log(err);
+        });
+//        简写
+        $http.get('data.php')
+            .success(function (data, state, header, config) {
+                console.log(data, state, header, config);
+            });
+    }])
+</script>
+</html>

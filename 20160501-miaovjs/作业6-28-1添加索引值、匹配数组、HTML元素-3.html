@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>添加索引值、匹配数组、HTML元素-3</title>
+
+
+<script>
+	window.onload=function(){
+		var aBtn=document.getElementsByTagName('input');
+		var aP=document.getElementsByTagName('p');
+		var arr=['陌陌','张张','度度'];		//懵逼了吧，这里数组元素之间用逗号隔开的，不是分号
+		for (var i=0;i<arr.length;i++){
+			aBtn[i].index=i; 				//aBtn.[i].index的写法你觉得是对的？
+			aBtn[i].onclick=function(){alert(this.index);
+				this.value=arr[this.index];  //这里没法使用上面的i，原因去看视频
+				aP[this.index].innerHTML=arr[this.index];//要用this啊，aP[index].innerHTML=arr[index];可以吗？
+			};
+		};
+	};
+</script>
+</head>
+
+<body>
+<p>
+//懵逼了吧，这里数组元素之间用逗号隔开的，不是分号<br/>
+//aBtn.[i].index的写法你觉得是对的？<br/>
+//这里没法使用上面的i，原因去看视频<br/>
+//要用this啊，aP[index].innerHTML=arr[index];可以吗？
+//运行发现，第三个p是不变的，你知道是什么原因吗？
+</p>
+
+<input type="button" value="btn1"/>
+<input type="button" value="btn2"/>
+<input type="button" value="btn3"/>
+
+<p>a</p>
+<p>b</p>
+<p>c</p>
+
+
+
+
+</body>
+</html>

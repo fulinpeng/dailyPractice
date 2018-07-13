@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Understanding the GitHub Flow · GitHub Guides</title>
+    <link rel="icon" type="image/x-icon" href="https://guides.github.com/favicon.ico">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="./test2-GitHubGuides/octicons.css">
+    <link href="./test2-GitHubGuides/main.css" rel="stylesheet">
+
+    <script src="./test2-GitHubGuides/jquery.js" type="text/javascript"></script>
+    <script src="./test2-GitHubGuides/snap.svg-min.js" type="text/javascript"></script>
+    <!--顶部svg动画部分-->
+    <script type="text/javascript" src="./test2-GitHubGuides/flow.js"></script>
+
+</head>
+<body>
+
+<article class="full">
+
+    <div class="wrap">
+
+        <div class="markdown-body content-body full-width">
+
+
+            <link rel="stylesheet" type="text/css" href="./test2-GitHubGuides/flow.css">
+
+            <div class="scrollable-diagram js-scrollable-diagram">
+                <div class="features-branch-diagram" id="js-features-branch-diagram">
+                    <svg width="930px" height="350" id="js-features-branch-diagram-svg"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M66.2711864,5.96363636 C135.523206,5.96363636 143.460673,112 191.02837,112 C238.596067,112 681.049887,112 725.83852,112 C770.627152,112 786.056674,5.95721244 855.110732,5.96363636"
+                              id="js-branch-diagram-branch" stroke="#4182C4" stroke-width="4" fill="none"></path>
+                        <path d="M0,7 L766,7 L920,7" id="js-branch-diagram-master" stroke="#c6d9ed"
+                              stroke-width="8"></path>
+                        <path id="js-branch-diagram-arrow"
+                              d="M907.2,10 C910.98,8.95 915.22,8.05 918,7 C914.22,5.95 910.98,5.05 907.2,4"
+                              stroke="#c6d9ed" stroke-width="8" fill="none"></path>
+                        <desc>Created with Snap</desc>
+                        <defs></defs>
+                        <line x1="232.5" x2="345.5" y1="170" y2="170" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <line x1="232.5" x2="232.5" y1="140" y2="170" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <line x1="345.5" x2="345.5" y1="140" y2="170" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <line x1="289" x2="289" y1="170" y2="226" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <g>
+                            <circle cx="289" cy="226" r="7" fill="#4183c4"></circle>
+                            <circle cx="289" cy="226" r="5" fill="#4183c4" stroke="#ffffff"
+                                    style="stroke-width: 2;"></circle>
+                        </g>
+                        <line x1="423" x2="423" y1="137" y2="226" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <g>
+                            <circle cx="423" cy="226" r="7" fill="#4183c4"></circle>
+                            <circle cx="423" cy="226" r="5" fill="#4183c4" stroke="#ffffff"
+                                    style="stroke-width: 2;"></circle>
+                        </g>
+                        <line x1="477.5" x2="622.5" y1="170" y2="170" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <line x1="477.5" x2="477.5" y1="140" y2="170" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <line x1="622.5" x2="622.5" y1="140" y2="170" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <line x1="550" x2="550" y1="170" y2="226" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <g>
+                            <circle cx="550" cy="226" r="7" fill="#4183c4"></circle>
+                            <circle cx="550" cy="226" r="5" fill="#4183c4" stroke="#ffffff"
+                                    style="stroke-width: 2;"></circle>
+                        </g>
+                        <line x1="688" x2="688" y1="137" y2="226" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <g>
+                            <circle cx="688" cy="226" r="7" fill="#4183c4"></circle>
+                            <circle cx="688" cy="226" r="5" fill="#4183c4" stroke="#ffffff"
+                                    style="stroke-width: 2;"></circle>
+                        </g>
+                        <line x1="840" x2="840" y1="20" y2="227" stroke="#d4d4d4"
+                              style="stroke-width: 1; stroke-dasharray: 3;"></line>
+                        <g>
+                            <circle cx="840" cy="227" r="7" fill="#4183c4"></circle>
+                            <circle cx="840" cy="227" r="5" fill="#4183c4" stroke="#ffffff"
+                                    style="stroke-width: 2;"></circle>
+                        </g>
+                    </svg>
+
+                    <div class="diagram-icon js-diagram-icon diagram-icon-branch active" data-diagram-step="branch">
+                        <span class="mega-octicon octicon-git-branch"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-commit-1"
+                         data-diagram-step="commits">
+                        <span class="mega-octicon octicon-git-commit"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-commit-2"
+                         data-diagram-step="commits">
+                        <span class="mega-octicon octicon-git-commit"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-commit-3"
+                         data-diagram-step="commits">
+                        <span class="mega-octicon octicon-git-commit"></span>
+                    </div>
+                    <div class="diagram-icon js-diagram-icon diagram-icon-pr" data-diagram-step="pr">
+                        <span class="mega-octicon octicon-git-pull-request"></span>
+                    </div>
+                    <div class="diagram-icon js-diagram-icon diagram-icon-merge" data-diagram-step="merge">
+                        <span class="mega-octicon octicon-git-merge"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-discussion-1"
+                         data-diagram-step="code-review">
+                        <span class="mega-octicon octicon-comment-discussion"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-commit-4"
+                         data-diagram-step="code-review">
+                        <span class="mega-octicon octicon-git-commit"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-discussion-2"
+                         data-diagram-step="code-review">
+                        <span class="mega-octicon octicon-comment-discussion"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-commit-5"
+                         data-diagram-step="code-review">
+                        <span class="mega-octicon octicon-git-commit"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-discussion-3"
+                         data-diagram-step="code-review">
+                        <span class="mega-octicon octicon-comment-discussion"></span>
+                    </div>
+                    <div class="diagram-icon-small js-diagram-icon-small diagram-icon-commit-6"
+                         data-diagram-step="code-review">
+                        <span class="mega-octicon octicon-git-commit"></span>
+                    </div>
+                    <div class="diagram-icon js-diagram-icon-small diagram-icon-deploy" data-diagram-step="deploy">
+                        <span class="mega-octicon octicon-squirrel"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-content">
+
+                <div class="panel-content js-panel-content js-panel-content-branch active" data-step="branch">
+                    <h3>Create a branch</h3>
+
+                    <p>When you're working on a project, you're going to have a bunch of different features or ideas in
+                        progress at any given time – some of which are ready to go, and others which are not. Branching
+                        exists to help you manage this workflow.</p>
+
+                </div>
+                <div class="panel-content js-panel-content js-panel-content-commits" data-step="commits">
+                    <h3>Add commits</h3>
+
+                    <p>Commits also create a transparent history of your work that others can follow to understand what
+                        you've done and why. Each commit has an associated commit message, which is a description
+                        explaining why a particular change was made. Furthermore, each commit is considered a separate
+                        unit of change. This lets you roll back changes if a bug is found, or if you decide to head in a
+                        different direction.</p>
+
+                </div>
+                <div class="panel-content js-panel-content js-panel-content-pr" data-step="pr">
+                    <h3>Open a Pull Request</h3>
+
+                    <p>You can open a Pull Request at any point during the development process: when you have little or
+                        no code but want to share some screenshots or general ideas, when you're stuck and need help or
+                        advice, or when you're ready for someone to review your work. By using GitHub's @mention system
+                        in your Pull Request message, you can ask for feedback from specific people or teams, whether
+                        they're down the hall or ten time zones away.</p>
+
+                </div>
+                <div class="panel-content js-panel-content js-panel-content-code-review" data-step="code-review">
+
+                    <h3>Discuss and review your code</h3>
+
+                    <p>Once a Pull Request has been opened, the person or team reviewing your changes may have questions
+                        or comments. Perhaps the coding style doesn't match project guidelines, the change is missing
+                        unit tests, or maybe everything looks great and props are in order. Pull Requests are designed
+                        to encourage and capture this type of conversation.</p>
+
+
+                </div>
+                <div class="panel-content js-panel-content js-panel-content-deploy" data-step="deploy">
+
+                    <h3>Deploy</h3>
+
+                    <p>Once your pull request has been reviewed and the branch passes your tests, you can deploy your
+                        changes to verify them in production. If your branch causes issues, you can roll it back by
+                        deploying the existing master into production.</p>
+                </div>
+                <div class="panel-content js-panel-content js-panel-content-merge" data-step="merge">
+
+                    <h3>Merge</h3>
+
+                    <p>Now that your changes have been verified in production, it is time to merge your code into the
+                        master branch.</p>
+
+                    <p>By incorporating certain keywords into the text of your Pull Request, you can associate issues
+                        with code. When your Pull Request is merged, the related issues are also closed. For example,
+                        entering the phrase <code>Closes #32</code> would close issue number 32 in the repository. For
+                        more information, check out our help article.</p>
+
+                </div>
+
+                <a href="" class="panel-nav prev js-panel-nav-prev disabled" title="Previous" data-proofer-ignore="">
+                    <span class="mega-octicon octicon-chevron-left"></span>
+                </a>
+
+                <a href="" class="panel-nav next js-panel-nav-next" title="Next" data-proofer-ignore="">
+                    <span class="mega-octicon octicon-chevron-right"></span>
+                </a>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/Noticedetails.css"/>
+    <script src="../js/jquery-3.1.1.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/Noticedetails.js"></script>
+</head>
+<body>
+<div class="fullbox">
+<div class="container-fluid bigdiv"  >
+    <div class="details">
+        <div class="Title">
+            <div>
+                <h1 class="col-sm-12 col-xs-12"><span class="glycolor glyphicon glyphicon-align-left"></span>&nbsp;公告列表</h1>
+            </div>
+            <div id="notebox">
+            </div>
+        </div>
+    </div>
+</div>
+    <nav class="paging">
+        <ul class="pagination ">
+
+        </ul>
+    </nav>
+</div>
+</body>
+<script>
+    var notebox=$("#notebox").get(0);
+    var maxPageNum;
+    var pageNum=1;
+    function getMaxPageNum(){
+        $.ajax({
+            url:"getMaxPageNum_notice.do",
+            type:"post",
+            data:{},
+            datatype:"json",
+            async:"false",
+            cache:"true",//第一次请求完毕之后，如果再次去请求，可以直接从缓存里面读取而不是再到服务器端读取。
+            success:function(data){
+                maxPageNum=Math.ceil(data[0].countNum/6);
+                var pagination=$(".pagination").get(0);
+                pagination.innerHTML=
+                "<li><a href='javascript:;' onclick='pre()'>&laquo;</a></li>"+
+                "<li><a href='javascript:;' onclick='skipPage(this)'>1</a></li>"+
+                "<li><a href='javascript:;' onclick='skipPage(this)'>2</a></li>"+
+                "<li><a href='javascript:;'>...</a></li>"+
+//                "<li><a href='javascript:;' onclick='skipPage(this)'>"+(maxPageNum-1)+"</a></li>"+
+                "<li><a href='javascript:;' onclick='skipPage(this)'>"+maxPageNum+"</a></li>"+
+                "<li><a href='javascript:;'  onclick='next()'>&raquo;</a></li>"
+            }
+        });
+    }
+    function showData(){
+        $.ajax({
+            url: "load_noticeList.do", //请求地址
+            type: "post",//请求method类型
+            data: {pageNumeNotice:pageNum},//参数
+            dataType: "json",//返回参数的类型
+            async: "true",
+            cache: "true",
+            success: function(data){
+                var innerhtml="";
+                for(var i= 0; i<data.length; i++){
+                    innerhtml+=
+                    "<div class='notice1'>"+
+                            "<div class='glyphicon glyphicon-remove remove' index='"+data[i].id+"' onclick='del(this)'></div>"+
+                                "<div class='adjust'>"+
+                                    "<h3>"+data[i].n_title+"</h3>"+
+                                    "<hr/>"+
+                                    "<p>"+
+                                    "<i>"+data[i].n_date+"：</i>"+data[i].n_detail+"...."+
+                                    "</p>"+
+                                "</div>"+
+                            "<a href='showNoticeDetail.do?noticeId="+data[i].id+"' class='more'>详情</a>"+
+                    "</div>"
+                }
+                notebox.innerHTML=innerhtml;
+            }
+        });
+    }
+    function loadData(){
+        getMaxPageNum();
+        showData();
+    }
+    loadData();
+    //翻页
+    function pre(){
+        if(pageNum>1){
+            pageNum--;
+            loadData();
+        }
+    }
+    function next(){
+        if(pageNum<maxPageNum){
+            pageNum++;
+            loadData();
+        }
+    }
+    function skipPage(obj){
+        pageNum=parseInt(obj.innerHTML);
+        if(pageNum>=1&&pageNum<=maxPageNum){
+            loadData();
+        }
+    }
+    //删除
+    function del(obj){
+        var noticeid=$(obj).attr("index");
+        $.ajax({
+            url:"delete_notice.do",
+            type:"post",
+            data:{noticeId:noticeid},
+            datatype:"json",
+            success:function(data){
+                console.log(data)
+            }
+        });
+        loadData();
+    }
+
+</script>
+</html>

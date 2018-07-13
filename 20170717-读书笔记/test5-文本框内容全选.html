@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<textarea cols="20" rows="10"></textarea>
+<input type="button" value="全选">
+<script>
+    var textarea=document.getElementsByTagName('textarea');
+    var input=document.getElementsByTagName('input');
+    input[0].onclick=function () {
+        textarea[0].select();
+    }
+</script>
+</body>
+</html>
