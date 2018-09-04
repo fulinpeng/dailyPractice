@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>实现方式：Canvas</h3>
+    <p>
+        尽管没有CORS授权也可以在 canvas 中使用图像, 但这样做就会污染(taints)画布。 只要 canvas 被污染, 就不能再从画布中提取数据, 也就是说不能再调用 toBlob(), toDataURL() 和 getImageData()
+        等方法, 否则会抛出安全错误(Tainted canvases may not be exported). 参考文章：https://blog.csdn.net/renfufei/article/details/51675148
+    </p>
+    <script>
+        // let imgSrc = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_86d58ae1.png"; // 跨域了不能生成 base64 编码
+        let imgSrc = "https://raw.githubusercontent.com/fulinpeng/dailyPractice/master/images/1.jpg";
+        function getBase64Image(img, width, height) {
+            var canvas = document.createElement("canvas");
+            canvas.width = width ? width : img.width;
+            canvas.height = height ? height : img.height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            var dataURL = canvas.toDataURL();
+            return dataURL;
+        }
+
+        function getCanvasBase64(src) {
+            var image = new Image();
+            image.crossOrigin = ''; /* 重点 */
+            image.src = src;
+            var promise = new Promise(function (resolve) {
+                image.onload = function () {
+                    resolve(getBase64Image(image));
+                }
+            });
+            return promise;
+        }
+        // 图片转码成功，返回promise对象，然后拿到 base64 编码
+        getCanvasBase64(imgSrc).then(function (data) {
+            console.log('base64', data);
+            var imgNode = new Image();
+            imgNode.src = data;
+            document.body.appendChild(imgNode);
+        });
+    </script>
+</body>
+
+</html>

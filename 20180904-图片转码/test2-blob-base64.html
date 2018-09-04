@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>实现方式：Blob和FileReader 对象</h3>
+    <ol>
+        <li>使用xhr请求图片,并设置返回的文件类型为Blob对象[xhr.responseType = "blob"]</li>
+        <li>使用FileReader 对象接收blob</li>
+    </ol>
+    <script>
+        function getBase64(imgUrl) {
+            window.URL = window.URL || window.webkitURL;
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", imgUrl, true);
+            xhr.responseType = "blob"; /* 重点 */
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    var blob = this.response; // 一个blob对象
+                    console.log("blob", blob);
+                    let oFileReader = new FileReader(); /* 重点 */
+                    oFileReader.onloadend = function (e) {
+                        let base64 = e.target.result;
+                        console.log("base64", base64);
+                        
+                        // 添加图片
+                        var img = new Image();
+                        img.src = base64;
+                        document.body.appendChild(img);
+                    };
+                    oFileReader.readAsDataURL(blob);
+
+                    // 另外一种添加图片方式：
+                    var img = new Image();
+                    img.onload = function (e) {
+                        window.URL.revokeObjectURL(e.target.src);
+                    };
+                    img.src = window.URL.createObjectURL(blob);
+                    document.body.appendChild(img);
+                }
+            }
+            xhr.send();
+        }
+
+        getBase64("https://raw.githubusercontent.com/fulinpeng/dailyPractice/master/images/1.jpg");
+
+
+    </script>
+
+
+</body>
+
+</html>
