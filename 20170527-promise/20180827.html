@@ -12,31 +12,59 @@
     <script>
 
         var PENDING = 'PENDING';
-        var FULFILLED = 'RESOLVE';
-        var RESOLVE = 'RESOLVE';
+        var FULFILLED = 'FULFILLED';
         var REJECTED = 'REJECTED';
 
         function MyPromise(callBack) {
-            this.state = PENDING;
-            this.resolve = ()=>{};
+            this.status = PENDING;
+            this.value = '';
             this.defferd = [];
-            // callBack(this.resolve); // 直接执行的话，this.resolve 还未赋值
-            setTimeout(() => {callBack.bind(this, this.resolve)}, 0);
+            // callBack(this.resolve); // 直接执行的话，resolve函数 还未赋值
+            setTimeout(callBack.bind(this, this.resolve.bind(this)), 0);
+            // 异步操作执行成功，会调用 this.resolve 方法
         }
 
         MyPromise.prototype.then = function (resolve) {
-            this.resolve = resolve;
+            let o = {
+                onfulfilled : resolve,
+                promise : new this.constructor(function () { })
+            };
+            let status = this.status;
+            if (status === PENDING) {
+                this.defferd.push(o);
+            } else {
+                this.handle(o);
+            }
+            return o.promise;
         }
-        MyPromise.prototype.resolve = function () {
-            
+        // resolve 只用来改变promise的状态，和储存数据
+        MyPromise.prototype.resolve = function (data) {
+            this.status = FULFILLED;
+            this.value = data;
+            this.done();
         }
         // 处理多条 defferd
         MyPromise.prototype.done = function () {
-            
+            if (this.status === PENDING) return;
+            var defferd = this.defferd;
+            for (var i=0; i < defferd.length; i++) {
+                this.handle(defferd[i]);
+            }
         }
         // 处理单条 defferd
-        MyPromise.prototype.handle = function () {
-            
+        MyPromise.prototype.handle = function (o) {
+            if (!o) return;
+            let value = this.value;
+            let status = this.status;
+            let p; // 用来接收回调函数的返回值，一般是一个promise
+            if (status === PENDING) {
+                this.defferd.push(o);
+            } else {
+                if (o.onfulfilled && typeof o.onfulfilled === 'function') {
+                    p = o.onfulfilled(value); // 此时才真正的调用then里面定义的回调，并将异步处理结果通过这种方式返回出去
+                }
+            }
+            // 。。。
         }
         var MyPromiseTest = new MyPromise(function (resolve, reject) {
             setTimeout(function () {

@@ -60,7 +60,7 @@
                             // p是then执行返回的promise对象
                             // o是一个对象有promise等属性，promise的属性是空的promise
                         } else {
-                            // 不是promise就把当前的（状态已经改变了的）promise拿过来，病立即执行done()
+                            // 不是promise就把当前的（状态已经改变了的）promise拿过来，并立即执行done()
                             p = this;
                             p.defferd = promise.defferd;
                             this.done();
