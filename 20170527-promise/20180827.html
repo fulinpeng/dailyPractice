@@ -66,13 +66,11 @@
             }
             // 下面的就不理解了，怎么加上就可以实现链式调用then方法呢
             if (p && p.constructor === MyPromise) {
-                console.log('if', p);
-                console.log('o.defferd', o);
-                // 下一次promise的resolve被立即执行的情况
+                console.log('p:', p);
+                console.log('o:', o.promise);
                 p.defferd = o.promise.defferd;
             } else {
                 console.log('else', p);
-                // 下一次promise的resolve被延时执行的情况
             }
         }
         var MyPromiseTest = new MyPromise(function (resolve, reject) {
@@ -83,13 +81,12 @@
 
         MyPromiseTest.then(function (data) {
             console.log('resolve1:', data);
-            // return new MyPromise(function (resolve) {
-            //     // resolve('第二个promise');
-            //     // setTimeout(function () {
-            //     //     resolve('第二个promise');
-            //     // }, 1000);
-            // });
-            return '第一个promise，没有调用返回一个promise';
+            return new MyPromise(function (resolve) {
+                resolve('第二个promise');
+                // setTimeout(function () {
+                //     resolve('第二个promise');
+                // }, 1000);
+            });
         }).then(function (data) {
             console.log('resolve2:', data);
         });
