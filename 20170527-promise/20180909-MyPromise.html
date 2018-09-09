@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 自己照着写一段
+        var MyPromise = (function () {
+            var PENDING = 'PENDING';
+            var FULFILLED = 'FULFILLED';
+            var REJECTED = 'REJECTED';
+            var _MyPromise = function (cb) {
+                this.status = PENDING;
+                this.value = '';
+                this.defferd = [];
+                setTimeout(cb.bind(null, this.resolve.bind(this), this.rejected.bind(this)), 0);
+                // 此处也要绑定this，不然在resolve方法里面this将为window
+            }
+            _MyPromise.prototype = {
+                constructor : _MyPromise,
+                then : function (resolve, rejected) {
+                    // if (
+                    //     (!resolve || typeof resolve !== 'function') &&
+                    //     (!rejected || typeof rejected !== 'function')
+                    // ) {
+                    //     throw new Error('没有定义resolve或rejected');
+                    // }
+                    var o = {
+                        onResolve : resolve,
+                        onRejected : rejected,
+                        promise : new this.constructor(() => {})
+                    };
+                    if (this.status === PENDING) {
+                        this.defferd.push(o);
+                    } else {
+                        this.handle(o);
+                    }
+                    return o.promise;
+                },
+                resolve : function(data) {
+                    this.value = data;
+                    this.status = FULFILLED;
+                    this.done();
+                },
+                rejected : function(data) {
+                    this.value = data;
+                    this.status = REJECTED;
+                    this.done();
+                },
+                done : function () {
+                    if (this.status === PENDING) return;
+                    var defferd = this.defferd;
+                    for (var i=0; i<= defferd.length; i++) {
+                        this.handle(defferd[i]);
+                    }
+                },
+                handle : function (o) {
+                    if (!o) return;
+                    var onResolve = o.onResolve;
+                    var onRejected = o.onRejected;
+                    var p;
+                    var status = this.status;
+                    if (status === FULFILLED) {
+                        if (onResolve && typeof onResolve === 'function') {
+                            p = onResolve(this.value);
+                        } else {
+                            throw new Error('请给then方法传入正确的参数');
+                        }
+                    } else if (status === REJECTED) {
+                        if (onRejected && typeof onRejected === 'function') {
+                            p = onRejected(this.value);
+                        } else {
+                            throw new Error('then的第二个参数错了');
+                        }
+                    }
+                    if (p && p.constructor === this.constructor) {
+                        p.defferd = o.promise.defferd;
+                    } else {
+                        var data = p;
+                        p = new this.constructor(function (resolve) {
+                            resolve(data);
+                        });
+                        p.defferd = o.promise.defferd;
+                        // then的参数返回的不是promise时，先转成promise，然后把then的宿主的defferd赋给p，哈哈
+                    }
+                }
+            };
+            return _MyPromise;
+        })();
+        // console.log(o);
+        var o = new MyPromise(function (resolve) {
+            resolve('哈哈，第一次异步数据有了！');
+            // setTimeout(() => {
+            //     resolve('哈哈，第一次异步数据有了！');
+            // }, 1000);
+        });
+        o.then(function (data) {
+            console.log('第一个promse：', data);
+            return new MyPromise(function (resolve, rejected) {
+                // setTimeout(() => {
+                    rejected('呵呵，第二次异步的错误数据！');
+                // }, 1000);
+            });
+        }).then(null, function (data) {
+            console.log('第二个promse：', data);
+            return '这不是promise，嘿嘿！';
+            // 再次强调下：这个return是onRsolve的，不是then方法的。。。这个值赋给了p的
+        }).then(function (data) {
+            console.log('第三个：', data);
+        });
+    </script>
+</body>
+</html>

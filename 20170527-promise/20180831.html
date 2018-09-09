@@ -20,7 +20,7 @@
             this.defferd = [];
             // 不知道setTimeout 在这里的意义？，假如异步执行很快的话，当没有setTimeout的时候就不能回调到resolve函数
             // 执行promise的时候，callback里的函数还是未定义吧
-            setTimeout(callback.bind(this, this.resolve.bind(this), this.reject.bind(this)),0);
+            setTimeout(callback.bind(this, this.resolve.bind(this), this.reject.bind(this)), 0);
         }
         Promise.prototype = {
             constructor: Promise,
@@ -30,7 +30,7 @@
                 this.done();
             },
             reject: function (error) {
-                this.status = REJECTED; 
+                this.status = REJECTED;
                 this.value = error;
             },
             handle: function (o) {
@@ -84,7 +84,7 @@
                 var o = {
                     onfulfiled: success,
                     onrejected: fail,
-                    promise : new this.constructor(function () { })
+                    promise: new this.constructor(function () { })
                 };
                 var status = this.status;
                 if (status == PENDING) {
@@ -102,7 +102,7 @@
                 return o.promise;
             }
         };
-        var p =new Promise(function (resolve, reject) {
+        var p = new Promise(function (resolve, reject) {
             // 模拟异步很快的时候：
             resolve('异步操作成功');
             // 模拟异步很慢的时候：
@@ -110,10 +110,13 @@
             //     resolve('异步操作成功');
             // },1000);
         });
-        
+
         // 模拟then马山执行
         p.then(function (res) {
-            console.log('then:', res);
+            console.log('第一个then:', res);
+            return '不是promise对象';
+        }).then(function (data) {
+            console.log('第二个then:', data);
         });
 
         // 模拟：有的时候then会在很多行代码之后才执行
