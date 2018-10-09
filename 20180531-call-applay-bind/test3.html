@@ -20,8 +20,8 @@
                 }
 
                 var aArgs = Array.prototype.slice.call(arguments, 1),
-                    fToBind = this, // 指调用bind方法那个函数(永远记住bind是函数Function的实例方法)
-                    fNOP = function () { },
+                    fToBind = this, // this指调用bind方法那个函数(永远记住bind是函数Function的实例方法)
+                    fNOP = function () {},
                     fBound = function () {
                         console.log('fBound', this === oThis); // 为true时，this是调用bind方法的函数的宿主
                         // 这里的this取决于被谁调用，这里this有可能是window
@@ -39,6 +39,7 @@
 
                 // 虽然看懂了，但是不知道别人为啥子这么做？？？弄得这么复杂，为了什么？？？
                 //    目的：新函数的原型还原成老函数的原型
+                //    这样以来，调用bind方法后，还能把返回的函数当做构造函数
                 //    很好，既然这样，就明白了吧？不这样的话就 fBound.prototype.__proto__=this.prototype 这样也是可以的
 
                 // 1、fBound是还可以继续执行的，他必须是个函数
@@ -56,7 +57,7 @@
         //     this.num = num;
         // };
         // var fn1 = fn.bind(o, 20);
-        // fn1(); // 26行输出window
+        // fn1(); // window
         // console.log(o);
 
         var o2 = {
@@ -65,26 +66,9 @@
         o2.fn = (function fn(num) {
             this.num = num;
         }).bind(o2)
-        o2.fn(20); // 26行输出o2
+        o2.fn(20); // o2
         console.log(o2);
 
-
-        ///////////////////////////////////另外一个///////////////////////////////////////////////////////////
-        Function.prototype.myBind = function (context) {
-            if (typeof this !== 'function') {
-                throw new TypeError('Error')
-            }
-            var _this = this
-            var args = [...arguments].slice(1)
-            // 返回一个函数
-            return function F() {
-                // 因为返回了一个函数，我们可以 new F()，所以需要判断
-                if (this instanceof F) {
-                    return new _this(...args, ...arguments)
-                }
-                return _this.apply(context, args.concat(...arguments))
-            }
-        }
     </script>
 </body>
 

@@ -15,14 +15,19 @@
             console.log(arguments);
         }
         Function.prototype.apply.call(xxx, undefined, [1.75, 2, 3]);
-        // 下面这个怎么理解：这个解释很帅
-        // Function.prototype.apply 看成一个函数 fnApply，fnApply 属于 Function.prototype
-        // Function.prototype.apply.call(xxx, undefined, [1.75,2,3]) ==> xxx.apply(undefined, [1.75,2,3])
-        // undefined.xxx(1.75,2,3); ==> window.xxx(1.75,2,3)
+        // 上面这个怎么理解：下面这个解释很帅
+        // Function.prototype.apply 看成一个函数 fnApply，反正就是一个函数嘛，fnApply 后面又有个call，相当于fnApply再用call的形式执行
+        // Function.prototype.apply.call(xxx, undefined, [1.75,2,3]) ==> xxx.fnApply(undefined, [1.75,2,3]) ==>
+        // ==重点==：上面说了把Function.prototype.apply 看成一个函数 fnApply，所以fnApply就相当于（什么哦，就是）大Function构造函数原型上的apply函数的引用 ==>
+        // xxx.apply(undefined, [1.75,2,3]) ==> undefined.xxx(1.75,2,3);
+        // ==> window.xxx(1.75,2,3)
+
+        // 上面的理解应该是对的吧
+        // var aArgs = Array.prototype.slice.call(arguments, 1);
 
         // 实现 console.log
         var console = window.console || {
-            log: function () { }
+            log: function () {}
         };
         var log = console.log;
         console.log = function (tips, message) {
@@ -58,45 +63,16 @@
         Function.prototype.call.call(f1); //1
         Function.prototype.call.apply(f1); //1
 
-        // 总结使用用法:
+        var c =() => {}
+        c.call.apply(f1); // 1
+        c.call.apply(f2); // 2
+
+        // 总结使用方法:
         // XXX可以是call或者是apply, child一定是parent可指向的对象
 
         // Function.prototype.XXX.call(child, parent, arguments || array);
         // Function.prototype.XXX.apply(child, [parent, arguments || array]);
 
-
-        //////////////////////////////另外的call//////////////////////////////////////////////
-        Function.prototype.myCall = function (context) {
-            var context = context || window
-            // 给 context 添加一个属性
-            // getValue.call(a, 'yck', '24') => a.fn = getValue
-            context.fn = this
-            // 将 context 后面的参数取出来
-            var args = [...arguments].slice(1)
-            // getValue.call(a, 'yck', '24') => a.fn('yck', '24')
-            var result = context.fn(...args)
-            // 删除 fn
-            delete context.fn
-            return result
-        }
-
-        //////////////////////////////另外的apply//////////////////////////////////////////////
-        Function.prototype.myApply = function (context) {
-            var context = context || window
-            context.fn = this
-
-            var result
-            // 需要判断是否存储第二个参数
-            // 如果存在，就将第二个参数展开
-            if (arguments[1]) {
-                result = context.fn(...arguments[1])
-            } else {
-                result = context.fn()
-            }
-
-            delete context.fn
-            return result
-        }
     </script>
 </body>
 
