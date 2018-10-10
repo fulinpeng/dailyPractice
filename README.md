@@ -1,5 +1,1 @@
-# dailyPractice
-
-...
-
-Genius is one percent inspiration and ninety-nine percent perspiration.
+坚持每天写一点
