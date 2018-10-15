@@ -12,7 +12,7 @@ class App extends Component {
         <hr/>
       </div>
     );
-  }d
+  }
 }
 
 export default App;
