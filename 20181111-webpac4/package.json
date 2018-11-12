@@ -1,0 +1,25 @@
+{
+  "name": "20181111webpackProject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "dist": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "`npm init -y`",
+  "devDependencies": {
+    "css-loader": "^1.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-deep-scope-plugin": "^1.6.0"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.11"
+  }
+}
