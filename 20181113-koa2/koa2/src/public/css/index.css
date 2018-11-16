@@ -1,0 +1,10 @@
+body {
+  color: green;
+  font-size: 30px;
+}
+.thumbBox{
+  height: 338px;
+  display: inline-block;
+  width: 374px;
+  position: relative;
+}

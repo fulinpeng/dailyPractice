@@ -1,5 +1,5 @@
 
-// import {isArray} from 'lodash-es';
+import {isArray} from 'lodash-es';
 import './sync.css';
 const sync = function () {
     console.log('sync');
@@ -11,7 +11,7 @@ const sync = function () {
 
 const isArr = (args) => {
     console.log('is Array!');
-    // console.log(isArray(args));
+    console.log(isArray(args));
 }
 
 export {

@@ -1,0 +1,25 @@
+{% extends './layout.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/thumb.css">
+{% endblock %}
+
+{% block content %}
+<h1 class="showNum"></h1>
+<div class="thumbBox"></div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/systemjs/0.20.19/system.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.17.1/axios.js"></script>
+<script src="script/thumb.js"></script>
+<script src="script/index.js"></script>
+
+{% endblock %}
+

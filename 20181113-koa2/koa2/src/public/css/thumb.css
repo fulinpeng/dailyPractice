@@ -1,0 +1,96 @@
+.thumb{
+    float: left;
+    width: 0;
+    height: 0;
+    position: relative;
+    transform: scale(0.2);
+    display: inline-block;
+}
+.red1{
+    background: white;
+    position: absolute;
+    left: 121px;
+    top: 166px;
+    width: 82px;
+    height: 170px;
+    border-radius: 20px;
+    box-shadow: 33px 44px 23px black inset, -27px -43px 23px black inset;
+}
+.red2{
+    background: white;
+    position: absolute;
+    left: 208px;
+    top: 166px;
+    width: 137px;
+    height: 170px;
+    border-radius: 24px 0 0 24px;
+    box-shadow: 44px 38px 32px black inset, -55px -45px 44px black inset;
+}
+.red2::after{
+    content: '';
+    display: block;
+    background: black;
+    position: absolute;
+    right: -24px;
+    top: 0;
+    width: 24px;
+    height: 49px;
+    border-radius: 0 24px 24px 0;
+}
+.red2::before{
+    content: '';
+    display: block;
+    background: black;
+    position: absolute;
+    right: -24px;
+    top: 44px;
+    width: 24px;
+    height: 49px;
+    border-radius: 0 24px 24px 0;
+}
+.red2-1{
+    display: block;
+    background: black;
+    position: absolute;
+    right: -24px;
+    top: 88px;
+    width: 24px;
+    height: 46px;
+    border-radius: 0 24px 24px 0;
+}
+.red2-2{
+    display: block;
+    background: black;
+    position: absolute;
+    right: -24px;
+    bottom: 0;
+    width: 24px;
+    height: 40px;
+    border-radius: 0 24px 24px 0;
+}
+.red2-3{
+    background: black;
+    position: absolute;
+    left: 30px;
+    top: -108px;
+    width: 75px;
+    height: 116px;
+    border-radius: 16px 86px 53px 0;
+    transform: rotate(9deg);
+    transform-origin: 0% 100%;
+    overflow: hidden;
+}
+.red2-3::after{
+    background: white;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 64px;
+    bottom: 0;
+    width: 56px;
+    height: 118px;
+    border-radius: 63px 309px 250px 184px;
+}
+.red2-3::before{
+
+}
