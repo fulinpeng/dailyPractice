@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+<body>
+    <p>hello d3</p>
+    <script>
+        console.log(d3);
+
+        // d3 选择器
+        d3.select("body").style("background-color", "black");  // 直接选择 ->并设置属性
+        d3.selectAll("p").style("color", function () { // 选择 -> 动态设置属性
+            return "hsl(" + Math.random() * 360 + ",100%,50%)";
+        });
+        d3.selectAll("p") // 选择 -> 绑定数据 -> 动态设置属性
+            .data([4, 8, 15, 16, 23, 42])
+            .style("font-size", function (d) { return d + "px"; });
+
+        // Update…
+        var p = d3.select("body") // 直接把数据绑定到Dom并输出，数组元素个数与p节点的个数一致就全部更新文本，如果不一致，就只更新现有p节点的文本，多余的数据会被保存起来，看下面会用到
+            .selectAll("p")
+            .data([4, 8, 15, 16, 23, 42])
+            .text(function (d) { return d; });
+
+        // Enter…[常用]
+        p.enter().append("p") // 如果不一致，数组元素个数比p节点多，就插入p节点补足并相应更新文本
+            .text(function (d) { return d; });
+
+        // Exit…[常用]
+        p.exit().remove(); // 如果不一致，数组元素个数比p节点少，就删除多余的p节点
+
+        // 把所有圆圈改变半径
+        d3.selectAll("circle").transition() // 定义动画
+            .duration(750) // 动画持续时间
+            .delay(function (d, i) { return i * 10; }) // 元素动画要延时多少时间开始
+            .attr("r", function (d) { return Math.sqrt(d * scale); }); // 设置最后效果
+    </script>
+</body>
+
+</html>

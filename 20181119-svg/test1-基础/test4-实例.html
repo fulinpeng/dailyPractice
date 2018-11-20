@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .circle {
+            stroke: pink;
+            fill: white;
+            stroke-width: 2px;
+        }
+
+        .circle:hover {
+            stroke: orange;
+            fill: yellowgreen;
+            stroke-width: 3px;
+        }
+
+        .path {
+            fill: none;
+            stroke-width: 3px;
+        }
+
+        .path.c {
+            stroke: red;
+        }
+
+        .path.l {
+            stroke: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="my-svg" class="my-svg" width="100%" height="100%">
+    </svg>
+    <script>
+        // 初始化
+        let mySvg = getEl('my-svg')[0];
+        let o = {
+            one: [200, 500],
+            two: [300, 400],
+            three: [300, 300],
+            four: [500, 200],
+        }
+        init(mySvg, o);
+
+        function getEl(name) {
+            return document.getElementsByClassName(name);
+        }
+        function init(box, o) {
+            box.innerHTML = `
+                <path class="path l" d="M ${o.one.join(' ')} L ${o.two.join(' ')} ${o.three.join(' ')} ${o.four.join(' ')}" />
+                <path class="path c" d="M ${o.one.join(' ')} C ${o.two.join(' ')} ${o.three.join(' ')} ${o.four.join(' ')}" />
+                <circle class="circle one" cx="${o.one[0]}" cy="${o.one[1]}" r="5" />
+                <circle class="circle two" cx="${o.two[0]}" cy="${o.two[1]}" r="5" />
+                <circle class="circle three" cx="${o.three[0]}" cy="${o.three[1]}" r="5" />
+                <circle class="circle four" cx="${o.four[0]}" cy="${o.four[1]}" r="5" />
+            `;
+
+            [].forEach.call(getEl('circle'), el => {
+                el.addEventListener('mousedown', docOnmousedown, false);
+            });
+        }
+
+        function move(target, disx, disy) {
+            let whichOne = target.getAttribute('class').split(' ')[1];
+            let point = o[whichOne];
+            o[whichOne] = [
+                point[0] + disx / 20,
+                point[1] + disy / 20,
+            ]
+            init(mySvg, o);
+        }
+
+        function docOnmousedown(e) {
+            console.log(e);
+            let target = e.target;
+            let x1 = e.pageX;
+            let y1 = e.pageY;
+            function docOnmousemove(e) {
+                let x2 = e.pageX;
+                let y2 = e.pageY;
+                let disx = x2 - x1;
+                let disy = y2 - y1;
+                move(target, disx, disy);
+            }
+            function docOnmouseup() {
+                document.removeEventListener('mousemove', docOnmousemove);
+                document.removeEventListener('mouseup', docOnmouseup);
+            }
+            document.addEventListener('mousemove', docOnmousemove);
+            document.addEventListener('mouseup', docOnmouseup);
+        }
+
+
+
+    </script>
+</body>
+
+</html>

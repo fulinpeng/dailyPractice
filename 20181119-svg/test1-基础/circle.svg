@@ -1,8 +1,8 @@
-<!-- <svg
+<svg
   id="mysvg"
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 800 600"
-  preserveAspectRatio="xMidYMid meet"
-> -->
-  <circle id="mycircle" cx="400" cy="300" r="50" />
-<!-- <svg> -->
+  viewBox="0 0 300 100"
+  version="1.1"
+>
+  <circle id="mycircle" cx="100" cy="100" r="50" />
+<svg>
