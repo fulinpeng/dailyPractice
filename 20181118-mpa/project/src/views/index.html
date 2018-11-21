@@ -1,0 +1,15 @@
+{% block style %}
+    <link rel="stylesheet" href="/index.css">
+{% endblock %}
+
+{% block cotent %}
+    <h1>{{message}}</h1>
+    {% include '../../components/banner/banner.html' %}
+{% endblock %}
+
+{% block script %}
+    <script>
+        console.log('index.html上的js')
+    </script>
+    <!--injextjs-->
+{% endblock %}

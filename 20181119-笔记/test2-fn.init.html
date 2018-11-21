@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo"></div>
+    <div id="test"></div>
+    <script>
+        var A = function (selector) {
+            return new A.fn.init(selector);
+        }
+        A.fn = A.prototype = {
+            init: function (selector) {
+                this[0] = document.getElementById(selector);
+                this.length = 1;
+                console.log('this', this); // 指的是实例（这里是个类数组对象）
+                return this;
+            },
+            length: 2,
+            size: function () {
+                return this.length;
+            }
+        }
+        var demo = A('demo');
+        var test = A('test');
+        console.log('demo', demo); // 加上new后，正常了
+
+        // 不过此时size方法，报错
+        console.log('size', demo.size());
+        // 因为 A.prototype 的 __proto__ 指向的是Object对象
+        // A.prototype.constructor === Object; 没有指向 A
+
+        // 执行 new A.fn.init() 时：
+        // 1.创建一个空对象，它的__proto__指向了（重点）构造函数的原型（即A.fn.init的prototype属性。。。）
+        // 2.将此对象赋值给 A.fn.init 内部的this
+        // 执行 A.fn.init ，这个时候实例是以 A.fn.init 构造的，这个函数只会加上两个属性：0、length，下面那个length和size是加不上去的 【笑哭！你以前没搞清楚哇】
+
+        // 懂了吧，产生的实例本身没有也就 size 属性呀，它的__proto__上也没得啊，哪怎么办
+        // 。。。
+    </script>
+</body>
+</html>

@@ -20,3 +20,20 @@
 > 开始都没问题，突然出现找不到什么原因的错误，可能是`pakage-lock.js`的问题，把它删了，重新来；如：`ERROR in ./src/css/index.less (./node_modules/css-loader??ref--6-1!./node_modules/les`
 
 > css-loader依赖于style-loader；css-loader用于处理css，style-loader用来将这个js形式的style插入到html文档里面；但是这个style-loader很大，会让整个js文件剧增；
+
+> 多页单页，构建的方式是不一样的
+
+> dev:server启动方式：`npm install -D webpack-dev-server` ，在`pakage.json`中配置：`npm run dev.server`，运行即可热更新
+
+> 对异步的文件(包)进行处理，提出来后，可以提高spa的首屏加载速度
+```javascript
+import(/* webpackChunkName: "async-test" */ './components/async').then(_ => {
+    _.default.init();
+});
+```
+
+> 公共的文件(包)要抽出来，webpack4开始官方移除了commonchunk插件，现在直接配置`optimization`
+
+> 编译js压缩打包插件`uglifyjs-webpack-plugin`，可以开启多核;终端能显示监控面板，借助`speed-measure-webpack-plugin`插件；（但是加上就报错。。。）
+
+

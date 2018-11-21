@@ -1,6 +1,12 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
+const setIterm2Badge = require('set-iterm2-badge');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+
+setIterm2Badge("开发环境");
 const argv = require("yargs-parser")(process.argv.slice(2));
 const _mode = argv.mode || "development";
 const _modeflag = (_mode == "production" ? true : false);
@@ -18,17 +24,17 @@ const config = {
     },
     module: {
         rules: [
+            // { loader: 'style-loader' },
             {
                 test: /\.less$/,
                 use: [
                     { loader: 'style-loader' },
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: 'css-loader',
                         options: {
-                            publicPath: './'
+                            modules: true
                         }
                     },
-                    {loader: 'css-loader'},
                     { loader: 'less-loader' }
                 ]
             },
@@ -46,7 +52,7 @@ const config = {
                     {loader: 'css-loader'}
                 ]
             },
-            // 下面这个和上面的会冲突
+            // 下面这个和上面的less会冲突
             // {
             //     test: /\.css$/,
             //     use: [
@@ -69,6 +75,7 @@ const config = {
         ]
     },
     plugins: [
+        new WebpackDeepScopeAnalysisPlugin(),
         new MiniCssExtractPlugin({
             filename: _modeflag?"styles/[name].[hash:5].css":"styles/[name].css",
             chunkFilename: _modeflag?"styles/[id].[hash:5].css":"styles/[name].css"
