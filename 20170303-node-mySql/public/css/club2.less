@@ -1,0 +1,36 @@
+.mytrangle(@bdwidth:20px,@bdcolor:transparent){
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  border-top: @bdwidth solid @bdcolor;
+  border-bottom: @bdwidth solid @bdcolor;
+}
+.clu_lefttriangle{
+  .mytrangle;
+  left: 0px;
+  top: 180px;
+  border-left: 20px solid white;
+  border-right: 20px solid transparent;
+  @media screen and(max-width: 1170px) {
+    .mytrangle(15px);
+    left: 0px;
+    top: 140px;
+    border-left: 15px solid white;
+    border-right: 15px solid transparent;
+  }
+}
+.clu_righttriangle{
+  .mytrangle;
+  right: 0px;
+  top: 180px;
+  border-left: 20px solid transparent;
+  border-right: 20px solid white;
+  @media screen and(max-width: 1170px) {
+    .mytrangle(15px);
+    right: 0px;
+    top: 140px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid white;
+  }
+}
