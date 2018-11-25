@@ -115,9 +115,30 @@
         </svg>
     </div>
     <!-- <text>标签用于绘制文本 -->
+    <!-- (x,y)用于指定文字起始位置。准确的说，x指定文字最左侧坐标位置，y指定文字baseline所处y轴位置。 -->
+    <!-- fill的默认为black，stroke默认为none。 -->
+    <!-- 如果设置了stroke，字的边缘会再“描一层边”。 -->
+    <!-- 如果设置了stroke并将fill设为none，呈现为空心字。 -->
     <div class="div9">
         <svg width="300" height="180">
             <text x="50" y="25">Hello World</text>
+            <defs>
+                    <path id="semi" d="M110 100a50 50 0 1 1 100 0"></path>
+                </defs>
+                <use xlink:href="#semi" stroke="grey" fill="none"></use>
+                <text text-anchor="middle">
+                    <textPath xlink:href="#semi" startOffset="50%">
+                        Middle
+                    </textPath>
+                </text>
+                <defs>
+                        <path id="circle" d="M70 20a40 40 0 1 1 -1 0"></path>
+                    </defs>
+                    <text>
+                        <textPath xlink:href="#circle">
+                            Text following a circle.............
+                        </textPath>
+                    </text>
         </svg>
     </div>
     <!-- <use>标签用于复制一个形状 -->
@@ -193,8 +214,8 @@
     <div class="div16">
         <svg width="300px" height="300px">
             <rect x="250" y="250" width="50" height="50" fill="#4bc0c8">
-                <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400" repeatCount="indefinite"
-                />
+                <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400"
+                    repeatCount="indefinite" />
             </rect>
         </svg>
     </div>
@@ -202,8 +223,8 @@
     <div class="div17">
         <svg width="300px" height="300px">
             <rect x="250" y="250" width="50" height="50" fill="#4bc0c8">
-                <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400" repeatCount="indefinite"
-                />
+                <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400"
+                    repeatCount="indefinite" />
             </rect>
         </svg>
     </div>
@@ -245,6 +266,14 @@
     <!-- l 为相对于当前点位置 -->
     <!-- q、c 为相对于贝塞尔起始点位置 -->
 
+    <!-- 画圆弧 -->
+    <!-- (rx ry x-axis-rotation large-arc-flag sweep-flag x y)+ -->
+    <!-- rx ry 是椭圆的两个半轴的长度 -->
+    <!-- x-axis-rotation 是椭圆相对于坐标系的旋转角度，角度数而非弧度数 -->
+    <!-- large-arc-flag 是标记绘制大弧(1)还是小弧(0)部分 -->
+    <!-- sweep-flag 是标记向顺时针(1)还是逆时针(0)方向绘制 -->
+    <!-- x y 是圆弧终点的坐标 -->
+
     <div class="div19">
         <svg width="800" height="800">
             <path id="lineAB" d="M 100 350 l 150 -300" stroke="red" stroke-width="3" fill="none" />
@@ -263,6 +292,8 @@
                 <text x="250" y="50" dy="-10">B</text>
                 <text x="400" y="350" dx="30">C</text>
             </g>
+            <!-- 圆弧 -->
+            <path d="M300,200 h-150 a150,150 0 1,0 150,-150 z" fill="red" stroke="blue" stroke-width="5" />
         </svg>
     </div>
 </body>

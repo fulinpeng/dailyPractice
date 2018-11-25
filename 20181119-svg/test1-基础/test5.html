@@ -17,74 +17,225 @@
             height: 100%;
         }
 
-        .circle {
+        .link_svg .line {
+            fill: none;
+            stroke: black;
+            stroke-width: 2px;
+        }
+
+        .link_svg .node {
+            fill: none;
+            /* stroke-width: 2px; */
+        }
+
+        .link_svg .circle {
             stroke: pink;
             fill: white;
             stroke-width: 2px;
         }
-
-        .circle:hover {
-            stroke: orange;
-            fill: yellowgreen;
-            stroke-width: 3px;
-        }
-
-        .path {
-            fill: none;
-            stroke-width: 3px;
-        }
-
-        .path.c {
-            stroke: red;
-        }
-
-        .path.l {
-            stroke: rgba(0, 0, 0, 0.5);
+        .node text{
+            fill: white;
+            dominant-baseline: middle;
+            text-anchor: middle;
         }
     </style>
 </head>
 
 <body>
-    <svg id="my-svg" class="my-svg" width="100%" height="100%">
+    <svg id="my-svg" class="link_svg" width="100%" height="100%">
+        <g class="line" id="line">
+            <!-- <path fill="none" stroke="black" stroke-width="2" d="M130,140 A334,144,0,0,0,400,300" transform="translate( 0 0 )">
+            </path>
+            <path fill="none" stroke="black" stroke-width="2" d="M150,140 A334,144,0,0,0,400,300" transform="translate( 0 0 )">
+            </path>
+            <path fill="none" stroke="black" stroke-width="2" d="M170,140 A334,144,0,0,0,400,300" transform="translate( 0 0 )">
+            </path> -->
+        </g>
+        <!-- <g class="node" transform="matrix( 1 0 0 1 0 0 )">
+            <circle cx="130" cy="100" r="5" fill="red" />
+            <circle cx="150" cy="100" r="5" fill="red" />
+            <circle cx="170" cy="100" r="5" fill="red" />
+            <circle cx="130" cy="140" r="5" fill="red" />
+            <circle cx="150" cy="140" r="5" fill="red" />
+            <circle cx="170" cy="140" r="5" fill="red" />
+            <path fill="black" stroke="black" d="M100,100 h102a5,5,0,0,1,5,5v30a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-30a5,5,0,0,1,5,-5z"></path>
+            <text x='150' y='120' fill='white' dominant-baseline="middle" text-anchor="middle">
+                文字内容
+            </text>
+        </g> -->
     </svg>
     <script>
-        // 初始化
-        let mySvg = getEl('my-svg')[0];
-        let o = {
-            one: [200, 500],
-            two: [300, 400],
-            three: [300, 300],
-            four: [500, 200],
-        }
-        init(mySvg, o);
+        const svg = document.getElementById('my-svg');
+        const line_g = svg.getElementById('line');
 
-        function getEl(name) {
-            return document.getElementsByClassName(name);
-        }
-        function init(box, o) {
-            box.innerHTML = `
-                <path class="path l" d="M ${o.one.join(' ')} L ${o.two.join(' ')} ${o.three.join(' ')} ${o.four.join(' ')}" />
-                <path class="path c" d="M ${o.one.join(' ')} C ${o.two.join(' ')} ${o.three.join(' ')} ${o.four.join(' ')}" />
-                <circle class="circle one" cx="${o.one[0]}" cy="${o.one[1]}" r="5" />
-                <circle class="circle two" cx="${o.two[0]}" cy="${o.two[1]}" r="5" />
-                <circle class="circle three" cx="${o.three[0]}" cy="${o.three[1]}" r="5" />
-                <circle class="circle four" cx="${o.four[0]}" cy="${o.four[1]}" r="5" />
-            `;
+        function Line(data) {
+            this.node = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.style = data.style || null;
+            this.point = data.point;
+            this.extraClass = `line ${data.extraClass || ''}`;
 
-            [].forEach.call(getEl('circle'), el => {
-                el.addEventListener('mousedown', docOnmousedown, false);
-            });
+            this.data = data;
         }
 
-        function move(target, disx, disy) {
-            let whichOne = target.getAttribute('class').split(' ')[1];
-            let point = o[whichOne];
-            o[whichOne] = [
-                point[0] + disx / 20,
-                point[1] + disy / 20,
-            ]
-            init(mySvg, o);
+        Line.prototype = {
+            constructor: Line,
+            init: function () {
+                this.setStyle();
+                this.setClass();
+                this.setD();
+            },
+            setStyle: function () {
+                let style = this.style;
+                if (!style) return;
+                for (let k in style) {
+                    this.node.setAttribute(k, style[k]);
+                }
+            },
+            setClass: function () {
+                this.node.setAttribute('class', this.extraClass || '');
+            },
+            setD: function () {
+                let point = this.point;
+                this.node.setAttribute('d', `M${point.start} A334,144,0,0,0,${point.end}`);
+            }
         }
+
+        function TextNode(data) {
+            this.style = data.style || null;
+            this.point = data.point;
+            this.extraClass = data.extraClass || '';
+            this.position = data.position;
+            this.circle = data.circle;
+            this.path = data.path;
+            this.text = data.text;
+
+            this.node = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            this.g_path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.g_text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+            this.data = data;
+        }
+        TextNode.prototype = {
+            constructor: TextNode,
+            init : function () {
+                this.setStyle();
+                this.setCircle();
+                this.setPath();
+                this.setClass();
+                this.move();
+                this.setPath();
+                this.setText();
+            },
+            setStyle: function () {
+                let style = this.style;
+                for (let k in style) {
+                    this.node.setAttribute(k, style[k]);
+                }
+            },
+            setCircle:function(){
+                let circle = this.circle;
+                for (let i = 0; i < circle.length; i++) {
+                    let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    for (let j in circle[i]) {
+                        g_circle.setAttribute(j, circle[i][j]);
+                    }
+                    this.node.appendChild(g_circle);
+                }
+            },
+            setPath: function () {
+                let path = this.path;
+                for (let k in path) {
+                    this.g_path.setAttribute(k, path[k]);
+                }
+            },
+            setClass: function () {
+                this.node.setAttribute('class', `node ${this.extraClass || ''}`);
+            },
+            move: function () {
+                this.node.setAttribute('transform', `matrix( 1 0 0 1 ${this.position || '0 0'} )`);
+                this.node.setAttribute('d', `M${this.point.start} A334,144,0,0,0,${this.point.end}`);
+            },
+            setPath:function(){
+                let path = this.path;
+                for (let k in path) {
+                    this.g_path.setAttribute(k, path[k]);
+                }
+                this.g_path.setAttribute('d', `M100,100 h102a5,5,0,0,1,5,5v30a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-30a5,5,0,0,1,5,-5z`);
+                this.node.appendChild(this.g_path);
+            },
+            setText : function () {
+                this.g_text.setAttribute('x', this.text.position.x);
+                this.g_text.setAttribute('y', this.text.position.y);
+                this.g_text.innerHTML = this.text.text;
+                this.node.appendChild(this.g_text);
+            }
+        }
+
+        const line1 = new Line({
+            extraClass: '',
+            style: {
+            },
+            point: {
+                start: '130,140',
+                end: '400,300'
+            }
+        });
+        line1.init();
+        const line2 = new Line({
+            extraClass: '',
+            style: {
+            },
+            point: {
+                start: '150,140',
+                end: '400,300'
+            }
+        });
+        line2.init();
+
+        const node1 = new TextNode({
+            style: {
+            },
+            point: {
+                start: '130,140',
+                end: '400,300'
+            },
+            extraClass: '',
+            position: '0 0',
+            circle: [
+                {
+                    cx: "130", cy: "100", r: "5", fill: "red",
+                },
+                {
+                    cx: "150", cy: "100", r: "5", fill: "red",
+                },
+                {
+                    cx: "170", cy: "100", r: "5", fill: "red",
+                },
+                {
+                    cx: "130", cy: "140", r: "5", fill: "red",
+                },
+                {
+                    cx: "150", cy: "140", r: "5", fill: "red",
+                },
+                {
+                    cx: "170", cy: "140", r: "5", fill: "red",
+                },
+            ],
+            path: {
+                fill: "black", stroke: "black"
+            },
+            text: {
+                position: {
+                    x: 150,
+                    y: 120
+                },
+                text: '文本内容'
+            },
+        });
+        node1.init();
+        line_g.appendChild(line1.node);
+        line_g.appendChild(line2.node);
+        svg.appendChild(node1.node);
 
         function docOnmousedown(e) {
             console.log(e);
