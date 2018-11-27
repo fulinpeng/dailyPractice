@@ -53,6 +53,11 @@
             fill: none;
         }
 
+        .node .node_point {
+            fill: #1A1A29;
+            stroke: #393853;
+        }
+
         .node text {
             fill: #dbe2ea;
             dominant-baseline: middle;
@@ -129,7 +134,7 @@
                 let disy = end.y-start.y;
                 let r = 5;
                 if (disy < 20) {
-                    alert('line端点的高度差小于了20');
+                    console.log('line端点的高度差小于了20');
                 }
                 if (disx >= 10) {
                     this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a5,5,0,0,0,5,5h${disx-10}a5,5,0,0,1,5,5L${end.x},${end.y}`);
@@ -209,9 +214,11 @@
                 let circle = this.circle;
                 for (let i = 0; i < circle.length; i++) {
                     let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    g_circle.setAttribute('class', 'node_point');
                     for (let j in circle[i]) {
                         g_circle.setAttribute(j, circle[i][j]);
                     }
+                    this.cricleAddEvent(g_circle, { x: 130, y: 140 });
                     this.wrap.appendChild(g_circle);
                 }
             },
@@ -220,19 +227,25 @@
                 this.g_text.setAttribute('y', this.text.position.y);
                 this.g_text.innerHTML = this.text.text;
                 this.wrap.appendChild(this.g_text);
+            },
+            cricleAddEvent : function (circle, start) {
+                const line = new Line({
+                    extraClass: '',
+                    style: {
+                    },
+                    point: {
+                        start: start,
+                        end: { x: 200, y: 300 },
+                    }
+                });
+                line.init();
+                linesWrap.appendChild(line.wrap);
+                circle.addEventListener('click', function (e) {
+                    arrowFllowMouse(e, line);
+                });
             }
         }
 
-        const line1 = new Line({
-            extraClass: '',
-            style: {
-            },
-            point: {
-                start: { x: 130, y: 140 },
-                end: { x: 200, y: 300 },
-            }
-        });
-        line1.init();
         const line2 = new Line({
             extraClass: '',
             style: {
@@ -255,22 +268,22 @@
             position: '0 0',
             circle: [
                 {
-                    cx: "130", cy: "100", r: "5", fill: "#1A1A29", 'stroke': '#393853'
+                    cx: "130", cy: "100", r:5,
                 },
                 {
-                    cx: "150", cy: "100", r: "5", fill: "#1A1A29", 'stroke': '#393853'
+                    cx: "150", cy: "100", r:5,
                 },
                 {
-                    cx: "170", cy: "100", r: "5", fill: "#1A1A29", 'stroke': '#393853'
+                    cx: "170", cy: "100", r:5,
                 },
                 {
-                    cx: "130", cy: "140", r: "5", fill: "#1A1A29", 'stroke': '#393853'
+                    cx: "130", cy: "140", r:5,
                 },
                 {
-                    cx: "150", cy: "140", r: "5", fill: "#1A1A29", 'stroke': '#393853'
+                    cx: "150", cy: "140", r:5,
                 },
                 {
-                    cx: "170", cy: "140", r: "5", fill: "#1A1A29", 'stroke': '#393853'
+                    cx: "170", cy: "140", r:5,
                 },
             ],
             path: {
@@ -326,22 +339,31 @@
             },
         });
         node2.init();
-        linesWrap.appendChild(line1.wrap);
         linesWrap.appendChild(line2.wrap);
         nodesWrap.appendChild(node1.wrap);
         nodesWrap.appendChild(node2.wrap);
 
-        function docOnmousedown(e, fn) {
-            console.log(e);
-            let target = e.target;
+        function arrowFllowMouse(e, target) {
+            let {start} = target.data.point;
             let x1 = e.pageX;
             let y1 = e.pageY;
+            console.log(x1, y1);
             function docOnmousemove(e) {
                 let x2 = e.pageX;
                 let y2 = e.pageY;
                 let disx = x2 - x1;
                 let disy = y2 - y1;
-                fn(target, disx, disy);
+                target.data = {
+                    ...target.data,
+                    point: {
+                        ...target.data.point,
+                        end: {
+                            x: start.x + disx,
+                            y: start.y + disy
+                        },
+                    }
+                };
+                target.init();
             }
             function docOnmouseup() {
                 document.removeEventListener('mousemove', docOnmousemove);
@@ -350,6 +372,24 @@
             document.addEventListener('mousemove', docOnmousemove);
             document.addEventListener('mouseup', docOnmouseup);
         }
+        // function docOnmousedown(e, fn) {
+        //     let target = e.target;
+        //     let x1 = e.pageX;
+        //     let y1 = e.pageY;
+        //     function docOnmousemove(e) {
+        //         let x2 = e.pageX;
+        //         let y2 = e.pageY;
+        //         let disx = x2 - x1;
+        //         let disy = y2 - y1;
+        //         fn(target, disx, disy);
+        //     }
+        //     function docOnmouseup() {
+        //         document.removeEventListener('mousemove', docOnmousemove);
+        //         document.removeEventListener('mouseup', docOnmouseup);
+        //     }
+        //     document.addEventListener('mousemove', docOnmousemove);
+        //     document.addEventListener('mouseup', docOnmouseup);
+        // }
 
 
 
