@@ -98,6 +98,8 @@
         const linesWrap = svg.getElementById('lines-wrap');
         const nodesWrap = svg.getElementById('nodes-wrap');
 
+        let ARROW_IS_MOVE = false; // 为 true 时箭头正在随鼠标移动
+
         function Line(data) {
             this.data = data;
             this.wrap = document.createElementNS("http://www.w3.org/2000/svg", 'g');
@@ -134,18 +136,26 @@
                 let disy = end.y-start.y;
                 let r = 5;
                 if (disy < 20) {
-                    console.log('line端点的高度差小于了20');
-                }
-                if (disx >= 10) {
-                    this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a5,5,0,0,0,5,5h${disx-10}a5,5,0,0,1,5,5L${end.x},${end.y}`);
-                } else if (disx >= 0 && disx < 10) {
-                    r = parseInt(disx/2);
-                    this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a${r},${r},0,0,0,${r},${r}h${disx-2*r}a${r},${r},0,0,1,${r},${r}L${end.x},${end.y}`);
-                } else if (disx < 0 && disx > -10) {
-                    r = Math.abs(parseInt(disx/2));
-                    this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a${r},${r},0,0,1,${-r},${r}h${disx+2*r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);                    
-                } else if (disx <= -10) {
-                    this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a${r},${r},0,0,1,${-r},${r}h${disx+2*r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);
+                    let {x:x1,y:y1} = start;
+                    let {x:x2,y:y2} = end;
+                    let k = Math.abs(disx/2);
+                    if (disx>0) {
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${k}a5,5,0,0,0,5,5h${k-10},${0}a5,5,0,0,0,5,-5v-${k},-${Math.abs(y2-y1)+k-10}a5,5,0,0,1,5,-5h${k-10},${0}a5,5,0,0,1,5,5L${x2},${y2}`);
+                    } else {
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${k}a5,5,0,0,1,-5,5h-${k-10},${0}a5,5,0,0,1,-5,-5v-${k},-${Math.abs(y2-y1)+k-10}a5,5,0,0,0,-5,-5h-${k-10},${0}a5,5,0,0,0,-5,5L${x2},${y2}`);
+                    }
+                } else {
+                    if (disx >= 10) {
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a5,5,0,0,0,5,5h${disx-10}a5,5,0,0,1,5,5L${end.x},${end.y}`);
+                    } else if (disx >= 0 && disx < 10) {
+                        r = parseInt(disx/2);
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a${r},${r},0,0,0,${r},${r}h${disx-2*r}a${r},${r},0,0,1,${r},${r}L${end.x},${end.y}`);
+                    } else if (disx < 0 && disx > -10) {
+                        r = Math.abs(parseInt(disx/2));
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a${r},${r},0,0,1,${-r},${r}h${disx+2*r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);                    
+                    } else if (disx <= -10) {
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy)/2-r}a${r},${r},0,0,1,${-r},${r}h${disx+2*r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);
+                    }
                 }
                 this.wrap.appendChild(this.line);
             },
@@ -159,8 +169,16 @@
             setArrow: function () {
                 let point = this.data.point;
                 this.arrow.setAttribute('d', `M${point.end.x},${point.end.y} l6,-7 l-12,0 z`);
+                this.arrowAddEvent(this.arrow, {x: parseInt(point.end.x), y: parseInt(point.end.y) });
                 this.wrap.appendChild(this.arrow);
             },
+            arrowAddEvent : function (circle, end) {
+                let _this = this;
+                circle.addEventListener('click', function (e) {
+                    if (ARROW_IS_MOVE) return; // 箭头正在移动不能添加move事件
+                    arrowFllowMouse(e, _this, 'arrow');
+                });
+            }
         }
 
         function TextNode(data) {
@@ -172,6 +190,13 @@
             this.path = data.path;
             this.text = data.text;
 
+            this.input = data.input;
+            this.output = data.output;
+            this.inputCount = data.inputCount;
+            this.outputCount = data.outputCount;
+
+            this.center = {x:190,y:120};
+
             this.wrap = document.createElementNS("http://www.w3.org/2000/svg", 'g');
             this.g_path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
             this.g_text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
@@ -181,6 +206,8 @@
         TextNode.prototype = {
             constructor: TextNode,
             init: function () {
+                this.calcCirclePos(this.inputCount, 'input');
+                this.calcCirclePos(this.outputCount, 'output');
                 this.setStyle();
                 this.setPath();
                 this.setClass();
@@ -188,6 +215,35 @@
                 this.setPath();
                 this.setCircle();
                 this.setText();
+            },
+            calcCirclePos : function (len, type) {
+                let c = this.center;
+                this[type] = [];
+                if (type == 'input') {
+                    // 通过节点的中心点左侧的端点坐标
+                    let lp = {
+                        x : c.x - (len *2 - 1)*10/2,
+                        y : c.y - 20
+                    };
+                    for (let i =0; i < len; i++) {
+                        this[type].push({
+                            x : lp.x + (i*4 + 1)*5,
+                            y : lp.y,
+                        });
+                    }
+                } else if (type == 'output') {
+                    // 通过节点的中心点左侧的端点坐标
+                    let lp = {
+                        x : c.x - (len *2 - 1)*10/2,
+                        y : c.y + 20
+                    };
+                    for (let i =0; i < len; i++) {
+                        this[type].push({
+                            x : lp.x + (i*4 + 1)*5,
+                            y : lp.y,
+                        });
+                    }
+                }
             },
             setStyle: function () {
                 let style = this.style;
@@ -207,18 +263,30 @@
                 for (let k in path) {
                     this.g_path.setAttribute(k, path[k]);
                 }
-                this.g_path.setAttribute('d', `M100,100 h180 a20,20,0,0,1,0,40 h-180 a20,20,0,0,1,0,-40 z`);
+                this.g_path.setAttribute('d', `M${this.center.x-90},${this.center.y-20} h180 a20,20,0,0,1,0,40 h-180 a20,20,0,0,1,0,-40 z`);
                 this.wrap.appendChild(this.g_path);
             },
             setCircle: function () {
-                let circle = this.circle;
-                for (let i = 0; i < circle.length; i++) {
+                let circle = [...this.input, ...this.output];
+                for (let i = 0; i < this.input.length; i++) {
+                    let circle = this.input[i];
                     let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
                     g_circle.setAttribute('class', 'node_point');
-                    for (let j in circle[i]) {
-                        g_circle.setAttribute(j, circle[i][j]);
-                    }
-                    this.cricleAddEvent(g_circle, { x: 130, y: 140 });
+                    g_circle.setAttribute('cx', circle.x);
+                    g_circle.setAttribute('cy', circle.y);
+                    g_circle.setAttribute('r', circle.r || 5);
+                    g_circle.setAttribute('type', 'input');
+                    this.wrap.appendChild(g_circle);
+                }
+                for (let i = 0; i < this.output.length; i++) {
+                    let circle = this.output[i];
+                    let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    g_circle.setAttribute('class', 'node_point');
+                    g_circle.setAttribute('cx', circle.x);
+                    g_circle.setAttribute('cy', circle.y);
+                    g_circle.setAttribute('r', circle.r || 5);
+                    g_circle.setAttribute('type', 'output');
+                    this.cricleAddEvent(g_circle, {x: parseInt(circle.x), y: parseInt(circle.y) });
                     this.wrap.appendChild(g_circle);
                 }
             },
@@ -235,27 +303,16 @@
                     },
                     point: {
                         start: start,
-                        end: { x: 200, y: 300 },
+                        end: start,
                     }
                 });
-                line.init();
                 linesWrap.appendChild(line.wrap);
                 circle.addEventListener('click', function (e) {
-                    arrowFllowMouse(e, line);
+                    line.init();
+                    arrowFllowMouse(e, line, 'circle');
                 });
             }
         }
-
-        const line2 = new Line({
-            extraClass: '',
-            style: {
-            },
-            point: {
-                start: { x: 150, y: 140 },
-                end: { x: 170, y: 200 },
-            }
-        });
-        line2.init();
 
         const node1 = new TextNode({
             style: {
@@ -266,26 +323,8 @@
             },
             extraClass: '',
             position: '0 0',
-            circle: [
-                {
-                    cx: "130", cy: "100", r:5,
-                },
-                {
-                    cx: "150", cy: "100", r:5,
-                },
-                {
-                    cx: "170", cy: "100", r:5,
-                },
-                {
-                    cx: "130", cy: "140", r:5,
-                },
-                {
-                    cx: "150", cy: "140", r:5,
-                },
-                {
-                    cx: "170", cy: "140", r:5,
-                },
-            ],
+            inputCount : 5,
+            outputCount : 4,
             path: {
                 fill: "#141420", stroke: "#393853"
             },
@@ -294,60 +333,26 @@
                     x: 190,
                     y: 120
                 },
-                text: '文本内容'
+                text: '文本1230123内容'
             },
         });
         node1.init();
-        const node2 = new TextNode({
-            style: {
-            },
-            point: {
-                start: '130,140',
-                end: '400,300'
-            },
-            extraClass: '',
-            position: '0 0',
-            circle: [
-                {
-                    cx: "130", cy: "100", r: "5", fill: "#1A1A29", 'stroke': '#393853'
-                },
-                {
-                    cx: "150", cy: "100", r: "5", fill: "#1A1A29", 'stroke': '#393853'
-                },
-                {
-                    cx: "170", cy: "100", r: "5", fill: "#1A1A29", 'stroke': '#393853'
-                },
-                {
-                    cx: "130", cy: "140", r: "5", fill: "#1A1A29", 'stroke': '#393853'
-                },
-                {
-                    cx: "150", cy: "140", r: "5", fill: "#1A1A29", 'stroke': '#393853'
-                },
-                {
-                    cx: "170", cy: "140", r: "5", fill: "#1A1A29", 'stroke': '#393853'
-                },
-            ],
-            path: {
-                fill: "#141420", stroke: "#393853"
-            },
-            text: {
-                position: {
-                    x: 190,
-                    y: 120
-                },
-                text: '文本内容'
-            },
-        });
-        node2.init();
-        linesWrap.appendChild(line2.wrap);
         nodesWrap.appendChild(node1.wrap);
-        nodesWrap.appendChild(node2.wrap);
 
-        function arrowFllowMouse(e, target) {
-            let {start} = target.data.point;
+        function arrowFllowMouse(e, target, type) {
+            ARROW_IS_MOVE = true;
+            let {start, end} = target.data.point;
             let x1 = e.pageX;
             let y1 = e.pageY;
-            console.log(x1, y1);
+            let beginPos = {
+                ...start
+            };
+            if (type == 'arrow') {
+                beginPos = {
+                    x : end.x,
+                    y : end.y,
+                };
+            }
             function docOnmousemove(e) {
                 let x2 = e.pageX;
                 let y2 = e.pageY;
@@ -356,11 +361,11 @@
                 target.data = {
                     ...target.data,
                     point: {
-                        ...target.data.point,
+                        start,
                         end: {
-                            x: start.x + disx,
-                            y: start.y + disy
-                        },
+                            x: beginPos.x + disx,
+                            y: beginPos.y + disy
+                        }
                     }
                 };
                 target.init();
@@ -368,28 +373,13 @@
             function docOnmouseup() {
                 document.removeEventListener('mousemove', docOnmousemove);
                 document.removeEventListener('mouseup', docOnmouseup);
+                setTimeout(() => {
+                    ARROW_IS_MOVE = false; // 该事件要最后添加
+                }, 0);
             }
             document.addEventListener('mousemove', docOnmousemove);
             document.addEventListener('mouseup', docOnmouseup);
         }
-        // function docOnmousedown(e, fn) {
-        //     let target = e.target;
-        //     let x1 = e.pageX;
-        //     let y1 = e.pageY;
-        //     function docOnmousemove(e) {
-        //         let x2 = e.pageX;
-        //         let y2 = e.pageY;
-        //         let disx = x2 - x1;
-        //         let disy = y2 - y1;
-        //         fn(target, disx, disy);
-        //     }
-        //     function docOnmouseup() {
-        //         document.removeEventListener('mousemove', docOnmousemove);
-        //         document.removeEventListener('mouseup', docOnmouseup);
-        //     }
-        //     document.addEventListener('mousemove', docOnmousemove);
-        //     document.addEventListener('mouseup', docOnmouseup);
-        // }
 
 
 
