@@ -7,128 +7,549 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        html{
-            height:100%;
-        }
-        body {
-            padding: 0;
-            margin: 0;
+        html {
             height: 100%;
         }
 
-        .minder-editor {
+        body {
+            margin: 0;
+            padding: 0;
             height: 100%;
+            background: #1A1A25;
+        }
+
+        .line_wrap path {
+            stroke-width: 2px;
+        }
+
+        .line_wrap .line {
+            fill: none;
+            stroke: #393853;
+        }
+
+        .line_wrap circle {
+            fill: #1A1A25;
+            stroke: #393853;
+        }
+
+        .line_wrap .arrow {
+            fill: #393853;
+        }
+
+        .line_wrap:hover path {
+            stroke: #42BFFD;
+        }
+
+        .line_wrap:hover circle {
+            fill: #42BFFD;
+            stroke: #42BFFD;
+        }
+
+        .line_wrap:hover .arrow {
+            fill: #42BFFD;
+            stroke: none;
+        }
+
+
+
+        .node {
+            fill: none;
+        }
+
+        .node .node_point {
+            fill: #1A1A29;
+            stroke: #393853;
+        }
+
+        .node .node_border {
+            fill: #141420;
+            stroke: #393853;
+        }
+
+        .node text {
+            fill: #dbe2ea;
+            dominant-baseline: middle;
+            text-anchor: middle;
+            font-size: 14px;
+        }
+
+        .node:hover .node_border {
+            stroke: #42BFFD;
         }
     </style>
-
 </head>
 
 <body>
-    <div class="minder-editor km-editor km-view focus km-theme-fresh-blue" style="background: rgb(251, 251, 251);">
-        <svg id="kity_svg_6" width="100%" height="100%" style="cursor: default;">
-            <defs id="kity_defs_7">
-                <linearGradient id="kity_linearGradient_17" x1="0" y1="0" x2="0" y2="1">
-                    <stop id="kity_stop_18" offset="0" stop-color="rgb(255, 255, 255)"></stop>
-                    <stop id="kity_stop_19" offset="1" stop-color="rgb(204, 204, 204)"></stop>
-                </linearGradient>
-                <marker id="kity_marker_2" orient="auto" refX="6" refY="0" viewBox="-7 -7 14 14" markerWidth="7"
-                    markerHeight="7" markerUnits="userSpaceOnUse">
-                    <path id="kity_path_3" fill="rgb(115, 161, 191)" stroke="none" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                </marker>
-            </defs>
-            <g id="kity_g_8" transform="translate(0.5, 0.5)">
-                <g id="minder1" text-rendering="optimize-speed" transform="translate( 104 169 )">
-                    <g id="minder_connect_group1">
-                        <path id="kity_path_31" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1" marker-end="url(#kity_marker_2)"
-                            d="M32 0A164,69,0,0,0,196 69" transform="translate( 0 0 )"></path>
-                        <path id="kity_path_33" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1" d="M295 69C352,69,352,23,409 23L489 23"
-                            transform="translate( 0 0 )"></path>
-                        <path id="kity_path_35" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1" marker-end="url(#kity_marker_2)"
-                            d="M32 0A151,83,0,0,1,183 -83" transform="translate( 0 0 )"></path>
-                        <path id="kity_path_37" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1" marker-end="url(#kity_marker_2)"
-                            d="M32 0A334,177,0,0,0,366 177" transform="translate( 0 0 )"></path>
-                        <path id="kity_path_39" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1" marker-end="url(#kity_marker_2)"
-                            d="M32 0A174,33,0,0,0,-142 -33" transform="translate( 0 0 )"></path>
-                        <path id="kity_path_41" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1" marker-end="url(#kity_marker_2)"
-                            d="M32 0A174,33,0,0,1,-142 33" transform="translate( 0 0 )"></path>
-                    </g>
-                    <g id="minder_node1" transform="matrix( 1 0 0 1 0 0 )">
-                        <path id="node_outline1" fill="rgb(115, 161, 191)" stroke="rgb(115, 161, 191)" d="M-19,-20h102a5,5,0,0,1,5,5v30a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-30a5,5,0,0,1,5,-5z"
-                            stroke-width="3"></path>
-                        <g id="node_text1" transform="translate( 0 -2.4 )" fill="white"><text id="kity_text_22"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="16" dy="0" y="-8">新建脑图</text></g>
-                    </g>
-                    <g id="kity_g_12" display="none">
-                        <path id="kity_path_13" fill="none" stroke="none" d="M0,0h0v0h0z"></path>
-                    </g>
-                    <g id="kity_g_14" display="none">
-                        <path id="kity_path_15" fill="none" stroke="none" d="M0,0h0v0h0z"></path>
-                        <path id="kity_path_16" fill="none" stroke="none"></path>
-                    </g>
-                    <g id="minder_node2" transform="matrix( 1 0 0 1 218 69 )">
-                        <g id="node_expander2" transform="translate( -27 0 )" style="cursor: pointer;">
-                            <path id="kity_path_64" fill="white" stroke="gray" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                            <path id="kity_path_65" fill="none" stroke="gray" d="M-4.5,0L4.5,0"></path>
-                        </g>
-                        <path id="node_outline3" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)" d="M-17,-13h91a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-91a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
-                            stroke-width="1"></path>
-                        <g id="node_text3" transform="translate( 0 -2.1 )" fill="black"><text id="kity_text_45"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="14" dy="0" y="-7">分支主题</text></g>
-                    </g>
-                    <g id="minder_node3" transform="matrix( 1 0 0 1 429 9 )" opacity="1">
-                        <g id="node_expander1" transform="translate( -16 0 )" style="cursor: pointer;" display="none">
-                            <path id="kity_path_61" fill="white" stroke="gray" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                            <path id="kity_path_62" fill="none" stroke="gray"></path>
-                        </g>
-                        <path id="node_outline2" fill="transparent" stroke="none" d="M-5,-11h60a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-60a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"
-                            stroke-width="3"></path>
-                        <g id="node_text2" transform="translate( 0 -1.7999999999999998 )" fill="black"><text id="kity_text_43"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="12" dy="0" y="-6">分支主题</text></g>
-                    </g>
-                    <g id="minder_node4" transform="matrix( 1 0 0 1 205 -83 )" opacity="1">
-                        <g id="node_expander3" transform="translate( -27 0 )" style="cursor: pointer;" display="none">
-                            <path id="kity_path_67" fill="white" stroke="gray" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                            <path id="kity_path_68" fill="none" stroke="gray"></path>
-                        </g>
-                        <path id="node_outline4" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)" d="M-17,-13h91a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-91a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
-                            stroke-width="1"></path>
-                        <g id="node_text4" transform="translate( 0 -2.1 )" fill="black"><text id="kity_text_47"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="14" dy="0" y="-7">分支主题</text></g>
-                    </g>
-                    <g id="minder_node5" transform="matrix( 1 0 0 1 388 177 )">
-                        <g id="node_expander4" display="none" transform="translate( -27 0 )" style="cursor: pointer;">
-                            <path id="kity_path_70" fill="white" stroke="gray" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                            <path id="kity_path_71" fill="none" stroke="gray"></path>
-                        </g>
-                        <path id="node_outline5" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)" d="M-17,-13h91a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-91a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
-                            stroke-width="1"></path>
-                        <g id="node_text5" transform="translate( 0 -2.1 )" fill="black"><text id="kity_text_49"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="14" dy="0" y="-7">分支主题</text></g>
-                    </g>
-                    <g id="minder_node6" transform="matrix( 1 0 0 1 -221 -33 )">
-                        <g id="node_expander5" display="none" transform="translate( 84 0 )" style="cursor: pointer;">
-                            <path id="kity_path_73" fill="white" stroke="gray" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                            <path id="kity_path_74" fill="none" stroke="gray"></path>
-                        </g>
-                        <path id="node_outline6" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)" d="M-17,-13h91a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-91a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
-                            stroke-width="1"></path>
-                        <g id="node_text6" transform="translate( 0 -2.1 )" fill="black"><text id="kity_text_51"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="14" dy="0" y="-7">分支主题</text></g>
-                    </g>
-                    <g id="minder_node7" transform="matrix( 1 0 0 1 -221 33 )">
-                        <g id="node_expander6" display="none" transform="translate( 84 0 )" style="cursor: pointer;">
-                            <path id="kity_path_76" fill="white" stroke="gray" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
-                            <path id="kity_path_77" fill="none" stroke="gray"></path>
-                        </g>
-                        <path id="node_outline7" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)" d="M-17,-13h91a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-91a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
-                            stroke-width="1"></path>
-                        <g id="node_text7" transform="translate( 0 -2.1 )" fill="black"><text id="kity_text_53"
-                                text-rendering="inherit" dominant-baseline="text-before-edge" font-size="14" dy="0" y="-7">分支主题</text></g>
-                    </g>
-                </g>
-            </g>
-        </svg>
-    </div>
+    <svg id="link-svg" class="link_svg" width="100%" height="100%">
+        <g id="nodes-wrap" class="nodes-wrap">
+            <!-- <g class="node_wrap" transform="matrix( 1 0 0 1 0 0 )">
+                <circle cx="130" cy="100" r="5" fill="red" />
+                <circle cx="150" cy="100" r="5" fill="red" />
+                <circle cx="170" cy="100" r="5" fill="red" />
+                <circle cx="130" cy="140" r="5" fill="red" />
+                <circle cx="150" cy="140" r="5" fill="red" />
+                <circle cx="170" cy="140" r="5" fill="red" />
+                <path fill="black" stroke="black" d="M100,100 h102a5,5,0,0,1,5,5v30a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-30a5,5,0,0,1,5,-5z"></path>
+                <text x='150' y='120' fill='white' dominant-baseline="middle" text-anchor="middle">
+                    文字内容
+                </text>
+            </g> -->
+        </g>
+        <g id="lines-wrap" class="lines-wrap" transform="matrix( 1 0 0 1 0 0 )">
+            <!-- <g class="line_wrap">
+                <circle cx="130" cy="140" r="5" fill="black" />
+                <path fill="none" stroke="black" stroke-width="2" d="M130,140 A334,144,0,0,0,400,300">
+                </path>
+                <path fill="black" stroke="black" stroke-width="2" d="M400,300 l6,-7 l-12,0 z">
+                </path>
+            </g> -->
+        </g>
+    </svg>
+    <script>
+        const svg = document.getElementById('link-svg');
+        const linesWrap = svg.getElementById('lines-wrap');
+        const nodesWrap = svg.getElementById('nodes-wrap');
+
+        let ARROW_IS_MOVE = false; // 为 true 时箭头正在随鼠标移动
+
+        function arrowFllowMouse(e, target, type) {
+            ARROW_IS_MOVE = true;
+            let { start, end } = target.data.point;
+            let x1 = e.pageX;
+            let y1 = e.pageY;
+            let beginPos = {
+                ...start
+            };
+            if (type == 'arrow') {
+                beginPos = {
+                    x: end.x,
+                    y: end.y,
+                };
+            }
+            function lineMousemove(e) {
+                let x2 = e.pageX;
+                let y2 = e.pageY;
+                let disx = x2 - x1;
+                let disy = y2 - y1;
+                target.data = {
+                    ...target.data,
+                    point: {
+                        start,
+                        end: {
+                            x: beginPos.x + disx,
+                            y: beginPos.y + disy
+                        }
+                    }
+                };
+                target.init();
+            }
+            function lineMouseup() {
+                document.removeEventListener('mousemove', lineMousemove);
+                document.removeEventListener('mouseup', lineMouseup);
+                setTimeout(() => {
+                    ARROW_IS_MOVE = false; // 该事件要最后添加
+                }, 0);
+            }
+            document.addEventListener('mousemove', lineMousemove);
+            document.addEventListener('mouseup', lineMouseup);
+        }
+
+        // 观察者，管理 input output 的连接情况
+        const observer = (function () {
+            let _message = {};
+            function regist(type, fn) {
+                if (_message[type] === undefined) {
+                    _message[type] = [fn];
+                } else {
+                    _message[type].push(fn);
+                }
+                return observer;
+            }
+            function fire(type, message) {
+                if (_message[type] === undefined) return;
+                let len = _message[type].length;
+                for (let i = 0; i < len; i++) {
+                    _message[type][i](message);
+                }
+                return observer;
+            }
+            function remove(type, fn) {
+                // remove的方法中，必须传入fn啊，不然你不知道删除哪一个方法
+                if (_message[type] === undefined) return;
+                let len = _message[type].length;
+                for (let i = len; i < 0; i--) {
+                    if (_message[type][i] === fn) {
+                        _message[type].splice(i, 1);
+                        break;
+                    }
+                }
+                return observer;
+            }
+            return {
+                regist,
+                fire,
+                remove,
+            }
+        })();
+
+        function Line(data) {
+            this.data = data;
+            this.wrap = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            this.arc = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+            this.arc.setAttribute('r', 5);
+            this.line = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.line.setAttribute('class', 'line');
+            this.arrow = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.arrow.setAttribute('class', 'arrow');
+            let arrowPos = this.data.point.end;
+            this.arrowAddEvent(this.arrow, { x: parseInt(arrowPos.x), y: parseInt(arrowPos.y) });
+        }
+
+        Line.prototype = {
+            constructor: Line,
+            init: function () {
+                this.setStyle();
+                this.setClass();
+                this.move();
+                this.wrap.appendChild(this.line);
+                this.wrap.appendChild(this.arc);
+                this.wrap.appendChild(this.arrow);
+            },
+            move:function() {
+                this.setLine();
+                this.setArc();
+                this.setArrow();
+            },
+            setStyle: function () {
+                let style = this.data.style || null;
+                if (!style) return;
+                for (let k in style) {
+                    this.wrap.setAttribute(k, style[k]);
+                }
+            },
+            setClass: function () {
+                let extraClass = `line_wrap ${this.data.extraClass || ''}`;
+                this.wrap.setAttribute('class', extraClass || '');
+            },
+            setLine: function () {
+                let { start, end } = this.data.point;
+                let disx = end.x - start.x;
+                let disy = end.y - start.y;
+                let r = 5;
+                if (disy < 20) {
+                    let { x: x1, y: y1 } = start;
+                    let { x: x2, y: y2 } = end;
+                    let k = Math.abs(disx / 2);
+                    let by = 20 + k / 2; // 纵轴上偏移至少40
+                    if (disx >= 20) {
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a5,5,0,0,0,5,5h${k - 10},${0}a5,5,0,0,0,5,-5v-${k},${-(Math.abs(y2 - y1) - 10 + 2 * by)}a5,5,0,0,1,5,-5h${k - 10},${0}a5,5,0,0,1,5,5L${x2},${y2}`);
+                    } else if (disx >= 0 && disx < 20) {
+                        r = k / 2;
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a${r},${r},0,0,0,${k},${0}v${0},${-(Math.abs(y2 - y1) + 2 * r + 2 * by)}a${r},${r},0,0,1,${k},${0}L${x2},${y2}`);
+                    } else if (disx < 0 && disx > -10) {
+                        r = k / 2;
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a${r},${r},0,0,1,${-k},${0}v${0},${-(Math.abs(y2 - y1) + 2 * r + 2 * by)}a${r},${r},0,0,0,${-k},${0}L${x2},${y2}`);
+                    } else if (disx <= -10) {
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a5,5,0,0,1,-5,5h${-(k - 10)},${0}a5,5,0,0,1,-5,-5v-${k},${-(Math.abs(y2 - y1) - 10 + 2 * by)}a5,5,0,0,0,-5,-5h${-(k - 10)},${0}a5,5,0,0,0,-5,5L${x2},${y2}`);
+                    }
+                } else {
+                    if (disx >= 10) {
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a5,5,0,0,0,5,5h${disx - 10}a5,5,0,0,1,5,5L${end.x},${end.y}`);
+                    } else if (disx >= 0 && disx < 10) {
+                        r = parseInt(disx / 2);
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a${r},${r},0,0,0,${r},${r}h${disx - 2 * r}a${r},${r},0,0,1,${r},${r}L${end.x},${end.y}`);
+                    } else if (disx < 0 && disx > -10) {
+                        r = Math.abs(parseInt(disx / 2));
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a${r},${r},0,0,1,${-r},${r}h${disx + 2 * r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);
+                    } else if (disx <= -10) {
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a${r},${r},0,0,1,${-r},${r}h${disx + 2 * r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);
+                    }
+                }
+            },
+            setArc: function () {
+                let point = this.data.point;
+                this.arc.setAttribute('cx', `${point.start.x}`);
+                this.arc.setAttribute('cy', `${point.start.y}`);
+            },
+            setArrow: function () {
+                let point = this.data.point;
+                this.arrow.setAttribute('d', `M${point.end.x},${point.end.y} l6,-7 l-12,0 z`);
+            },
+            arrowAddEvent: function (arrow, end) {
+                let _this = this;
+                arrow.addEventListener('click', function (e) {
+                    if (ARROW_IS_MOVE) return; // 箭头正在移动不能添加move事件
+                    arrowFllowMouse(e, _this, 'arrow');
+                });
+            }
+        }
+
+        function TextNode(data) {
+            this.data = data;
+            this.style = this.data.style || null;
+            this.extraClass = this.data.extraClass || '';
+            this.center = this.data.center;
+            this.input = this.data.input;
+            this.output = this.data.output;
+            this.text = this.data.text;
+            this.transform = this.data.transform;
+            // 用于存放生成的circle的实例，方便批量改变属性用
+            this.inputDom = [];
+            this.outputDom = [];
+            // 用于存放点击后生成的line的实例，方便批量改变属性用
+            this.lineDom = [];
+
+            this.wrap = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            this.g_path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.g_path.setAttribute('class', 'node_border');
+            this.wrap.appendChild(this.g_path);
+            this.g_text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+            this.wrapAddEvent(this.wrap);
+        }
+        TextNode.prototype = {
+            constructor: TextNode,
+            init: function () {
+                this.setStyle();
+                this.setClass();
+                this.move();
+                this.hasInit = true;
+            },
+            move: function () {
+                this.calcCirclePos(this.input.length || 0, 'input');
+                this.calcCirclePos(this.output.length || 0, 'output');
+                if (!this.hasInit) this.creatCircle();
+                this.setPath();
+                this.setCircle();
+                this.setText();
+                this.setLineDom();
+            },
+            // 通过中心点生成 input 和 output 左边点
+            calcCirclePos: function (len, type) {
+                let c = this.center;
+                this[type + 'Pos'] = [];
+                if (type == 'input') {
+                    // 通过节点的中心点左侧的端点坐标
+                    let lp = {
+                        x: c.x - (len * 2 - 1) * 10 / 2,
+                        y: c.y - 20
+                    };
+                    for (let i = 0; i < len; i++) {
+                        this[type + 'Pos'].push({
+                            x: lp.x + (i * 4 + 1) * 5,
+                            y: lp.y,
+                        });
+                    }
+                } else if (type == 'output') {
+                    // 通过节点的中心点左侧的端点坐标
+                    let lp = {
+                        x: c.x - (len * 2 - 1) * 10 / 2,
+                        y: c.y + 20
+                    };
+                    for (let i = 0; i < len; i++) {
+                        this[type + 'Pos'].push({
+                            x: lp.x + (i * 4 + 1) * 5,
+                            y: lp.y,
+                        });
+                    }
+                }
+            },
+            setStyle: function () {
+                let style = this.style;
+                for (let k in style) {
+                    this.wrap.setAttribute(k, style[k]);
+                }
+            },
+            setClass: function () {
+                this.wrap.setAttribute('class', `node ${this.extraClass || ''}`);
+            },
+            setPath: function () {
+                this.g_path.setAttribute('d', `M${this.center.x - 90},${this.center.y - 20} h180 a20,20,0,0,1,0,40 h-180 a20,20,0,0,1,0,-40 z`);
+            },
+            creatCircle: function () {
+                for (let i = 0; i < this.input.length; i++) {
+                    let pos = this.inputPos[i];
+                    let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    g_circle.setAttribute('class', 'node_point');
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                    g_circle.setAttribute('r', pos.r || 5);
+                    g_circle.setAttribute('type', 'input');
+                    this.wrap.appendChild(g_circle);
+                    this.inputDom.push(g_circle);
+                }
+                for (let i = 0; i < this.output.length; i++) {
+                    let pos = this.outputPos[i];
+                    let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    g_circle.setAttribute('class', 'node_point');
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                    g_circle.setAttribute('r', pos.r || 5);
+                    g_circle.setAttribute('type', 'output');
+                    this.cricleAddEvent(this, g_circle, { x: Number(pos.x), y: Number(pos.y) });
+                    this.wrap.appendChild(g_circle);
+                    this.outputDom.push(g_circle);
+                }
+            },
+            setCircle: function () {
+                for (let i = 0; i < this.input.length; i++) {
+                    let pos = this.inputPos[i];
+                    let g_circle = this.inputDom[i];
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                }
+                for (let i = 0; i < this.output.length; i++) {
+                    let pos = this.outputPos[i];
+                    let g_circle = this.outputDom[i];
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                }
+            },
+            setText: function () {
+                this.g_text.setAttribute('x', this.center.x);
+                this.g_text.setAttribute('y', this.center.y);
+                this.g_text.innerHTML = this.text.text;
+                this.wrap.appendChild(this.g_text);
+            },
+            cricleAddEvent: function (target, circle, start) {
+                const line = new Line({
+                    extraClass: '',
+                    style: {
+                    },
+                    point: {
+                        start: start,
+                        end: start,
+                    }
+                });
+                linesWrap.appendChild(line.wrap);
+                circle.addEventListener('click', function (e) {
+                    line.init();
+                    arrowFllowMouse(e, line, 'circle');
+                });
+                target.lineDom.push(line);
+            },
+            setLineDom: function () {
+                for (let i = 0; i < this.lineDom.length; i++) {
+                    let line = this.lineDom[i];
+                    line.data.point.start.x =  this.outputPos[i].x;
+                    line.data.point.start.y =  this.outputPos[i].y;
+                    line.move();
+                }
+            },
+            wrapAddEvent: function () {
+                let target = this;
+                this.wrap.addEventListener('mousedown', function (e) {
+                    let { x = 0, y = 0 } = target.data.center;
+                    // console.log('mousedown', x, y, target.data.transform);
+                    let x1 = e.pageX;
+                    let y1 = e.pageY;
+                    function nodeMousemove(e) {
+                        let x2 = e.pageX;
+                        let y2 = e.pageY;
+                        let disx = x2 - x1;
+                        let disy = y2 - y1;
+                        target.data.center.x = x + disx;
+                        target.data.center.y = y + disy;
+                        // console.log('nodeMousemove', target.data.transform);
+                        target.move();
+                    }
+                    function nodeMouseup() {
+                        document.removeEventListener('mousemove', nodeMousemove);
+                        document.removeEventListener('mouseup', nodeMouseup);
+                    }
+                    document.addEventListener('mousemove', nodeMousemove);
+                    document.addEventListener('mouseup', nodeMouseup);
+                });
+            }
+        }
+
+        const node1 = new TextNode({
+            style: {
+            },
+            extraClass: '',
+            center: { x: 190, y: 120 },
+            input:[
+                {
+                    type : 'yellow',
+                    hasLink: false
+                },
+                {
+                    type : 'red',
+                    hasLink: false
+                },
+                {
+                    type : 'gren',
+                    hasLink: false
+                },
+            ],
+            output:[
+                {
+                    type : 'yellow',
+                    hasLink: false
+                },
+                {
+                    type : 'red',
+                    hasLink: false
+                },
+                {
+                    type : 'gren',
+                    hasLink: false
+                },
+            ],
+            text: {
+                text: '0文本内容'
+            },
+            transform: {}
+        });
+        node1.init();
+        nodesWrap.appendChild(node1.wrap);
+
+        const node2 = new TextNode({
+            style: {
+            },
+            extraClass: '',
+            center: { x: 300, y: 400 },
+            input: [
+                {
+                    type : 'yellow',
+                    hasLink: false
+                },
+                {
+                    type : 'red',
+                    hasLink: false
+                },
+                {
+                    type : 'gren',
+                    hasLink: false
+                },
+            ],
+            output: [
+                {
+                    type : 'yellow',
+                    hasLink: false
+                },
+                {
+                    type : 'red',
+                    hasLink: false
+                },
+                {
+                    type : 'gren',
+                    hasLink: false
+                },
+            ],
+            text: {
+                text: '1文本内容'
+            },
+            transform: {}
+        });
+        node2.init();
+        nodesWrap.appendChild(node2.wrap);
+
+
+
+
+
+    </script>
 </body>
 
 </html>
