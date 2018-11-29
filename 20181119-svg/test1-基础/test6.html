@@ -50,8 +50,6 @@
             stroke: none;
         }
 
-
-
         .node {
             fill: none;
         }
@@ -109,11 +107,14 @@
         const svg = document.getElementById('link-svg');
         const linesWrap = svg.getElementById('lines-wrap');
         const nodesWrap = svg.getElementById('nodes-wrap');
+        let nodes = []; // 装所有的节点
 
         let ARROW_IS_MOVE = false; // 为 true 时箭头正在随鼠标移动
+        let currentLine = null; // 当前正在移动的line
 
         function arrowFllowMouse(e, target, type) {
             ARROW_IS_MOVE = true;
+            currentLine = target;
             let { start, end } = target.data.point;
             let x1 = e.pageX;
             let y1 = e.pageY;
@@ -374,7 +375,8 @@
                     g_circle.setAttribute('cx', pos.x);
                     g_circle.setAttribute('cy', pos.y);
                     g_circle.setAttribute('r', pos.r || 5);
-                    g_circle.setAttribute('type', 'input');
+                    g_circle.setAttribute('type', this.input[i].type);
+                    this.inputCricleAddEvent(this, g_circle);
                     this.wrap.appendChild(g_circle);
                     this.inputDom.push(g_circle);
                 }
@@ -385,8 +387,8 @@
                     g_circle.setAttribute('cx', pos.x);
                     g_circle.setAttribute('cy', pos.y);
                     g_circle.setAttribute('r', pos.r || 5);
-                    g_circle.setAttribute('type', 'output');
-                    this.cricleAddEvent(this, g_circle, { x: Number(pos.x), y: Number(pos.y) });
+                    g_circle.setAttribute('type', this.output[i].type);
+                    this.outputCricleAddEvent(this, g_circle, { x: Number(pos.x), y: Number(pos.y) });
                     this.wrap.appendChild(g_circle);
                     this.outputDom.push(g_circle);
                 }
@@ -411,7 +413,19 @@
                 this.g_text.innerHTML = this.text.text;
                 this.wrap.appendChild(this.g_text);
             },
-            cricleAddEvent: function (target, circle, start) {
+            inputCricleAddEvent:function(target, circle) {
+                circle.addEventListener('mouseover', function () {
+                    if (ARROW_IS_MOVE) {
+                        let type = currentLine.data.type;
+                        if (type == circle.getAttribute('type')) {
+                            console.log('变颜色 并绑定');
+                            // 变颜色 并绑定
+                            circle.setAttribute('fill', type)
+                        }
+                    }
+                });
+            },
+            outputCricleAddEvent: function (target, circle, start) {
                 const line = new Line({
                     extraClass: '',
                     style: {
@@ -419,7 +433,8 @@
                     point: {
                         start: start,
                         end: start,
-                    }
+                    },
+                    type: circle.getAttribute('type')
                 });
                 linesWrap.appendChild(line.wrap);
                 circle.addEventListener('click', function (e) {
@@ -503,6 +518,7 @@
         });
         node1.init();
         nodesWrap.appendChild(node1.wrap);
+        nodes.push(node1);
 
         const node2 = new TextNode({
             style: {
@@ -544,6 +560,7 @@
         });
         node2.init();
         nodesWrap.appendChild(node2.wrap);
+        nodes.push(node2);
 
 
 
