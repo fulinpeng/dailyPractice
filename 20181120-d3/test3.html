@@ -8,16 +8,18 @@
     <title>Document</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <style>
-        .rect{
-            fill:steelblue;
+        /* .rect {
+            fill: steelblue;
+        } */
+
+        .text {
+            fill: white;
         }
-        .text{
-            fill:white;
-        }
+
         .axis path,
         .axis line {
             fill: none;
-            stroke-width:2px;
+            stroke-width: 2px;
             stroke: black;
         }
 
@@ -47,18 +49,11 @@
         var padding = { left: 30, right: 30, top: 20, bottom: 20 };
         var xText = ["red", "blue", "green", "yellow", "black", "orange", "white", "pink"];
         // x轴的比例尺
-        var xScaleText = d3.scale.ordinal()
-            // .domain(d3.range(dataset.length))
-            // .rangeRoundBands([0, width - padding.left - padding.right]);
-            .domain(d3.range(dataset.length)) // 生成一个 0 - 7 的数组
-            .range(xText);
-            // .rangeRoundBands([0, width - padding.left - padding.right]);
         var xScale = d3.scale.ordinal()
-            .domain(d3.range(dataset.length))
+            .domain(d3.range(dataset.length)) // 生成一个 0 - 7 的数组
+            // .domain(xText) // 或者直接用一个数组
             .rangeRoundBands([0, width - padding.left - padding.right]);
-            // .domain(d3.range(dataset.length)) // 生成一个 0 - 7 的数组
-            // .range(xText)
-            // .rangeRoundBands([0, width - padding.left - padding.right]);
+        console.log('生成一个 0 - 7 的数组', d3.range(dataset.length));
         // y轴的比例尺
         var yScale = d3.scale.linear()
             .domain([0, d3.max(dataset)])
@@ -83,17 +78,32 @@
             .enter()
             .append("rect")
             .attr("class", "rect")
-            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr("fill", "steelblue");
+
+        rects.attr("transform", "translate(" + padding.left + "," + padding.top + ")")
             .attr("x", function (d, i) {
                 return xScale(i) + rectPadding / 2;
             })
+            .attr("width", xScale.rangeBand() - rectPadding)
+            .attr("y", function (d) {
+                var min = yScale.domain()[0];
+                return yScale(min);
+            })
+            .attr("height", function (d) { // 不加这个效果是：从y轴负方向出来！没懂原理（应该是起到初始值的作用吧）
+                return 0;
+            })
+            .transition() // 加上过渡动画 test4.html 有更多实例
+            .delay(function (d, i) {
+                return i * 200;
+            })
+            .duration(2000)
+            .ease("bounce")
             .attr("y", function (d) {
                 return yScale(d);
             })
-            .attr("width", xScale.rangeBand() - rectPadding)
             .attr("height", function (d) {
                 return height - padding.top - padding.bottom - yScale(d);
-            });
+            })
 
         //添加文字元素
         var texts = svg.selectAll(".text")
@@ -105,9 +115,6 @@
             .attr("x", function (d, i) {
                 return xScale(i) + rectPadding / 2;
             })
-            .attr("y", function (d) {
-                return yScale(d);
-            })
             .attr("dx", function () {
                 return (xScale.rangeBand() - rectPadding) / 2 - 8;
             })
@@ -116,13 +123,26 @@
             })
             .text(function (d) {
                 return d;
+            })
+            .attr("y", function (d) {
+                var min = yScale.domain()[0];
+                return yScale(min);
+            })
+            .transition() // 加上过渡动画 test4.html 会讲
+            .delay(function (d, i) {
+                return i * 200;
+            })
+            .duration(2000)
+            .ease("bounce")
+            .attr("y", function (d) {
+                return yScale(d);
             });
 
         //添加x轴
         svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
-            .call(xScaleText);
+            .call(xAxis);
 
         //添加y轴
         svg.append("g")
@@ -130,10 +150,18 @@
             .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
             .call(yAxis);
 
-
-
-
-
+        // 添加事件
+        rects.on("mouseover", function (d, i) {
+            console.log(d, i, d3.select(this));
+            d3.select(this)
+                .attr("fill", "orange");
+        })
+            .on("mouseout", function (d, i) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .attr("fill", "steelblue");
+            });
 
 
 
