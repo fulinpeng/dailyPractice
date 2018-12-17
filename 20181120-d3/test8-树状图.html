@@ -111,6 +111,7 @@
                     }
                 ]
             };
+            
             var nodes = tree.nodes(root);
             var links = tree.links(nodes);
 
@@ -121,6 +122,8 @@
         // d3.svg.diagonal() 这是一个对角线生成器
         var diagonal = d3.svg.diagonal()
             .projection(function (d) { return [d.y, d.x]; });
+
+        
 
     </script>
 </body>
