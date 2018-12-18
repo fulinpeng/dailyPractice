@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
+    <!-- <script src="http://d3js.org/d3.v5.min.js"></script> -->
 </head>
 
 <body>
@@ -38,8 +39,8 @@
         d3.select("body").style("background-color", "white")  // 直接选择 ->并设置属性
             .select('.div1')
             .selectAll("p").style("color", function () { // 选择 -> 动态设置属性
-            return "hsl(" + Math.random() * 360 + ",100%,50%)";
-        });
+                return "hsl(" + Math.random() * 360 + ",100%,50%)";
+            });
 
         var dataArr = [4, 8, 15, 16, 23, 42];
         
@@ -61,12 +62,12 @@
 
         // insert
         d3.select('.div3')
-            .insert("p","#myid")
+            .insert("p").attr('id', 'myid')
             .text("insert p element");
 
         // remove
         d3.select("#myid")
-            .remove();
+            // .remove();
 
         // Update…
         var p = d3.select("body") // 直接把数据绑定到Dom并输出，数组元素个数与p节点的个数一致就全部更新文本，如果不一致，就只更新现有p节点的文本，多余的数据会被保存起来，看下面会用到
@@ -89,6 +90,8 @@
         var remeP = p.exit().remove(); // 如果不一致，数组元素个数比p节点少，就删除多余的p节点
         console.log('remeP', remeP); // 就是多余的p
 
+        // 不好记：反正是改变dom的，不可能改变数据嘛，所以就是
+
         // 把所有圆圈改变半径
         var scale = 2;
         console.log('circle', d3.selectAll("circle"))
@@ -96,9 +99,9 @@
             .duration(750) // 动画持续时间
             .delay(function (d, i) { return i * 10; }) // 元素动画要延时多少时间开始
             .attr("r", function (d, i) {
-                console.log('d', d, i);
-                // return Math.sqrt(d * scale);
-                return 100;
+                console.log('d', d, i); // 这里的d是个空的
+                return Math.sqrt(i * scale);
+                // return 100;
             }); // 设置最后效果
             console.log('circle2', circle);
 
