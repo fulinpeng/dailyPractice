@@ -1,1 +1,2 @@
-import '../components/banner/banner.js'
+import '../components/banner/banner.js';
+

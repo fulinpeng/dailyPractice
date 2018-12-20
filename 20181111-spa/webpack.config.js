@@ -7,6 +7,8 @@ const _modeflag = (_mode == "production" ? true : false);
 // const _mergeConfig = require(`./config/webpack.${_mode}.js`);
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); // 监控文件打包速度
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier'); // 一个系统提示工具
+const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 打包进度
 const smp = new SpeedMeasurePlugin();
 
 const config = {
@@ -82,11 +84,12 @@ const config = {
                 }
             }
         },
-        runtimeChunk:{
+        runtimeChunk:{ // webpack 运行时的代码
             name:'runtime'
         }
     },
     plugins: [
+        new ProgressBarPlugin(), // 放最上面
         new MiniCssExtractPlugin({
             filename: _modeflag ? "styles/[name].[hash:5].css" : "styles/[name].css",
             chunkFilename: _modeflag ? "styles/[id].[hash:5].css" : "styles/[name].css"
@@ -96,6 +99,11 @@ const config = {
             template: "./src/index.html"
         }),
         new CleanWebpackPlugin(['dist']), // npm run dist 时会自己清除dist目录
+        new WebpackBuildNotifierPlugin({
+            title: "My Project Webpack Build",
+            // logo: path.resolve("./img/favicon.png"),
+            suppressSuccess: true
+        }),
     ],
     devServer: {
         // port: 3000,

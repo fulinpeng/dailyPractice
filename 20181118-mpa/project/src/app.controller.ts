@@ -8,7 +8,6 @@ export class AppController {
   @Get()
   @Render('index.html')
   root(): object {
-    // return this.appService.root();
     return {
       message : this.appService.root()
     }

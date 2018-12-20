@@ -36,4 +36,16 @@ import(/* webpackChunkName: "async-test" */ './components/async').then(_ => {
 
 > 编译js压缩打包插件`uglifyjs-webpack-plugin`，可以开启多核;终端能显示监控面板，借助`speed-measure-webpack-plugin`插件；（但是加上就报错。。。）
 
+> 系统提示工具`webpack-build-notifier`
+
+> 开启打包进度`progress-bar-webpack-plugin`
+
+> 
+
+# dist/script 目录
+
+* async-*.js 文件是异步js
+* common-*.js 文件是公共文件
+* index-*.js 文件是入口文件，里面是那种引入之类的
+* runtime-*.js 文件是webpack运行时执行文件
 

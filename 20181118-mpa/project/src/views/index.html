@@ -1,15 +1,16 @@
-{% block style %}
+{% extends './layout.html' %}
+{% block styles %}
     <link rel="stylesheet" href="/index.css">
 {% endblock %}
 
 {% block cotent %}
     <h1>{{message}}</h1>
-    {% include '../../components/banner/banner.html' %}
+    {% include '../components/banner/banner.html' %}
 {% endblock %}
 
-{% block script %}
+{% block scripts %}
     <script>
-        console.log('index.html上的js')
+        console.log('index.html上的js11')
     </script>
     <!--injextjs-->
 {% endblock %}

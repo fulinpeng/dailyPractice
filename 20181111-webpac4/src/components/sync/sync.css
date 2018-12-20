@@ -1,9 +1,0 @@
-.test{
-    --fontColor:yellowgreen;
-    color: var(--fontColor);
-}
-body{
-    height:10000px;
-    background-color:black;
-    background-image:url('../../assets/img/next.png')
-}

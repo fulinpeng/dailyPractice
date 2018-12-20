@@ -2,6 +2,10 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const os = require('os');
 
 module.exports = {
+    output: {
+        filename: 'script/[name]-[hash:5].js',
+        publicPath: '/',
+    },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
