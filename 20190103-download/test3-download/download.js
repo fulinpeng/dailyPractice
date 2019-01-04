@@ -18,6 +18,8 @@ window.downloadFile = function (sUrl) {
             link.download = fileName;
         }
 
+        console.log('@@@@@@@-sUrl', sUrl);
+
         //Dispatching click event.
         if (document.createEvent) {
             var e = document.createEvent('MouseEvents');

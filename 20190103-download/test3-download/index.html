@@ -7,7 +7,7 @@
         }
     </style>
         <title>Download File JS example</title>
-        <script src="../src/download.js"></script>
+        <script src="./download.js"></script>
     </head>
     <body>
         <h1>
@@ -50,7 +50,7 @@
 
                 if (secondsBeforeDownloading === 0){
                     label.innerHTML = 'Poehali !!!';
-                    downloadFile('./file.todownload');
+                    downloadFile('../file.todownload');
                     clearInterval(timerInterval);
                 } else {
                     label.innerHTML = 'Download will start in ' + secondsBeforeDownloading + ' seconds...';
@@ -66,8 +66,5 @@
         <a class="addthis_button_pinterest_pinit"></a>
         <a class="addthis_counter addthis_pill_style"></a>
         </div>
-        <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4ea2f9164143bcfb"></script>
-        <!-- AddThis Button END -->
     </body>
 </html>
