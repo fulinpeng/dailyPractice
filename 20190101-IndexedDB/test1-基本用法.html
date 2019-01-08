@@ -33,13 +33,14 @@
                 console.error('onerror:', e.currentTarget.error.message);
             };
             request.onsuccess = function (e) {
-                console.log('onsuccess');
                 myDB.db = e.target.result;
+                console.log('onsuccess', myDB.db);
             };
             // 当我们传入的版本号和数据库当前版本号不一致的时候onupgradeneeded就会被调用
             request.onupgradeneeded = function (e) {
                 console.log('DB version changed to ' + version);
                 var db = e.target.result;
+                // onupgradeneeded的db和onsuccess的db应该是一样的，只是他们不是同一个对象
                 if (!db.objectStoreNames.contains('students')) {
                     db.createObjectStore('students', { keyPath: "id" }); // 为对象时，必须用 keyPath 指定某个属性为键值
                     // db.createObjectStore('students', { autoIncrement: true });
@@ -53,7 +54,7 @@
 
         var myDB = {
             name: 'test',
-            version: 8, // 想更新 indexDB 就改它（而且本次修改的不能比以前的小）
+            version: 10, // 想更新 indexDB 就改它（而且本次修改的不能比以前的小）
             db: null
         };
         openDB(myDB.name, myDB.version);
@@ -124,6 +125,8 @@
         // keyPath	      Javascript对象，对象必须有一属性作为键值
         // keyGenerator	  任意值
         // 都使用	      Javascript对象，如果对象中有keyPath指定的属性则不生成新的键值，如果没有自动生成递增键值，填充keyPath指定属性
+
+        // 一下简单的操作，只是根据主键来的
 
         // 查找数据
         function getDataByKey(db, storeName, value) {

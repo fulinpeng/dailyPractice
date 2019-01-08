@@ -159,9 +159,7 @@
             var transaction = db.transaction(storeName);
             var store = transaction.objectStore(storeName);
             var index = store.index("nameIndex");
-            var request = index.openCursor(IDBKeyRange.bound('B', 'F', false,
-                true
-            ));
+            var request = index.openCursor(IDBKeyRange.bound('B', 'F', false, true));
             request.onsuccess = function (e) {
                 var cursor = e.target.result;
                 if (cursor) {
