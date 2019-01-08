@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 除此，blob还能使用window.URL读取
+        // 这是一个新的API，经常和Service Worker配套使用，因为SW里面常常要解析url
+        let data = { hello: "world" };
+        let blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        function readBlob(blob) {
+            let urlCreator = window.URL || window.webkitURL;
+            // 得到base64结果
+            let dataUrl = urlCreator.createObjectURL(blob);
+            return dataUrl;
+        }
+
+        var dataUrl = readBlob(blob);
+        console.log('dataUrl:', dataUrl);
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <style>
+        .contenteditable {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div contenteditable="true" id="editor" class="contenteditable">
+        hello, paste your image here
+    </div>
+    <script>
+        // Ctrl + c 上传文件
+        $("#editor").on("paste", function (event) {
+            let file = event.originalEvent.clipboardData.files[0];
+            console.log('file:', file);
+        });
+
+        // blob是一种类文件的存储格式，它可以存储几乎任何格式的内容
+        // 但是Safari的粘贴不是通过event传递的，它是直接在输入框里面添加一张图，下面会讲
+
+
+
+    </script>
+</body>
+
+</html>
