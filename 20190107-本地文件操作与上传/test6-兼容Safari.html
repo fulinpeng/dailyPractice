@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.bootcss.com/clipboard.js/2.0.4/clipboard.min.js"></script>
     <script src="../js/jquery-3.2.1.min.js"></script>
     <style>
         .contenteditable {
@@ -17,28 +18,30 @@
 </head>
 
 <body>
-    <div contenteditable="true" id="editor" class="contenteditable">
-        用Safari打开，粘贴图片到此处
+    <!--使用data-clipboard-target属性指定被复制的标签-->
+    <!--使用data-clipboard-action属性指定一些操作，copy（复制），cut（剪切）-->
+    <!--注意：cut 操作仅适用于<textarea>和<input>-->
+    <div style="margin:2em">
+        <textarea id="id_text"></textarea>
+        <button type="button" id="id_copy" data-clipboard-target="#id_text" data-clipboard-action="copy">点击复制
+        </button>
     </div>
     <script>
         // Safari的粘贴不是通过event传递的，它是直接在输入框里面添加一张图片
-        // 为了获取本地的blob数据，我们可以用ajax发个本地的请求
-        $("#editor").on("paste", function (event) {
-            // 需要setTimeout 0等图片出来了再处理
-            setTimeout(() => {
-                let img = $(this).find("img")[0];
-                // 用一个xhr获取blob数据
-                let xhr = new XMLHttpRequest();
-                xhr.open("GET", img.getAttribute('src'));
-                // 改变mime类型
-                xhr.responseType = "blob";
-                xhr.onload = function () {
-                    // response就是一个Blob对象
-                    console.log('blob', this.response);
-                };
-                xhr.send();
-            }, 0);
+        // 用ajax发个本地的请求，获取本地的blob数据
+        // Ctrl + c 上传文件
+        var clipboard = new Clipboard("#id_copy");
+        clipboard.on("success", function (element) {//复制成功的回调
+            console.info("复制成功，复制内容：    " + element.text);
         });
+        clipboard.on("error", function (element) {//复制失败的回调
+            console.info(element);
+        });
+
+        //清理Clipboard对象
+        //  var clipboard = new Clipboard('.btn');
+        //  clipboard.destroy();
+
     </script>
 </body>
 
