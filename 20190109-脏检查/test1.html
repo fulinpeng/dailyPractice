@@ -45,20 +45,6 @@
             })
         };
 
-        // 将一个Scope中的数据变量添加至作用域的监视器数组中
-        var $scope = new Scope();
-        $scope.name = "Lowes";
-        for (var key in $scope) {
-            // 非函数数据才进行绑定
-            if (key != "$$watchers" && typeof $scope[key] != "function") {
-                $scope.$watch(key, (function (index) {
-                    return function () {
-                        return $scope[index];
-                    }
-                })(key))
-            }
-        }
-
         // 对监视器的新旧值进行对比，当新旧值不同时，调用listener函数进行相应操作，并将旧值更新为新值。
         // 它将不断重复这一过程，直到所有数据变量的新旧值相等
         // 下面是简单的实现：
@@ -81,7 +67,7 @@
 
         // 为了将新的数据变量反映到DOM上，我们需要在$digest流程中加入对DOM的更新操作（仅实现了包含ng-bind的DOM更新）
         Scope.prototype.$digest = function () {
-            var bindList = document.querySelectorAll("[ng-bind]");      //获取所有含ng-bind的DOM节点
+            var bindList = document.querySelectorAll("[ng-bind]"); //获取所有含ng-bind的DOM节点
             var dirty = true;
             while (dirty) {
                 dirty = false;
@@ -113,37 +99,54 @@
             }
         };
 
-        // # 解析dom
+        window.onload = function () {
+            // 创建一个作用域，并绑定两个数据：
+            var $scope = new Scope();
+            $scope.count = 1;
+            $scope.increment = function () {
+                this.count++;
+            };
+            // 执行一次$digest来进行初始化
+            $scope.$digest();
 
-        // 首先对带ng-click属性的DOM进行解析：
-        var bindList = document.querySelectorAll("[ng-click]");
-        for (var i = 0; i < bindList.length; i++) {
-            bindList[i].onclick = (function (index) {
-                return function () {
-                    $scope[bindList[index].getAttribute("ng-click")]();
-                    $scope.$digest();      //调用函数时触发$digest
+            // # 解析ng指令
+            
+            // ng-click
+            var bindList = document.querySelectorAll("[ng-click]");
+            for (var i = 0; i < bindList.length; i++) {
+                bindList[i].onclick = (function (index) {
+                    return function () {
+                        $scope[bindList[index].getAttribute("ng-click")]();
+                        $scope.$digest(); // 调用函数时触发$digest
+                    }
+                })(i)
+            }
+            
+            // ng-bind
+            var inputList = document.querySelectorAll("input[ng-bind]");
+            for (var i = 0; i < inputList.length; i++) {
+                inputList[i].addEventListener("input", (function (index) {
+                    return function () {
+                        $scope[inputList[index].getAttribute("ng-bind")] = inputList[index].value;
+                        $scope.$digest(); // 调用函数时触发$digest
+                    }
+                })(i));
+            }
+
+            // 绑定数据
+            // 执行$watch将一个Scope中的数据变量添加至作用域的监视器数组中
+            for (var key in $scope) {
+                // 非函数数据才进行绑定
+                if (key != "$$watchers" && typeof $scope[key] != "function") {
+                    $scope.$watch(key, (function (index) { // 闭包保护key，做为局部变量
+                        return function () {
+                            return $scope[index];
+                        }
+                    })(key))
                 }
-            })(i)
+            }
+
         }
-
-        // 然后对带ng-bind属性的交互式DOM（input、textarea等）进行解析：
-        var inputList = document.querySelectorAll("input[ng-bind]");
-        for (var i = 0; i < inputList.length; i++) {
-            inputList[i].addEventListener("input", (function (index) {
-                return function () {
-                    $scope[inputList[index].getAttribute("ng-bind")] = inputList[index].value;
-                    $scope.$digest();      //调用函数时触发$digest
-                }
-            })(i));
-        }
-
-        // 创建一个作用域，并绑定两个数据：
-        var $scope = new Scope();
-        $scope.count = 1;
-        $scope.increment = function () {
-            this.count++;
-        };
-
 
 
     </script>
