@@ -24,6 +24,21 @@
             console.log(this)
         }
 
+        function Directive(name, el, vm, exp, attr) {
+            this.name = name;         //指令名称，例如文本节点，该值设为"text"
+            this.el = el;             //指令对应的DOM元素
+            this.vm = vm;             //指令所属lue实例
+            this.exp = exp;           //指令对应的值，本例如"count"
+            this.attr = attr;         //绑定的属性值，本例仅实验innerHTML
+
+            this.update();            //首次绑定时更新
+        }
+
+        Directive.prototype.update = function () {
+            //更新DOM节点的相应属性值
+            this.el[this.attr] = this.vm.$data[this.exp];
+        };
+
         Lue.prototype._init = function (options) {
             this.$options = options;                              //传入的实例配置
             this.$el = document.querySelector(options.el);        //实例绑定的根节点
@@ -38,7 +53,7 @@
             this._compile(this.$el);                //编译DOM节点
         };
 
-        //遍历数据域，添加getter/setter
+        //遍历数据域，添加 getter/setter
         Lue.prototype._parseData = function (obj) {
             var value;
             for (var key in obj) {
@@ -51,18 +66,6 @@
                     this.convert(key, value);
                 }
             }
-        };
-
-        //对绑定的函数进行改造
-        Lue.prototype._parseFunc = function (attrVal) {
-            var args = /\(.*\)/.exec(attrVal);
-            if (args) {              //如果函数带参数,将参数字符串转换为参数数组
-                args = args[0];
-                attrVal = attrVal.replace(args, "");
-                args = args.replace(/[\(\)\'\"]/g, '').split(",");
-            }
-            else args = [];
-            return this.$methods[attrVal].bind(this.$data, args);
         };
 
         /**对象属性重定义
@@ -90,19 +93,16 @@
             })
         };
 
-        function Directive(name, el, vm, exp, attr) {
-            this.name = name;         //指令名称，例如文本节点，该值设为"text"
-            this.el = el;             //指令对应的DOM元素
-            this.vm = vm;             //指令所属lue实例
-            this.exp = exp;           //指令对应的值，本例如"count"
-            this.attr = attr;         //绑定的属性值，本例仅实验innerHTML
-
-            this.update();          //首次绑定时更新
-        }
-
-        Directive.prototype.update = function () {
-            //更新DOM节点的相应属性值
-            this.el[this.attr] = this.vm.$data[this.exp];
+        //对绑定的函数进行改造
+        Lue.prototype._parseFunc = function (attrVal) {
+            var args = /\(.*\)/.exec(attrVal);
+            if (args) {               // 如果函数带参数,将参数字符串转换为参数数组
+                args = args[0];
+                attrVal = attrVal.replace(args, "");
+                args = args.replace(/[\(\)\'\"]/g, '').split(",");
+            }
+            else args = [];
+            return this.$methods[attrVal].bind(this.$data, args);
         };
 
         //解析DOM的指令
@@ -147,7 +147,7 @@
 
                 if (node.hasAttribute("v-bind")) {
                     var attrVal = node.getAttribute("v-bind");
-                    //将innerHTML的更新指令添加至_directives数组
+                    // 将innerHTML的更新指令添加至_directives数组
                     _this._binding[attrVal]._directives.push(new Directive(
                         "text",
                         node,
