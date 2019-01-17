@@ -3,7 +3,6 @@ const pluginName = 'HtmlAferWebpackPlugin';
 class HtmlAferWebpackPlugin {
     apply(compiler) {
         compiler.hooks.compilation.tap(pluginName, compilation => {
-            console.log('@@@@@@@@@@@@@');
             compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tap(pluginName, htmlPluginData => {
                 const result = htmlPluginData.assets.js;
                 let _html = htmlPluginData.html;
