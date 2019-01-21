@@ -16,10 +16,11 @@
     <script>
         // 参考地址：https://juejin.im/post/5a193b4bf265da43052e528a
         $("#file-input").on("change", function () {
-            console.log(`file name is ${this.value}`);
+            console.log(`file name: ${this.value}`);
+            console.log(`this.form: ${this.form}`);
             let formData = new FormData(this.form);
             formData.append("fileName", this.value);
-            console.log(formData);
+            console.log('formData:', formData);
         });
 
         // 可以看到文件的路径是一个假的路径，也就是说在浏览器无法获取到文件的真实存放位置

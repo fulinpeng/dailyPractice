@@ -93,7 +93,7 @@
             })
         };
 
-        //对绑定的函数进行改造
+        // 对绑定的函数进行改造
         Lue.prototype._parseFunc = function (attrVal) {
             var args = /\(.*\)/.exec(attrVal);
             if (args) {               // 如果函数带参数,将参数字符串转换为参数数组

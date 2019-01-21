@@ -81,15 +81,15 @@
                         watchers[i].listener(oldVal, newVal);
                         watchers[i].last = newVal;
                         for (var j = 0; j < bindList.length; j++) {
-                            //获取DOM上的数据变量的名称
+                            // 获取DOM上的数据变量的名称
                             var modelName = bindList[j].getAttribute("ng-bind");
-                            //数据变量名相同的DOM才更新
+                            // 数据变量名相同的DOM才更新
                             if (modelName == watchers[i].name) {
                                 if (bindList[j].tagName == "INPUT") {
-                                    //更新input的输入值
+                                    // 更新input的输入值
                                     bindList[j].value = this[modelName];
                                 } else {
-                                    //更新非交互式DOM的值
+                                    // 更新非交互式DOM的值
                                     bindList[j].innerHTML = this[modelName];
                                 }
                             }
@@ -111,7 +111,7 @@
 
             // # 解析ng指令
             
-            // ng-click
+            // ng-click （下面这段代码应该写到 $digest 里面去吧？？有点没看懂为嘛要写在这里）
             var bindList = document.querySelectorAll("[ng-click]");
             for (var i = 0; i < bindList.length; i++) {
                 bindList[i].onclick = (function (index) {
