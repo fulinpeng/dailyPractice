@@ -116,7 +116,7 @@
 
         //1、读：read，不能修改数据库数据，可以并发执行
         //2、写：readwrite，可以进行读写操作
-        //3、本变更：verionchange
+        //3、版本变更：verionchange
 
         // # 设置键值
 
@@ -126,7 +126,7 @@
         // keyGenerator	  任意值
         // 都使用	      Javascript对象，如果对象中有keyPath指定的属性则不生成新的键值，如果没有自动生成递增键值，填充keyPath指定属性
 
-        // 一下简单的操作，只是根据主键来的
+        // 以下简单的操作，只是根据主键来的
 
         // 查找数据
         function getDataByKey(db, storeName, value) {
@@ -183,7 +183,7 @@
             clearObjectStore(myDB.db, 'students');
         }
         // 调用数据库实例的deleteObjectStore方法可以删除一个object store，
-        // 这个就得在 onupgradeneeded 里面调用了
+        // 这个就得在 onupgradeneeded 里面调用了:
         // if (db.objectStoreNames.contains('students')) {
         //     db.deleteObjectStore('students');
         // }

@@ -1,13 +1,16 @@
+# 资料
+
+* https://juejin.im/post/59e85eebf265da430d571f89
 
 * 注意：
 1. 第二次事件循环开始，每执行一条宏任务就会执行一次当前所有的微任务；
-2. 浏览器与node执行结果不一样的，node的执行是执行所有宏任务，完了再执行微任务
-3. node环境下，`nextTick`会优先于`Promise.then`
-4. `.then(...).then(...)`加入microTask是同步执行的，第一个then的微执行完了，第二个then就执行马上又在microTask里添加下一个微任务，`这两个微任务是在同一次EventLoop中执行的`；
+2. 浏览器中`.then(...).then(...)`加入microTask是同步执行的，第一个then的微执行完了，第二个then就执行马上又在microTask里添加下一个微任务，`这两个微任务是在同一次EventLoop中执行的`；
+3. 浏览器与node执行结果不一样的，node的执行是执行所有宏任务，完了再执行微任务
+4. node环境下，`nextTick`会优先于`Promise.then`
 5. 还有`dom事件`和`MutationObserver`，详情请看：`https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/`
     * the 'click' event is a task. MutationObserver and promise callbacks are queued as microtasks. The setTimeout callback is queued as a task. 
     * 事件冒泡的执行也优先于Timer，Timer的地位就这么低
-    * 不同浏览器，的执行顺序不一样的。这咋搞啊？用`inner.click();`，各大浏览器的执行顺序就都是一样的了。
+    * 不同浏览器，的执行顺序不一样的。这咋搞啊？用`inner.click();`，【js调用click事件（不通过浏览器，直接走 js stack 来调用）】各大浏览器的执行顺序就都是一样的了。
         * 事件在冒泡的过程中，inner.click和outer.click执行，就先打印了两个click出来...so，浏览器执行不同，但是js运行是相同的
 6. js里面有三个关于task的概念：`js stack`、`tasks`、`microtasks`
 7. JavaScript引擎的内部运行机制跟Event loop没有半毛钱的关系

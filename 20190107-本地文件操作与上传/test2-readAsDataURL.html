@@ -14,9 +14,9 @@
         <input type="file" id="file-input" name="fileContent">
     </form>
     <script>
-     
-            // # 按base64的方式读取，结果是base64，任何文件都可转成base64的形式
-            // fileReader.readAsDataURL(this.files[0]);
+
+        // # 按base64的方式读取，结果是base64，任何文件都可转成base64的形式
+        // fileReader.readAsDataURL(this.files[0]);
 
         // 而使用FileReader可以读取整个文件的内容
         $("#file-input").on("change", function () {
@@ -30,7 +30,7 @@
             console.log('原始File对象:', this.files[0]);
             // 包含了文件的修改时间、文件名、文件的大小、文件的mime类型等
             // 要判断是否为图片文件就可以通过type类型是否以image开头，这种方法比较准确稳定
-           
+
             console.log('fileReader：', fileReader); // fileReader的原型链上还有方法
 
             fileReader.onload = function (res) {

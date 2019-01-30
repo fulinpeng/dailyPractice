@@ -47,7 +47,7 @@
     </form>
 ```
 
-`因为上传文件只能使用POST的这种编码。常用的POST编码是application/x-www-form-urlencoded，它和GET一样，发送的数据里面，参数和参数之间使用&连接`
+`因为上传文件只能使用POST的这种编码。常用的POST编码是application/x-www-form-urlencoded，【它和GET一样，发送的数据里面，参数和参数之间使用&连接`】
 
 `使用iframe没有办法获取上传进度，使用xhr可以获取当前上传的进度，这个是在XMLHttpRequest 2.0引入的：xhr.upload.onprogress` 
 
@@ -73,6 +73,8 @@ function (event) {
 * 目前clipboardData在ios上的safari浏览器无效，为解决移动端这个问题，我们引用一个js插件——clipboard.js
 
 * clipboard.js依赖于HTML5推出的Selection API和execCommand API
+
+# blob还能使用window.URL读取
 
 # note
 

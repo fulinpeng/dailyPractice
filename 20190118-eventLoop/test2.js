@@ -1,12 +1,12 @@
 console.log('script start');
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('setTimeout');
 }, 0);
 
-Promise.resolve().then(function() {
+Promise.resolve().then(function () {
   console.log('promise1');
-}).then(function() {
+}).then(function () {
   console.log('promise2');
 });
 

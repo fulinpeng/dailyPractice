@@ -45,6 +45,7 @@
     //     .catch(e => console.log(e))
 
 
+    // 如果有一个错，整个结果只抛出错误
     async function f() {
         try {
             await Promise.reject('出错了');

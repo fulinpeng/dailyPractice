@@ -21,9 +21,9 @@
         // 封装版：
         const pipeline = (...funcs) =>{
             console.log(funcs);
-            return val => funcs.reduce((a, b) => b(a), val);
+            return val => funcs.reduce((a, b) => b(a), val); // 第二个参数是初始值
         }
-              
+        
         const addThenMult = pipeline(plus1, mult2);
         console.log(addThenMult(5));
         

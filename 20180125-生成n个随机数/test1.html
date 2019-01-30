@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <script>
+        // 生成n个区间在:[2, 32)的数
+
+        // 方法一
+        function fn(n) {
+            var num = parseInt(n) === n && n >= 2 && n < 32 ? n : false;
+            if (!num) return '参数不合格！';
+            var temp = [],
+                a;
+            for (var i = 1; i <= num; i++) {
+                a = parseInt(Math.random() * temp.length);
+                temp.splice(a, 0, i);
+            }
+            return temp
+        }
+
+        // 方法二
+        function go(n) {
+            var num = parseInt(n) === n && n >= 2 && n <= 31 ? n : false;
+            if (!num) return '参数不合格！';
+            var temp = [];
+            for (var i = 1; i <= num; i++) {
+                var newNum = parseInt(Math.random() * 31) + 2;
+                if (check(temp, newNum)) {
+                    temp.push(newNum);
+                } else {
+                    i--;
+                }
+            }
+            return temp
+        }
+        function check(arr, n) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] == n) return false;
+            }
+            return true;
+        }
+
+
+        function go2(n) {
+            var num = parseInt(n) === n && n >= 2 && n <= 31 ? n : false;
+            if (!num) return '参数不合格！';
+            var temp = [];
+            var check = {};
+            for (var i = 1; i <= num; i++) {
+                var newNum = parseInt(Math.random() * 31) + 2;
+                if (!check[newNum]) {
+                    temp.push(newNum);
+                    check[newNum] = true;
+                } else {
+                    i--;
+                }
+            }
+            return temp
+        }
+
+    </script>
+</body>
+
+</html>
