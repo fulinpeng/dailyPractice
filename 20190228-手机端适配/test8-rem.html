@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 必须设置多方比例为1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .test {
+            height: 50px;
+            background: steelblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test">这是一段测试文字</div>
+    <script>
+        ((w) => {
+            // w 设计稿宽度
+            var dpr = devicePixelRatio; // 设备像素比
+            var scrW = screen.availWidth; // 屏幕的逻辑像素宽（css像素）
+            document.documentElement.style.fontSize = w/dpr+ 'px';
+        })(1242)
+    </script>
+</body>
+
+</html>
