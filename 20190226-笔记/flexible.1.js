@@ -85,7 +85,7 @@
  
     function setFontSize() {
         var winWidth = docElem.getBoundingClientRect().width;
- 
+ console.log('winWidth:',winWidth);
         if (winWidth / dpr > 540) {
             (winWidth = 540 * dpr);
         }

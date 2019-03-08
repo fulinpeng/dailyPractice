@@ -14,7 +14,9 @@
         }
 
         .test {
-            height: 50px;
+            font-size: 0.54rem;
+            height: 1rem;
+            line-height: 1rem;
             background: steelblue;
         }
     </style>
@@ -23,12 +25,26 @@
 <body>
     <div class="test">这是一段测试文字</div>
     <script>
-        ((w) => {
-            // w 设计稿宽度
-            var dpr = devicePixelRatio; // 设备像素比
-            var scrW = screen.availWidth; // 屏幕的逻辑像素宽（css像素）
-            document.documentElement.style.fontSize = w/dpr+ 'px';
-        })(1242)
+        // !(function (doc, win) {
+        //     var docEle = doc.documentElement,
+        //         evt = "onorientationchange" in window ? "orientationchange" : "resize",
+        //         fn = function () {
+        //             var width = docEle.clientWidth;
+        //             width && (docEle.style.fontSize = 20 * (width / 320) + "px");
+        //         };
+        //     win.addEventListener(evt, fn, false);
+        //     doc.addEventListener("DOMContentLoaded", fn, false);
+        // }(document, window));
+        var fontSizeAuto = function (oriWidth) {
+            return function () {
+                var viewportWidth = document.documentElement.clientWidth;
+                if (viewportWidth > oriWidth) { viewportWidth = oriWidth; }
+                if (viewportWidth < 320) { viewportWidth = 320; }
+                document.documentElement.style.fontSize = viewportWidth / (oriWidth / 100) + 'px';
+            }
+        }
+        fontSizeAuto(1600)();
+        window.onresize = fontSizeAuto(1600);
     </script>
 </body>
 
