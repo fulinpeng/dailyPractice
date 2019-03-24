@@ -139,36 +139,36 @@
         }
 
         // Batcher 就是更新绑定过的数据，但是可以直接调用sub.cb()嘛，这里显得多此一举，不知道该怎么理解？？？
-        function Batcher() {
-            this.reset();
-        }
-        Batcher.prototype = {
-            constructor: Batcher,
-            reset: function() {
-                this.has = {};
-                this.queue = [];
-                this.waiting = false;
-            },
-            push: function(job) {
-                if (!this.has[job.name]) {
-                    this.queue.push(job);
-                    this.has[job.name] = job;
-                    if (!this.waiting) {
-                        this.waiting = true;
-                        setTimeout(() => {
-                            this.flush();
-                        });
-                    }
-                }
-            },
-            flush: function() {
-                console.log('queue', this.queue);
-                this.queue.forEach((job) => {
-                    job.cb();
-                });
-                this.reset();
-            }
-        }
+        // function Batcher() {
+        //     this.reset();
+        // }
+        // Batcher.prototype = {
+        //     constructor: Batcher,
+        //     reset: function() {
+        //         this.has = {};
+        //         this.queue = [];
+        //         this.waiting = false;
+        //     },
+        //     push: function(job) {
+        //         if (!this.has[job.name]) {
+        //             this.queue.push(job);
+        //             this.has[job.name] = job;
+        //             if (!this.waiting) {
+        //                 this.waiting = true;
+        //                 setTimeout(() => {
+        //                     this.flush();
+        //                 });
+        //             }
+        //         }
+        //     },
+        //     flush: function() {
+        //         console.log('queue', this.queue);
+        //         this.queue.forEach((job) => {
+        //             job.cb();
+        //         });
+        //         this.reset();
+        //     }
+        // }
 
         var vm = new Vue({
             el: 'app',

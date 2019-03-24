@@ -1,0 +1,15 @@
+.textarea-wrap {
+  border: 0.01rem solid #dfdfdf;
+  border-radius: 0.02rem;
+  display: inline-block;
+  width: 100%;
+  textarea {
+    width: 100%;
+    height: 0.96rem;
+    padding: 0.04rem;
+    border: 0;
+    outline: 0;
+    font-size: 0.14rem;
+    color: #999999;
+  }
+}
