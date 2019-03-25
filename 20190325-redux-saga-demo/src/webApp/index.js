@@ -7,7 +7,7 @@ import { HashRouter as Router, Route} from "react-router-dom";
 
 // 容器组件
 import Layout from "_root/webApp/layout";
-import Dashboard from "_containers/dashb  oard";
+import Dashboard from "_containers/dashboard";
 import Courses from "_containers/courses";
 import Forum from "_containers/forum";
 import Account from "_containers/account";
