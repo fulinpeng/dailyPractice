@@ -10,6 +10,9 @@
 // 剩余参数
 //      想同时操作多个参数，或者并不知道会有多少参数传递进来
 // this 和 箭头函数 同es6
+// type 定义某一类对象
+// 返回值 Never
+//      void 代表返回 undefined，Never 代表函数不会执行完成，也不会返回任何值
 // 重载
 //      传入参数的不同会返回两种不同的类型
 var myAdd = function (x, y) {
@@ -58,3 +61,15 @@ var myDeck = [
 ];
 var pickedCard1 = myDeck[pickCard(myDeck)];
 var pickedCard2 = pickCard(15);
+// 然后你就可以这样写了
+var fun;
+// never 返回值类型指的是
+// 永远不会执行完的函数或者没有返回值的函数
+// 那么你可以觉得如下代码是返回 never 类型
+function hello() {
+    throw Error("111");
+}
+//error 因为该代码他还是返回了 undefined
+// function hello1(): never {
+//   console.log("Hello");
+// }

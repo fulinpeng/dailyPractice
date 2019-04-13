@@ -1,17 +1,19 @@
-import { put, takeEvery } from "redux-saga/effects";
-import { INCREMENT, INCREMENT_ASYNC } from '_root/const/index';
+import { put, takeEvery, all } from "redux-saga/effects";
+import { SUBDUCTION,INCREMENT2, SUBDUCTION_ASYNC } from '_root/const/index';
+import { delay } from "redux-saga";
+import { subductionReducer } from "_root/reducers/subductionReducer";
 
-const delay = ms => new Promise((resolve) => {
-  setTimeout(() => {
-    resolve()
-  }, ms)
-})
-
-export function* incrementAsync() {
+export function* subductionAsync() {
   yield delay(2000);
-  yield put({ type: INCREMENT });
+  yield put({ type: INCREMENT2 });
 }
 
-export function* watchIncrementAsync() {
-  yield takeEvery(INCREMENT_ASYNC, incrementAsync);
+export function* watchSubductionAsync() {
+  yield takeEvery('INCREMENT2_ASYNC', subductionAsync);
+}
+
+export default function* rootSaga() {
+  yield all([
+    watchSubductionAsync()
+  ])
 }

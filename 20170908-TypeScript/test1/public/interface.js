@@ -1,13 +1,12 @@
 "use strict";
-// 可选属性
-// 只读属性
-// 额外的属性检查，
-//      处理方式是：添加一个字符串索引签名
-// 可索引的类型
+// interface 是 type 的加强版
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -37,6 +36,12 @@ myArray = { 1: "a" };
 var myArray2;
 myArray2 = { 1: "a", a: "a" };
 var myStr = myArray[0];
+// function fn(o: SearchFunc): boolean {} // 这样是不对的，SearchFunc只适用于函数
+// 函数申明的写法
+(function fn() {
+    return true;
+});
+// 函数表达式的写法
 var mySearch;
 mySearch = function (src, sub) {
     // 参数和返回值可以不指定类型，系统会自动匹配
@@ -59,7 +64,9 @@ var Dog = /** @class */ (function (_super) {
     }
     return Dog;
 }(Animal));
-function createClock(ctor, hour, minute) {
+function createClock(// 相当于一个工厂函数
+ctor, // 这是一个类类型
+hour, minute) {
     return new ctor(hour, minute);
 }
 var DigitalClock = /** @class */ (function () {
@@ -80,8 +87,17 @@ var AnalogClock = /** @class */ (function () {
 }());
 var digital = createClock(DigitalClock, 12, 17);
 var analog = createClock(AnalogClock, 7, 32);
+var analog2 = new AnalogClock(7, 32); // 上面是用了一个工厂函数做辅助，这个是直接创建的
+var square = {};
+// 等同于：
+var square2 = {
+    color: "red",
+    sideLength: 2
+};
+// 一个对象可以同时做为函数和对象使用，并带有额外的属性
 function getCounter() {
-    var counter = function (start) { };
+    var counter = function (start) { }; // <XXX> 后面一般接一个对象，但是函数也是对象啊
+    // 下面将 interval、rest 挂载到counter函数身上（它既是函数也是对象，这是es5里就有的）
     counter.interval = 123;
     counter.reset = function () { };
     return counter;
@@ -114,3 +130,17 @@ var x1 = function () { return ({ name: "Alice" }); };
 var y1 = function () { return ({ name: "Alice", location: "Seattle" }); };
 x1 = y1; // OK
 // y1 = x1; // Error because x() lacks a location property
+var Person = /** @class */ (function () {
+    function Person() {
+        this.name = "flp";
+    }
+    return Person;
+}());
+var My = /** @class */ (function () {
+    function My(job) {
+        this.name = "flp";
+        this.age = 22;
+        this.job = job;
+    }
+    return My;
+}());

@@ -47,9 +47,14 @@ class MySon implements Son {
     this.age = num;
   }
 }
+const aa = new MySon('aaa', 22);
+MySon.prototype.name = 'bb';
+console.log('@@@@@@@@@@', aa);
+// 所以，那要在ts中修改prototype上面的属性怎么办呢？？？
 
 // 继承
 // 允许使用继承来扩展现有的类
+// 父类有构造方法，子类也必须提供构造方法
 class Animal1 {
   protected name: string;
   private age: number;
@@ -129,3 +134,6 @@ class Socket {
 // let socket = new Socket() // error 类 Socket 的构造函数是私有的，仅可在类声明中访问
 let socket = Socket.share();
 console.log(socket.name);
+
+// 类里面创建多个私有属性，然后它们都要有geter和seter方法，怎么办，那不是要写很多个geter及方法吗？
+// 类也可以作为interface来用，来申明变量时定义数据类型

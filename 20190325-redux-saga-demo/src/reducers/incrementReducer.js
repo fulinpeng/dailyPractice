@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const increment = (state = initialState, action) => {
-    console.log('@@@@@@@@@@@reduceReducer', state);
+    console.log('@@@@@@@@@@@increment', state);
     switch (action.type) {
         case INCREMENT: {
             state.number += 1

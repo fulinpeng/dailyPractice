@@ -1,5 +1,7 @@
 // interface 是 type 的加强版
 
+// 可以申明js的任何数据类型
+
 // 使用类型断言 或者 可选属性，处理实际对象属性少于接口属性的情况
 
 // 可选属性
@@ -94,7 +96,8 @@ let myStr: string = myArray[0];
 interface SearchFunc {
   (source: string, subString: string): boolean;
 }
-// function fn(o: SearchFunc): boolean {} // 这样是不对的
+// function fn(o: SearchFunc): boolean {} // 这样是不对的，SearchFunc只适用于函数
+
 // 函数申明的写法
 <SearchFunc>function fn() {
   return true;

@@ -1,4 +1,4 @@
-import {INCREMENT, REDUCE, INCREMENT2} from '_root/const/index'
+import {INCREMENT, SUBDUCTION, INCREMENT2} from '_root/const/index'
 
 export const increment = () => {
     return {
@@ -13,9 +13,9 @@ export const increment2 = () => {
     };
 };
 
-export const reduce = () => {
+export const  subduction = () => {
     return {
-        type: REDUCE,
+        type: SUBDUCTION,
         payload: {}
     };
 };

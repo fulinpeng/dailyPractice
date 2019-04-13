@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+    <script lang="javascript" src="node_modules/xlsx/dist/jszip.js"></script>
+    <script lang="javascript" src="node_modules/xlsx/dist/xlsx.js"></script>
+</head>
+
+<body>
+    <input type="file" name="file"><span>(请选择.xlsx文件)</span>
+    <script>
+        // console.log('XLSX:', XLSX);
+        let requestParams = {};
+        let fileIput = document.querySelector("input[name='file']");
+
+        fileIput.onchange = function (e) {
+            // console.log('files:', e.target.files);
+            let file = e.target.files[0];
+            if(!/(.xlsx|.xls)$/.test(file.name)) return alert('请选择.xlsx文件');
+            changeBatchTable(file).then(function (data) {
+                console.log('data:', data);
+            }, function (err) {
+                console.log('err:', err);
+            });
+        }
+
+        function changeBatchTable(file) {
+            return new Promise(function (resolve, rejected) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    // console.log('reader--e.target:', e.target);
+                    let data = e.target.result;
+                    let workbook = XLSX.read(data, { type: 'binary' }); // base64 binary buffer
+                    // console.log('workbook:', workbook);
+                    let sheetName = workbook.SheetNames[0]; // 第一张表格，一般是 Sheet1
+                    let sheet = workbook.Sheets[sheetName]; // 第一张表格的所有数据，A1:D27
+                    // XLSX.utils.sheet_to_json 是XLSX内部提供的拼数据的方法，还是自己弄得更适用
+                    // let readerData = XLSX.utils.sheet_to_json(sheet, {header:1});
+                    // console.log('readerData:', readerData);
+                    let name = [
+                        'index',
+                        'name',
+                        'age',
+                    ];
+                    let array = [];
+                    let n = 0;
+
+                    for (let row = 2; ; row++) {
+                        if (sheet['A' + row] === undefined && sheet['B' + row] === undefined && sheet['C' + row] === undefined) {
+                            break;
+                        }
+                        array.push({});
+                        for (let col = 65; col < 65 + name.length; col++) {
+                            let line = String.fromCharCode(col);
+                            let key = '' + line + row; // A2, A3, ...
+                            // console.log(sheet[key]);
+                            if (sheet[key] === undefined) {
+                                array[n][name[col - 65]] = '';
+                            } else {
+                                array[n][name[col - 65]] = sheet[key].v;
+                            }
+                        }
+                        n++;
+                    }
+                    resolve(array);
+                };
+                reader.onerror = function (e) {
+                    rejected(e);
+                }
+                reader.readAsBinaryString(file);
+            });
+        };
+        // 一直报错说jszip不是function，其实就是那个包没引入嘛
+    </script>
+</body>
+
+</html>
