@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 检测浏览器时候支持css变量 */
+        @supports ((--a: 0)) {
+            body::before {
+                content: 'supported';
+                display: block;
+                background: orange;
+            }
+        }
+        @supports (not (--a: 0)) {
+            body::before {
+                content: 'not supported';
+                display: block;
+                background: orange;
+            }
+        }
+        /* 定义全局变量 */
+        :root {
+            --color: #d94e37;
+            --h1-margin: 10px;
+            --font-size: 10px;
+        }
+
+        h1 {
+            color: var(--color);
+            margin: var(--h1-margin, 0 0 10px);
+        }
+        /* 定义局部变量，写在对应的元素里 */
+        .block {
+            --color: yellowgreen;
+            color: var(--color);
+        }
+
+        .another {
+            color: var(--color);
+            font-size: calc(var(--font-size, 1px) * 3);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>css3 变量</h1>
+    <div class="block">测试模块</div>
+    <div class="another">another测试模块</div>
+</body>
+<script>
+    // 检测浏览器时候支持css变量
+    if (window.CSS && window.CSS.supports && window.CSS.supports('--a', 0)) {
+        console.log('CSS properties are supported');
+    } else {
+        console.log('CSS properties are NOT supported');
+    }
+    // READ
+    const rootStyles = getComputedStyle(document.documentElement);
+    const varValue = rootStyles.getPropertyValue('--color').trim();
+    console.log(varValue)
+    // WRITE
+    setInterval(() => {
+        document.documentElement.style.setProperty('--color', '#' + (~~(Math.random() * (1 << 24))).toString(16));
+    }, 800)
+</script>
+
+</html>

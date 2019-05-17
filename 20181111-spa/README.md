@@ -17,9 +17,10 @@
 
 > `webpack.config.js`里面导出配置对象`必须以函数的方式`
 
-> 开始都没问题，突然出现找不到什么原因的错误，可能是`pakage-lock.js`的问题，把它删了，重新来；如：`ERROR in ./src/css/index.less (./node_modules/css-loader??ref--6-1!./node_modules/les`
+> 开始都没问题，突然出现找不到什么原因的错误，可能是`pakage-lock.js`的问题，把它删了，重新来；如：`ERROR in ./src/css/index.less (./node_modules/css-loader??ref--6-1!./node_modules/less`
+>> 如果报错：`npm install less --save`，那是还要安装less 模块，`npm install less --save`
 
-> css-loader依赖于style-loader；css-loader用于处理css，style-loader用来将这个js形式的style插入到html文档里面；但是这个style-loader很大，会让整个js文件剧增；
+> style-loader依赖于css-loader；css-loader用于处理css，style-loader用来将这个js形式的style插入到html文档里面；但是这个style-loader很大，会让整个js文件剧增；
 
 > 多页单页，构建的方式是不一样的
 

@@ -1,0 +1,12 @@
+{
+  "name": "20190419-Myth-css-polyfill-for-future",
+  "version": "1.0.0",
+  "description": "* npm install -g myth\r * myth inputcss/test1.css outputcss/test1.css",
+  "main": "index.js",
+  "scripts": {
+    "start": "myth input.css output.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

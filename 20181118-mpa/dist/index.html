@@ -1,0 +1,16 @@
+{% extends './layout.html' %}
+{% block styles %}
+    <link rel="stylesheet" href="/index.css">
+{% endblock %}
+
+{% block cotent %}
+    <h1>{{message}}</h1>
+    {% include '../components/banner/banner.html' %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        console.log('index.html上的js11')
+    </script>
+    <script src="/index-index.js"></script>
+{% endblock %}

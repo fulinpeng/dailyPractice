@@ -46,7 +46,7 @@ const config = {
                             publicPath: './'
                         }
                     },
-                    // 这里不需要style-loader的呀，别打开
+                    // 这里不需要style-loader的
                     { loader: 'css-loader' }
                 ]
             },
