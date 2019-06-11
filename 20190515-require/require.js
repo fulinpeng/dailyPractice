@@ -1767,17 +1767,17 @@ var requirejs, require, define;
         var context, config,
             contextName = defContextName;
 
-        // Determine if have config object in the call.
+        // 调用requirejs.config()就是调用req
         if (!isArray(deps) && typeof deps !== 'string') {
-            // deps is a config object
+            // 这里将配置对象，赋值给config
             config = deps;
+            // 第二个参数是不是数组
             if (isArray(callback)) {
-                // Adjust args if there are dependencies
-                deps = callback;
+                deps = callback; // callback是依赖数组的话就赋值给deps
                 callback = errback;
                 errback = optional;
             } else {
-                deps = [];
+                deps = []; // callback不是依赖数组的话，deps为空数组了
             }
         }
 
@@ -1787,6 +1787,8 @@ var requirejs, require, define;
 
         context = getOwn(contexts, contextName);
         if (!context) {
+            // 执行req({})的时候进来过
+            // 执行req(cfg)的时候就不进来了
             context = contexts[contextName] = req.s.newContext(contextName);
         }
 
