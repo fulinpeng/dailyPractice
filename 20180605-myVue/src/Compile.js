@@ -25,9 +25,9 @@ Compile.prototype = {
             // 解析属性
             for (var i = 0; i < attr.length; i++) {
                 if (attr[i].nodeName == 'v-model') { // 有v-model的肯定是个表单元素
-                    var name = attr[i].nodeValue; // 获取v-model绑定的属性名
+                    var name = attr[i].nodeValue; // 获取v-model绑定的字段名
                     node.addEventListener('input', function(e) {
-                        // 给相应的data属性赋值，进而触发该属性的set方法
+                        // 给相应的data字段赋值，进而触发该字段的set方法
                         vm[name] = e.target.value;
                     });
                     // node.value = vm[name]; // 将data的值赋给该node
@@ -47,10 +47,12 @@ Compile.prototype = {
     },
 }
 
-// 要处理好一件事：多个 {{}}/v-modle 对应一个data属性，怎么更新页面和data属性？？？
-// 其实，更新了vm里的值，data中的值，肯定也就变了
+// 要处理好一件事：多个 {{}}/v-modle 对应一个data字段，怎么更新DOM节点值和data字段？？？
+// 其实，更新了vm里的值，data中的字段的值，肯定也就变了
 // 用watcher来做中转，提供set/get，
-// 然后，一，用 batcher 来装一个一个的 {{}}/v-modle ，它的作用就是调用 watcher 里的 cb() ， batcher 只在编译阶段执行
-// 接着，二，用 dep 装了更新所有的 {{}}/v-modle 的方法，这里是发布订阅者模式的骨架了，
+// 接着，一，用 dep 装了更新所有的 {{}}/v-modle 的方法（也就是watcher），这里是发布订阅者模式的骨架了，
+//          在哪里创建？dep 是在 defineReactive 方法中创建的，每个data字段对应一个 dep
 //          在哪里订阅？在编译阶段触发 observe 的 getter 时，通过 dep.addSub 来订阅
+//          多个 {{}}/v-modle 怎么办？每个 dep 对应一个data字段，而 dep.subs 就是这样收集了每个data字段对应的所有DOM节点
 //          dep 会在每次有值发生变化是执行(data改变、页面改变，都会notify通知并执行更新，更新的方法在watcher上)
+// 然后，二，用 batcher 来装一个一个的 {{}}/v-modle ，它的作用就是调用 watcher 里的 cb() ， batcher 只在编译阶段执行

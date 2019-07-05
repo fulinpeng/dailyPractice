@@ -10,11 +10,8 @@
 
 <body>
     <div id="app">
-        <input type="text" v-modle="text">{{text}}
-        <input type="text" v-modle="text">{{text}}
-        <input type="text" v-modle="text">{{text}}
-        <input type="text" v-modle="text">{{text}}
-        <input type="text" v-modle="text">{{text}}
+        <input type="text" v-modle="name">{{name}}
+        <input type="text" v-modle="age">{{age}}
         <span></span>
     </div>
     <script>
@@ -101,16 +98,16 @@
             this.node = node;
             this.name = name;
             this.type = type;
-            // this.update();
-            this.get();
+            this.update();
+            // this.get();
             Dep.target = null;
         }
         Watcher.prototype = {
             constructor: Watcher,
             update: function() {
                 this.get();
-                // var batcher = new Batcher();
-                // batcher.push(this);
+                var batcher = new Batcher();
+                batcher.push(this);
             },
             get: function() {
                 this.value = this.vm[this.name];
@@ -123,6 +120,10 @@
 
         function Dep() {
             this.subs = [];
+            setTimeout(()=>{
+                // 打印出来，全是dom
+                console.log('@@@@@@@@@@@@@@@@@@@@-Dep.subs', this.subs)
+            }, 1000);
         }
         Dep.prototype = {
             constructor: Dep,
@@ -133,50 +134,66 @@
                 this.subs.forEach((sub) => {
                     // console.log(sub);
                     sub.update();
-                    sub.cb();
+                    // sub.cb();
                 })
             }
         }
 
         // Batcher 就是更新绑定过的数据，但是可以直接调用sub.cb()嘛，这里显得多此一举，不知道该怎么理解？？？
-        // function Batcher() {
-        //     this.reset();
-        // }
-        // Batcher.prototype = {
-        //     constructor: Batcher,
-        //     reset: function() {
-        //         this.has = {};
-        //         this.queue = [];
-        //         this.waiting = false;
-        //     },
-        //     push: function(job) {
-        //         if (!this.has[job.name]) {
-        //             this.queue.push(job);
-        //             this.has[job.name] = job;
-        //             if (!this.waiting) {
-        //                 this.waiting = true;
-        //                 setTimeout(() => {
-        //                     this.flush();
-        //                 });
-        //             }
-        //         }
-        //     },
-        //     flush: function() {
-        //         console.log('queue', this.queue);
-        //         this.queue.forEach((job) => {
-        //             job.cb();
-        //         });
-        //         this.reset();
-        //     }
-        // }
+        function Batcher() {
+            this.reset();
+        }
+        Batcher.prototype = {
+            constructor: Batcher,
+            reset: function() {
+                this.has = {};
+                this.queue = [];
+                this.waiting = false;
+            },
+            push: function(job) {
+                if (!this.has[job.name]) {
+                    this.queue.push(job);
+                    this.has[job.name] = job;
+                    if (!this.waiting) {
+                        this.waiting = true;
+                        setTimeout(() => {
+                            this.flush();
+                        });
+                    }
+                }
+            },
+            flush: function() {
+                this.queue.forEach((job) => {
+                    job.cb();
+                });
+                this.reset();
+            }
+        }
 
         var vm = new Vue({
             el: 'app',
             data: {
-                text: 'hello'
+                name: 'flp',
+                age: 22,
             }
         });
         // console.log(vm);
+
+        // 学习总结：
+        // 1. 这样封装一个MVVM库，感觉很简单、清晰、又实用，面向对象编程思想真牛
+        // 2. 也是一个很经典的设计模式运用实例
+        // 3. 整体架构再回顾一次：
+        //    1) defineReactive 里面重定义data每个字段的 setter 和 getter
+        //       并实现注册、更新 dep ，用来管理所有data字段对应的 dep
+        //       因为它是闭包函数，数据存活周期同Vue对象本身
+        //    2) compile 用来编译原来 #app 中的dom，返回真实dom
+        //       编译的同时注册 watcher 到 dep 中，给表单绑定事件函数
+        //    3) watcher 专注监听与更新(DOM到data 或者 data到DOM)
+        //       同时， batcher 插件要在这里插入
+        //    4) dep 是个单纯的发布订阅者的模型
+        //    5) batcher 相当于一个插件，将更新dom的操作移动到异步队列中去
+        //       同时 batcher 要维护当前哪些dom需要更新，当他们更新后要重置 batcher
+        
     </script>
 </body>
 

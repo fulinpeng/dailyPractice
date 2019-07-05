@@ -1,10 +1,3 @@
-const mount = (wrap, component) => {
-    wrap.appendChild(component._renderDom());
-    component.onStateChange = (oldEl, newEl) => {
-        wrap.insertBefore(newEl, oldEl);
-        wrap.removeChild(oldEl);
-    }
-}
 class PraiseBtn extends Component {
     constructor(props) {
         super(props);
