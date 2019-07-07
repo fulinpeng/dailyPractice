@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        img {
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <a href="https://itunes.apple.com/cn/app/id477927812" id="openApp">贴吧客户端</a>
+
+    <!-- <img src="./1111.jpg" alt="" srcset=""> -->
+    <img src="./2222.jpg" alt="" srcset="">
+    <script type="text/javascript">
+
+        document.getElementById('openApp').onclick = function (e) {
+            e.defaultPrevented();
+            // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+            // 否则打开a标签的href链接
+            varifr = document.createElement('iframe');
+            ifr.src = 'com.baidu.tieba://';
+            ifr.style.display = 'none';
+            document.body.appendChild(ifr);
+            window.setTimeout(function () {
+                document.body.removeChild(ifr);
+            }, 3000)
+            alert(1111);
+        };
+
+        // document.getElementById('openApp').click();
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+
+</body>
+<script>
+    var app = angular.module('myApp', []);
+    app.provider('myService', function () {
+        return {
+            isInt: false, // 定义一个默认值
+            fixedNum:0,
+            changeInt: function (boolean) { // 这是为了在config中能够去改变isInt的值的函数
+                if (boolean) {
+                    this.isInt = true;
+                } else {
+                    this.isInt = false;
+                }
+            },
+            changefixedNum:function (num) { // 这是为了在config中能够去改变num的值的函数
+                this.fixedNum=num;
+            },
+            $get: function () {
+                var that = this;
+                return {
+                    writeNum: function () {
+                        return '随机数：' + (that.isInt ? (Math.round(Math.random() * (20 - 10) + 10)/100).toFixed(that.fixedNum) : (Math.random() * (20 - 10) + 10));
+                    }
+                }
+            }
+        }
+    });
+    app.config(['myServiceProvider', function (myServiceProvider) {
+        console.log(myServiceProvider);
+        myServiceProvider.changeInt(true);
+        myServiceProvider.changefixedNum(3);
+    }]);
+    app.controller('mainCtrl', ['$scope', 'myService', function ($scope, myService) {
+        console.log(myService.writeNum());
+    }]);
+    // 注意了！！！服务名字要是：myService，而在provider中那就不能使用 myService 了，而是 myServiceProvider ！！！！！！
+
+
+</script>
+</html>

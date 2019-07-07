@@ -1,0 +1,52 @@
+.clu_lefttriangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  left: 0px;
+  top: 180px;
+  border-left: 20px solid white;
+  border-right: 20px solid transparent;
+}
+@media screen and (max-width: 1170px) {
+  .clu_lefttriangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    left: 0px;
+    top: 140px;
+    border-left: 15px solid white;
+    border-right: 15px solid transparent;
+  }
+}
+.clu_righttriangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  right: 0px;
+  top: 180px;
+  border-left: 20px solid transparent;
+  border-right: 20px solid white;
+}
+@media screen and (max-width: 1170px) {
+  .clu_righttriangle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    right: 0px;
+    top: 140px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid white;
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-15-2弹性运动+导航条</title>
+<style>
+*{margin:0;padding:0;list-style:none;}
+ul{width:440px;height:30px;position:relative;margin:30px auto 0;}
+li{float:left;width:98px;height:28px;text-align:center;border:1px solid black;position:relative;cursor:pointer;}
+.bg{width:100px;height:5px;background:red;border:none;position:absolute;top:24px;left:0;}
+</style>
+<script>
+window.onload=function(){
+	var oUl=document.getElementsByTagName('ul')[0];
+	var aLi=oUl.getElementsByTagName('li');
+	var oBg=aLi[aLi.length-1];
+	for(var i=0; i<(aLi.length-1); i++){
+		aLi[i].onmouseover=function(){
+			startMove(oBg,this.offsetLeft);
+		};
+	};
+	
+};
+
+var iSpeed=0;
+var left=0;
+function startMove(obj,iTarget){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		iSpeed+=(iTarget-left)/5;
+		iSpeed*=0.7;
+		left+=iSpeed;//避免小数的误差(原理：用变量参与运算，而不是用获取的left值来参与运算)
+		if(Math.abs(iSpeed)<1 && Math.abs(left-iTarget)<1){//这里就不能再用iSpeed为0来判断了
+			clearInterval(obj.timer);
+			obj.style.left=iTarget+'px';
+			document.title=iTarget+'--'+obj.offsetLeft+'--'+iSpeed;
+		}else{
+			//iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);导致一直左右摆动
+			obj.style.left=left+'px';
+			document.title=iTarget+'--'+obj.offsetLeft+'--'+iSpeed;
+		};
+		
+	},30);
+	
+};
+	
+	
+	
+	
+</script>
+</head>
+<body>
+<ul>
+	<li>首页</li>
+	<li>公司动态</li>
+	<li>行业新闻</li>
+	<li>联系我们</li>
+	<li class="bg"></li>
+</ul>
+
+</body>
+</html>

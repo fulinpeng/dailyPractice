@@ -1,0 +1,322 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    letter-spacing: 2px;
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.j_banner{
+    position: relative;
+    width: 100%;
+    height: 518px;
+    background-image: url("../images/clubactive%20(2).jpg");
+    overflow: hidden;
+}
+.j_zhemu{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.j_line1{
+    position: absolute;
+    top: 30px;
+    left: 5px;
+    width: 0px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.71);
+    z-index: 1;
+    transition:all .6s linear;
+}
+.j_line2{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    height: 0px;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.71);
+    z-index: 1;
+    transition:all .6s linear;
+}
+.j_line3{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    height: 0px;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.71);
+    z-index: 1;
+    transition:all .6s linear;
+}
+.j_line4{
+    position: absolute;
+    bottom: 30px;
+    right: 5px;
+    width: 0px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.71);
+    z-index: 1;
+    transition:all .6s linear;
+}
+.j_title{
+    position: relative;
+    font-size: 55px;
+    width: 500px;
+    color: #ffffff;
+    padding-bottom: 10px;
+    margin: 210px auto 0;
+    text-align: center;
+    opacity: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.85);
+    z-index: 1;
+    transition:all .6s linear;
+    cursor: default;
+}
+.j_srdown{
+    position: relative;
+    display: block;
+    font-size: 40px !important;
+    margin: 500px auto 0;
+    text-align: center;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+    transition:all .3s linear;
+    animation:srdown 1.5s linear .6s infinite;
+}
+@keyframes srdown {
+    0%{margin-top: 50px}
+    25%{margin-top: 55px}
+    50%{margin-top: 60px}
+    70%{margin-top: 55px}
+    100%{margin-top: 50px}
+}
+.j_text1{
+    text-align: center;
+    margin-top: 10px;
+    color: #FFFFFF;
+}
+.j_sekuai{
+    position: relative;
+    width: 100%;
+    height: 220px;
+    text-align: center;
+    font-size: 0;
+    letter-spacing: 0px;
+}
+.j_qukuai{
+    width: 285px;
+    height: 220px;
+    display: inline-block;
+    margin-top: 40px ;
+    font-size: 14px;
+    overflow: hidden;
+    transition:all .3s linear
+}
+
+.j_clorange{
+    background-color: #f26031;
+}
+.j_clorange1{
+    background-color: #ff8f1a;
+}
+.j_clblack{
+    background-color: #262324;
+}
+.j_clblack1{
+    background-color: #5b5859;
+}
+.j_opacity{
+    background-color: rgba(38, 35, 36, 0.8);
+}
+.j_h3{
+    font-size: 24px;
+    color: #FFFFFF;
+    margin: 10px auto;
+}
+.j_text2{
+    font-size: 14px;
+    margin: 25px 30px;
+    line-height: 20px;
+    color: #FFFFFF;
+    /*text-indent:1em;*/
+}
+.j_welcom{
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+}
+.j_h1{
+    font-size: 30px;
+    line-height: 35px;
+    margin: 20px 0;
+    color: #f26031;
+}
+.j_h1color{
+    color: #ff8f1a;;
+}
+.j_fasc{
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+.j_text3{
+    font-size: 16px;
+    line-height: 35px;
+    margin: 30px 150px;
+    opacity: 0;
+    transition: all .6s linear;
+}
+.j_content{
+    width: 100%;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 50px;
+}
+.j_content2{
+    position: relative;
+}
+.j_hdqu{
+    width: 100%;
+    overflow:hidden;
+    margin: 30px auto 70px;
+}
+.j_hddetails{
+    width: 320px;
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+.j_hdimg{
+    width: 320px;
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    transition:all .3s linear
+}
+.j_hdimg:hover .j_hdzm{
+    opacity: 1;
+}
+.j_hdimg:hover .j_text4{
+    margin: 60px 45px;
+}
+.j_hdimg>img{
+    height: 100%;
+}
+.j_hdfooter{
+    width: 100%;
+    font-size: 15px;
+    text-align: center;
+    line-height: 40px;
+    color: #FFFFFF;
+    cursor: default;
+}
+.j_hdzm{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.31);
+    transition: all .4s linear;
+}
+.j_text4{
+    font-size: 14px;
+    text-align: left;
+    color: #FFFFFF;
+    margin: 40px 45px;
+    text-indent: 2em;
+    transition:all .3s linear
+}
+.j_hdbtn{
+    width: 80px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.j_sq1{
+    margin: 30px 200px;
+}
+.j_sq2{
+    margin: 30px 100px;
+}
+.j_text5{
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #f26031;
+}
+.j_text6{
+    font-size: 14px;
+    line-height: 25px;
+}
+.j_sqintro{
+    width: 450px;
+}
+.j_border{
+    border: 1px solid rgba(128, 128, 128, 0.44);
+    padding: 5px;
+    width: 202px;
+    height: 202px;
+    display: inline-block;
+    margin-left: 100px;
+    cursor: pointer !important;
+}
+.j_border:hover .j_text7{
+    color: #000;
+    transition: all .3s linear;
+}
+.j_border:hover .j_text8{
+    color: #000;
+    transition: all .3s linear;
+}
+.j_sqlink{
+    width: 200px;
+    height: 200px;
+    background-color: #f26031;
+    color: #f9f9f9;
+    text-align: center;
+    overflow: hidden;
+}
+.j_text7{
+    margin-top: 60px;
+    font-size: 60px;
+}
+.j_text8{
+    font-size: 16px;
+}
+@media screen and (max-width: 1170px) {
+    .j_qukuai{
+        width: 225px;
+        height: 160px;
+    }
+    .j_h3{
+        font-size: 16px;
+    }
+    .j_text2{
+        font-size: 12px;
+    }
+    .j_hddetails{
+        width: 220px;
+    }
+    .j_hdimg{
+        width: 220px;
+        height: 180px;
+    }
+    .j_hdimg:hover .j_text4{
+        margin: 30px 25px;
+        font-size: 12px;
+    }
+    .j_hdbtn{
+        width: 60px;
+        font-size: 12px;
+        height: 30px;
+        margin: 0 auto;
+        padding: 5px;
+        line-height: 30px !important;
+    }
+}

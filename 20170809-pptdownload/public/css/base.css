@@ -1,0 +1,93 @@
+
+body,ul,p,h1,h2,div,li,.section{
+    padding:0;
+    margin:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul,li{
+    list-style:none;
+}
+body{
+    color:rgb(58,58,58);
+    font-size:16px;
+    font-family: "Microsoft Yahei ui", "微软雅黑";
+}
+a{
+    text-decoration:none;
+}
+.clear::after{
+    content: "";
+    display:block;
+    height:0;
+    clear:both;
+}
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.footer{
+    padding:20px 20% 10px;
+    background:#3a3e7a;
+}
+.footer .linkbox{
+    width:100%;
+    position:relative;
+}
+.linkbox .link-img{
+    width:70%;
+    float:left;
+    height:420px;
+}
+.linkbox .link-img img{
+    width:100%;
+    max-width:600px;
+}
+.linkbox .link-ul{
+    color:white;
+    float:right;
+    font-size:14px;
+    line-height: 30px;
+    text-align: right;
+    margin-top:84px;
+}
+.linkbox .link-ul li{
+    width:60px;
+    border-bottom:1px solid #5a5d8f;
+}
+.linkbox .link-ul li:nth-child(1){
+    margin-bottom:10px;
+    border-bottom:none;
+}
+.linkbox .link-ul li:nth-last-child{
+    border-bottom:none;
+}
+.linkbox .link-ul li a{
+    color:white;
+}
+.linkbox .toup{
+    font-size:14px;
+    color:white;
+    position:absolute;
+    bottom:50px;
+    right:0;
+}
+.linkbox .toup a{
+    color:white;
+}
+.copyright{
+    margin-left:23%;
+    font-size:12px;
+    line-height: 20px;
+}
+.copyright .p_one{
+    color:#737377;
+}
+.copyright .p_two{
+    color:white;
+}
+
+
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <style>
+        .contenteditable {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="content">area1</textarea>
+    <div contenteditable="true" id="editor" class="contenteditable">area2</div>
+    <div id="img_box"></div>
+    <script>
+        // Ctrl + c 上传文件
+        // http://cxytiandi.com/blog/detail/2545
+        document.querySelector('#content').addEventListener('paste', paster);
+        document.querySelector('#editor').addEventListener('paste', paster);
+        function paster(event) {
+            // 通过事件对象访问系统剪贴板
+            var isChrome = false;
+            if (event.clipboardData || event.originalEvent) {
+                //not for ie11 某些chrome版本使用的是event.originalEvent
+                var clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+                console.log('clipboardData:', clipboardData);
+                // # 重点啊
+                // clipboardData.items 这个东西啊，打印出来是啥子都看不到的，要用下面的方法去处理才行
+                if (clipboardData.items && clipboardData.items.length) {
+                    // for chrome
+                    var items = clipboardData.items,
+                        len = items.length,
+                        blob = null;
+                    isChrome = true;
+                    for (var i = 0; i < len; i++) {
+                        if (items[i].type.indexOf("image") !== -1) {
+                            //getAsFile() 此方法只是living standard firefox ie11 并不支持
+                            blob = items[i].getAsFile();
+                        } else {
+                            alert('该粘贴内容非图片格式~');
+                        }
+                    }
+                    console.log('blob:', blob);
+                    if (blob !== null) {
+                        //阻止默认行为即不让剪贴板内容在编辑框中显示出来
+                        event.preventDefault();
+                        var reader = new FileReader();
+                        reader.onload = function (event) {
+                            console.log('event:', event);
+                            // event.target.result 即为图片的Base64编码字符串
+                            var base64_str = event.target.result;
+                            console.log('base64_str', base64_str);
+                            var img = document.createElement('img');
+                            img.src = base64_str;
+                            document.getElementById('img_box').appendChild(img);
+                        }
+                        reader.readAsDataURL(blob);
+                    }
+                } else {
+                    alert('没有发现粘贴内容~');
+                }
+            }
+        }
+        // blob是一种类文件的存储格式，它可以存储几乎任何格式的内容
+        // 但是Safari的粘贴不是通过event传递的，它是直接在输入框里面添加一张图，下面会讲
+
+    </script>
+</body>
+
+</html>

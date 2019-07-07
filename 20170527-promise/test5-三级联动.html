@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #linkage {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: #2e4a91;
+            position: relative;
+        }
+
+        #linkage .mainlable {
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            background: #558aff;
+        }
+
+        #linkage ul {
+            position: absolute;
+            display: inline-table;
+            width: 33.333%;
+            cursor:pointer;
+            top:50%;
+            margin-top:-15px;
+        }
+        #shengbox{
+            left:0;
+        }
+        #shibox{
+            left:33.33%;
+        }
+        #xianbox{
+            left:66.66%;
+        }
+
+        #linkage ul li {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: rgb(84, 131, 248);
+        }
+        #linkage ul .active{
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<div id="linkage">
+    <div class="mainlable"></div>
+        <ul id="shengbox">
+            <li class="active">四川</li>
+        </ul><!--
+    --><ul id="shibox">
+            <li class="active">默认</li>
+            <li>成都</li>
+            <li>内江</li>
+        </ul><!--
+    --><ul id="xianbox">
+            <li class="active">资中县</li>
+            <li>资中县</li>
+        </ul>
+</div>
+<script>
+    const data = {
+        "code": 0,
+        "desc": "成功!",
+        "data": {
+            "username": "yanshi",
+            "usernick": "演示",
+            "id": 533,
+            "areas": [
+                {
+                    "id": 51,
+                    "name": "四川省",
+                    "shortName": "四川",
+                    "level": 1,
+                    "lng": 104.08,
+                    "lat": 30.66,
+                    "parentId": 0,
+                    "isVirtual": false
+                },
+                {
+                    "id": 5101,
+                    "name": "成都市",
+                    "shortName": "成都",
+                    "level": 2,
+                    "lng": 104.07,
+                    "lat": 30.58,
+                    "parentId": 51,
+                    "isVirtual": false
+                },
+                {
+                    "id": 5110,
+                    "name": "内江市",
+                    "shortName": "内江",
+                    "level": 2,
+                    "lng": 105.07,
+                    "lat": 29.59,
+                    "parentId": 51,
+                    "isVirtual": false
+                },
+                {
+                    "id": 511025,
+                    "name": "资中县",
+                    "shortName": "资中县",
+                    "level": 3,
+                    "lng": 104.86,
+                    "lat": 29.77,
+                    "parentId": 5110,
+                    "isVirtual": false
+                }
+            ],
+            "sig": "b78a9c641c1c712b01951f379e643d9c7fc8f52b70a413aacb1b8295"
+        }
+    };
+    const maim=document.getElementById('linkage'),
+        sheng=document.getElementById('shengbox'),
+        shi=document.getElementById('shibox'),
+        xian=document.getElementById('xianbox'),
+        baseTop=-15;
+    sheng.onmousedown=function(event){
+        const e=event||window.event;
+        drag(e, this);
+    };
+    shi.onmousedown=function(event){
+        const e=event||window.event;
+        drag(e, this);
+    };
+    xian.onmousedown=function(event){
+        const e=event||window.event;
+        drag(e, this);
+    };
+    function drag(e, that) {
+        e.preventDefault();
+        const y0=e.clientY;
+        const marginTop=parseInt(getStyle(that, 'marginTop'));
+        document.onmousemove=function (event) {
+            const e=event||window.event;
+            const y2=e.clientY;
+            const disY=y2-y0;
+            that.style.marginTop=marginTop+disY+'px';
+        };
+        document.onmouseup=function () {
+            const marginTop=parseInt(getStyle(that, 'marginTop'));
+            document.onmouseup=document.onmousemove=null;
+            getNear(that, marginTop);
+        }
+    }
+    function getStyle(obj, attr){
+        return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+    }
+    function getNear(obj, marginTop) {
+        const liNode=obj.getElementsByTagName('li');
+        const len=liNode.length,
+            h=parseFloat(getStyle(liNode[0], 'height')),
+            arrPos=[];
+        for(let i=0; i<len; i++){
+            const dis=Math.abs(h*i+marginTop-baseTop); // 每个li距离基准线的距离
+            arrPos.push(dis);
+        }
+        let nearest=arrPos[0];
+        arrPos.forEach(function (item, index) {
+            nearest=item<nearest ? item : nearest;
+        });
+        let nearindex=arrPos.findIndex(function (item, index) {
+            return item==nearest;
+        });
+        changeColor(obj, nearindex);
+        moveto(obj, marginTop, -nearindex*h+baseTop);
+    }
+    function changeColor(obj, index){
+        const liNode=obj.getElementsByTagName('li');
+        for (let i=0; i<liNode.length; i++){
+            liNode[i].className='';
+        }
+        liNode[index].className='active';
+    }
+    function moveto(obj, start, target){
+        const speed=(target-start)/10;
+        const timer=setInterval(()=>{
+            if(Math.abs(parseFloat(getStyle(obj, 'marginTop'))-target)<=1){
+                obj.style.marginTop=target+'px';
+                clearInterval(timer);
+            }else{
+                obj.style.marginTop=parseFloat(getStyle(obj, 'marginTop'))+speed+'px';
+            }
+        },30);
+    }
+</script>
+</body>
+</html>

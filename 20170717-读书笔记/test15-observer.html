@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <script>
+        // Select the node that will be observed for mutations
+        let targetNode = document.querySelector(`#main`);
+
+        // Options for the observer (which mutations to observe)
+        let config = {
+            attributes: true,
+            childList: true,
+            subtree: true
+        };
+
+        // Callback function to execute when mutations are observed
+        const mutationCallback = (mutationsList) => {
+            console.log('args:', mutationsList)
+            for (let mutation of mutationsList) {
+                let type = mutation.type;
+                switch (type) {
+                    case "childList":
+                        console.log("A child node has been added or removed.");
+                        break;
+                    case "attributes":
+                        console.log(`The ${mutation.attributeName} attribute was modified.`);
+                        break;
+                    case "subtree":
+                        console.log(`The subtree was modified.`);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        // Create an observer instance linked to the callback function
+        let observer = new MutationObserver(mutationCallback);
+
+        // Start observing the target node for configured mutations
+        observer.observe(targetNode, config);
+
+        targetNode.setAttribute('test', 'test'); // attributes
+
+        var span = document.createElement('span');
+        targetNode.appendChild(span); // childList
+
+        targetNode.querySelector('span').innerHTML = 'hello'; // childList
+
+        // 没有试出哪种是 subTree
+
+        targetNode.innerHTML = targetNode.innerHTML + ' world!';
+
+        // Later, you can stop observing
+        // observer.disconnect();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <style>
+        ul,
+        li {
+            list-style: none;
+            user-select: none;
+        }
+        
+        ul.ul-tree {
+            padding-top: 10px;
+        }
+        
+        ul>li {
+            line-height: 30px;
+            border-top: 2px solid transparent;
+        }
+        
+        .ul-tree {
+            padding-left: 40px;
+        }
+        
+        li>.icon {
+            display: inline-block;
+        }
+        
+        .loading {
+            animation: loading .36s infinite;
+        }
+        
+        @keyframes loading {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <drag-tree :list-tree="listTree"></drag-tree>
+    </div>
+</body>
+<script>
+    // 已经实现：
+    // > 拖动改变节点顺序，并修改数据源改变顺序（不完善）
+    // > 父级不能往子级里拖
+    // > 向没有子节点的节点拖拽，添加子节点，数据源添加children
+    // > 所有子节点被拖到其它节点后，自身节点前面的icon不显示
+
+    // 未实现：
+    // > 数组转成tree
+    // > 若数据源是普通数组，那在拖拽改变顺序时怎么修改数组
+
+    // 待优化：
+    // > 快速判断一个多维数组中时候有某个对象
+    // > 全局变量太多
+    // > 判断和循环泛滥
+    // > 可扩展性
+
+    let activeEl, activeItem,
+        targetEl, targetItem,
+        activeParent, insertType,
+        isDragAble = false, // 能否拖放到那个位置（默认为false，起手就是在自己身上，所有默认false）
+        findTarget;
+
+    // 判断active是否是target的祖辈
+    function isFuZiGuanXi(activeArr, target) {
+        console.log(activeArr, target);
+        for (let i = 0; i < activeArr.length; i++) {
+            console.log(activeArr[i].id, target.id);
+            if (activeArr[i].id === target.id) {
+                findTarget = true;
+                return;
+            }
+            if (activeArr[i]['children']) isFuZiGuanXi(activeArr[i]['children'], target);
+        }
+    }
+    // 声明式组件不能递归调用
+    // var Tree = {
+    //     data: function() {
+    //         return {
+
+    //         }
+    //     },
+    //     template: `<span>heheh</span>`,
+    //     components: {
+    //         Tree: Tree
+    //     }
+    // };
+    Vue.component('drag-tree', {
+        props: ['listTree'],
+        data: function() {
+            return {
+                listTree: this.listTree,
+                listSpread: {},
+                listLoading: {}
+            }
+        },
+        template: `
+        <ul class="ul-tree">
+            <li v-for="(item, index) in listTree"
+                :key="index">
+                <span :class="['icon', listLoading[index] ? 'loading' : '' ]"
+                    v-show="item.children && item.children.length>0"
+                    @click="toggleSpread(item, index)"
+                    >{{listSpread[index] ? "- " : "+ " }}</span>
+                <span
+                    @dblclick="dblClick"
+                    draggable='true'
+                    @dragstart='dragStart(item, $event)'
+                    @dragenter='dragEnter(item, $event)'
+                    @dragover='dragOver(item, $event)'
+                    @drop='drop(item, $event)'
+                    @dragend='dragEnd'
+                    @dragleave='dragLeave'
+                >
+                    {{item.label+" ("+item.id+")"}}
+                </span>
+                <drag-tree v-show="listSpread[index]" :list-tree="item.children"></drag-tree>
+            </li>
+        </ul>`,
+        created: {
+
+        },
+        methods: {
+            toggleSpread: function(item, index) {
+                this.$set(this.listLoading, index, true);
+                setTimeout(() => {
+                    this.$set(this.listLoading, index, false);
+                    this.$set(this.listSpread, index, !this.listSpread[index]);
+                }, 300);
+            },
+            dblClick: function(e) {
+                console.log('dblclick', e);
+            },
+            dragStart: function(item, e) {
+                console.log('dragStart', e, item);
+                activeEl = e.target;
+                activeParent = this.listTree;
+                activeItem = item;
+            },
+            dragEnter: function(item, e) {
+                e.preventDefault();
+
+                if (activeItem.id === item.id) { // 目标对象是自身
+                    isDragAble = false;
+                } else {
+                    if (activeItem.children) { // 目标对象不是自身，且自身有children
+                        isFuZiGuanXi(activeItem.children, item);
+                        isDragAble = findTarget ? false : true; // activeItem是item的父级，那就不能拖
+                        console.log('i have chilren isDragAble', isDragAble, activeItem, e);
+                    } else { // 目标对象不是自身，自身没有children
+                        isDragAble = activeItem.id === item.id ? false : true;
+                    }
+                }
+            },
+            dragOver: function(item, e) {
+                let w = e.target.offsetWidth,
+                    h = e.target.offsetHeight,
+                    offsetX = e.target.offsetLeft,
+                    offsetY = e.target.offsetTop;
+                if (isDragAble) {
+                    console.log('drag le yo');
+                    if (e.pageX > offsetX && e.pageX < offsetX + w && e.pageY > offsetY && e.pageY < offsetY + h) {
+                        if (e.pageY < offsetY + h / 3) {
+                            insertType = 'before';
+                            e.target.style = "border-top:2px solid red;";
+                        } else if (e.pageY > offsetY + h * 2 / 3) {
+                            insertType = 'after';
+                            e.target.style = "border-bottom:2px solid red;";
+                        } else {
+                            insertType = 'insertInChild';
+                            e.target.style = "background:rgb(55,0,0,0.8);";
+                        }
+                    }
+                } else {
+                    e.target.style = "border-top:2px solid transparent;";
+                    e.target.style = "border-bottom:2px solid transparent;";
+                    e.target.style = "background:none;";
+                }
+                e.preventDefault();
+                return true;
+            },
+            dragLeave: function(e) {
+                findTarget = null;
+                e.target.style = "border-top:2px solid transparent;";
+                e.target.style = "border-bottom:2px solid transparent;";
+                e.target.style = "background:none;";
+                e.preventDefault();
+                return true;
+            },
+            drop: function(item, e) {
+                // console.log('drop', e);
+                e.target.style = "border-top:2px solid transparent;";
+                if (isDragAble) {
+                    // 交换数据
+                    targetEl = e.target;
+                    targetItem = item;
+                    targetParent = this.listTree;
+                    this.changeData();
+                }
+            },
+            dragEnd: function(e) { // 一般在这里清空数据
+                // console.log('dragEnd', e);
+                isDragAble = false;
+                activeEl = null;
+                activeItem = null;
+                targetItem = null;
+            },
+            changeData() {
+                if (targetParent === activeParent) { // 处理同级拖拽改变顺序
+                    let temp, activeIndex, targetIndex;
+                    for (let n = 0; n < activeParent.length; n++) {
+                        if (activeParent[n].id == activeItem.id) {
+                            activeIndex = n;
+                        }
+                        if (activeParent[n].id == targetItem.id) {
+                            targetIndex = n;
+                        }
+                        if (typeof activeIndex == 'Number' && typeof targetIndex == 'Number') {
+                            break;
+                        }
+                    }
+                    // 自己往自己身上拖就退出拖拽函数
+                    if (activeIndex === targetIndex) return;
+                    temp = activeParent[activeIndex];
+                    if (insertType === 'before') { // 插到前面
+                        activeParent.splice(targetIndex, 0, temp);
+                        if (activeIndex > targetIndex) {
+                            activeParent.splice(activeIndex + 1, 1);
+                        } else {
+                            activeParent.splice(activeIndex, 1);
+                        }
+                    } else if (insertType === 'after') { // 插到后面
+                        if (targetIndex === activeParent.length - 1) {
+                            activeParent.push(temp);
+                            activeParent.splice(activeIndex, 1);
+                        } else {
+                            activeParent.splice(targetIndex + 1, 0, temp);
+                            if (activeIndex > targetIndex) {
+                                activeParent.splice(activeIndex + 1, 1);
+                            } else {
+                                activeParent.splice(activeIndex, 1);
+                            }
+                        }
+                    } else {
+                        this.insertChild(targetItem, activeItem);
+                        activeParent.splice(activeIndex, 1);
+                    }
+                    return;
+                } else { // 不同级改变顺序
+                    for (let n = 0; n < targetParent.length; n++) {
+                        if (targetParent[n].id == targetItem.id) {
+
+                            // 插入
+                            if (insertType === 'before') {
+                                targetParent.splice(n, 0, activeItem);
+                            } else if (insertType === 'after') {
+                                if (n === activeParent.length - 1) {
+                                    targetParent.push(activeItem);
+                                } else {
+                                    targetParent.splice(n + 1, 0, activeItem);
+                                }
+                            } else {
+                                // 往中间拖动是插到children里面去，若没有children就新建children（最好给出提示）
+                                this.insertChild(targetItem, activeItem);
+                            }
+
+                            // 删掉 activeItem
+                            for (let i = 0; i < activeParent.length; i++) {
+                                if (activeParent[i].id == activeItem.id) {
+                                    activeParent.splice(i, 1);
+                                    // 如果所有的 child 都被移走了就把 children 置为
+                                    if (activeParent.children.length === 0) {
+                                        Vue.set(activeParent, 'children', null);
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            },
+            insertChild(target, active) {
+                if (target.children instanceof Array) {
+                    target.children.push(active);
+                } else {
+                    Vue.set(targetItem, 'children', [activeItem]);
+                }
+            }
+        }
+    });
+    var app = new Vue({
+        el: '#app',
+        mounted: function() {
+            // setInterval(() => {
+            //     console.log(this.listTree);
+            // }, 5000);
+        },
+        data: {
+            listTree: [{
+                id: 1,
+                label: '一级 1',
+                children: [{
+                    id: 4,
+                    label: '二级 1-1',
+                    children: [{
+                        id: 9,
+                        label: '三级 1-1-1'
+                    }, {
+                        id: 10,
+                        label: '三级 1-1-2'
+                    }]
+                }]
+            }, {
+                id: 2,
+                label: '一级 2',
+                children: [{
+                    id: 5,
+                    label: '二级 2-1'
+                }, {
+                    id: 6,
+                    label: '二级 2-2'
+                }]
+            }, {
+                id: 3,
+                label: '一级 3',
+                children: [{
+                    id: 7,
+                    label: '二级 3-1'
+                }, {
+                    id: 8,
+                    label: '二级 3-2',
+                    children: [{
+                        id: 11,
+                        label: '三级 3-2-1'
+                    }, {
+                        id: 12,
+                        label: '三级 3-2-2'
+                    }, {
+                        id: 13,
+                        label: '三级 3-2-3'
+                    }]
+                }]
+            }]
+        }
+    });
+</script>
+
+</html>

@@ -1,0 +1,30 @@
+<html lang="en-US">
+<canvas id="myCanvas"width=500px height=500px></canvas>
+<canvas id="myCanvas2" width=500px height=500px></canvas>
+<script>
+    var myCanvas = document.getElementById("myCanvas");
+    var context = myCanvas.getContext("2d");
+
+    context.translate(250,100);
+    context.fillStyle = "rgba(0,0,255,0.25)";
+    for(var i=0;i<45;i++)
+    {
+        //context.beginPath();
+        context.scale(0.93,0.93);
+        context.rotate(Math.PI/9);
+        context.translate(35,12);
+        context.fillRect(0,0,100,50);
+    }
+
+    var myCanvas2 = document.getElementById("myCanvas2");
+    var cvs= myCanvas2.getContext("2d");
+    cvs.translate(250,100);
+    cvs.fillStyle="rgba(0,45,63,0.26)";
+    for (var i=0; i<50; i++){
+        cvs.translate(40,40);
+        cvs.scale(0.95,0.95);
+        cvs.rotate(Math.PI/10);
+        cvs.fillRect(0,0,100,50);
+    }
+</script>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <style>
+        /* .rect {
+            fill: steelblue;
+        } */
+
+        .text {
+            fill: white;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke-width: 2px;
+            stroke: black;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1"></div>
+    <script>
+        // 添加一个柱状图
+        // 画布大小
+        var width = 400;
+        var height = 400;
+        var dataset = [10, 20, 30, 40, 33, 24, 12, 5];
+
+        // 在 body 里添加一个 SVG 画布   
+        var svg = d3.select(".div1")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // 定义了一个 padding ，是为了给 SVG 的周边留一个空白，最好不要将图形绘制到边界上
+        var padding = { left: 30, right: 30, top: 20, bottom: 20 };
+        var xText = ["red", "blue", "green", "yellow", "black", "orange", "white", "pink"];
+        // x轴的比例尺
+        var xScale = d3.scale.ordinal()
+            .domain(d3.range(dataset.length)) // 生成一个 0 - 7 的数组
+            // .domain(xText) // 或者直接用一个数组
+            .rangeRoundBands([0, width - padding.left - padding.right]);
+        console.log('生成一个 0 - 7 的数组', d3.range(dataset.length));
+        // y轴的比例尺
+        var yScale = d3.scale.linear()
+            .domain([0, d3.max(dataset)])
+            .range([height - padding.top - padding.bottom, 0]);
+
+        //定义x轴
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+
+        //定义y轴
+        var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left");
+
+        //矩形之间的空白
+        var rectPadding = 4;
+
+        //添加矩形元素
+        var rects = svg.selectAll(".rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("class", "rect")
+            .attr("fill", "steelblue");
+
+        rects.attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr("x", function (d, i) {
+                return xScale(i) + rectPadding / 2;
+            })
+            .attr("width", xScale.rangeBand() - rectPadding)
+            .attr("y", function (d) {
+                var min = yScale.domain()[0];
+                return yScale(min);
+            })
+            .attr("height", function (d) { // 不加这个效果是：从y轴负方向出来！没懂原理（应该是起到初始值的作用吧）
+                return 0;
+            })
+            .transition() // 加上过渡动画 test4.html 有更多实例
+            .delay(function (d, i) {
+                return i * 200;
+            })
+            .duration(2000)
+            .ease("bounce")
+            .attr("y", function (d) {
+                return yScale(d);
+            })
+            .attr("height", function (d) {
+                return height - padding.top - padding.bottom - yScale(d);
+            })
+
+        //添加文字元素
+        var texts = svg.selectAll(".text")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .attr("class", "text")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr("x", function (d, i) {
+                return xScale(i) + rectPadding / 2;
+            })
+            .attr("dx", function () {
+                return (xScale.rangeBand() - rectPadding) / 2 - 8;
+            })
+            .attr("dy", function (d) {
+                return 20;
+            })
+            .text(function (d) {
+                return d;
+            })
+            .attr("y", function (d) {
+                var min = yScale.domain()[0];
+                return yScale(min);
+            })
+            .transition() // 加上过渡动画 test4.html 会讲
+            .delay(function (d, i) {
+                return i * 200;
+            })
+            .duration(2000)
+            .ease("bounce")
+            .attr("y", function (d) {
+                return yScale(d);
+            });
+
+        //添加x轴
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
+            .call(xAxis);
+
+        //添加y轴
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .call(yAxis);
+
+        // 添加事件
+        rects.on("mouseover", function (d, i) {
+            console.log(d, i, d3.select(this));
+            d3.select(this)
+                .attr("fill", "orange");
+        })
+            .on("mouseout", function (d, i) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .attr("fill", "steelblue");
+            });
+
+
+
+
+
+    </script>
+</body>
+
+</html>

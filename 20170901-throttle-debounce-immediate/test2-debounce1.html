@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="height:2000px">
+<script>
+    /*这个术语-去抖动 来自电子学的领域，手动开关输入的信号被发送到数字电路中。在电子学中，当你按一
+    个物理按钮一次，数字电路可能读到多个按压，因为按钮的物理属性（金属触点，弹簧，磨损件等）。
+
+    去抖动意味着采集到的所有这些波动的信号，并把它们当作一个。
+
+    例子：
+    一个简单的例子已经存在于JS中：keydown vs keyup。假设您正在处理一个项目，并且需要输入内容。
+    但是你想要每次敲击键盘得到一个字符。输入时，如果长按一个键，keydown事件将连续被触发，但是 keyup
+    事件只有在按键被释放时才会触发。*/
+
+    /*体验一下*/
+//    window.onkeyup = function() {
+//        console.log('onkeyup');
+//    }
+//    window.onkeydown = function() {
+//        console.log('onkeydown');
+//    }
+
+
+
+
+    /*当事件发生时，我们不会立即激活回调。相反，我们等待一定的时间并检查相同的事件是否再次触发。
+    如果是，我们重置定时器，并再次等待。如果在等待期间没有发生相同的事件，我们就立即激活回调。*/
+
+
+    var timer = null;
+    var num=0;
+    function srollFn() {
+        num++;
+        console.log(num);
+    }
+    function debounce() {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            srollFn();
+        }, 500);
+    }
+    window.onscroll= debounce;
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    function Parent(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    Parent.prototype.say=function (){
+        console.log('色梨~色梨~色梨色梨'+this.name);
+    }
+    function Child(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    Child.prototype.say=function (){
+        console.log('色梨~色梨~色梨色梨'+this.name);
+    }
+
+    // 1、将Parent的原型赋给Child就能让Child的所有实例继承Parent
+    // Child.prototype=Parent.prototype;
+    // Child.prototype.constructor=Child;
+    
+
+    // 2、用Parent的实例来做媒介,将new Parent()作为Child的原型
+    // Child.prototype=new Parent();
+    // Child.prototype.constructor=Child;
+    
+
+    //3、新建一个空对象来做媒介,将Object.create(Parent.prototype)作为Child的原型
+    // Child.prototype=Object.create(Parent.prototype);
+    // Child.prototype.constructor=Child;
+
+
+    /////////////////////////自定义一个extend函数/////////////////////////////////
+    function extend(Parent, Child){
+        function F(){};
+        F.prototype=Parent.prototype; // 而且这里不能重置 F.prototype.constructor
+        Child.prototype=new F();
+        Child.prototype.constructor=Child;
+        Child.super=Parent.prototype.constructor;
+    }
+
+    // extend继承实例：Someone继承Parent
+    function Someone(name,age){
+        // console.log(Someone.super);
+        Someone.super.apply(this, arguments); //这里要注意了，super是加在Someone上的
+        this.work=function (){
+            console.log('my work : sing,sing,sing');
+        }
+    }
+    extend(Parent, Someone);
+    // 记住：修改了原型，需要给子类添加原型属性要写在后面
+    Someone.prototype.sing=function (){
+        console.log('I can sing!!!!!');
+    }
+
+    var someone = new Someone('fff',22,'coder');
+    console.log(someone);
+
+    // 小记：又理解了构造函数中的this为什么指的实例了，
+    // 嘿嘿，因为new的时候是新建了一个对象，用apply的方式执行构造函数，
+    // 所以所有构造函数中的this一律指的实例对象
+
+    // 再次阅读：
+    // 为什么用 function F(){} 的实例来做 Child 的原型，就可以避免，修改Child.prototype而不影响Parent.prototype
+    // 就是因为我们通常添加原型方法用的是 Child.prototype = ...; 或者 child.__proto__
+    // 这种写法只会改变 F 实例上面的属性，并不会改边 F.prototype 上的属性(懂了嘛，其实就是多了一层，实际上还是可以改的...)
+
+    // ES6中子类为什么要先调用super()
+    // 注意：上面所写的是ES5中组合寄生继承，并不是ES6的继承实现...
+    // ES6中是先执行父级的构造函数，得到实例对象后，然后再执行子类的构造函数添加子类的属性和方法
+    //      这样做的好处是：父类的静态方法，也会被子类继承
+</script>
+</html>

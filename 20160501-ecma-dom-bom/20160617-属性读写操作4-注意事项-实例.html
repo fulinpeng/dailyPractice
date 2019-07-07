@@ -1,0 +1,93 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>html读写操作，注意事项</title>
+<style>
+  #div1{
+    width:200px;
+    height:200px;
+    border:1px solid #333;
+  }
+
+</style>
+
+<script>
+  window.onload=function(){
+    var oImg=document.getElementById('img1');
+	//alert(oImg.src);
+	var oInp=document.getElementById('btn1');
+	lujing='file:///E:/js-lianxi/img/3.jpg';
+	
+	var oDiv=document.getElementById('div1');
+	var oAttr=document.getElementById('attr');
+	var oVal=document.getElementById('val');
+	var oBtn2=document.getElementById('btn2');
+	
+	
+	oImg.onclick=function(){
+	  if(oImg.src==lujing){
+	  oImg.src='img/4.jpg';
+	  lujing='file:///E:/js-lianxi/img/4.jpg';
+	  }else {
+	  oImg.src='img/3.jpg';
+	  lujing='file:///E:/js-lianxi/img/3.jpg';
+	  };
+	};
+	
+	oInp.onclick=function(){
+	  oInp.type='checkbox';
+	};
+	
+	oBtn2.onclick=function(){
+	  oDiv.style[ oAttr.value ]=oVal.value;
+	  
+	};
+	
+  
+  };
+  
+  
+  
+    
+
+
+</script>
+  
+  
+</head>
+<body>
+  <p style="width:800px;">
+    1、所有的相对路径都别来做判断；<b>绝对路径</b>可以做判断<br/>
+	2、RGB，颜色值不能用来做判断，与兼容性有关，返回值不同；<br/>
+	3、innerHTML值，不能用来做判断；<br/>
+	4、oInp.type='checkbox';是不兼容IE6 IE7 IE8的；<br/>
+	    &nbsp;4.1用两个input，可以采用点击之后，
+	    之前的那个按钮隐藏这种思路；<br/>
+	5、如果想改变某个元素的浮动oDiv.style.float='right';在旧的浏览器
+	    是不兼容的；<br/>
+		&nbsp;5.1写好样式，给那个元素塞相应的class即可；<br/>
+  </p>
+  <img width="399px" id="img1" src="img/3.jpg"/><br/>
+  <input type="button" id="btn1" />
+  
+  <div width="30px"  >请输入属性名：</div>
+  <input id="attr" type="text"/>
+  <div width="30px" >请输入属性值：</div>
+  <input id="val" type="text"/>
+  <input id="btn2" type="button" value="确定"/>
+  <div id="div1"></div>
+  <p style="width:800px;">
+    6、js中 . 后面的东西是不能变的，用 [ ]就可以,但是不要既写 .
+	又写 [ ] ,如oDiv.style[ oAttr.value ] 是错误的;<br/>
+	7、突然发现，在HTML中是不能用src的，可以用url，url用于背景，src只用在样式表中；img标签中也可以用<br/>
+    8、上面说相对路径不能执行读操作，但是这个例子说明相对路径是能写操作的<br/>
+  </p>
+
+
+
+
+
+
+</body>
+</html>

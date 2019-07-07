@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div>
+        <input id="input1" type="text" placeholder="输入一个整数" />
+        <input id="button1" type="button" value="按钮" />
+    </div>
+    <canvas style="background: black" id="canvas1" width="1400" height="700"></canvas>
+    <script>
+        var oC = document.getElementById("canvas1");
+        var ctx = oC.getContext("2d");
+        var button = document.getElementById("button1");
+        var arr = [];
+
+
+        ctx.translate(oC.width / 2, oC.height / 2);
+        button.onclick = function() {
+            ctx.clearRect(-oC.width / 2, -oC.height / 2, oC.width, oC.height);
+            arr = [];
+            var n = document.getElementById("input1").value;
+            inite(n, ctx, 300);
+            connect(n);
+        };
+        //初始化
+        function inite(n, ctx, r) {
+            ctx.save();
+            var angle = 2 * Math.PI / n;
+            for (var i = 0; i < n; i++) {
+                var obj = {
+                    x: '',
+                    y: ''
+                };
+                obj.x = r * Math.cos(angle * i);
+                obj.y = r * Math.sin(angle * i);
+                arr.push(obj);
+            }
+            ctx.restore();
+        }
+
+        function connect(n) {
+            ctx.save();
+            ctx.beginPath();
+            for (var i = 0; i < n; i++) {
+                for (var j = 1; j < n; j++) {
+                    ctx.moveTo(arr[i].x, arr[i].y);
+                    ctx.lineTo(arr[j].x, arr[j].y);
+                }
+            }
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+            ctx.restore();
+        }
+    </script>
+</body>
+
+</html>

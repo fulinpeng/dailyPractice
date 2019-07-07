@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var jsonp = function({url, params, cb}) {
+        return new Promise(function (resolve, rejecte) {
+            var script = document.createElement('script');
+            // 省略了对params的处理，
+            // jsonp只能发get请求
+            script.src = url;
+            // 这里要先定义这个全局函数
+            // 这里的data有个默认值，自己为了模拟测试加的，
+            // 实际上是后端返回的：show({res:{type:'success',data:[1,2,3]}})
+            window[cb] = function (data = {a:1}) {
+                resolve(data);
+                document.body.removeChild(script);
+            }
+            document.body.appendChild(script); // 插入到页面，发起get请求成功后那个cb就会执行了
+        });
+    }
+    jsonp({
+        url: 'http://localhost:3000/jsonptest?cb=show',
+        params: {
+            name: 'flp',
+            age: '22'
+        },
+        cb: 'show',
+    }).then(function (data) {
+        console.log('result:', data);
+    });
+    </script>
+</body>
+</html>

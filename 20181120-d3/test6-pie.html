@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <script>
+        // 布局：将不适合用于绘图的数据转换成了适合用于绘图的数据（数据转换）
+        var width = 400;
+        var height = 400;
+        var dataset = [30, 10, 43, 55, 13];
+
+        // 画一个饼图
+        // 定义一个布局
+        var pie = d3.layout.pie();
+        var piedata = pie(dataset); // piedata 就是转换后的数据
+        // 5 个整数被转换成了 5 个对象（Object） ，每个对象都有变量起始角度（startAngle）
+        // 和终止角度（endAngle），还有原数据（属性名称为 data）
+        console.log('piedata:', piedata);
+
+        // 弧生成器，因为饼图的每一部分都是一段弧
+        var outerRadius = 150; // 外半径
+        var innerRadius = 0; // 内半径，为0则中间没有空白
+
+        var arc = d3.svg.arc()  // 弧生成器
+            .innerRadius(innerRadius)   // 设置内半径
+            .outerRadius(outerRadius);  // 设置外半径
+
+        // 先在 svg 里添加足够数量（5个）个分组元素（g），每一个分组用于存放一段弧的相关元素
+        var arcs = d3.select('.div1')
+            .append('svg') // append方法返回的是append的标签
+            .attr('width', width)
+            .attr('height', height)
+            .selectAll("g")
+            .data(piedata)
+            .enter()
+            .append("g")
+            .attr("transform", "translate(" + (width / 2) + "," + (width / 2) + ")");
+
+        var color = d3.scale.category10();   //有十种颜色的颜色比例尺
+        
+        // 为g标签添加path
+        arcs.append("path")
+            .attr("fill", function (d, i) {
+                return color(i);
+            })
+            .attr("d", function (d) {
+                return arc(d);   //调用弧生成器，得到路径值
+            });
+
+        // 然后在每一个弧线中心添加文本
+        arcs.append("text")
+            .attr("transform", function (d) {
+                return "translate(" + arc.centroid(d) + ")"; // arc.centroid(d) 能算出弧线的中心
+            })
+            .attr("text-anchor", "middle")
+            .attr("fill", "white")
+            .text(function (d) {
+                return d.data;
+            });
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // Reflect 对象的作用：
+    // 1、所有内部方法，放到 Reflect 上
+    // 2、原来报错的，现在返回false
+    // 3、原来命令式的语法，函数化
+    // 4、与 Proxy 的方法一一对应，不管Proxy怎么改，在 Reflect 上永远都能找到原始的
+    // Reflect对象一共有 13 个静态方法
+
+
+    // Proxy 对象：
+    // apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作
+    // construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作
+
+
+    // 用于给对象在运行期间动态的增加某个功能，职责等。
+    // 相较通过继承的方式来扩充对象的功能，装饰器显得更加灵活，
+    // 首先，我们可以动态给对象选定某个装饰器，而不用hardcore继承对象来实现某个功能点。
+    // 其次：继承的方式可能会导致子类繁多，仅仅为了增加某一个单一的功能点，显得有些多余了。
+
+
+    // 在原来的对象、方法上添加临时功能
+    //    为什么不能用在函数上，因为存在函数提升
+    // 执行原来的函数之前，先执行新的函数
+
+
+    // 动态添加onload监听函数
+    function addLoadEvent(fn) {
+        var oldEvent = window.onload;
+        if (typeof window.onload != 'function') {
+            window.onload = fn;
+        } else {
+            window.onload = function() {
+                oldEvent();
+                fn();
+            };
+        }
+    }
+
+    function fn1() {
+        console.log('onloadFunc 1');
+    }
+
+    function fn2() {
+        console.log('onloadFunc 2');
+    }
+
+    function fn3() {
+        console.log('onloadFunc 3');
+    }
+    addLoadEvent(fn1);
+    addLoadEvent(fn2);
+    addLoadEvent(fn3);
+</script>
+
+</html>

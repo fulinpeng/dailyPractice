@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+//    function debounce(fn, delta, context) {
+//        var timeoutID = null;
+//        if (!context) context=this;
+//        return function() {
+//            clearTimeout(timeoutID);
+//            var args = arguments;
+//            timeoutID = setTimeout(function() {
+//                fn.apply(context, args);
+//            }, delta);
+//        };
+//    }
+//
+//    function foo() {
+//        console.log('foo');
+//    }
+//    var debouncedFoo = debounce(foo, 1000);
+//    window.onmousemove = debouncedFoo;
+
+
+
+    function debounce(fn, delta, context) {
+        var timeoutID = null;
+        if (!context) context=this;
+        return function() {
+            clearTimeout(timeoutID);
+            var args = arguments;
+            timeoutID = setTimeout(function() {
+                fn.apply(context, args);
+            }, delta);
+        };
+    }
+    function Foo(data) {
+        this.data = data;
+    }
+    Foo.prototype.log = function() {
+        console.log(this.data);
+    };
+    var foo = new Foo('hello world');
+    window.onmousemove = debounce(foo.log, 1000, foo);
+
+
+</script>
+</body>
+</html>

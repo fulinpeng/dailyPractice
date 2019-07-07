@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <script>
+        // blob是一种类文件的存储格式，它可以存储几乎任何格式的内容
+        // 它有一个slice的方法，可用于切割大文件
+        // 和File一样，可以使用FileReader读取它的内容
+        let data = { hello: "world" };
+        let blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(blob);
+        fileReader.onload = function (event) {
+            console.log('result', event.target.result);
+        }
+
+        
+        // 更多例子：
+        // 20180904-图片转码
+        // 20190107-本地文件操作与上传
+    </script>
+</body>
+
+</html>

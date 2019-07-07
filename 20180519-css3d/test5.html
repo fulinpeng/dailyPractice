@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>ali-animation</title>
+
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="http://cssdeck.com/labs/ali-animation">
+
+  
+	<style>
+
+* { margin: 0; padding: 0;
+-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+html, body, iframe {
+  width: 100%; height: 100%;
+}
+body { overflow: hidden; }
+iframe { border: 0 none; padding-top: 30px; }
+header {overflow: hidden;}
+header {
+  height: 30px;
+  max-height: 30px;
+  width: 100%;
+  position: absolute;
+
+  background: -webkit-linear-gradient(#444444, #3E3E3E);
+  background: -moz-linear-gradient(#444444, #3E3E3E);
+  background: linear-gradient(#444444, #3E3E3E);
+  border-bottom: 1px solid black;
+  box-shadow: 0 1px 0 #676767;
+}
+
+/* Logo */
+.logo {
+  width: 60px; float: left;
+  box-shadow: 8px 20px 18px -2px rgba(0, 0, 0, 0.22);
+}
+
+.logo a {
+  text-indent: -9999px; display: block;
+  text-decoration: none;
+  border: none; outline: none;
+  background: url(https://dl.dropbox.com/u/26141789/logoTop.png) 50% 50% no-repeat;
+  height: 30px; width: 60px;
+}
+
+/* Navigation */
+.top_nav, .extra {
+  float: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.extra { float: right; margin-right: 1px; }
+
+.top_nav li, .extra li {
+  float: left;
+  position: relative;
+}
+
+.top_nav li a, .extra li a {
+  height: 30px;
+  display: block;
+  text-align: center;
+  font: 12px/30px "Open Sans", Arial, sans-serif;
+  color: #DADEE2;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.22);
+  text-decoration: none;
+  padding: 0 15px;
+  overflow: hidden;
+  position: relative;
+}
+.top_nav li a, .extra li a:hover {
+  color: white;
+}
+
+header li.user_menu > a {
+  padding: 5px 10px 0;
+  background: #333;
+}
+
+	</style>
+
+  
+<body>
+
+<header>
+  <ul class="extra" style="float: right;">
+    <li><a href="http://twitter.com/share?text=Full view for ali-animation&via=cssdeck" target="_blank">Tweet</a></li>
+    <li><a href="/labs/ali-animation">Edit Code</a></li>
+  </ul>
+</header>
+<iframe
+src="http://s.cssdeck.com/labs/full/ali-animation//noframe#dontkillanim" sandbox="allow-scripts allow-same-origin"></iframe>
+
+<script>
+  window.__stop_animations = false;
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/pay.css"/>
+</head>
+<body>
+<!--@@include("../include/header.html")-->
+<section class="pay_section clear">
+    <div class="pay_main">
+        <div class="pay_main_ft_line_2 clear">
+            <!--<div class="pay_section_logo"><img src="../../images/index/langtu-logo.png" alt=""/></div>-->
+            <div class="pay_section_logo_r">
+                <div class="pay_section_logo_r_top clear">
+                    <div class="pay_section_logo_r_common pay_section_logo_r_common1"></div>
+                    <div class="not_pay_section_logo_r_common not_pay_section_logo_r_common1"></div>
+                    <div class="pay_section_logo_r_common pay_section_logo_r_common1"></div>
+                    <div class="not_pay_section_logo_r_common not_pay_section_logo_r_common2"></div>
+                    <div class="pay_section_logo_r_common pay_section_logo_r_common1"></div>
+                    <div class="not_pay_section_logo_r_common"></div>
+                    <div class="pay_section_logo_r_common"></div>
+                </div>
+                <div class="pay_section_logo_r_under clear">
+                    <div>选择支付方式</div>
+                    <div>确认支付</div>
+                    <div>确认订单信息</div>
+                    <div>我的购物车</div>
+                </div>
+            </div>
+        </div>
+        <div class="pay_head">选择收货地址</div>
+        <div class="pay_address_common clear">
+            <div class="pay_addressdiv clear">
+                <!--<div class="pay_address clear pay_address_default" onclick="chooseAddress(0)">-->
+                    <!--<div class="pay_address2">默认地址</div>-->
+                    <!--<div class="pay_address_ftLine clear">-->
+                        <!--<div>(景帅 收)</div>-->
+                        <!--<div style="clear: both"></div>-->
+                    <!--</div>-->
+                    <!--<div class="pay_address_line" style="margin-top: 33px"></div>-->
+                    <!--<div class="pay_address_detail">双流中和龙祥佳苑一期4栋7单元13183810335 </div>-->
+                    <!--<div style="clear:both"></div>-->
+                <!--</div>-->
+                <div class="pay_address clear"  onclick="chooseAddress(1)">
+                    <div class="pay_address_ftLine clear">
+                        <div>四川</div>
+                        <div>成都</div>
+                        <div>(景帅 收)</div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="pay_address_line" style="margin-top: 33px"></div>
+                    <div class="pay_address_detail">双流中和龙祥佳苑一期4栋7单元13183810335 </div>
+                </div>
+                <div class="pay_address clear" onclick="chooseAddress(2)">
+                    <div class="pay_address_ftLine clear">
+                        <div>四川</div>
+                        <div>成都</div>
+                        <div>(景帅 收)</div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="pay_address_line" style="margin-top: 33px"></div>
+                    <div class="pay_address_detail">双流中和龙祥佳苑一期4栋7单元13183810335 </div>
+                </div>
+                <div class="pay_address clear" onclick="chooseAddress(3)">
+                    <div class="pay_address_ftLine clear">
+                        <div>四川</div>
+                        <div>成都</div>
+                        <div>(景帅 收)</div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="pay_address_line" style="margin-top: 33px"></div>
+                    <div class="pay_address_detail">双流中和龙祥佳苑一期4栋7单元13183810335 </div>
+                </div>
+            </div>
+
+            <div style="clear: both"></div>
+            <div class="show_all_address_box">
+            <!--<div class="show_all_address"><a href="address.html">显示全部地址</a></div>-->
+            <div class="pay_address_common_under"><a href="address.html">管理收货地址</a></div></div>
+        </div>
+    </div>
+    <div class="confirm_ind">
+        <div class="confirm_ind_title">确认订单信息</div>
+        <div class="confirm_ind_head clear">
+            <div>商品</div>
+            <div>商品属性</div>
+            <div>单价</div>
+            <div>数量</div>
+            <div>小计</div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="confirm_ind_maindiv">
+            <div class="confirm_ind_head_detail">
+                <div class="clear clear5">
+                    <div class="confirm_ind_head_detail_pic"><img src="../../images/ap (2).jpg" alt=""/></div>
+                    <div class="lagntubike">狼途山地自行车</div>
+                    <div style="clear: both"></div>
+                </div>
+                <div class="confirm_ind_head_detai_attr">
+                    <div>机身颜色：金色</div>
+                    <div>套餐类型：官方标配</div>
+                    <div style="margin-left: -2px">车身重量：20kg</div>
+                    <div style="width: 100%;margin-left: -22px">版本类型：山地越野</div>
+                </div>
+                <div>2499.00</div>
+                <div>
+                    <span>2</span>
+                </div>
+                <div>2499</div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="confirm_ind_total"><span>合计：</span><span class="allprice">￥2499</span></div>
+        <button class="ltbtn">提交订单</button>
+    </div>
+</section>
+<!--@@include("../include/footer.html")-->
+<script src="../../js/jquery-3.1.1.js"></script>
+<script src="../../js/pay.js"></script>
+</body>
+</html>

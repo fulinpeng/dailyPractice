@@ -1,0 +1,90 @@
+.clu_acpagetop{
+    width: 85%;
+    padding: 30px 0;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+.clu_acdate{
+    margin-top: 10px;
+}
+.clu_accontent{
+    width: 85%;
+    margin: 0 auto;
+    padding: 20px 0;
+    border-top: 1px  solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+.clu_accontent p{
+    width: 85%;
+    margin: 0 auto;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.clu_acimg{
+    width: 85%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+.clu_acimg>img{
+    width: 100%;
+}
+.clu_accomment{
+    margin-top: 20px;
+    padding: 20px 0;
+    /*background-color: #5b5b5b;*/
+}
+.clu_acreply>.clu_answer{
+    height: 120px;
+}
+.clu_size{
+    font-size: 14px;
+}
+.clu_secendreply{
+    margin-left: 175px;
+    width: 85%;
+}
+.clu_secendreply>.clu_answer{
+    height: 120px;
+}
+.clu_acpage{
+    padding: 20px;
+    width: 85%;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-top: 1px solid white;
+    margin: 0 auto;
+    text-align: center;
+}
+.clu_acpage>span{
+    border: 1px solid #000000;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+}
+.clu_acpage>div{
+    display: inline-block;
+    margin-left: 10px;
+}
+.clu_input{
+    width: 50px;
+    height: 18px;
+}
+.clu_replynone{
+    position: absolute;
+    right: -95px;
+    top: 80px;
+    cursor: pointer;
+    color: darkgrey;
+}
+.clu_replynone:hover{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+.clu_sereply{
+    width: 73%;
+    height: 180px !important;
+    margin-left: 150px;
+}

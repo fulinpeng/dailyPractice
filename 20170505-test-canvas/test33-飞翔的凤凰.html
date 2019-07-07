@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body onload="draw()">
+    <canvas id="canvas" width="1000" height="1000"></canvas>
+
+</body>
+<script>
+    function fillCircle(ctx, r) {
+        ctx.beginPath();
+        //   ctx.moveTo(r, 0);
+        ctx.fillStyle = 'rgb(245,50,50)';
+        ctx.arc(0, 0, r, 0, Math.PI * 2, true);
+        ctx.fill();
+    }
+
+    function branch(ctx, r, d, t, a) {
+        ctx.save();
+        ctx.rotate(t * a);
+        ctx.translate(0, -r * (1 + d));
+        wing(ctx, r * d, a);
+        ctx.restore();
+    }
+    //
+    function feather(ctx, r) {
+        if (r < 3) return;
+        var d = 0.85;
+        ctx.rotate(-0.03 * Math.PI);
+        ctx.translate(0, -r * (1 + d));
+        fillCircle(ctx, r);
+        feather(ctx, r * d);
+    }
+    //
+    function wing(ctx, r, a) {
+        if (r < 2.9) return;
+        fillCircle(ctx, r);
+        branch(ctx, r, 0.9561, 0.03 * Math.PI, a);
+        ctx.save();
+        ctx.rotate(0.55 * Math.PI);
+        feather(ctx, 0.8 * r);
+        ctx.restore();
+    }
+    //
+    function tail(ctx, s, a) {
+        if (s < 0.5) return;
+        var d = 0.98; // decay
+        fillCircle(ctx, s);
+        ctx.rotate(-0.15 * a);
+        ctx.translate(0, s * (1 + d));
+        tail(ctx, s * d, a);
+    }
+
+    function head(ctx) {
+        fillCircle(ctx, 22);
+
+        //    mouth
+        ctx.save();
+        ctx.translate(-15, -3);
+        ctx.beginPath();
+        ctx.fillStyle = "white";
+        ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
+        ctx.fill();
+        ctx.restore();
+
+        //    eye
+        ctx.translate(9, -4);
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.arc(0, 0, 5, 0, Math.PI * 2, true);
+        ctx.fill();
+
+        //    horn
+        ctx.translate(6, -8);
+        ctx.rotate(0.6 * Math.PI);
+        wing(ctx, 5.5, 1.8);
+    }
+
+
+    function neck(ctx, s) { // 递归调用
+        if (s < 10) {
+            head(ctx);
+            return;
+        }
+        var d = 0.85;
+        fillCircle(ctx, s);
+
+        ctx.save();
+        ctx.rotate(-Math.PI / 2);
+        ctx.translate(0, s);
+        fillCircle(ctx, s / 2);
+        ctx.restore();
+
+        ctx.rotate(-0.15);
+        ctx.translate(0, -s * (1 + d));
+        neck(ctx, s * d);
+    }
+
+    function loop(ctx, i) {
+        var inner = function() {
+            i++;
+            ctx.fillStyle = "white";
+            ctx.fillRect(-1500, -1500, 3000, 3000);
+            //
+            ctx.save();
+            ctx.translate(0, Math.cos(i * 0.1) * 40);
+
+            var a = Math.sin(i * 0.1);
+
+            // right wing
+            ctx.save();
+            ctx.rotate(Math.PI * 0.4);
+            wing(ctx, 18, a);
+            ctx.restore();
+
+            // left wing
+            ctx.save();
+            ctx.scale(-1, 1);
+            ctx.rotate(Math.PI * 0.4);
+            wing(ctx, 18, a);
+            ctx.restore();
+
+            // tail
+            ctx.save();
+            tail(ctx, 20, Math.sin(i * 0.05));
+            ctx.restore();
+
+            // head
+            neck(ctx, 22);
+
+            //   ctx.restore();
+            //   setTimeout(inner, 35); // change speed here
+        };
+
+        return inner;
+    }
+
+    function draw() {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.translate(490, 410);
+        ctx.scale(0.4, 0.4);
+        setTimeout(loop(ctx, 1), 1);
+    }
+</script>
+
+</html>

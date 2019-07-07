@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>js添加自定义属性，！！</title>
+
+<script>
+   window.onload=function(){alert('1');
+    var aBtn=document.getElementsByTagName('imput');
+    
+	
+	for( var i=0;i<aBtn.length; i++){
+	  aBtn[i].abc=123;
+	  aBtn[i].xyz=true;
+	  
+	};
+	
+  };
+
+
+</script>
+
+
+</head>
+
+<body>
+<p>
+    aBtn[0].abc=123;添加一个自定义属性，abc；<br/>
+    js可以给任何的元素添加自定义属性，
+</p>
+<input type="button" value="按钮"/>
+<input type="button" value="按钮"/>
+<input type="button" value="按钮"/>
+
+
+
+
+
+</body>
+</html>

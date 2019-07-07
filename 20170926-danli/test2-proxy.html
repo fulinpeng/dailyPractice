@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div id="test">Click Here!
+        <button type="">看看this是谁?</button>
+    </div>
+    <script>
+        var obj = {
+            name: "John",
+            test: function () {
+                console.log(this);
+                console.log(this.name);
+                $("#test").unbind("click", obj.test);
+            }
+        };
+
+        //  代码一：
+        // $("#test").click(jQuery.proxy(obj, "test"));
+
+        //  代码二：以下代码跟上面那句是等价的:
+        // $("#test").on('click', jQuery.proxy( obj.test, obj ) );
+
+        //  代码三：可以与单独执行下面这句做个比较。
+        // $("#test").click( obj.test );
+
+        // // 代码四
+        $("#test").on("click", "button", obj.test); // this指button
+
+        // 代码五
+        // $("#test").click("button", obj.test); // this指#test
+    </script>
+</body>
+
+</html>

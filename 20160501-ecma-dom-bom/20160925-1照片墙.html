@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-25-1照片墙</title>
+<style>
+body{margin:0;}
+#div1{width:600px;position:relative;margin:0 auto;margin-top:5px;}
+#div1 div{width:180px;height:220px;margin:5px;float:left;}
+#div1 .active{border:1px dashed red;}
+#div1 div img{width:180px;height:220px;border:none;}
+</style>
+<script src="js/move2.js"></script>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	var aLi=oDiv.getElementsByTagName('div');
+	var aPos=[];
+	var minZindex=1;
+	
+	//重构样式
+	for(var i=0; i<aLi.length; i++){
+		aPos[i]={left:aLi[i].offsetLeft, top:aLi[i].offsetTop};
+	};
+	for(var i=0; i<aLi.length; i++){
+		aLi[i].index=i;
+		aLi[i].style.position='absolute';
+		aLi[i].style.margin='none';
+		aLi[i].style.left=aPos[i].left+'px';
+		aLi[i].style.top=aPos[i].top+'px';
+	};
+	//拖拽函数
+	function sDrag(obj){
+		obj.onmousedown=function(ev){
+			obj.style.zIndex=minZindex++;//z-index,在js中的写法：zIndex;
+			oEv=ev||event;
+			var disx=oEv.clientX-obj.offsetLeft;
+			var disy=oEv.clientY-obj.offsetTop;
+			
+			document.onmousemove=function(ev){
+				oEv=ev||event;
+				obj.style.left=oEv.clientX-disx+'px';
+				obj.style.top=oEv.clientY-disy+'px';
+				
+				for(var i=0; i<aLi.length; i++){
+					aLi[i].className='';
+				};
+				var oNear=findNearest(obj);
+				if(oNear){
+					oNear.className='active';
+				};
+				
+			};
+			document.onmouseup=function(){
+				document.onmouseup=document.onmousemove=null;
+				
+				var oNear=findNearest(obj);
+				if(oNear){
+					startMove(oNear,aPos[obj.index]);
+					startMove(obj,aPos[oNear.index]);
+					oNear.className='';
+					oNear.style.zIndex=minZindex++;
+					var tmp=null;
+					tmp=obj.index;
+					obj.index=oNear.index;
+					oNear.index=tmp;
+				}else{
+					startMove(obj,aPos[obj.index]);
+				};
+				
+				
+				
+			};
+			clearInterval(obj.timer);
+			return false;
+		};
+	};
+	for(var i=0; i<aLi.length; i++){
+		sDrag(aLi[i]);
+	};
+	
+	//碰撞检测/九宫格排除法,返回false或true；
+	function cdText(obj1,obj2){
+		var t1=obj1.offsetTop;
+		var r1=obj1.offsetLeft+obj1.offsetWidth;
+		var b1=obj1.offsetTop+obj1.offsetHeight;
+		var l1=obj1.offsetLeft;
+		
+		var t2=obj2.offsetTop;
+		var r2=obj2.offsetLeft+obj2.offsetWidth;
+		var b2=obj2.offsetTop+obj2.offsetHeight;
+		var l2=obj2.offsetLeft;
+		
+		if(b1<t2||l1>r2||t1>b2||r1<l2){
+			return false;
+		}else{
+			return true;
+		};
+	};
+	
+	//从碰上的中，找最近的，结果返回出这个最近的obj
+	//先写获取距离函数getDis
+	function getDis(obj1,obj2){
+		var a=obj1.offsetLeft-obj2.offsetLeft;
+		var b=obj1.offsetTop-obj2.offsetTop;
+		return Math.sqrt(a*a+b*b);
+	};
+	function findNearest(obj){
+		var minS=999999;
+		var minIndex=-1;
+		for(var i=0; i<aLi.length; i++){
+			if(obj==aLi[i])continue;
+			if(cdText(obj,aLi[i])){
+				var dis=getDis(obj,aLi[i]);
+				if(minS>dis){
+					minIndex=i;
+					minS=dis;
+				};
+			};
+		};
+		if(minIndex==-1){
+			return null;
+		}else{
+			return aLi[minIndex];
+		};
+	};
+	
+};
+</script>
+</head>
+<body>
+<div id="div1">
+	<div><img src="pic/1.jpg" /></div>
+	<div><img src="pic/2.jpg" /></div>
+	<div><img src="pic/3.jpg" /></div>
+	<div><img src="pic/4.jpg" /></div>
+	<div><img src="pic/5.jpg" /></div>
+	<div><img src="pic/6.jpg" /></div>
+	<div><img src="pic/7.jpg" /></div>
+	<div><img src="pic/8.jpg" /></div>
+	<div><img src="pic/9.jpg" /></div>
+
+</div>
+</body>
+</html>

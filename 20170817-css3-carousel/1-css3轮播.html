@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>css3 实现幻灯片效果</title>
+    <style type="text/css">
+        .huanDengPic {
+            width: 600px;
+            height: 600px;
+            margin: 50px auto 0;
+            overflow: hidden;
+            box-shadow:  0 0 5px rgba(0,0,0,1);   /*CSS3 box-shadow属性,里面的值的设置s可以去网上查*/
+            background-size: cover;
+            background-position: center;
+            -webkit-animation-name: "loops"; /*检索或设置对象所应用的动画名称*/
+            -webkit-animation-duration: 10s; /*检索或设置对象动画的持续时间*/
+            -webkit-animation-iteration-count: infinite;  /*检索或设置对象动画的循环次数，此处的"infinite"为无限循环的意思*/
+        }
+
+        @-webkit-keyframes "loops" {  /*动画名称和上面设置的动画名称一样*/
+            /*下面是动画过程*/
+            0% {
+                background: url(http://t1.mmonly.cc/uploads/tu/zyf/tt/20160520/kewnk2ermbe.jpg) no-repeat;
+            }
+
+            50% {
+                background: url(http://t1.mmonly.cc/uploads/tu/zyf/tt/20160520/j0qoejfukbu.jpg) no-repeat;
+            }
+
+            100% {
+                background: url(http://t1.mmonly.cc/uploads/tu/zyf/tt/20160520/oajlgqc2nud.jpg) no-repeat;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="huanDengPic"></div>
+</body>
+</html>

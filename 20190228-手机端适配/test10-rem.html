@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 必须设置多方比例为1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .test {
+            font-size: 0.16rem;
+            height: 0.3rem;
+            line-height: 0.3rem;
+            background: steelblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test">这是一段测试文字</div>
+    <script>
+        var fontSizeAuto = function (uiW) {
+            return function () {
+                var screenW = document.documentElement.clientWidth;
+                var k = 128.824;
+                var htmlFontSize = screenW * devicePixelRatio / uiW * k
+                document.documentElement.style.fontSize = htmlFontSize + 'px';
+            }
+        }
+        fontSizeAuto(1600)();
+        window.onresize = fontSizeAuto(1600);
+        var i = 1;
+    </script>
+</body>
+
+</html>

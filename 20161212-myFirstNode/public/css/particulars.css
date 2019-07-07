@@ -1,0 +1,26 @@
+.more{
+    width: 90%;
+    text-align: center;
+    margin: 5% 5%;
+}
+#time{
+   text-align: right;
+    margin: 5% 3%;
+}
+.bacgrundclor{
+    width:100%;
+    background: white;
+    border-radius: 10px;
+    height: 580px;
+}
+a{
+    color: #13895f;
+}
+.button1{
+    margin-bottom: 5%;
+    width: 100%;
+    text-align: left;
+}
+.button1 button{
+    width: 30px;
+}

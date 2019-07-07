@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js练习5-29-3-图片浏览器</title>
+<style>
+#content{
+	width:550px;
+	height:400px;
+	margin:40px auto 0;
+	border:10px solid #ccc;
+	position:relative;
+}
+#content a{
+	display:inline_block;
+	width:40px;
+	height:40px;
+	border:5px solid #fff;
+	background-color:black;
+	color:white;
+	position:absolute;
+	top:180px;
+	font-size:30px;
+	line-height:40px;
+	text-decoration:none;
+	text-align:center;
+	font-weight:bold;
+	filter:alpha(opacity:40);
+	opacity:0.4;
+}
+#content a:hover{
+	filter:alpha(opacity:90);
+	opacity:0.9;
+}
+#prev{
+	left:10px;
+}
+#next{
+	right:10px;
+}
+#shuzi{
+	position:absolute;
+	width:550px;
+	top:0;
+	line-height:30px;
+	background-color:black;
+	margin:0;
+	color:white;
+	text-align:center;
+	filter:alpha(opacity:80);
+	opacity:0.8;
+}
+#description{
+	position:absolute;
+	width:550px;
+	bottom:0;
+	line-height:30px;
+	background-color:black;
+	margin:0;
+	color:white;
+	text-align:center;
+	filter:alpha(opacity:80);
+	opacity:0.8;
+}
+#img1{
+	position:absolute;
+	width:550px;
+	height:400px;
+}
+</style>
+
+<script>
+window.onload=function(){
+var    oPrev=document.getElementById('prev');
+var    oNext=document.getElementById('next');
+var   oShuzi=document.getElementById('shuzi');
+var oDescrip=document.getElementById('description');
+var     oImg=document.getElementById('img1');
+var arrSrc=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'];
+var arrDescrip=['拖鞋','photo in china','粉红色的笔记本','美女一枚'];
+var num=0;
+//初始化：
+function fnTab(){
+	oImg.src=arrSrc[num];
+	oShuzi.innerHTML=num+1 + '/' + arrSrc.length;
+	oDescrip.innerHTML='这是一张' + arrDescrip[num] + '图片';
+};
+fnTab();//初始化后，要先运行一次,以上也是一个函数的合并
+
+oPrev.onclick=function(){
+	num--;
+	if(num==-1){
+		num=arrSrc.length-1;//这里要减一，因为默认数组里面的个数会多一个，就是还有一个空值
+	};
+	fnTab();
+};
+oNext.onclick=function(){
+	num++;
+	if(num==arrSrc.length){
+		num=0;
+	};
+	fnTab();
+};
+
+
+
+};
+
+
+
+</script>
+</head>
+<body>
+
+<div id="content" >
+	<img id="img1" />
+	<a id="prev" href="javascript:;"><</a>
+	<a id="next" href="javascript:;">></a>
+	<p id="shuzi">图片数量正在计算中...</p>
+	<p id="description">图片正在拼命的加载中...</p>
+	
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

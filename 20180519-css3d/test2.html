@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2019 by xiaodongzai (http://jsbin.com/yirowig/16/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+
+<style id="jsbin-css">
+body{
+  background-color: #fff;
+}
+.area{
+  margin: 50px;
+  
+}
+.cat{
+  position: relative;
+  width: 227px;
+  height: 180px;
+  -webkit-transform: scale(.6) rotate(-10deg);
+  transform: scale(.6) rotate(-10deg);
+}
+.face{
+  position: relative;
+  z-index: 20;
+  width: 227px;
+  height: 200px;
+  background-color: #221714;
+  border-radius: 115px 115px 132px 112px / 98px 98px 75px 75px;
+  box-shadow: 3px 3px 3px 3px #4d3323, 
+              -3px -3px 3px 3px #4d3323;
+  -webkit-transform: rotate(10deg);
+  transform: rotate(10deg);
+}
+
+.mouse{
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+  width: 0px;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 35px solid #649393;
+  -webkit-transform: scale(1.5) rotate(5deg);
+  transform: scale(1.5) rotate(5deg);
+}
+
+.mouse:before{
+  position: absolute;
+  content: '';
+  top: -35px;
+  left: -15px;
+  width: 35px;
+  height: 0;
+  box-shadow: 0 0 3px 2px #463429;
+  -webkit-transform-origin: top left;
+  -webkit-transform: rotate(70deg);
+  transform-origin: top left;
+  transform: rotate(70deg);
+}
+
+.mouse:after{
+  position: absolute;
+  content: '';
+  top: -33px;
+  left: -21px;
+  width: 35px;
+  height: 0;
+  box-shadow: 0 0 3px 2px #463429;
+  -webkit-transform-origin: bottom right;
+  -webkit-transform: rotate(-70deg);
+  transform-origin: bottom right;
+  transform: rotate(-70deg);
+}
+
+.top-line{
+  position: absolute;
+  top: -35px;
+  left: -15px;
+  width: 30px;
+  height: 0;
+  box-shadow: 0 0 2px 2px #463429;
+}
+
+.eye{
+  position: absolute;
+  width: 95px;
+  height: 120px;
+  background-color: #f7f6cc;
+  border-radius: 50% 50%;
+  box-shadow: 4px 4px 3px 3px #4c301d,
+              -4px -4px 3px 3px #4c301d;
+  -webkit-transform: rotate(3deg);
+  transform: rotate(3deg);
+}
+
+.eye-left{
+  top: 32px;
+  left: 12px;
+}
+.eye-right{
+  top: 35px;
+  right: 12px;
+}
+.eye:before{
+  content: '';
+  position: absolute;
+  width: 65px;
+  height: 87px;
+  background-color: #231815;
+  border-radius: 35px / 45px;
+  box-shadow: 2px 2px 3px 2px #4c301d,
+              -2px -2px 3px 2px #4c301d; 
+}
+.eye-left:before{
+  left: 16px;
+  top: 12px;
+}
+.eye-right:before{
+  left: 16px;
+  top: 16px; 
+}
+.ear-1{
+  position: absolute;
+  top: 0;
+  left: 0px;
+  -webkit-transform: scale(1.4) 
+             translate(-8px,-7px);  
+  transform: scale(1.4) 
+             translate(-8px,-7px)    
+}
+
+.ear-2{
+  position: absolute;
+  /* z-index: 10; */
+  top: 10px;
+  right: -20px;
+  -webkit-transform: rotatey(180deg)
+             rotatez(-28deg)                            translate(-50px,34px)
+            scale(1.4);
+  transform: rotatey(180deg)
+             rotatez(-28deg)                            translate(-50px,34px)
+            scale(1.4);
+}
+.ear-left-2{
+  position: absolute;
+  top: -24px;
+  left: -15px;
+  width: 90px;
+  height: 90px;
+  border-top-left-radius: 90px;
+  background-color: #bebf68;
+  -webkit-transform-origin: bottom right;
+  -webkit-transform: rotatez(-70deg) skew(-34deg);
+  transform-origin: bottom right;
+  transform: rotatez(-70deg) skew(-34deg);
+  box-shadow: 0 0 3px 5px #604531;
+}
+ .ear-left-1{
+  position: absolute;
+  top: -12px;
+  left: 60px;
+  width: 90px;
+  height: 90px;
+  border-top-right-radius: 90px;
+  background-color: #221714;
+  -webkit-transform-origin: bottom left;
+  -webkit-transform: rotate(10deg)  skew(34deg,10deg);
+  transform-origin: bottom left;
+  transform: rotate(10deg)  skew(34deg,10deg);
+  box-shadow: 0 0 6px 6px #604531;
+} 
+
+.ear-cover{
+  position: absolute;
+  top: 136px;
+  z-index: 2;
+  width: 300px;
+  height: 200px;
+  background-color: #fff;
+}
+
+cat-body{
+  position: absolute;
+  margin-top: -5px;
+  margin-left: 10px;
+  z-index: 10;
+  width: 50px;
+  height: 0;
+  background-color: transparent;
+  border-bottom: 98px solid #221714;
+  border-left: 50px solid blue; 
+  border-right: 50px solid red;
+  border-radius: 20% 20% 50% 50%/70% 70% 40% 40%;
+  box-shadow: 0 0 6px 6px #604531;
+}
+
+.cat-body{
+  position: absolute;
+  margin-top: -15px;
+  margin-left: 60px;
+  -webkit-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+  z-index: 10;
+  width: 75px;
+  height: 100px;
+  background-color: #221714;
+  border-radius: 50% 50% 50% 50%/70% 50% 28% 28%;
+}
+
+.cat-body:before{
+  position: absolute;
+  content: '';
+  top: 69px;
+  left: 23px;
+  width: 80px;
+  height: 30px;
+  background-color: #221714;
+  border-radius: 15px;
+ }
+.cat-body:after{
+  position: absolute;
+  top: 53px;
+  left: -20px;
+  content: '';
+  width: 100px;
+  height: 60px;
+  background-color: #221714;
+  -webkit-transform-origin:bottom right;
+  -webkit-transform: rotate(45deg);
+  transform-origin:bottom right;
+  transform: rotate(45deg);
+  border-radius: 50% 50% 50% 50%/50% 70% 70% 50%;
+}
+
+.tail{
+  position: absolute;
+  top: 45px;
+  left: 50px; 
+}
+.tail:before{
+  position: absolute;
+  content: '';
+  width: 70px;
+  height: 0;
+  margin: 20px;
+  background-color: transparent;
+  border: 16px solid #221714;
+  border-radius: 100%;
+  -webkit-transform: skew(-60deg);
+  transform: skew(-60deg);
+}
+
+.text{
+  position: absolute;
+  left: 160px;
+  padding-top: 30px;
+  z-index: 100;
+  text-align: center;
+  font-size: 14px;
+  color: #221714;
+}
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+<body>
+  <div class="area">
+   <div class="cat">
+       <div class="ear-1">
+           <div class="ear-left-1"></div>
+           <div class="ear-left-2"></div>  
+       </div>
+      <div class="ear-2">
+        <div class="ear-left-1"></div>
+        <div class="ear-left-2"></div>  
+      </div> 
+      <div class="ear-cover"></div>
+      <div class="face">
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+        <div class="mouse">
+           <div class="top-line"></div> 
+        </div>
+      </div>
+       <div class="cat-body">
+         <div class="tail"></div>
+       </div>
+    </div>
+    <p class="text">罗小黑</p>
+  </div>
+  
+
+<script src="http://static.jsbin.com/js/render/edit.js?4.1.7"></script>
+<script>jsbinShowEdit && jsbinShowEdit({"static":"http://static.jsbin.com","root":"http://jsbin.com"});</script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-1656750-34', 'auto');
+ga('require', 'linkid', 'linkid.js');
+ga('require', 'displayfeatures');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

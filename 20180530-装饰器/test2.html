@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 前置执行函数和后置执行函数
+    Function.prototype.before = function(beforfunc) {
+        var self = this;
+        var outerArgs = Array.prototype.slice.call(arguments, 1);
+
+        return function() {
+            var innerArgs = Array.prototype.slice.call(arguments);
+
+            beforfunc.apply(this, innerArgs);
+            self.apply(this, outerArgs);
+        };
+    };
+
+    Function.prototype.after = function(afterfunc) {
+        var self = this;
+        var outerArgs = Array.prototype.slice.call(arguments, 1);
+
+        return function() {
+            var innerArgs = Array.prototype.slice.call(arguments);
+
+            self.apply(this, outerArgs);
+            afterfunc.apply(this, innerArgs);
+        };
+    };
+
+    var func = function(name) {
+        console.log('I am ' + name);
+    };
+    var beforefunc = function(age) {
+        console.log('I am ' + age + ' years old');
+    };
+    var afterfunc = function(gender) {
+        console.log('I am a ' + gender);
+    };
+
+    var beforeFunc = func.before(beforefunc, 'Andy');
+    var afterFunc = func.after(afterfunc, 'Andy');
+
+    beforeFunc('12');
+    afterFunc('boy');
+</script>
+
+</html>

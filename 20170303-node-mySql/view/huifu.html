@@ -1,0 +1,26 @@
+<% replylist.forEach(function(reply){%>
+    <div class="clu_rezhuti">
+        <div class="clu_requleft">
+            <div class="clu_userlogo">
+                <img src="<%=reply.psrc%>" alt=""/>
+            </div>
+            <div class="clu_titxt">
+                <div class="clu_retitx1"><a href="../personal/personal-main.html"><%=reply.u_name%></a></div>
+                <% reply.re_time=reply.re_time.toLocaleDateString()%>
+                <div class="clu_retitx1 clu_size"><%=reply.re_time%></div>
+            </div>
+        </div>
+        <div class="clu_requctn">
+
+            <div class="clu_reuctntxt">
+                <%=reply.re_context%>
+            </div>
+            <div class="r_star">
+                <span class="iconfont star">&#xe624;</span>
+                <span>0</span>
+                <span class="iconfont nostar">&#xe603;</span>
+                <span>0</span>
+            </div>
+        </div>
+    </div>
+<%})%>

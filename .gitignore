@@ -1,0 +1,8 @@
+.vscode/*
+**/node_modules/
+.idea/*
+
+other/
+.cache/
+
+**/package-lock.json

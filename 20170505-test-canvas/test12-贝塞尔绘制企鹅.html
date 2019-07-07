@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <style>
+        body {
+            background: #000;
+        }
+        
+        #c1 {
+            background: #817936;
+        }
+        
+        #c1 p {
+            text-align: center;
+            line-height: 50px;
+            width: 500px;
+            height: 500px;
+            font-size: 16px;
+            color: #F00;
+        }
+    </style>
+</head>
+
+<body style="height:5000px;">
+    <canvas id="c1" width="500" height="700">
+    <p>你的浏览器不支持canvas，请换一个支持的谷歌或者火狐</p>
+</canvas>
+</body>
+<script>
+    window.onload = function() {
+        var oC = document.getElementById('c1');
+        var oCG = oC.getContext('2d');
+
+        oCG.save();
+        oCG.beginPath();
+        oCG.arc(250, 120, 100, 0, Math.PI * 2, true);
+        oCG.closePath();
+        oCG.fill();
+
+        function BezierEllipse2(ctx, x, y, a, b, type, color) {
+            ctx.beginPath();
+            ctx.moveTo(x - a, y);
+            ctx.quadraticCurveTo(x - a, y + b, x, y + b);
+            ctx.quadraticCurveTo(x + a, y + b, x + a, y);
+            ctx.quadraticCurveTo(x + a, y - b, x, y - b);
+            ctx.quadraticCurveTo(x - a, y - b, x - a, y);
+            ctx.closePath();
+            if (type == "stroke") {
+                ctx.strokeStyle = color;
+                ctx.stroke();
+            } else {
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+        }
+        BezierEllipse2(oCG, 220, 70, 20, 30, "fill", "#fff");
+        BezierEllipse2(oCG, 280, 70, 20, 30, "fill", "#fff");
+        BezierEllipse2(oCG, 280, 70, 8, 10, "fill", "#000");
+        BezierEllipse2(oCG, 220, 70, 8, 10, "fill", "#000");
+        // 嘴巴
+        oCG.beginPath();
+        oCG.moveTo(245, 120);
+        oCG.quadraticCurveTo(245 - 5, 120 + 20, 245 - 40, 120 + 20);
+        oCG.quadraticCurveTo(245 - 50, 120 + 100, 245 + 40, 120 + 20);
+        oCG.quadraticCurveTo(245, 120 + 20, 245, 120);
+        oCG.closePath();
+        oCG.fillStyle = "red";
+        oCG.fill();
+        //手
+        BezierEllipse2(oCG, 140, 250, 90, 20, "fill", "#000");
+        BezierEllipse2(oCG, 350, 250, 90, 20, "fill", "#000");
+        oCG.beginPath();
+        oCG.arc(60, 250, 20, 0, Math.PI * 2, true);
+        oCG.closePath();
+        oCG.fillStyle = "#fff";
+        oCG.fill();
+        oCG.beginPath();
+        oCG.arc(430, 250, 20, 0, Math.PI * 2, true);
+        oCG.closePath();
+        oCG.fillStyle = "#fff";
+        oCG.fill();
+        //脚
+        BezierEllipse2(oCG, 160, 500, 60, 20, "fill", "red");
+        BezierEllipse2(oCG, 330, 500, 60, 20, "fill", "red");
+        //肚子
+        oCG.beginPath();
+        oCG.arc(245, 350, 160, 0, Math.PI * 2, true);
+        oCG.closePath();
+        oCG.fillStyle = "#000";
+        oCG.fill();
+        BezierEllipse2(oCG, 245, 380, 140, 100, "fill", "#fff");
+
+
+    };
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="js/jquery-3.1.1.js"></script>
+    <!--登录-->
+<script src="js/home.js"></script>
+<!----webfonts--->
+<!--<link href='http://fonts.useso.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>-->
+<!---//webfonts--->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"></script>
+</head>
+<body id="login">
+  <div class="login-logo">
+      skygarten
+  </div>
+  <div class="app-cam">
+	  <form method="post" action="login.do">
+          <input type="text" name="username" class="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'admin';}">
+          <p style="font-size: 12px;color: red;margin-bottom: 20px"></p>
+          <input type="password" name="pwd" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '123';}">
+		  <input type="submit" class="submit" value="登录"/>
+      </form>
+		<ul class="new">
+			<li class="new_left"><p><a href="reg.html">没有账号，立即注册</a></p></li>
+			<div class="clearfix"></div>
+		</ul>
+  </div>
+  <script>
+      $("body#login").css("min-height",$(window).height());
+      function loginfn(){
+          var name=$(".text").value;
+          if(true){
+              window.location.href = "index.html";
+          }
+      }
+
+//      $('.text').blur(function () {
+//          regname(this,'username')
+//      });
+//      function regname(obj,type){
+//          var text;
+//          var value=$(obj).val();
+//          if(type=="username"){
+//              text="请输入正确的用户名";
+//          }
+//          var a=reg(value,type);
+//          if(!a){
+//              $(obj).next().text(text);
+//          }else if(a){
+//              $(obj).next().text("");
+//          }
+//      }
+//      function reg(a,type){
+//          var reg;
+//          if(type=="username"){
+//              reg=/^[a-zA-z][a-zA-Z0-9_]{2,9}$/;
+//          }
+//          return reg.test(a);
+//      }
+  </script>
+
+</body>
+</html>

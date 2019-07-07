@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyPromise</title>
+</head>
+
+<body>
+    <script>
+
+        var PENDING = 'PENDING';
+        var FULFILLED = 'FULFILLED';
+        var REJECTED = 'REJECTED';
+        function MyPromise(callBack) {
+            this.status = PENDING;
+            this.value = '';
+            this.defferd = [];
+            // 引入defferd队列的原因是：当调用resolve的时候，可能promise内部的onResolve还没定义
+            setTimeout(callBack.bind(this, this.resolve.bind(this)), 0);
+            // callBack(this.resolve); // 直接执行的话，resolve函数 还未赋值            
+            // 异步操作执行成功，会调用 this.resolve 方法
+        }
+        // then的主要作用是定义成功或失败的回调函数onResolve
+        // 先判断状态，再决定是直接叫个handle去处理，还是添加进队列等状态为结束时统一执行
+        MyPromise.prototype.then = function (resolve) {
+            let o = {
+                onResolve: resolve,
+                promise: new this.constructor(function () { }),
+                // 完全是为了链式调用而添加的???
+            };
+            let status = this.status;
+            if (status === PENDING) {
+                this.defferd.push(o);
+            } else {
+                this.handle(o);
+            }
+            return o.promise;
+        }
+        // resolve 只用来改变promise的状态，和储存数据
+        // resolve 被触发，说明异步执行成功了，那就得调用done，是时候执行队列中的操作啦
+        MyPromise.prototype.resolve = function (data) {
+            this.status = FULFILLED;
+            this.value = data;
+            this.done();
+        }
+        // 处理多条 defferd
+        MyPromise.prototype.done = function () {
+            if (this.status === PENDING) return;
+            var defferd = this.defferd;
+            for (var i = 0; i < defferd.length; i++) {
+                this.handle(defferd[i]);
+            }
+        }
+        // 处理单条 defferd
+        MyPromise.prototype.handle = function (o) {
+            if (!o) return;
+            let value = this.value;
+            let status = this.status;
+            let p; // 用来接收回调函数的返回值，一般是一个promise
+            if (o.onResolve && typeof o.onResolve === 'function') {
+                p = o.onResolve(value);
+                // 此时才真正的调用then里面定义的回调，并将异步处理结果通过这种方式返回出去
+            }
+            // 下面的就不理解了，怎么加上就可以实现链式调用then方法呢
+            // 第二个promise被定义的时候，defferd被立即替换成了上一个promise的defferd
+            if (p && p.constructor === MyPromise) {
+                p.defferd = o.promise.defferd; // ???????????????
+            } else {
+                // 这个this指的现在handle的宿主promise对象
+                // 经测试，下面的代码时错的，和es6的promise测试结果不同
+                p = this;
+                p.defferd = o.promise.defferd;
+                this.done();
+            }
+            // console.log(o.promise.defferd);
+            // 这个o对象里面有四层。。。，不过呢，用的是p并不是o，但是o仿佛是没有被回收的，应该需要优化
+        }
+
+        var MyPromiseTest = new MyPromise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve('promise1的data');
+            }, 1000);
+        });
+        MyPromiseTest.then(function (data) {
+            console.log('promise1的结果:', data);
+            // 第一个promise的handle触发时，第二个promise被定义
+            return new MyPromise(function (resolve) {
+                setTimeout(function () {
+                    resolve('promise2的data');
+                }, 1000);
+            });
+        }).then(function (data) {
+            console.log('promise2的结果:', data);
+            return new MyPromise(function (resolve) {
+                setTimeout(function () {
+                    resolve('promise3的data');
+                }, 1000);
+            }); 
+        }).then(function (data) {
+            console.log('promise3的结果:', data);
+            return 'promise4的data';
+        }).then(function (data) {
+            console.log('promise4的结果:', data);
+        });
+        /*
+        1、不要以为then的参数返回的那个promise就是后面那个then的宿主，no，他们没有直接关系的，都是你的错觉，以前都理解错了
+        2、then执行，此时它的参数还没有执行，then是promise实例的一个方法，他只执行自己，把它后面function当参数放到了o中的onResolve
+        3、第二个then是：前一个promise的实例方法then返回的promise的一个实例方法
+        4、在handle中，把then的参数返回的promise实例的defferd交给了then方法返回的promise实例，来层层传递下去
+        5、promise1.then1(Func resolve1(接收data0)).then2(Func resolve2(接收data1)); 后一个then的参数是一个函数，接受的参数是前一个promise的异步结果data
+        
+        6、第二个then是前一个promise的then方法返回的promise的then，不是前一个then的参数返回的promise的。。。
+           所以，要把o.promise.deffer里面o对象（装的是前一个then的宿主promise的状态和异步结果啊）交给p.defferd（后一个then的参数返回的promise的defferd）
+        */
+
+        // 下面是es6中的promise测试
+        var realPromise = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve('promise1的data');
+            }, 1000);
+        });
+        realPromise.then(function (data) {
+            console.log('-----------promise1的结果:', data);
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve('promise2的data');
+                }, 1000);
+            });
+        }).then(function (data) {
+            console.log('-----------promise2的结果:', data);
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve('promise3的data');
+                }, 1000);
+            }); 
+        }).then(function (data) {
+            console.log('-----------promise3的结果:', data);
+            return 'promise4的data';
+        }).then(function (data) {
+            console.log('-----------promise4的结果:', data);
+        });
+    </script>
+</body>
+
+</html>

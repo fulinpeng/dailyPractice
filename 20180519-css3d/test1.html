@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Document</title>
+    <style>
+        html {
+            font-size: 100px;
+            height: 100%;
+        }
+        
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: url('./img/bg.jpg') no-repeat;
+        }
+        
+        audio {
+            width: 0;
+            height: 0;
+        }
+        
+        .container {
+            height: 100%;
+            /* 必须要的属性：preserve-3d 才能子元素将保留其 3D 位置，才能显示3d效果 */
+            -webkit-transform-style: preserve-3d;
+            /* 当 perspective:none/0 时所有后代元素被压缩在同一个二维平面上，不存在景深的效果 */
+            /* 其子元素会获得透视效果，而不是元素本身 */
+            /* perspective 属性设置镜头到元素平面的距离，否则所有元素都是放置在z=0的平面上 */
+            -webkit-perspective: 4.05rem;
+        }
+        
+        .pieceBox {
+            margin: 0 auto 0;
+            width: 0;
+            height: 0;
+            position: relative;
+            /* perspective-origin 默认就是 50% 50% 可以不用设置*/
+            -webkit-perspective-origin: 50% 50%;
+            -webkit-transform-style: preserve-3d;
+            transform: translateZ(4.05rem);
+        }
+        
+        .pieceBox>div {
+            position: absolute;
+            width: 1.29rem;
+            height: 11.7rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="pieceBox">
+            <div class="01"></div>
+            <div class="02"></div>
+            <div class="03"></div>
+            <div class="04"></div>
+            <div class="05"></div>
+            <div class="06"></div>
+            <div class="07"></div>
+            <div class="08"></div>
+            <div class="09"></div>
+            <div class="10"></div>
+            <div class="11"></div>
+            <div class="12"></div>
+            <div class="13"></div>
+            <div class="14"></div>
+            <div class="15"></div>
+            <div class="16"></div>
+            <div class="17"></div>
+            <div class="18"></div>
+            <div class="19"></div>
+            <div class="20"></div>
+        </div>
+    </div>
+    <!-- <audio src="./img/bgm.mp3" autoplay="autoplay" loop="loop">
+            您的浏览器不支持 audio 标签。
+    </audio> -->
+</body>
+<script>
+    var pieceBox = document.getElementsByClassName('pieceBox')[0];
+    var pieces = pieceBox.getElementsByTagName('div');
+    var turnHand = false;
+
+    var len = pieces.length,
+        angel = 360 / len,
+        w = pieces[0].offsetWidth,
+        r = w / 2 / Math.tan(Math.PI / len) - 2; // Math.sin之类的用的是π，不是角度度数
+    for (var i = 0; i < len; i++) {
+        var piece = pieces[i];
+        var n = i + 1;
+        piece.style.background = 'url("./img/p' + n + '.png") no-repeat';
+        piece.style.WebkitTransform = 'rotateY(' + angel * n + 'deg) translateZ(' + r + 'px)';
+    }
+
+    // 获取 pieceBox 的 transform 的值
+    function getAngle(ele) {
+        // console.log(ele);
+        var transform, alpha = 0,
+            beta = 0;
+        if (ele.currentStyle) {
+            transform = ele.currentStyle['transform'];      
+        } else {
+            transform = window.getComputedStyle(ele, null)['-webkit-transform'];      
+        }
+        if (transform == 'none') {
+            alpha = 0;
+            beta = 0;
+        } else {
+            // console.log(transform);
+        }
+        return {
+            alpha: alpha,
+            beta: beta,
+        }
+    }
+    // touches ：当前屏幕上所有触摸点的列表；
+    // targetTouches ：当前对象上所有触摸点的列表；
+    // changedTouches ：涉及当前（引发）事件的触摸点的列表
+    pieceBox.addEventListener('touchstart', function(e) {
+        turnHand = true;
+        // console.log(e);
+        var startEle = e.touches[0];
+        var startX = startEle.pageX;
+        var startY = startEle.pageY;
+
+        function touchmoveFn(e) {
+            var moveEle = e.touches[0];
+            var disX = moveEle.pageX - startX;
+            var disY = moveEle.pageY - startY;
+            angles = getAngle(pieceBox);
+            // 角度 angle 与距离 dis '相反'
+            var angleX = angles.alpha + disY / 10;
+            var angleY = angles.beta + disX / 10;
+            pieceBox.style = '-webkit-transform:rotateX(' + angleX + 'deg) rotateY(' + angleY + 'deg)';
+        }
+
+        function touchendFn(e) {
+            turnHand = false;
+            document.removeEventListener('touchmove', touchmoveFn);
+            document.removeEventListener('touchend', touchendFn);
+        }
+
+        document.addEventListener('touchmove', touchmoveFn, false);
+        document.addEventListener('touchend', touchendFn, false);
+
+    }, false);
+
+    // 转动手机触发 touchstart
+    window.addEventListener('deviceorientation', function(e) {
+        if (turnHand) return;
+        // alpha  设备绕z轴旋转的角度
+        // beta   设备绕x轴旋转的角度
+        // gamma  设备绕y轴旋转的角度
+        var alpha = e.alpha;
+        var beta = e.beta;
+        var gamma = e.gamma;
+        var beta = e.beta;
+        if (Math.abs(alpha) > 1 || Math.abs(beta) > 1 || Math.abs(gamma) > 1) {
+            pieceBox.style = '-webkit-transform:rotateX(' + beta / 40 + 'deg) rotateY(' + gamma + 'deg) rotateZ(' + alpha / 60 + 'deg)';
+        }
+    }, false);
+</script>
+
+</html>

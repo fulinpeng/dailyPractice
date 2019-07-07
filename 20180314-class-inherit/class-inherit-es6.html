@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+    function Parent() {
+        this.base = 'from Parent!';
+    }
+    Parent.prototype.say = function () {
+        console.log('Parent sing!' + this.name);
+    }
+
+    function Child(name, age) {
+        Child.super.call(this); // 这里得有super的调用
+        this.name = name;
+        this.age = age;
+    }
+    Child.prototype.say = function () {
+        console.log('Child sing' + this.name);
+    }
+
+    // 实现ES6的继承
+    function extend(_Parent, _Child) {
+        // 给子类定义super
+        // 用这个super来继承父类的实例属性和实例方法
+        _Child.super = _Parent.prototype.constructor;
+        // 继承父类的原型属性和原型方法
+        var F = function () { };
+        F.prototype = _Parent.prototype
+        _Child.prototype = new F();
+    }
+    extend(Parent, Child);
+
+    var child = new Child('flp', 22);
+    console.log(child);
+
+
+    // 上面的都作废-------------------------------
+    
+    // 实际上ES6中的继承是这样的：
+    class A { }
+    class B { }
+    // B 的实例继承 A 的实例
+    Object.setPrototypeOf(B.prototype, A.prototype);
+    // B 继承 A 的静态属性
+    Object.setPrototypeOf(B, A);
+    console.log(B.__proto__ === A); // true
+    console.log(B.prototype.__proto__ === A.prototype); // true
+
+    // 这两条继承链，可以这样理解：
+    // 1. 作为一个对象，子类（B）的原型（__proto__属性）是父类（A）
+    // 2. 作为一个构造函数，子类（B）的原型对象（prototype属性）是父类的原型对象（prototype属性）的实例
+    
+</script>
+
+</html>

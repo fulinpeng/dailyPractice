@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-17-1正则</title>
+
+<script>
+window.onload=function(){
+var oP=document.getElementsByTagName('p')[0];
+var aInp=document.getElementsByTagName('input');
+var str=oP.innerHTML;
+
+aInp[0].onclick=function(){
+	var m=[];
+	for(var i=0; i<str.length; i++){
+		if(str.charAt(i)>=0 && str.charAt(i)<=9){
+			m.push(str.charAt(i));
+		}else{};
+	};
+	alert(m);
+};
+aInp[1].onclick=function(){
+	var m=[];
+	var n='';
+	for(var i=0; i<str.length; i++){
+		if(str.charAt(i)>=0 && str.charAt(i)<=9){
+			n+=str.charAt(i);
+		}else{
+			if(n){
+				m.push(n);
+				n='';
+			};
+		};
+	};
+	if(n){
+		m.push(n);
+		n='';
+	};
+	alert(m);
+};
+aInp[2].onclick=function(){
+	var re=/\d+/g;
+	alert(str.match(re));
+};
+};
+</script>
+</head>
+<body>
+
+<p>12nt5/8=7.68/0.85.26.31</p>
+<input type="button" value="提取数字"/>
+<input type="button" value="提取整数"/>
+<input type="button" value="正则输出结果"/>
+
+
+</body>
+</html>

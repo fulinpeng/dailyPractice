@@ -1,0 +1,231 @@
+*{
+    font-family:"Î¢ÈíÑÅºÚ ";
+
+}
+.mytable tr:nth-child(2n+1){
+    background-color: #f4f6f5;
+}
+body{
+    position: relative;
+    background: none
+}
+h1{
+    z-index: 10;
+}
+.mainvisible{
+    position: absolute;
+    width: calc(100% - 30px);
+    top:20px;
+    visibility: visible;
+    background:white;
+    border-radius:10px;
+    padding-bottom: 30px;
+    padding-top:50px;
+}
+.mainvisible2{
+    position: absolute;
+    width: calc(100% - 30px);
+    top:20px;
+    visibility: visible;
+    background:white;
+    border-radius:10px;
+    padding-bottom: 30px;
+    padding-top:10px;
+}
+h1{
+    text-align: center;
+}
+.glycolor{
+    color:#39ADB4;
+}
+
+.mynav1{
+    margin-top: 20px;
+    width: 100%;
+    border-bottom:1px gainsboro solid;
+    overflow: hidden;
+}
+.mynav1 li{
+    float: left;
+    list-style: none;
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 5px 5px 0px 0px;
+    color: #a9a9a9;
+    cursor: pointer;
+
+}
+
+
+.mynav1 li:first-child{
+    color: #3aadb4;
+    border-bottom:3px #3aadb4 solid
+}
+
+
+.addst{
+    border-radius: 10px;
+    background-color: #08d996;
+    border: none;
+    color: white;
+    font-size: 16px;
+    height:30px;
+    line-height:30px;
+    width:8%;
+    outline: none;
+}
+
+.mytablediv{
+    overflow: hidden;
+    width:97%;
+    margin:10px  30px 0px 15px;
+    border-radius: 8px 8px 0px 0px ;
+}
+.mytable{
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+
+}
+.mytable tr td {
+    border: 1px solid gainsboro;
+    height:35px;
+}
+.first_tr>td:first-child{
+    border-radius: 5px 0 0 0;
+    border: none;
+}
+
+.mytable .first_tr>td{
+    background-color: #3aadb4;
+    color: white;
+    border-right:1px solid gainsboro ;
+    border-bottom: none;
+    border-top: none;
+}
+.mytable .first_tr>td:last-child{
+    border-radius:0 5px 0 0;
+
+}
+
+.fullbox{
+    width:100%;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+    background: white;
+}
+.mydescribe{
+ color: #cecece;
+ margin-top:10px; ;
+}
+
+/*.mybtdiv button{*/
+    /*background-color:#D6973D !important;*/
+    /*border: none;*/
+
+/*}*/
+.mybtdiv1{
+    margin-bottom: 20px;
+}
+
+/*.mybtdiv1 button{*/
+    /*background-color:#D6973D !important;*/
+    /*border: none;*/
+    /*margin-top: -2px;*/
+/*}*/
+.myfooter ul{
+    float: right;
+    margin-right:8px;
+}
+.mychoice li{
+    float: left;
+    list-style: none;
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+
+}
+.mychoice li input{
+    margin-top: -10px;
+}
+.mychoice{
+    overflow: hidden;
+}
+.mysection3{
+    font-size: 16px;
+}
+.tittle{
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+.myselect{
+    border: 1px solid white;
+}
+.myselectline2{
+    border: 1px solid white;
+}
+.prechoice{
+    border: 1px solid #3aadb4;
+}
+.myname{
+    margin-top:20px;
+}
+.mybg{
+    margin-top: -10px;
+
+}
+.mysearch{
+    border-radius:10px;
+    border: none;
+    width:50px;
+    background-color:#D6973D;
+}
+.mysection3part1{
+    margin-top: 30px;
+}
+.zhanwei{
+    height: 12px;
+}
+#laydate_YY{
+     margin-top: -5px;
+ }
+#laydate_MM{
+    margin-top: -5px;
+}
+#laydate_hms{
+    margin-top: -5px;
+
+}
+.laydate_btn{
+    margin-top: -5px!important;
+}
+#start{
+    margin-top: 5px;
+    line-height:8px;
+}
+#end{
+    margin-top: 5px;
+    line-height:8px;
+}
+.namegroup input{
+    outline: none;
+}
+.deltable:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.reset:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.namewarning,.classwarning,.daytimewarning,.holtimewarning,.reasonwarning,.otherwarning,.inwarning,.outwarning{
+    display: block;
+    height: 8px;
+}
+.font-color{
+    color: darkred;
+    font-size: 8px;
+}
+
+

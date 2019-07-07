@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtroller">
+<!--<input type="button" ng-click="show('success')" value="成功">-->
+<!--<input type="button" ng-click="show('failed')" value="失败">-->
+</body>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('mainCtroller', ['$scope', '$q', function ($scope, $q) {
+
+        alert('有问题，不知道是什么问题！！！');
+        var defer = $q.defer();
+
+        function show(state) {
+            if (state == 'success') {
+                defer.resolve();
+            } else if (state == 'failed') {
+                defer.reject();
+            }
+            return defer.promise;
+        }
+
+        setTimeout(function () {
+            show('success')
+                .then(function () {
+                    console.log('success');
+                }, function () {
+                    console.log('failed');
+                });
+        }, 1000);
+        setTimeout(function () {
+            show('failed')
+                .then(function () {
+                    console.log('success');
+                }, function () {
+                    console.log('failed');
+                });
+        }, 2000);
+    }]);
+</script>
+</html>

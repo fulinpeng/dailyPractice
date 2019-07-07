@@ -1,0 +1,84 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>html读写操作，注意事项</title>
+<style>
+  .red{
+  width:600px;
+  background:red;
+  color:yellow;
+  border:5px solid #ccc;
+  }
+  .yellow{
+  width:600px;
+  background:yellow;
+  color:red;
+  border:5px solid #ccc;
+  }
+</style>
+<script>
+  window.onload=function(){
+    var oBtn1 = document.getElementById('btn1');
+    var oBtn2 = document.getElementById('btn2');
+    var oBtn3 = document.getElementById('btn3');
+    var oBtn4 = document.getElementById('btn4');
+    var oP = document.getElementById('p1');
+	var num = 15;
+  oBtn1.onclick=function(){
+    num -=1;
+	oP.style.fontSize=num + 'px';
+  };
+  oBtn2.onclick=function(){
+    num +=1;
+	oP.style.fontSize=num + 'px';
+  };
+  oBtn3.onclick=function(){
+  /*
+    oP.style.width='400px';
+    oP.style.background='red';
+	op.style.color='yellow';
+	oP.style.border='10px solid #ccc';
+  */
+    oP.className='red';
+  };
+  oBtn4.onclick=function(){
+
+    oP.className='yellow';
+  };
+  
+  
+  
+  
+  
+  };
+</script>
+  
+  
+  
+  
+</head>
+<body>
+  <input id="btn1" type="button" value="-"/>
+  <input id="btn2" type="button" value="+"/>
+  <input id="btn3" type="button" value="红色"/>
+  <input id="btn4" type="button" value="黄色"/>
+  <p id="p1" style=" font-size:15px;">
+    从最基础的 HTML5移动端&PC端布局、CSS3动画、3D交互特效、JS原理、
+	JS基础、JS中级的DOM\BOM\EVENT、ajax数据交互，再到JS的面向对象
+	JS组件开发、JS模块化开发（seaJS）、正则表达式、node.js、jQuery
+	库实战教程、JQ源码分析、PC端布局实战、电商网站实战、HTML5+CSS3实
+	战、移动端实战、交互动画教程、前端面试题、canvas及游戏、html5
+	视频音频、html5地理位置信息、html5跨文档消息通信
+	
+  </p>
+
+
+
+
+
+
+
+
+</body>
+</html>

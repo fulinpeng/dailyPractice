@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-2解决文字和图片受拖拽影响</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#img{
+		width:100px;
+		height:100px;
+		position:absolute;
+	}
+	#div2{
+		width:100px;
+		height:100px;
+		background:green;
+		position:absolute;
+		top:200px;
+		left:300px;
+	}
+	
+</style>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById('img');
+	
+	oImg.onmousedown=function(ev){
+		
+		//处理ie下，用return false;不能处理浏览器默认事件的情况
+		if(this.setCapture){
+			this.setCapture();
+		};
+		
+		var ev=ev || event;
+		var disX=ev.clientX - this.offsetLeft;
+		var disY=ev.clientY - this.offsetTop;
+		
+		
+		document.onmousemove=function(ev){
+			var ev=ev || event;
+			oImg.style.left=ev.clientX - disX + 'px';
+			oImg.style.top=ev.clientY - disY + 'px';
+		};
+		
+		document.onmouseup=function(){
+			document.onmouseup=document.onmousemove=null;
+			if(this.releaseCapture){
+				this.releaseCapture();
+			};
+		};
+		
+		return false;
+		//停止浏览器默认事件，方法是：哪个对象的哪个事件，是不需要的，就把它return掉；
+	};
+	
+};
+	
+	
+	
+
+
+</script>
+</head>
+<body style="height:2000px;">
+
+<img id="img" src="img/mouse.jpg"/>
+<div id="div2" ></div>
+
+</body>
+</html>

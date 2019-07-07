@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="1000" height="600">浏览器不支持canvas</canvas>
+</body>
+<script>
+    var c1=document.getElementById("mycanvas");
+    var cvs=c1.getContext("2d");
+    cvs.lineWidth=10;
+    cvs.strokeStyle="#163B62";
+    cvs.beginPath();
+    cvs.arc(100,100,80,0,2*Math.PI);
+    cvs.stroke();
+    cvs.strokeStyle="#000000";
+    cvs.beginPath();
+    cvs.arc(300,100,80,0,2*Math.PI);
+    cvs.stroke();
+    cvs.strokeStyle="#BF0628";
+    cvs.beginPath();
+    cvs.arc(500,100,80,0,2*Math.PI);
+    cvs.stroke();
+    cvs.strokeStyle="#EBC41F";
+    cvs.beginPath();
+    cvs.arc(200,170,80,0,2*Math.PI);
+    cvs.stroke();
+    cvs.strokeStyle="#198E4A";
+    cvs.beginPath();
+    cvs.arc(400,170,80,0,2*Math.PI);
+    cvs.stroke();
+
+    //覆盖弧段
+    cvs.strokeStyle="#163B62";
+    cvs.beginPath();
+    cvs.arc(100,100,80,-0.25*Math.PI,0.25*Math.PI);
+    cvs.stroke();
+    cvs.strokeStyle="#000000";
+    cvs.beginPath();
+    cvs.arc(300,100,80,0.25*Math.PI,Math.PI,true);
+    cvs.stroke();
+    cvs.strokeStyle="#BF0628";
+    cvs.beginPath();
+    cvs.arc(500,100,80,0.75*Math.PI,1.25*Math.PI);
+    cvs.stroke();
+</script>
+</html>

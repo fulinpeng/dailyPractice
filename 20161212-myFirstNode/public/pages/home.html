@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/home.css"/>
+    <script src="../js/jquery-3.1.1.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/home.js"></script>
+    <script type="text/javascript" src="../js/lib/circle_JT_min.js" ></script>
+    <script type="text/javascript" src="../js/DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="partbox clear">
+        <div class="part clear">
+            <div class="particon">&#xe62c;</div>
+            <div class="tit">
+                <span>最新公告</span>
+            </div>
+            <div class="more close"><span class="glyphicon glyphicon-remove-sign"></span></div>
+            <div class="des">
+                <p>
+                    <span class="who">管理员:<span class="iconspan">&#xe655;</span></span>
+                    这个方法可以达到让iframe自适应高度的效果，但是如果你将窗口放大或缩小效果就不出来了，也就是本文开头讲的。需要再次刷新，那就不属于自适应了。
+                </p>
+                <p >
+                    <span class="who">园长:<span class="iconspan">&#xe655;</span></span>
+                    那么问题来了，需要解决当窗口改变大小的时候执行js事件，以让iframe自适就高度。那么就需要将相关的代码写成函数，并且给iframe加上
+                </p>
+            </div>
+        </div>
+        <div class="part2 clack clear">
+            <div class="particon">&#xe634;</div>
+            <div class="tit2">
+                <span>现在时间</span>
+            </div>
+            <div class="more close"><span class="glyphicon glyphicon-remove-sign"></span></div>
+            <div class="pic">
+                <div id="dom"></div>
+            </div>
+        </div>
+        <div class="part2 part2laset clear">
+            <div class="particon">&#xe84c;</div>
+            <div class="tit2">
+                <span>日期</span>
+            </div>
+            <div class="more close"><span class="glyphicon glyphicon-remove-sign"></span></div>
+            <div id="rili" class="barbox">
+
+            </div>
+            <script>
+            WdatePicker({eCont:'rili',onpicked:function(dp){}});//alert('你选择的日期是:'+dp.cal.getDateStr())}
+            </script>
+        </div>
+    </div>
+    <div class="clear">
+    <div class="picbox clear">
+        <div class="partpic clear">
+            <div class="picimg">
+                <img src="../images/1.jpg" alt=""/>
+            </div>
+            <div class="des">
+                <p class="pictit">大班第三班制作手工工艺品</p>
+                <p class="picdes">
+                    需要解决当窗口改变大小的时候执行js事件，高度。那么就需要将相关的代码写成
+                </p>
+            </div>
+        </div>
+        <div class="partpic clear">
+            <!--<div class="btn more">&#xe611;</div>-->
+            <div class="picimg">
+                <img src="../images/2.jpg" alt=""/>
+            </div>
+            <div class="des">
+                <p class="pictit">大班第四班手工制作作品展示</p>
+                <p class="picdes">
+                    需要解决当窗口改变大小的时候执行js事件，高度。那么就需要将相关的代码写成
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="tablebox">
+        <div class="parttable parttable2">
+            <div class="tit2">
+                考勤管理
+                <!--<span class="btn more">&#xe611;</span>-->
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <td>姓名</td>
+                        <td>班级</td>
+                        <td>请假日期</td>
+                        <td>请假时长</td>
+                        <td>邮件推送</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>张文</td>
+                        <td>大班三班</td>
+                        <td>2016/12/14</td>
+                        <td>一天</td>
+                        <td>已推送</td>
+                    </tr>
+                    <tr>
+                        <td>李丹</td>
+                        <td>小班二班</td>
+                        <td>2016/12/14</td>
+                        <td>半天</td>
+                        <td>已推送</td>
+                    </tr>
+                    <tr>
+                        <td>杨凯</td>
+                        <td>中班一班</td>
+                        <td>2016/12/14</td>
+                        <td>三天</td>
+                        <td>已推送</td>
+                    </tr>
+                    <tr>
+                        <td>张文</td>
+                        <td>大班三班</td>
+                        <td>2016/12/14</td>
+                        <td>一天</td>
+                        <td>已推送</td>
+                    </tr>
+                    <tr>
+                        <td>李丹</td>
+                        <td>小班二班</td>
+                        <td>2016/12/14</td>
+                        <td>半天</td>
+                        <td>已推送</td>
+                    </tr>
+                    <tr>
+                        <td>杨凯</td>
+                        <td>中班一班</td>
+                        <td>2016/12/14</td>
+                        <td>三天</td>
+                        <td>已推送</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    //获取页面高度
+    sessionStorage.setItem("homeH",$("#page").height());
+    //显示时钟
+    $.circleJt({
+        domId:'dom',//必须
+        radius:40,//必须
+        pbColor:'#13895F',//必需
+        pbWidth:10,//非必需
+        value:0,//必须
+        totalValue:1000,//非必需
+        percentage:true,//非必需
+        fontSize:14,
+        clock:true,//如果clock为真的时候，上述属性除value,totalValue,percentage均全都无效
+        digitalWatch:true//以电子表形式显示
+    });
+
+</script>
+</html>

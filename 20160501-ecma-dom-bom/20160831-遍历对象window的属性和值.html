@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>for-in遍历对象window实例</title>
+
+<script>
+window.onload=function(){
+	var str='';
+	var m=1;
+	for(var attr in window){
+		str+=m+':'+attr+':'+window[attr]+'<br/>';
+		m++;
+		document.body.innerHTML=str;
+	};
+};
+</script>
+</head>
+<body>
+
+
+</body>
+</html>

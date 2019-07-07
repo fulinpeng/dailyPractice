@@ -1,0 +1,160 @@
+body{
+    background: #EFEFEF;
+    font-family: "Î¢ÈíÑÅºÚ "!important;
+}
+@font-face {
+    src: url("../font/iconfont2.woff");
+    font-family: "designself";
+}
+.wallitem{
+    position: relative;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #EFEFEF;
+}
+.wallitem:hover>.delet{
+    opacity: 1;
+    cursor: pointer;
+}
+.delet{
+    position: absolute;
+    opacity: 0;
+    height: 40px;
+    width: 40px;
+    /*background: rgba(239, 239, 239, 0.72);*/
+    background: white;
+    bottom: 0px;
+    right: 0px;
+    font-family: designself;
+    font-size: 30px;
+    color: #39ADB4;
+}
+/*.secframe{*/
+    /*padding-top: 20px;*/
+    /*padding-bottom: 20px;*/
+/*}*/
+.wallitem p{
+    padding-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.show-title{
+    text-align: center;
+    border-bottom: 1px solid #EFEFEF;
+    margin-bottom: 30px;
+}
+.show-chose{
+    outline: none;
+    -webkit-appearance: none;
+    /*background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;*/
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat right;
+    padding: 4px 25px 4px 10px;
+    border: 1px solid #39ADB4;
+}
+.show-ul{
+    text-align: right;
+}
+.show-before:before{
+    background-color:transparent;
+}
+.show-label{
+    font-weight: lighter;
+}
+.wallitem img{
+    height: 100px;
+    width: 150px;
+}
+.nn>div{
+    margin-left: 20px;
+    width: 150px;
+    float: left;
+}
+.show-checkeddiv{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0;
+}
+input[type=checkbox]{
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: bottom;
+    background: #fff;
+    border: 1px solid #39ADB4;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+input[type=checkbox]:active{
+    border-color: #c6c6c6;
+    background: #ebebeb;
+}
+
+input[type=checkbox]:hover {
+    border-color: #c6c6c6;
+    -webkit-box-shadow: inset 0 2px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: inset 0 2px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0 2px 2px rgba(0,0,0,0.1);
+}
+input[type=checkbox]:checked{
+    background: #fff;
+}
+input[type=checkbox]:checked::after {
+    content: url(../images/photowall/checkmark.png);
+    display: block;
+    position: absolute;
+    top: -5px;
+    right: 0px;
+    left: -5px
+}
+input[type=checkbox]:focus {
+    outline: none;
+    border-color:#4d90fe;
+}
+.show-m-d{
+    opacity: 0;
+}
+.mybtn{
+    border: 1px solid #39ADB4;
+    background: none;
+    padding: 5px 20px;
+    outline: none;
+    -webkit-transition: all .2s linear;
+}
+.mybtn:hover{
+    background:#39ADB4;
+    color:white;
+}
+.mybtn:hover>.changecolor{
+    color: white;
+}
+.glycolor{
+    color:#39ADB4;
+}
+.show-addphoto{
+    border: 1px solid #39ADB4;
+}
+.framebox{
+    margin:1%;
+    width:98%;
+    background:white;
+    float:left;
+    border-radius: 10px;
+    position:relative;
+    border:none;
+}
+.add-textarea{
+    margin-top: 20px ;
+}
+.show-estb{
+    margin-top: 100px ;
+}
+.konghang{
+    height: 10px;
+}

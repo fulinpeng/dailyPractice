@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-6拖拽div改变大小</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#div1{
+		width:200px;
+		height:150px;
+		top:140px;
+		left:400px;
+		background:red;
+		position:absolute;
+	}
+	
+	
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	
+	oDiv.onmousedown=function(ev){
+		
+		var ev=ev || event;
+		var disX=ev.clientX;
+		var disW=this.offsetWidth;
+		var disL=this.offsetLeft;
+		if(disX > this.offsetLeft+this.offsetWidth-10){
+			b='right';
+			this.style.cursor='pointer';
+		};
+		if(disX < this.offsetLeft+10){
+			b='left';
+		};
+	
+	
+		document.onmousemove=function (ev){
+			var ev=ev || event;
+			switch(b){
+				case 'left':
+				oDiv.style.width =disW-(ev.clientX - disX)+ 'px';
+				oDiv.style.left=disL+(ev.clientX - disX)+ 'px';
+				break;
+				
+				case 'right':
+				oDiv.style.width =disW+(ev.clientX - disX)+ 'px';
+				break;
+				
+			};
+		
+		};
+		
+		document.onmouseup=function (){
+			document.onmouseup=document.onmousemove=null;
+		};
+	};
+};
+	
+	
+	
+	
+</script>
+</head>
+<body >
+
+<div id="div1" ></div>
+</body>
+</html>

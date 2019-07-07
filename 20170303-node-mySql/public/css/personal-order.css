@@ -1,0 +1,173 @@
+.order{
+    width: 100%;
+    margin-top: 15px;
+    font-size: 20px;
+    background: white;
+}
+.o-main{
+    width: 73%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid #DADADA;
+    padding-bottom: 20px;
+}
+.o-main>div{
+    /*margin-top: 20px;*/
+}
+#o-detail{
+    margin-top: 20px;
+    font-size: 18px;
+    border-bottom: 1px solid  #DADADA;
+    height: 50px;
+    margin-top: 0;
+    line-height:50px;
+    text-indent:25px;
+    font-family: 微软雅黑;
+    background:  #fafafa;
+    color: black;
+}
+.o-sale{
+    margin-top: 10px;
+}
+#o-detail+div{
+    text-indent:2em;
+    font-size: 18px;
+}
+.o-state{
+    margin-top: 20px;
+    border: 1px solid #f26031;
+    height: 70px;
+    width: 86%;
+    margin-left:7%;
+    line-height: 25px;
+    text-indent: 2em;
+}
+.o-state>div:nth-child(1)>span{
+    color:#f26031;
+}
+.o-state div{
+    margin-top: 5px;
+    font-size: 14px;
+}
+.o-state1{
+    height: 20px;
+}
+.o-state1>div{
+    float: left;
+}
+.o-state1>div:nth-child(1)>span{
+    color: red;
+}
+.o-state1>div:nth-child(2){
+    margin-left: 60%;
+}
+.o-state-m{
+    height: 80px;
+    margin-left: 5%;
+
+}
+.o-jiantou{
+    /*overflow: hidden;*/
+    margin-top: 20px;
+}
+.o-circle{
+    float: left;
+    height: 12px;
+    width:12px;
+    background: grey;
+    border: 1px solid grey;
+    border-radius:6px;
+}
+.o-circlef{
+    margin-left: 20%;
+}
+.o-arrows{
+    float: left;
+    margin-top: 5px;
+    position: relative;
+    height:2px;
+    width: 20%;
+    background: grey;
+}
+.o-step{
+    clear: both;
+}
+.o-step>p{
+    font-size: 12px;
+    margin-left: 10%;
+    float: left;
+}
+#o-stepfp{
+    margin-left: 19%;
+}
+.o-potitle{
+    clear: both;
+    font-size: 18px;
+    text-indent: 2em;
+    font-family: "微软雅黑";
+}
+.clearboth{
+    clear: both;
+}
+.o-senddiv{
+    margin: 0px 30px 0px 30px;
+    overflow: hidden;
+    border: 1px solid #DBD6D0;
+}
+.o-send{
+    padding: 10px;
+    float: left;
+    font-size: 14px;
+}
+.o-senright{
+    border-left:1px solid #DBD6D0;
+}
+.o-listht{
+    margin-left: 10%;
+}
+
+.o-list{
+    overflow: hidden;
+    padding: 10px;
+    margin-left: 3%;
+    margin-right: 3%;
+    border:1px solid #DBD6D0;
+}
+.o-list div{
+    font-size: 14px;
+}
+.o-list div p{
+    line-height: 30px;
+}
+.o-listho{
+    float: left;
+    width: 63%;
+}
+.o-listht{
+    float: left;
+    /*border-left:#DBD6D0;*/
+    border-left:black;
+    width: 9%;
+}
+.o-listhth{
+    float: left;
+    border-left:#DBD6D0;
+    width: 9%;
+}
+.o-listhf{
+    float: left;
+    border-left:#DBD6D0;
+    width: 9%;
+    color: red;
+}
+.o-listxq{
+    width: 53%;
+    float: left;
+    margin-left: 10%;
+}
+.o-linehight{
+    line-height: 280px;
+}
+*{
+    /*border: 1px solid red;*/
+}

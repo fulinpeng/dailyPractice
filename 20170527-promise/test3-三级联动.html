@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body onload="initialize()">
+
+    <div>
+        国家：
+        <select name='ddlCountry' id='ddlCountry' style="width:100px;" onchange="CountrySelChange()"></select>
+        <br/>
+        <br/> 省：
+        <select name='ddlProvince' id='ddlProvince' style="width:100px;" onchange="ProvinceSelChange()"></select>
+        <br/>
+        <br/> 市：
+        <select name='ddlCity' id='ddlCity' style="width:100px;"></select>
+    </div>
+</body>
+<script>
+    var CountryObj = document.getElementById("ddlCountry");
+    var ProvinceObj = document.getElementById("ddlProvince");
+    var CityObj = document.getElementById("ddlCity");
+    var CountryStr = "请选择,Australia,Belgium,Cambodia,Canada,Switzerland,China,France,Germany,Hong Kong,India,Indonesia,Ireland,Israel,Italy,Japan,Korea,Kuwait,Lebanon,Luxembourg,Macao,Malaysia,Netherlands,New Zealand,Philippines,Sweden,Singapore,South Africa,Sweden,Taiwan,Thailand,United Kiongdom,USA,Vietnam";
+    //初始化地区下拉菜单
+    function initialize() {
+        var CountryArray = CountryStr.split(',');
+        for (var j = 0; j < CountryArray.length; j++) {
+            CountryObj.add(new Option(CountryArray[j], CountryArray[j]));
+        }
+        ProvinceDel();
+    }
+
+    //下拉列表改变事件
+    function CountrySelChange() {
+        ProvinceDel();
+        ProvinceAdd();
+    }
+    //下拉列表改变事件
+    function ProvinceSelChange() {
+        CityDel();
+        CityAdd();
+    }
+
+    //清空
+    function ProvinceDel() {
+        ProvinceObj.length = 0;
+        ProvinceObj.add(new Option('请选择', '请选择'));
+        CityDel();
+    }
+    //清空
+    function CityDel() {
+        CityObj.length = 0;
+        CityObj.add(new Option('请选择', '请选择'));
+    }
+
+    //添加省
+    function ProvinceAdd() {
+        var provinceList = [];
+        provinceList[0] = (["China", "北京市,天津市,上海市,重庆市,河北省,河南省,云南省,辽宁省,黑龙江省,湖南省,安徽省,山东省,新疆维吾尔,江苏省,浙江省,江西省,湖北省,广西壮族,甘肃省,山西省,内蒙古,陕西省,吉林省,福建省,贵州省,广东省,青海省,西藏,四川省,宁夏回族,海南省,台湾省,香港,澳门"]);
+        provinceList[1] = (["", ""]);
+        provinceList.sort();
+        for (var i = 0; i < provinceList.length; i++) {
+            if (CountryObj.value == provinceList[i][0]) {
+                var province = provinceList[i][1];
+                AddOne(province, ProvinceObj);
+            }
+        }
+    }
+
+    //添加市
+    function CityAdd() {
+        var PCList = [];
+        PCList[0] = (["北京市", "东城区,西城区,朝阳区,丰台区,石景山区,海淀区,门头沟区,房山区,通州区,顺义区,昌平区,大兴区,怀柔区,平谷区,密云县,延庆县"]);
+        PCList[1] = (["天津市", "和平区,河东区,河西区,南开区,河北区,红桥区,东丽区,西青区,津南区,北辰区,武清区,宝坻区,滨海新区,宁河县,静海县,蓟县"]);
+        PCList[2] = (["上海市", "黄浦区,徐汇区,长宁区,静安区,普陀区,闸北区,虹口区,杨浦区,闵行区,宝山区,嘉定区,浦东新区,金山区,松江区,青浦区,奉贤区,崇明县"]);
+        PCList[3] = (["河北省", ""]);
+        PCList[4] = (["河南省", ""]);
+        PCList[5] = (["云南省", ""]);
+        PCList[6] = (["辽宁省", ""]);
+        PCList[7] = (["黑龙江省", ""]);
+        PCList[8] = (["", ""]);
+        PCList.sort();
+        for (var i = 0; i < PCList.length; i++) {
+            if (ProvinceObj.value == PCList[i][0]) {
+                var City = PCList[i][1];
+                AddOne(City, CityObj)
+            }
+        }
+    }
+    //添加实现
+    function AddOne(Str, Obj) {
+        if (Str == "") return;
+        var strArray = Str.split(',');
+        for (var j = 0; j < strArray.length; j++) {
+            Obj.add(new Option(strArray[j], strArray[j]))
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一段网上的 promise 代码
+        var PENDING = 0;
+        var FULFILLED = 1;
+        var REJECTED = 2;
+        function Promise(callback) {
+            this.status = PENDING;
+            this.value = null;
+            this.defferd = [];
+            // 不知道setTimeout 在这里的意义？，假如异步执行很快的话，当没有setTimeout的时候就不能回调到resolve函数
+            // 执行promise的时候，callback里的函数还是未定义吧
+            setTimeout(callback.bind(this, this.resolve.bind(this), this.reject.bind(this)), 0);
+        }
+        Promise.prototype = {
+            constructor: Promise,
+            resolve: function (result) {
+                this.status = FULFILLED;
+                this.value = result;
+                this.done();
+            },
+            reject: function (error) {
+                this.status = REJECTED;
+                this.value = error;
+            },
+            handle: function (o) {
+                if (!o) {
+                    return;
+                }
+                var value = this.value;
+                var t = this.status;
+                var p; // 将then方法中返回的promise对象保存起来
+                if (t == PENDING) {
+                    this.defferd.push(o);
+                } else {
+                    if (t == FULFILLED && typeof o.onfulfiled == 'function') {
+                        p = o.onfulfiled(value);
+                    }
+                    if (t == REJECTED && typeof o.onrejected == 'function') {
+                        p = o.onrejected(value);
+                    }
+                    var promise = o.promise;
+                    // p 是执行了then的两个参数回调函数后返回的promise（有可能不是promise，它什么都没返回就是undefined），o.promise是空的promise
+                    // 但是 o.promise 是一定存在的了，而且肯定是个promise，p可能不存在嘛
+                    if (promise) {
+                        if (p && p.constructor == Promise) {
+                            // 是promise就将目前的defferd拿过来继续用？？？
+                            p.defferd = promise.defferd;
+                            // 注意p和o的区别
+                            // p是then执行返回的promise对象
+                            // o是一个对象有promise等属性，promise的属性是空的promise
+                        } else {
+                            // 不是promise就把当前的（状态已经改变了的）promise拿过来，并立即执行done()
+                            p = this;
+                            p.defferd = promise.defferd;
+                            this.done();
+                        }
+                    }
+                }
+            },
+            done: function () {
+                // done 会执行整个defferd的promise，而handle是执行单个了
+                // 所以done和handle并不冲突，只要不push到defferd中去，是不会被执行两次的
+                var status = this.status;
+                if (status == PENDING) {
+                    return;
+                }
+                var defferd = this.defferd;
+                for (var i = 0; i < defferd.length; i++) {
+                    this.handle(defferd[i]);
+                }
+            },
+            then: function (success, fail) {
+                var o = {
+                    onfulfiled: success,
+                    onrejected: fail,
+                    promise: new this.constructor(function () { })
+                };
+                var status = this.status;
+                if (status == PENDING) {
+                    // 此时到底是 PENDING 还是 FULFILLED ，由then在什么时候调用和异步的花费时间还决定的，then越早异步越快，那就更可能执行到这里状态还是PENDING时
+                    // 此时，异步操作还没结束，要把 o 添加到defferd里面去，等待异步结束后统一执行
+                    console.log('PENDING');
+                    this.defferd.push(o);
+                } else if (status == FULFILLED || status == REJECTED) {
+                    console.log('FULFILLED');
+                    // 调用then方法前，promise的状态就变成了FULFILLED、REJECTED，异步执行成功了，done也已经被调用了
+                    // 那就直接调用 handle，handle本来是由done来调用的
+                    this.handle(o);
+                }
+                // 为了链式调用，每次then执行完毕，都要返回一个promise对象
+                return o.promise;
+            }
+        };
+        var p = new Promise(function (resolve, reject) {
+            // 模拟异步很快的时候：
+            resolve('异步操作成功');
+            // 模拟异步很慢的时候：
+            // setTimeout(function () {
+            //     resolve('异步操作成功');
+            // },1000);
+        });
+
+        // 模拟then马山执行
+        p.then(function (res) {
+            console.log('第一个then:', res);
+            return '不是promise对象';
+        }).then(function (data) {
+            console.log('第二个then:', data);
+        });
+
+        // 模拟：有的时候then会在很多行代码之后才执行
+        // setTimeout(function () {
+        //     p.then(function (res) {
+        //         console.log('then:', res);
+        //     });
+        // },100);
+
+
+        // 一道面试题
+        // function Foo() {
+        //     getName = function () { console.log(1); }
+        //     return this;
+        // }
+        // Foo.getName = function () { console.log(2); }
+        // Foo.prototype.getName = function () { console.log(3); }
+        // var getName = function () { console.log(4); }
+        // function getName() { console.log(5); }
+
+        // Foo.getName();
+        // getName();
+        // Foo().getName();
+        // getName();
+        // new Foo.getName();
+        // new Foo().getName();
+        // new new Foo().getName();
+
+    </script>
+</body>
+
+</html>

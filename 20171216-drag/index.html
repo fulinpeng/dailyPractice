@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/angular-1.5.8.min.js"></script>
+    <style>
+        .drag{
+            width:100px;
+            height:100px;
+            background:red;
+            position:absolute;
+            user-select: none; /*重点*/
+        }
+    </style>
+</head>
+<body>
+    <div class="drag" drag="true"></div>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.directive('drag', function () {
+        return {
+            restrict:'A',
+            replace:false,
+            link:function (scope, element, attr) {
+                var drag=attr.drag;
+                element.on('mousedown', function (e) {
+                    var that=$(this),
+                        disX,disY,line;
+                    disX=e.clientX - that.offset().left;
+                    disY=e.clientY - that.offset().top;
+                    if (drag) {
+                        line=$('<div>');
+                        line.css({
+                            width:that.outerWidth(),
+                            height:that.outerHeight(),
+                            border:'1px dotted red',
+                            position:'absolute',
+                            left:that.offset().left,
+                            top:that.offset().top
+                        });
+                        $('body').append(line);
+                    }
+                    $(document).on('mousemove', function (e) { // 重点:e
+                        if (drag) {
+                            line.css('left', e.pageX - disX);
+                            line.css('top', e.pageY - disY);
+                        } else {
+                            that.css('left', e.pageX - disX);
+                            that.css('top', e.pageY - disY);
+                        }
+                    });
+                    $(document).on('mouseup', function () {
+                        $(document).off();
+                        if (drag) {
+                            that.css('left', line.offset().left);
+                            that.css('top', line.offset().top);
+                            line.remove();
+                        }
+                    });
+                });
+            }
+        };
+    });
+</script>
+</html>

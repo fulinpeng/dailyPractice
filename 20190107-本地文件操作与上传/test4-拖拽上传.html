@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <style>
+        .img-container {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-container">
+        drop your image here
+    </div>
+    <script>
+        $(".img-container").on("dragover", function (event) {
+            event.preventDefault();
+        }).on("drop", function (event) {
+            event.preventDefault();
+            // 数据在event的dataTransfer对象里
+            let file = event.originalEvent.dataTransfer.files[0];
+            console.log('file:', file);
+            // 然后就可以使用FileReader进行操作
+            let fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            // 或者是添加到一个FormData
+            let formData = new FormData();
+            formData.append("fileContent", file);
+            console.log('formData:', formData);
+        })
+
+
+    </script>
+</body>
+
+</html>

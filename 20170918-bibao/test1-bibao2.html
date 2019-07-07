@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+    <style type="text/css">
+        div {
+            width: 100px;
+            height: 100px;
+            background: lightgreen;
+            float: left;
+            margin: 20px;
+            font: 30px/100px "microsoft yahei";
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>a</div>
+    <div>b</div>
+    <div>c</div>
+    <div>d</div>
+    <div>e</div>
+    <div>f</div>
+    <div>g</div>
+    <div>h</div>
+    <div>i</div>
+    <div>j</div>
+    <script type="text/javascript">
+        var divs = document.getElementsByTagName("div");
+        for (var i = 0; i < divs.length; i++) {
+            divs[i].onclick = (function (n) {
+                return function () {
+                    alert(n);
+                }
+            })(i);
+        }
+    </script>
+</body>
+
+</html>

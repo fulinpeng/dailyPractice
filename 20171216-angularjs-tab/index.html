@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/angular-1.5.8.min.js"></script>
+    <style>
+        .mainBox{
+            width:50%;
+            border:1px solid green;
+        }
+        .mainBox .header{
+        }
+        .mainBox .header input{
+            margin:5px 0 5px 20px;
+            padding:0 20px;
+            line-height:24px;
+            font-size:18px;
+        }
+        .mainBox .header input.active{
+            background:red;
+            color:white;
+        }
+        .mainBox .contente{
+            padding:20px;
+            border-top:1px solid green;
+            line-height:32px;
+            font-size:20px;
+            display: none;
+        }
+        .mainBox .contente.active{
+            display: block;
+        }
+    </style>
+</head>
+<body ng-controller="mainCtrl">
+    <div tab
+         tabdata="tabdata"
+    ></div>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+     app.controller('mainCtrl', ['$scope', function ($scope) {
+         var vm=$scope;
+         vm.tabdata={
+             tabid:'div1',
+             datas:[
+                 {
+                     btnName:'数学',
+                     contente:'这就是数学的内~容！'
+                 },
+                 {
+                     btnName:'语文',
+                     contente:'这就是语文的内~容！'
+                 },
+                 {
+                     btnName:'英语',
+                     contente:'这就是英语的内~容！'
+                 }
+             ]
+         };
+     }]);
+    app.directive('tab', function(){
+        return {
+            restrict:'EA',
+            replace:false,
+            scope:{
+                tabdata:'='
+            },
+            templateUrl:'tab.html',
+            link:function (scope, element, attr) {
+//                console.log('scope', scope);
+                console.log('element', element);
+//                console.log('attr', attr);
+                element.delegate('input', 'click', function () {
+                    $(this).attr('class', 'active').siblings('input').attr('class', '');
+                    $(this).parent().siblings('.contente').eq($(this).index()).css('display', 'block').siblings('.contente').css('display', 'none');
+                })
+            }
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <!-- <script src="http://d3js.org/d3.v5.min.js"></script> -->
+</head>
+
+<body>
+    <div class="div1">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <div class="div2">
+        <svg width="100%" height="300">
+            <circle id="mycircle" cx="50" cy="50" r="50" fill="orange"/>
+        </svg>
+    </div>
+    <div class="div3">
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <script>
+        console.log(d3);
+
+        // d3 选择器
+        // select 选择所有指定元素的第一个
+        // selectAll 是选择指定元素的全部
+        d3.select("body").style("background-color", "white")  // 直接选择 ->并设置属性
+            .select('.div1')
+            .selectAll("p").style("color", function () { // 选择 -> 动态设置属性
+                return "hsl(" + Math.random() * 360 + ",100%,50%)";
+            });
+
+        var dataArr = [4, 8, 15, 16, 23, 42];
+        
+        // datum() 绑定一个数据到选择集上
+        var str = 'hello!';
+        var div3 = d3.select('.div3')
+            .selectAll('p')
+            .datum(str)
+            .text(function(d, i){
+                return "第 "+ i + " 个元素绑定的数据是 " + d;
+            })
+            console.log('div3', div3);
+
+        // data() 绑定一个数组到选择集上，数组的各项值分别与选择集的各元素绑定
+        d3.select('.div1')
+            .selectAll("p") // 选择 -> 绑定数据 -> 动态设置属性
+            .data(dataArr)
+            .style("font-size", function (d) { return d + "px"; });
+
+        // insert
+        d3.select('.div3')
+            .insert("p").attr('id', 'myid')
+            .text("insert p element");
+
+        // remove
+        d3.select("#myid")
+            // .remove();
+
+        // Update…
+        var p = d3.select("body") // 直接把数据绑定到Dom并输出，数组元素个数与p节点的个数一致就全部更新文本，如果不一致，就只更新现有p节点的文本，多余的数据会被保存起来，看下面会用到
+            .select('.div1')
+            .selectAll("p")
+            .data(dataArr)
+            .text(function (d) { return d; });
+
+        console.log('p', p.enter());
+        // Enter…[常用]
+        var addP = p.enter().append("p") // 如果不一致，数组元素个数比p节点多，就插入p节点补足并相应更新文本
+            .text(function (d) { return d+1; });
+        console.log('addP', addP); // 返回的是添加的p
+        addP.style("font-size", function (d) { return d + "px"; })
+            .style("color", function () {
+                return "hsl(" + Math.random() * 360 + ",100%,50%)";
+            });
+
+        // Exit…[常用]
+        var remeP = p.exit().remove(); // 如果不一致，数组元素个数比p节点少，就删除多余的p节点
+        console.log('remeP', remeP); // 就是多余的p
+
+        // 不好记：反正是改变dom的，不可能改变数据嘛，所以就是
+
+        // 把所有圆圈改变半径
+        var scale = 2;
+        console.log('circle', d3.selectAll("circle"))
+        var circle = d3.selectAll("circle").transition() // 定义动画
+            .duration(750) // 动画持续时间
+            .delay(function (d, i) { return i * 10; }) // 元素动画要延时多少时间开始
+            .attr("r", function (d, i) {
+                console.log('d', d, i); // 这里的d是个空的
+                return Math.sqrt(i * scale);
+                // return 100;
+            }); // 设置最后效果
+            console.log('circle2', circle);
+
+        // 总结：
+        // update 一般是：更新DOM元素属性
+        // enter 一般是：添加DOM元素后，赋予属性
+        // exit 一般是：删除DOM元素（remove）
+    </script>
+</body>
+
+</html>

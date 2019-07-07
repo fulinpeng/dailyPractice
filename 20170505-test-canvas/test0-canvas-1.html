@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background:black;
+        }
+        #myCanvas{
+            background:gray;
+            font-size:30px;
+        }
+    </style>
+</head>
+<body>
+    <!--<img id="img1" src="./images/ffrw.png">-->
+    <canvas id="myCanvas" width="1000" height="600"></canvas>
+</body>
+<script>
+    var c=document.getElementById("myCanvas");
+    var cvs=c.getContext("2d");
+
+//    渐变
+//    cvs.fillStyle="blak";
+//    var myGardient=cvs.createLinearGradient(100,100,0,0)
+//    myGardient.addColorStop(0,"red");
+//    myGardient.addColorStop(0.5,"blue");
+//    myGardient.addColorStop(1,"yellow");
+//    cvs.fillStyle=myGardient;
+//    cvs.fillRect(20,20,600,600)
+//    放射状渐变
+//    var myGardient=cvs.createRadialGradient(60,60,1,60,60,50)
+//    myGardient.addColorStop(0,"red");
+//    myGardient.addColorStop(1,"yellow");
+//    cvs.fillStyle=myGardient;
+//    cvs.fillRect(10,10,110,110);
+//    图片填充
+//    cvs.fillStyle="blak";
+//    var myImg1=document.getElementById("img1");
+//    var pat=cvs.createPattern(myImg1,"repeat-x");//repeat-y,no-repeat
+//    cvs.fillStyle=pat;
+//    cvs.fillRect(20,20,600,600)
+//    渐变字体
+//    cvs.font="30px Verdana bolder";//可以跟多个值
+    var myGardient=cvs.createLinearGradient(0,0,c.width,0);
+    myGardient.addColorStop(0,"red");
+    myGardient.addColorStop(0.5,"yellow");
+    myGardient.addColorStop(1,"blue");
+    cvs.strokeStyle=myGardient;
+//    cvs.strokeText("Big smile! Benboll Bar",10,50);
+//    阴影
+//    cvs.shadowBlur=20;
+//    cvs.shadowColor="yellow";
+//    cvs.shadowOffsetX=20;
+//    cvs.shadowOffsetY=20;
+//    cvs.fillStyle="red";
+//    cvs.fillRect(20,20,100,100);
+//    端点样式
+//    cvs.beginPath();
+//    cvs.lineWidth=10;
+//    cvs.lineCap="butt";//square,round
+//    cvs.moveTo(20,20);
+//    cvs.lineTo(100,100);
+//    cvs.stroke();
+//    拐点样式
+//    cvs.beginPath();
+//    cvs.lineWidth=10;
+//    cvs.lineJoin="miter";//round,bevel
+//    cvs.miterLimit=4;//斜接长度指的是在两条线交汇处内角和外角之间的距离，最大值为4，超出部分不显示
+//    cvs.moveTo(10,10);
+//    cvs.lineTo(100,30);
+//    cvs.lineTo(10,50);
+//    cvs.stroke();
+//    矩形框
+//    cvs.rect(20,20,100,100);
+//    cvs.stroke();
+//    矩形实心区域
+//    cvs.fillRect(20,20,100,100)
+//    矩形框
+//    cvs.strokeRect(20,20,100,100);
+//    画布剪切
+//    cvs.rect(20,20,120,120);
+//    cvs.stroke();
+//    cvs.clip();
+//    cvs.fillStyle="red";
+//    cvs.fillRect(0,0,50,50)
+//    二次贝塞尔曲线
+//    cvs.beginPath();
+//    cvs.moveTo(20,20);
+//    cvs.quadraticCurveTo(40,100,300,20);
+//    cvs.stroke();
+//    三次贝塞尔曲线
+//    cvs.beginPath();
+//    cvs.moveTo(20,20);
+//    cvs.bezierCurveTo(10,100,200,100,200,20);
+//    cvs.stroke();
+//    画圆
+//    cvs.beginPath();
+//    cvs.arc(300,300,100,0*Math.PI,0.5*Math.PI,false);//π==180°,0.5π==90度==1/4个圆；false则为顺时针
+//    cvs.stroke();
+//    切线之间弧
+//    cvs.beginPath();
+//    cvs.moveTo(20,20);
+//    cvs.lineTo(200,20);
+//    cvs.arcTo(250,20,250,70,50);//第一个端点为右上角的辅助点，第二个才是弧形结束点
+//    cvs.lineTo(250,500);
+//    cvs.stroke();
+//    isPointInPath判断是否在当前路径中
+//    cvs.rect(20,20,200,200);
+//    if(cvs.isPointInPath(20,50)){
+//        cvs.stroke();
+//    }
+//    缩放
+//    cvs.strokeRect(10,10,50,50);
+//    cvs.scale(2,2);
+//    cvs.strokeRect(10,10,50,50);
+//    cvs.scale(2,2);
+//    cvs.strokeRect(10,10,50,50);
+//    旋转
+//    cvs.rotate(20*Math.PI/180);//要写在绘制图形语句的上面，写在下面没效果
+//    cvs.fillRect(100,20,200,100);
+//    重新定义（0,0）位置
+//    cvs.translate(50,50);
+//    cvs.fillRect(0,0,100,50);
+//    setTransform()方法,
+//    cvs.fillStyle="red";
+//    cvs.fillRect(10,10,100,50);
+//    cvs.transform(1,0,0.5,1,10,10);//(水平旋转,水平倾斜,垂直倾斜,垂直缩放,水平移动,垂直移动)
+//    cvs.fillStyle="blue";
+//    cvs.fillRect(10,10,100,50);
+//    文本对齐方式
+//    cvs.textAlign="start";
+//    cvs.fillText("startstartstart",150,30);
+//    cvs.textAlign="left";
+//    cvs.fillText("leftleftleftlef",150,60);
+//    cvs.textAlign="center";
+//    cvs.fillText("centercentercen",150,90);
+//    cvs.textAlign="end";
+//    cvs.fillText("endendendendend",150,120);
+//    cvs.textAlign="right";
+//    cvs.fillText("rightrightright",150,150);
+//    透明度
+//    cvs.fillStyle="red";
+//    cvs.fillRect(10,10,100,50);
+//    cvs.globalAlpha=0.8;
+//    cvs.fillStyle="yellow";
+//    cvs.fillRect(50,50,100,50);
+//    getImageData() + putImageData()复制
+//    cvs.fillStyle="red";
+//    cvs.fillRect(10,10,100,50);
+//    c.onclick=function () {
+//        var imgData=cvs.getImageData(10,10,100,50);
+//        cvs.putImageData(imgData,20,70)
+//    };
+//    向画布绘制图片
+//    var img=document.getElementById("img1");
+//    cvs.drawImage(img,10,10);
+//    检测文本的宽度
+    var txt="Hello world!";
+    cvs.font="30px Arial";
+    cvs.fillText("width:"+cvs.measureText(txt).width,10,30);
+    cvs.fillText(txt,10,60);
+
+
+
+
+</script>
+</html>

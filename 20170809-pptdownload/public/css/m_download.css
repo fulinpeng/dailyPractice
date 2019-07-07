@@ -1,0 +1,261 @@
+.top{
+    padding:0.2rem 0.2rem;
+    background: #d2b067;
+    color:white;
+    height:12%;
+}
+.top .title{
+    float:left;
+    font-size:0.18rem;
+}
+.top .userbox{
+    float:right;
+    /*line-height: 0.28rem;*/
+    font-size:0.12rem;
+}
+.top .userbox .userinfo{
+    float:left;
+}
+
+
+.bodybox{
+    width:100%;
+    height:88%;
+    margin-bottom:0.5rem;
+    position:relative;
+}
+.bodybox .menue{
+    position: absolute;
+    left: 1%;
+    top: 0.1rem;
+    width: 6%;
+    height: 0.2rem;
+    background: url(../images/m_menue.png) no-repeat;
+    cursor: pointer;
+    background-size: 100% 100%;
+    transition: left 0.4s;
+    -moz-transition: left 0.4s; /* Firefox 4 */
+    -webkit-transition: left 0.4s; /* Safari 和 Chrome */
+    -o-transition: left 0.4s; /* Opera */
+ }
+.bodybox.consum .menue{
+    display: none;
+}
+.bodybox .outbtn{
+    position:absolute;
+    font-size: 0.16rem;
+    right:1%;
+    top: 0.1rem;
+    width: 6%;
+    height: 0.2rem;
+    background: url('../images/m_back.png') no-repeat;
+    cursor:pointer;
+    background-size: 100% 100%;
+ }
+
+.sureout{
+    width:2rem;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left:-1rem;
+    margin-top:-0.5rem;
+    background: #3a3e7a;
+    color:white;
+    font-weight: bold;
+    border-radius:0.1rem;
+    z-index: 11;
+    display: none;
+}
+.sureout .tit{
+    cursor:default;
+    width: 100%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    border-bottom:2px solid white;
+    text-align: center;
+}
+
+.nofile{
+    width:2rem;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left:-1rem;
+    margin-top:-0.5rem;
+    background: #3a3e7a;
+    color:white;
+    font-weight: bold;
+    border-radius:0.1rem;
+    z-index: 11;
+    display: none;
+}
+.nofile .tit{
+    cursor:default;
+    width: 100%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    border-bottom:2px solid white;
+    text-align: center;
+}
+.outbtn.consum .nofile{
+    left: 50%;
+}
+.sureout span{
+    text-align: center;
+    width: 48%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.sureout span.yes{
+    border-left:2px solid white;
+}
+.bodybox .sidebar{
+    width:0;
+    height:100%;
+    position:absolute;
+    padding:0.2rem 0;
+    float:left;
+    font-size:0.14rem;
+    line-height:0.3rem;
+    box-shadow: 1px 1px 0.1rem #888888;
+    overflow-y:scroll;
+    background: #3a3e7a;
+    z-index:10;
+    border-bottom: 0.3rem solid #3a3e7a;
+    transition: all 0.4s;
+    -moz-transition: all 0.4s; /* Firefox 4 */
+    -webkit-transition: all 0.4s; /* Safari 和 Chrome */
+    -o-transition: all 0.4s; /* Opera */
+}
+.bodybox .sidebar.consum{
+    display: none;
+}
+
+.sidebar::-webkit-scrollbar {
+    width:0;
+    /*width: 10px;*/
+    /*background-color: rgb(210, 176, 103);*/
+}
+.sidebar::-webkit-scrollbar-thumb {
+    /*background-color:#d2b067;*/
+}
+.sidebar ul{
+    /*取消选取文字效果*/
+    -moz-user-select:none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.sidebar ul li p{
+    cursor:pointer;
+    color:white;
+}
+.sidebar ul li p.active{
+    background:url('../images/active.png') 0 0 no-repeat,
+                url('../images/active.png') 80% 0 no-repeat;
+    background-size:auto 100% ;
+    color:#3a3e7a;
+}
+.sidebar ul.sheng li p{
+    padding-left:0.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.sidebar ul.sheng .shi{
+    display: none;
+}
+.sidebar ul.sheng .shi .xian{
+    display: none;
+}
+.sidebar ul.shi li p{
+    padding-left:0.35rem;
+}
+.sidebar ul.xian li p{
+    padding-left:0.5rem;
+}
+.bodybox .content{
+    width: 100%;
+    height: 100%;
+    float: right;
+    padding: 0.3rem;
+    font-size: 0.14rem;
+}
+.bodybox .content.consum{
+    width: 97%;
+}
+.content .types{
+    margin: 0.2rem 0;
+    line-height: 0.2rem;
+}
+.content .types .btn{
+    margin-left:0.05rem;
+    padding:0 0.05rem;
+    line-height: 0.14rem;
+    cursor:pointer;
+}
+.content .types .btn.active{
+    background:#3a3e7a;
+    color:white;
+}
+.concrete .p_box{
+    margin: 0.1rem 0;
+    line-height: 0.2rem;
+    position:relative;
+}
+.concrete .p_box .ppt{
+    display: inline-block;
+    width:50%;
+    float:left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.concrete .p_box .loadbtn{
+    cursor:pointer;
+    color:white;
+    background: #d2b067;
+    float:right;
+    padding:0 0.05rem;
+    border:1px solid rgb(178,178,178);
+    -webkit-border-radius:0.05rem;
+    -moz-border-radius:0.05rem;
+    border-radius:0.05rem;
+}
+.concrete .p_box .loadbtn.type{
+    padding-right: 15px;
+    margin-right: 5px;
+    background-image: url(../images/show.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 0.12rem 0.1rem;
+    border-right: 0.05rem solid #d2b067;
+}
+.changetype {
+    display: none;
+    background:#d2b067;
+    color:white;
+    position:absolute;
+    border-radius: 5px;
+    padding: 0 5px;
+    right: 1.36rem;
+    top:0;
+    z-index: 100;
+}
+.changetype p{
+    cursor:pointer;
+}
+.changetype p span{
+    padding: 0 7px;
+    height: 14px;
+    margin-left: 14px;
+    background: url(../images/m_ok.png) no-repeat center;
+    background-size: 100% 100%;
+    display: inline-block;
+    opacity: 0;
+}
+
+

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <style>
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: red;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1">
+
+    </div>
+    <div class="div2">
+        <svg>
+            <react></react>
+            <react></react>
+        </svg>
+    </div>
+    <div class="div3">
+        <svg>
+        </svg>
+    </div>
+    <div class="div4">
+        <svg>
+            <g>
+                <!-- 第一个刻度 -->
+                <g>
+                    <line x1="10" y1="20" x2="10" y2="25" stroke="black" stroke-width="2"></line>
+                    <!-- 第一个刻度的直线 -->
+                    <text x="5" y="40">0</text>
+                    <!-- 第一个刻度的文字 -->
+                </g>
+                <!-- 第二个刻度 -->
+                <g>
+                    <line x1="110" y1="20" x2="110" y2="25" stroke="black" stroke-width="2"></line>
+                    <!-- 第二个刻度的直线 -->
+                    <text x="105" y="40">1</text>
+                    <!-- 第二个刻度的文字 -->
+                </g>
+                <g>
+                    <line x1="210" y1="20" x2="210" y2="25" stroke="black" stroke-width="2"></line>
+                    <text x="205" y="40">2</text>
+                </g>
+                <!-- 坐标轴的轴线 -->
+                <path d="M 0 20 L 250 20" stroke="black" stroke-width="2" fill="none"></path>
+            </g>
+        </svg>
+    </div>
+    <div class="div5">
+        <svg>
+        </svg>
+    </div>
+    <script>
+        var width = 300;  //画布的宽度
+        var height = 300;   //画布的高度
+
+        var svg = d3.select(".div1")     //选择文档中的body元素
+            .append("svg")          //添加一个svg元素
+            .attr("width", width)       //设定宽度
+            .attr("height", height);    //设定高度
+
+        var rectHeight = 25;   //每个矩形所占的像素高度(包括空白)
+        var dataset = [250, 210, 170, 130, 90];  //数据（表示矩形的宽度）
+        d3.select(".div2")
+            .select('svg')
+            .selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", 20)
+            .attr("y", function (d, i) {
+                return i * rectHeight;
+            })
+            .attr("width", function (d) {
+                return d;
+            })
+            .attr("height", rectHeight - 2)
+            .attr("fill", "steelblue");
+
+
+        // 比例尺
+        // 直接用数值的大小来代表像素不是一种好方法，因为是矢量图嘛，需要比例尺
+        // Scale 将某一区域的值映射到另一区域，其大小关系不变
+        // x 的范围被称为定义域，y 的范围被称为值域（domain 和 range）
+        var dataset = [1.2, 2.3, 0.9, 1.5, 3.3];
+        // 将 dataset 中最小的值，映射成 0；将最大的值，映射成 300
+        var min = d3.min(dataset);
+        var max = d3.max(dataset);
+        var linear = d3.scale.linear()
+            .domain([min, max])
+            .range([0, 300]);
+            
+        console.log('0.9 => ', linear(0.9));    //返回 0
+        console.log('2.3 => ', linear(2.3));    //返回 175
+        console.log('3.3 => ', linear(3.3));    //返回 300
+
+
+
+        // 序数比例尺
+        // 有时候，定义域和值域不一定是连续的。例如，有两个数组
+        // 我们希望 0 对应颜色 red，1 对应 blue，依次类推
+        // 这些值都是离散的，线性比例尺不适合，需要用到序数比例尺
+        var index = [0, 1, 2, 3, 4];
+        var color = ["red", "blue", "green", "yellow", "black"];
+        var ordinal = d3.scale.ordinal() // ordinal 序数、比较
+            .domain(index)
+            .range(color);
+
+        console.log('0 => ', ordinal(0)); // 返回 red
+        console.log('2 => ', ordinal(2)); // 返回 green
+        console.log('4 => ', ordinal(4)); // 返回 black
+
+        // 比例尺应用实例
+        var dataset = [2.5, 2.1, 1.7, 1.3, 0.9];
+
+        var linear = d3.scale.linear()
+            .domain([0, d3.max(dataset)]) // 端点值
+            .range([0, 250]);
+
+        var rectHeight = 25;   // 每个矩形所占的像素高度(包括空白)
+
+        d3.select('.div3')
+            .select('svg')
+            .selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", 20)
+            .attr("y", function (d, i) {
+                return i * rectHeight;
+            })
+            .attr("width", function (d) {
+                return linear(d);   // 在这里用比例尺
+            })
+            .attr("height", rectHeight - 2)
+            .attr("fill", "steelblue");
+
+
+        // 坐标轴
+        var dataset = [2.5, 2.1, 1.7, 1.3, 0.9];
+        var linear = d3.scale.linear()
+            .domain([0, d3.max(dataset)])
+            .range([20, 250]);
+        // 定义坐标轴
+        var axisx = d3.svg.axis()
+            .scale(linear)      // 指定比例尺
+            .orient("bottom")   // 指定刻度的方向
+            .ticks(7);          // 指定刻度的数量
+
+        var axisy = d3.svg.axis()
+            .scale(linear)
+            .orient("right")
+            .ticks(3);
+        console.log('axisy:', axisy) // axisy是一个函数
+        // 添加
+        d3.select('.div5')
+            .select('svg')
+            .append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(20,20)")
+            .call(axisx);
+
+        d3.select('.div5')
+            .select('svg')
+            .append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(20,30)")
+            .call(axisy); // 把添加的g标签传给axisy(axisy是一个函数)
+        
+        console.log('选择集：', d3.select('.div5')
+            .select('svg')
+            .append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(20,30)")); // 是一个g标签
+
+        //  call() 函数
+        // D3 中，call() 的参数是一个函数。调用之后，将当前的选择集作为参数传递给此函数
+        function foo(selection) {
+            selection
+                .attr("name1", "value1")
+                .attr("name2", "value2");
+        }
+        foo(d3.selectAll("div"));
+        // 以上代码等价于下面的代码
+        d3.selectAll("div").call(foo);
+
+
+
+    </script>
+</body>
+
+</html>

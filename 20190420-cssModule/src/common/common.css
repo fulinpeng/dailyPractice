@@ -1,0 +1,15 @@
+body{
+    background:orangered;
+}
+.common{
+    font-size:56px;
+}
+
+:global {
+    .test3 {
+        margin-left: 100px;
+    }
+    .test4 {
+        margin-left: 300px;
+    }
+}

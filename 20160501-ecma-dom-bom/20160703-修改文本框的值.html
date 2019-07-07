@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>切图，精简代码</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+		font-size:14px;
+	}
+	#left{
+		width:400px;
+		margin:30px auto;
+	}
+	#tit{
+		width:400px;
+		padding-left:25px;
+		background:#a1f1a1;
+		float:left;
+		color:#fff;
+		line-height:25px;
+		font-size:14px;
+		font-weight:700;
+	}
+	ul {
+		width:400px;
+		float:left;
+	}
+	ul li{
+		width:400px;
+		float:left;
+		line-height:30px;
+		padding-left:25px;
+		border-bottom:1px solid #a1f1a1;
+	}
+	ul span{
+		float:left;
+	}
+	ul li a{
+		margin-left:50px;
+		float:left;
+		text-decoration:none;
+	}
+	ul li .a2{
+		margin-left:10px;
+		display:none;
+	}
+	ul li .a3{
+		margin-left:10px;
+		display:none;
+	}
+	input{
+		float:left;
+		display:none;
+	}
+	
+	
+</style>
+<script>
+	window.onload=function(){
+		var oUl=document.getElementsByTagName('ul')[0];
+		var aLi=oUl.getElementsByTagName('li');
+		
+		//通过父级找span、input和a，就是下面这样写，不要什么for循环了
+		for (var i=0;i<aLi.length;i++){
+			fn(aLi[i]);
+		};
+		
+		function fn(oLi){
+			var aA=oLi.getElementsByTagName('a');
+			var oSpan=oLi.getElementsByTagName('span')[0];//注意这里三个都是oLi.getEle...才能全局，不能用document，
+			var oInput=oLi.getElementsByTagName('input')[0];
+			aA[0].onclick=function(){
+				this.style.display='none';
+				oSpan.style.display='none';
+				oInput.style.display='block';
+				aA[1].style.display='block';
+				aA[2].style.display='block';
+			};
+			aA[1].onclick=function(){
+				oSpan.innerHTML=oInput.value;
+				aA[0].style.display='block';
+				oSpan.style.display='block';
+				oInput.style.display='none';
+				aA[1].style.display='none';
+				aA[2].style.display='none';
+			};
+			aA[2].onclick=function(){
+				aA[0].style.display='block';
+				oSpan.style.display='block';
+				oInput.style.display='none';
+				aA[1].style.display='none';
+				aA[2].style.display='none';
+				oInput.value=oSpan.innerHTML;
+			};
+		};
+		
+		
+				
+		
+		
+		
+	};
+</script>
+</head>
+<body>
+	<div id="left">
+		<div id="tit">分类名称</div>
+		<ul>
+			<li>
+			<span>与昂曾经为客人和</span>
+			<a href="#" class="a1">修改</a>
+			<input value="与昂曾经为客人和"/>
+			<a href="#" class="a2">保存</a>
+			<a href="#" class="a3">取消</a>
+			</li>
+			<li>
+			<span>与昂曾经为客人和</span>
+			<a href="#" class="a1">修改</a>
+			<input value="与昂曾经为客人和"/>
+			<a href="#" class="a2">保存</a>
+			<a href="#" class="a3">取消</a>
+			</li>
+			<li>
+			<span>与昂曾经为客人和</span>
+			<a href="#" class="a1">修改</a>
+			<input value="与昂曾经为客人和"/>
+			<a href="#" class="a2">保存</a>
+			<a href="#" class="a3">取消</a>
+			</li>
+			<li>
+			<span>与昂曾经为客人和</span>
+			<a href="#" class="a1">修改</a>
+			<input value="与昂曾经为客人和"/>
+			<a href="#" class="a2">保存</a>
+			<a href="#" class="a3">取消</a>
+			</li>			
+			<li>
+			<span>与昂曾经为客人和</span>
+			<a href="#" class="a1">修改</a>
+			<input value="与昂曾经为客人和"/>
+			<a href="#" class="a2">保存</a>
+			<a href="#" class="a3">取消</a>
+			</li>			
+			<li>
+			<span>与昂曾经为客人和</span>
+			<a href="#" class="a1">修改</a>
+			<input value="与昂曾经为客人和"/>
+			<a href="#" class="a2">保存</a>
+			<a href="#" class="a3">取消</a>
+			</li>			
+			
+			
+			
+			
+			
+		</ul>
+		
+		
+
+	</div>
+	
+	
+	
+	
+	
+	
+</body>
+</html>

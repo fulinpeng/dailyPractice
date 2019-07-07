@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //////////////////////////////////////////////////////////////////////////
+        Function.prototype.myCall = function (context) {
+            var context = context || window
+            // 给 context 添加一个属性
+            context.fn = this; // this指的是调用myCall的那个函数
+            // 将 context 后面的参数取出来
+            var args = [...arguments].slice(1)
+            var result = context.fn(...args)
+            // 删除 fn
+            delete context.fn
+            return result
+        }
+
+        //////////////////////////////////////////////////////////////////////////
+        Function.prototype.myApply = function (context) {
+            var context = context || window
+            context.fn = this
+            var result
+            // 需要判断是否存储第二个参数
+            // 如果存在，就将第二个参数展开
+            if (arguments[1]) {
+                result = context.fn(...arguments[1])
+            } else {
+                result = context.fn()
+            }
+            delete context.fn
+            return result
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////
+        Function.prototype.myBind = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error');
+            }
+            var _this = this; // this指的调用myBind的那个函数
+            var args = [...arguments].slice(1);
+            // 返回一个函数
+            return function F() {
+                // 因为返回了一个函数，我们可以把F当成构造函数，new F() 操作，所以需要判断
+                // 用new操作符的时候，this肯定指向F的实例了，此时
+                // 实现了这样的效果：new 返回的那个函数，就相当于new的是原来顶用bind时候的函数，避免了在用new的时候，里面的this还是指的被绑定的context
+                if (this instanceof F) {
+                    return new _this(...args, ...arguments);
+                }
+                return _this.apply(context, args.concat(...arguments));
+            }
+        }
+    </script>
+</body>
+
+</html>

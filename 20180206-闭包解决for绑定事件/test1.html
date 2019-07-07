@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" value="按钮0">
+<input type="button" value="按钮1">
+<input type="button" value="按钮2">
+<input type="button" value="按钮3">
+<input type="button" value="按钮4">
+</body>
+<script>
+const btn=document.getElementsByTagName('input');
+/**
+ * 第一种写法：
+ *
+ */
+for (let i=0; i<=btn.length; i++) {
+    ~function (i) {
+        btn[i].onclick=function (){
+            alert(i)
+        }
+    }(i);
+}
+/**
+ *第二种写法：
+ * 和一滴中类似
+ */
+//for (var i=0; i<=btn.length; i++){
+//    btn[i].onclick=(function (i){
+//        return function () {// 注意这里没有参数的哦
+//            alert(i);
+//        }
+//    })(i);
+//}
+/**
+ * 第三种写法：
+ * 使用let
+ */
+//for (let i=0; i<=btn.length; i++) {
+//    btn[i].onclick=function(){
+//        alert(i);
+//    };
+//}
+/**
+ * 第四种写法：
+ * 增加自定义属性存好索引
+ */
+//for (var i=0; i<=btn.length; i++){
+//    btn[i].index=i;
+//    btn[i].onclick=function () {
+//        alert(this.index);
+//    }
+//}
+
+</script>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="js/jquery-3.1.1.js"></script>
+    <!--登录-->
+<script src="js/home.js"></script>
+<!----webfonts--->
+<link href='http://fonts.useso.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+<!---//webfonts--->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"></script>
+</head>
+<body id="login">
+  <div class="login-logo">
+      skygarten
+  </div>
+  <div class="app-cam">
+	  <form method="get" action="reg.do">
+            <input type="text" name="username" class="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'admin';}">
+            <p style="font-size: 12px;color: red;margin-bottom: 20px"></p>
+            <input type="password" name="pwd" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '123';}">
+            <input type="text" id="phoneNum" value="手机号码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '18990822060';}">
+            <a href="javascript:;" id="sendMess">发送</a><span></span>
+            <input type="text" id="yanzhengNum" value="验证码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '666666';}">
+            <a href="javascript:;" id="yanzheng">验证</a><span style="margin-left:20px" id="answer2"></span>
+            <input type="submit" class="submit" value="注册"/>
+            <ul class="new">
+                <li class="new_left"><p><a href="login.html">直接登录</a></p></li>
+                <div class="clearfix"></div>
+            </ul>
+	</form>
+  </div>
+  <script>
+      $("body#login").css("min-height",$(window).height());
+      function loginfn(){
+          var name=$(".text").value;
+          window.location.href = "index.html";
+      }
+      //发送短信请求
+      $("#sendMess").click(function(){
+          var phoneNum=$("#phoneNum").val();
+          $.ajax({
+              url:"sendMess.do",
+              type:"get",
+              data:{phoneNum:phoneNum},
+              dataType:"json",
+              success:function(data){
+                    console.log(4562457436736)
+              }
+          })
+      });
+      //验证短信请求
+      $("#yanzheng").click(function(){
+          var yanzhengNum=$("#yanzhengNum").val();
+          var phoneNum=$("#phoneNum").val();
+          $.ajax({
+              url:"yanzheng.do",
+              type:"get",
+              data:{phoneNum:phoneNum,yanzhengNum:yanzhengNum},
+              dataType:"json",
+              success:function(data){console.log(data);
+                  if(data.code=="603"){
+                      $("#answer2").css("color","red");
+                      $("#answer2").html("验证码错误")
+                  }
+                  if(data.length<1){
+                      $("#answer2").css("color","green");
+                      $("#answer2").html("验证成功")
+                  }
+              }
+          })
+      });
+//      $('.text').blur(function () {
+//          regname(this,'username')
+//      });
+//      function regname(obj,type){
+//          var text;
+//          var value=$(obj).val();
+//          if(type=="username"){
+//              text="请输入正确的用户名";
+//          }
+//          var a=reg(value,type);
+//          if(!a){
+//              $(obj).next().text(text);
+//          }else if(a){
+//              $(obj).next().text("");
+//          }
+//      }
+//      function reg(a,type){
+//          var reg;
+//          if(type=="username"){
+//              reg=/^[a-zA-z][a-zA-Z0-9_]{2,9}$/;
+//          }
+//          return reg.test(a);
+//      }
+  </script>
+
+</body>
+</html>

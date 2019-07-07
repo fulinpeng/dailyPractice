@@ -1,0 +1,35 @@
+<div class="o-potitle">
+    <p>商品信息</p>
+</div>
+<div class="o-list">
+    <div class="o-listho">商品详情</div>
+    <div class="o-listht">数量</div>
+    <div class="o-listhth">单价</div>
+    <div class="o-listhf">小计</div>
+</div>
+<div class="o-list">
+    <% if(indentList.b_id!=null){%>
+    <div class="o-listxq">
+        <p><%=indentList.b_name%></p>
+        <p>颜色：<span><%=indentList.pa_color%></span></p>
+        <p>车架：<span><%=indentList.pa_Frame%></span></p>
+        <p>花鼓：<span><%=indentList.pa_bicycleHubs%></span></p>
+        <p>前叉：<span><%=indentList.pa_forkClass%></span></p>
+    </div>
+    <div class="o-listht o-linehight"><%=indentList.in_bynumber%></div>
+    <div class="o-listhth o-linehight"><%=indentList.b_price%></div>
+    <% indentList.in_price=indentList.in_bynumber*indentList.b_price%>
+    <div class="o-listhf o-linehight"><%=indentList.in_price%></div>
+    <%}else{%>
+    <div class="o-listxq">
+        <p><%=indentList.a_name%></p>
+        <p>商品介绍：<span><%=indentList.a_introduce%></span></p>
+        <p>商品毛重：<span><%=indentList.a_weight%></span></p>
+        <p>配件价格：<span><%=indentList.a_price%></span></p>
+    </div>
+    <div class="o-listht o-linehight"><%=indentList.in_acnumber%></div>
+    <div class="o-listhth o-linehight"><%=indentList.a_price%></div>
+    <% indentList.in_price=indentList.in_acnumber*indentList.a_price%>
+    <div class="o-listhf o-linehight"><%=indentList.in_price%></div>
+    <%}%>
+</div>

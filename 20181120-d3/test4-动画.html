@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <script>
+        var width = 400;
+        var height = 400;
+        // 动画
+
+        d3.select(".div1")
+            .append("svg")
+            .append("rect")
+            .attr("x", 10)
+            .attr("y", 10)
+            .attr("width", 100)
+            .attr("height", 50)
+            .attr("fill", "red") // 初始颜色为红色
+            .transition() // 启动过渡
+            .duration(1000) // 持续的时间
+            .delay(500) // 延时
+            .attr("fill", "steelblue") // 终止颜色为铁蓝色
+            .transition() // 指定过渡的方式
+            .ease('bounce')
+            .attr("width", 200)
+        // ease() 常用的有：
+        // linear：普通的线性变化
+        // circle：慢慢地到达变换的最终状态
+        // elastic：带有弹跳的到达最终状态
+        // bounce：在最终状态处弹跳几次
+
+
+        // 第一个圆，要求移动 x 坐标
+        // 第二个圆，要求既移动 x 坐标，又改变颜色
+        // 第三个圆，要求既移动 x 坐标，又改变颜色，还改变半径
+        var svg = d3.select('.div2').append('svg').attr('width', '100%').attr('height', '400');
+        var circle1 = svg.append("circle")
+            .attr("cx", 100)
+            .attr("cy", 50)
+            .attr("r", 45)
+            .style("fill", "steelblue");
+        //在1秒（1000毫秒）内将圆心坐标由100变为300
+        circle1.transition()
+            .duration(1000)
+            .attr("cx", 300);
+
+        var circle2 = svg.append('circle')
+            .attr('cx', 100)
+            .attr('cy', 150)
+            .attr('r', 45)
+            .style('fill', 'green');
+        circle2.transition()
+            .duration(1500)
+            .attr('cx', 300)
+            .style('fill', 'steelblue')
+
+        var circle3 = svg.append('circle')
+            .attr('cx', 100)
+            .attr('cy', 250)
+            .attr('fill', 'green');
+        circle3.transition()
+            .duration(1000)
+            .attr('cx', 200)
+            .attr('cy', 260)
+            .attr('r', 50)
+            .attr('fill', 'steelblue')
+            .transition() // 这里必须加上，否则同一个属性会直接跳过中间的效果，直接过渡到最后的效果
+            .duration(1000)
+            .ease('bounce')
+            .attr('cx', 300)
+            .attr('r', 45)
+            .attr('cy', 250)
+
+            // 通过实践柱状体动画，得出结论：
+            // 【对某个属性设置过渡效果，就得设置初始值、目标值，不然比如高度之类的它会自动加上一个初始值】
+
+
+    </script>
+</body>
+
+</html>
