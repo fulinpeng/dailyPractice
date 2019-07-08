@@ -5,7 +5,9 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
     class Connect extends Component {
         constructor() {
             super()
-            this.state = { allProps: {} }
+            this.state = {
+                allProps: {}
+            }
         }
         static contextTypes = {
             store: PropTypes.object

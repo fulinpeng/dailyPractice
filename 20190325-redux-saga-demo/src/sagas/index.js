@@ -1,19 +1,22 @@
-import { put, takeEvery, all } from "redux-saga/effects";
-import { SUBDUCTION,INCREMENT2, SUBDUCTION_ASYNC } from '_root/const/index';
-import { delay } from "redux-saga";
-import { subductionReducer } from "_root/reducers/subductionReducer";
+import { delay, put, takeEvery } from "redux-saga/effects";
+import { INCREMENT, INCREMENT_ASYNC, REDUCE} from '_root/const/index';
 
-export function* subductionAsync() {
+// const delay = ms => new Promise((resolve) => {
+//   setTimeout(() => {
+//     resolve()
+//   }, ms)
+// })
+
+function* incrementAsync() {
   yield delay(2000);
-  yield put({ type: INCREMENT2 });
+  yield put({ type: REDUCE });
+}
+function* increment() {
+  yield delay(2000);
+  yield put({ type: INCREMENT });
 }
 
-export function* watchSubductionAsync() {
-  yield takeEvery('INCREMENT2_ASYNC', subductionAsync);
-}
-
-export default function* rootSaga() {
-  yield all([
-    watchSubductionAsync()
-  ])
+export default function* rootSaga() {     // 在store.js中，执行了 sagaMiddleware.run(rootSaga)
+  yield takeEvery(INCREMENT_ASYNC, incrementAsync); // takeEvery，用于监听所有的 INCREMENT_ASYNC action，并在 action 被匹配时执行
+  yield takeEvery('INCREMENT1_ASYNC', increment);
 }

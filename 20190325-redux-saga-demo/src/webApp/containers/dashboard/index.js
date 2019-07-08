@@ -7,8 +7,33 @@ import Search from "_components/search";
 import More from "_components/more";
 import FixedModel from "_components/fixedModel";
 import PhoneButton from "_components/phoneButton";
+// import PhoneButtonProps from "_components/wrapForPhoneButton";
 import PeoplePanel from "_containers/peoplePanel";
 import AddAndEditPeople from "_containers/addAndEditPeople";
+
+// 高阶组件：抽离原组件的state/用props来全权代理
+// 可以让原组件不再有state，全部用props来获取数据
+// 那么这个原组件就可以当成一个component组件来用，高阶组件就当成container组件用
+import WrapComponentProps from '_components/wrapComponentProps'
+const data = { age: 22 };
+const PhoneButtonProps = WrapComponentProps(PhoneButton, data);
+
+// 高阶组件：refs获取组件实例
+// 获取的是PhoneButton实例，就是高阶组件返回的那个，就是她自己[笑哭]
+import WrapComponentRefs from '_components/wrapComponentRefs'
+const PhoneButtonRefs = WrapComponentRefs(PhoneButton, data);
+
+// 高阶组件：继承WrapComponentExtendsParent
+// current没有自己的constructor，是继承了parent的constructor
+// current和parent都有componentDidMount，当然用current本省的
+// 当然也能获取NewComponentFromExtends传进去的参数
+// state也一样会被覆盖
+import WrapComponentExtendsParent from '_components/wrapComponentExtendsParent'
+import WrapComponentExtendsCurrent from '_components/wrapComponentExtendsCurrent'
+const NewComponentFromExtends = WrapComponentExtendsCurrent(WrapComponentExtendsParent);
+
+// 其实高阶组件返回的那个组件，才是真正的目标组件
+// 加入的那些处理都是在高阶组件内部完成的
 
 class Dashboard extends Component {
   constructor(props) {
@@ -169,7 +194,7 @@ class Dashboard extends Component {
       fixedModelState: !this.state.fixedModelState
     });
   };
-  
+
   componentDidMount() {
     let editPeopleState = [];
     let contentData = this.state.contentData;
@@ -189,11 +214,11 @@ class Dashboard extends Component {
       addPeopleState,
       editPeopleState,
       fixedModelState
-    } =this.state;
-    
+    } = this.state;
+
     const { keywords } = this.state.params;
     return (
-      <main className="main-dashboard">
+      <main className="main-dashboard" ref='mainbox'>
         <div className="main-title hidden-mobile">
           <span>Student</span>
           <span className="separator">|</span>
@@ -280,8 +305,8 @@ class Dashboard extends Component {
               <div className="search-keywords sig-ellipsis hidden-mobile">
                 {keywords && keywords.length
                   ? keywords.map((keyword, i) => {
-                      return <span key={i}>{keyword}</span>;
-                    })
+                    return <span key={i}>{keyword}</span>;
+                  })
                   : null}
               </div>
             )}
@@ -307,18 +332,18 @@ class Dashboard extends Component {
             )}
             {contentData && contentData.length
               ? contentData.map((v, k) => {
-                  let result =
-                    editPeopleState && editPeopleState[k] ? (
-                      <AddAndEditPeople
-                        data={v}
-                        isEdit={true}
-                        callBackForOk={this.editPeopleItem.bind(this, k)}
-                        callBackForCancel={this.hideEditPeopleModel.bind(
-                          this,
-                          k
-                        )}
-                      />
-                    ) : (
+                let result =
+                  editPeopleState && editPeopleState[k] ? (
+                    <AddAndEditPeople
+                      data={v}
+                      isEdit={true}
+                      callBackForOk={this.editPeopleItem.bind(this, k)}
+                      callBackForCancel={this.hideEditPeopleModel.bind(
+                        this,
+                        k
+                      )}
+                    />
+                  ) : (
                       <PeoplePanel
                         key={k}
                         data={v}
@@ -330,8 +355,8 @@ class Dashboard extends Component {
                         )}
                       />
                     );
-                  return result;
-                })
+                return result;
+              })
               : null}
           </div>
         </div>
@@ -343,6 +368,9 @@ class Dashboard extends Component {
             <PhoneButton className="cancel" onClick={this.changeFixedModelState}>取消</PhoneButton>
           </div>
         </FixedModel>}
+        <PhoneButtonProps data={{ name: 'flp' }} onClick={this.changeAddPeopleState}></PhoneButtonProps>
+        <PhoneButtonRefs data={{ type: 'refs-test' }} onClick={this.changeAddPeopleState}>PhoneButtonRefs</PhoneButtonRefs>
+        <NewComponentFromExtends data={'NewComponentFromExtends'}/>
       </main>
     );
   }

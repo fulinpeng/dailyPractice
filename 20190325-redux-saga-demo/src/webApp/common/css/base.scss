@@ -32,9 +32,9 @@ a:visited {
   text-decoration: none;
 }
 
-a:hover {
+// a:hover {
 //   color: #333;
-}
+// }
 
 textarea {
   border: none;
@@ -51,7 +51,7 @@ table {
   border-spacing: 0;
 }
 
-/* 使用伪元素清除浮动 */
+/* 清除浮动 */
 .clearfix::before,
 .clearfix::after {
   content: "";

@@ -17,7 +17,7 @@ import Test from "_containers/test";
 
 class WebApp extends Component {
   render() {
-    const { store } = this.props;
+    // const { store } = this.props;
     return (
       <Router>
         <Route path="/">
@@ -38,3 +38,4 @@ class WebApp extends Component {
 }
 
 export default WebApp;
+

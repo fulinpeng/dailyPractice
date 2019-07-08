@@ -26,6 +26,17 @@ const renderApp = state => {
     renderContent(state.content);
 };
 
+// 先 subscribe ，再 dispatch ，dispatch 中会执行开始注册的 listener
+// createStore 生成发的 store 是那给业务逻辑(react)用的，不是redux自己的哦，执行结束会有个初始的 store.state
+// dispatch 会调用 reducer 改变store里面的state，reducer返回的state是给业务逻辑(react)用的
+// 所以，进一步理解什么是"库"，就是操作的都是目标对象提供的数据，库本身只提供方法，从来不维护自己的数据
+//      可以说库都是"纯的"，就类似纯函数一样去理解
+// redux 就这么点内容，就一个核心的 createStore 方法，和简单的使用规则
+// 达到的效果：
+//      1. "规范全局变量的使用"
+//      2. "代码复用"
+//      3. "是使用者更清晰的知道改的是什么"
+
 const createStore = (state, reducer) => {
     const listeners = [];
     const subscribe = (listener) => listeners.push(listener);
@@ -37,6 +48,10 @@ const createStore = (state, reducer) => {
     return { getState, dispatch, subscribe };
 };
 
+// handleStateChange
+// 这是在使用库，不是在写一个库
+// 这是使用库时，定义的reducer，想怎么写就怎么写
+// 作用就是传一个action返回一个新的state而已
 const handleStateChange = (state, action) => {
     const type = action.type;
     const newData = action.newData;

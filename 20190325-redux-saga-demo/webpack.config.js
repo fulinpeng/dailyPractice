@@ -75,11 +75,6 @@ webpackConfig = {
             template: "src/index.html"
         }),
     ],
-    devServer: {
-        contentBase: join(__dirname, "dist"),
-        compress: true,
-        port: 9000
-    },
     resolve: {
         extensions: [".js", ".jsx", ".less", ".css", ".scss"],
         alias: {

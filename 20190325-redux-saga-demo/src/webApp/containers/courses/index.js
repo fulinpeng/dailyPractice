@@ -10,7 +10,6 @@ class Courses extends Component {
     return (
       <div className="courses-wrap">
         <h1>Courses</h1>
-        <img src="http://localhost:3000/index/addition"/>
       </div>
     );
   }

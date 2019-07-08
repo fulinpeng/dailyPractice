@@ -1,7 +1,7 @@
 import  { increment }  from './incrementReducer';
-import  { subductionReducer }  from './subductionReducer';
+import  { reduceReducer }  from './reduceReducer';
 
 export {
     increment,
-    subductionReducer
+    reduceReducer
 };

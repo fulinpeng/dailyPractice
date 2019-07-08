@@ -10,6 +10,3 @@ export const themeReducer = (state, action) => {
             return state
     }
 }
-export const changeColor = (color) => {
-    return { type: 'CHANGE_COLOR', themeColor: color }
-}
