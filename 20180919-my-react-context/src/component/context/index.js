@@ -28,15 +28,15 @@ class SubOut extends Component {
 }
 
 class Context extends Component {
+  constructor() {
+    super()
+    this.state = { bgColor: 'orange' }
+  }
+
   // getChildContext 方法和 childContextTypes 是必须的
   // 子组件的 contextTypes 也是必须的
   static childContextTypes = {
     bgColor: PropTypes.string
-  }
-
-  constructor() {
-    super()
-    this.state = { bgColor: 'orange' }
   }
 
   getChildContext() {
