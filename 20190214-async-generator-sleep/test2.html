@@ -24,9 +24,12 @@
         // 直接同步的调用 next方法没有延时的
         // 要想上面的 yield 延时，还得再设置定时器
         // 【必须有一个任务运行器，自动执行 Generator 函数】
+
+        // 执行 next() 得到的是一个包含了 done 和 value 的对象
+        // value 保存着 yield 后面的语句执行的结果
         const timer = setInterval(()=>{
             const res = g.next();
-            // console.log('res:', res);
+            console.log('res:', res);
             if (res.done) clearInterval(timer);
         }, 1000);
 
