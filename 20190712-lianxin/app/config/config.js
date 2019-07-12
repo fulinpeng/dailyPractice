@@ -14,12 +14,6 @@ window.link_one_config = {
     defaultLangType: 'en_US', // 默认语言： zh_CN 、 en_US
     // 主要用于前后台联调，代理服务器域名，当proxy为true时，所有ajax请求都会发送到这个域名
 
-    // 测试： 63:8888
-    // 马瑜： 163:57001
-    // 林虎： 63:57002
-    // 蒋杰： 143:8888
-    // 其他： 106:9888
-
     proxyHost: 'http://192.168.0.106:9888',
     // 主要用于前后台联调，websocket代理服务器域名，当proxy为true时，所有websocket都会连接到这个域名
     websocketProxyHost: 'ws://offline.com',

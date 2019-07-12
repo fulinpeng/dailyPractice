@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 const str = 'abcdefghijklmnoporstuvwxyz';
 Mock.mock('contentData.do','post', (params) => {
     console.log('~~~~~~~~~~~~~~mockjs--post参数：', params);
-    return {
+    return Mock.mock({
         'contentData|1-10': [
             {
                 'id|+1': Mock.mock('@increment'),
@@ -15,15 +15,14 @@ Mock.mock('contentData.do','post', (params) => {
                 'desc': Mock.mock('@paragraph(1, 3)'),
             },
         ]
-    }
+    })
 })
 
 Mock.mock(RegExp('contentData.do.*'),'get', (params) => {
     console.log('~~~~~~~~~~~~~~mockjs--get参数：', params);
-    return {
+    return Mock.mock({
         'contentData|1-10': [
             {
-                'skuid': '@id',
                 'id|+1': Mock.mock('@increment'),
                 'head': Mock.mock(`@image('100x100', ${Mock.mock('@color')}, 'mockjs')`),
                 'name': Mock.mock(`@string(${str}, 3, 10)`),
@@ -34,5 +33,5 @@ Mock.mock(RegExp('contentData.do.*'),'get', (params) => {
                 'desc': Mock.mock('@paragraph(1, 3)'),
             },
         ]
-    }
+    })
 })

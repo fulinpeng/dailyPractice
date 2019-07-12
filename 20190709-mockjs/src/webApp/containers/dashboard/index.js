@@ -13,6 +13,7 @@ import PeoplePanel from "_containers/peoplePanel";
 import AddAndEditPeople from "_containers/addAndEditPeople";
 
 // 使用mockjs，要先加载
+// 加载这个文件，内部会执行 Mock.mock(...) 函数，来拦截ajax走mock的逻辑
 require('_root/mock/apis/contentData.js');
 
 class Dashboard extends Component {

@@ -28,7 +28,7 @@ class TestSaga extends Component {
   render() {
     return (
       <div className="test-box">
-        <h3 onClick={this.incrementHandle}>点击立刻+1： {this.props.incrementNumber}</h3>
+        <h3 onClick={this.incrementHandle}>2s后+1： {this.props.incrementNumber}</h3>
         <h3 onClick={this.increment2Handle}>点击立刻+2： {this.props.incrementNumber}</h3>
         <h3 onClick={this.onClick2}>点击2s后-1： {this.props.reduceNumber}</h3>
       </div>

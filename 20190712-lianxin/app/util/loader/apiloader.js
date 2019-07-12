@@ -4,7 +4,7 @@ import config from '@/config'
 import isPlainObject from 'lodash/isPlainObject'
 
 const apiMap = {}
-
+console.log('~~~~~~~~~~~~apiMap:', apiMap);
 /**
  *  当host没有域名时，根据页面的域名补充host
  *  @param    {string}  host        地址
@@ -37,6 +37,7 @@ function normalizeHost(host, isWebsocket) {
 }
 
 // 第一个字符不能是数字从而防止匹配到port
+// : 后面第一个字符非数字，后面的字符取到非特殊字符为止，取 : 后面至少两位字符
 const paramReg = /:([^/\d][^/|$\?]+)/g
 
 // 匹配可选参数
@@ -54,8 +55,8 @@ export default {
     const mock = config.get('mock')
     if(config.get('proxy')) {
       // 为true，启用代理
-      host = config.get('proxyHost')
-      websocketHost = config.get('websocketProxyHost')
+      host = normalizeHost(config.get('proxyHost'));
+      websocketHost = normalizeHost(config.get('websocketProxyHost'));
     } else {
       // 为false，不用代理
       host = normalizeHost(config.get('host'))
@@ -88,6 +89,8 @@ export default {
       }
       if(mock && apiConfig.mock) {
         // 需要mock，并且api存在mock配置
+        // Mock.mock 的第一个参数是字符串或者正则
+        // 为了get带参数，并且匹配到params里面对应的参数，要做正则判断处理
         Mock.mock(
           me.reg(key),
           ajaxConfig.method,
@@ -156,6 +159,7 @@ export default {
       .replace(/\./g, '\\.')
       .replace(paramReg, '[^/]+')
       .replace(optParamReg, '[^/]+')
+      console.log(`~~~~~~~~~~~~~~~~regStr-${key}:`, `^${regStr}(\\?.*)?$`);
     return new RegExp(`^${regStr}(\\?.*)?$`)
   },
   /**

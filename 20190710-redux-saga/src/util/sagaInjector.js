@@ -1,6 +1,6 @@
 
-import { store } from '@/store/createStore'
-import createAction from '@/util/createAction'
+import { store } from '../store'
+import createAction from './createAction'
 import { take, call, put } from 'redux-saga/effects'
 import { injectAsyncReducer } from '@/reducers'
 import createReducer from './createReducer'
