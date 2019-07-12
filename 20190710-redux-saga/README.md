@@ -51,6 +51,8 @@ thunk 中间件：
 * call和apply方法与js中的call和apply相似，
     * 返回一个描述对象。不过这里call方法传入的函数fn可以是普通函数，也可以是generator。call方法应用很广泛，在redux-saga中使用异步请求等常用call方法来实现
     * 在call方法调用结束之前，call方法之后的语句是无法执行的
+    * `注意:`这个call啊，如果调用的函数返回的是一个promise，call会把promise的返回值res取出来并返回(也就是resolve(res)那个res啊~)
+    * 如果那个函数返回的是普通对象或者值，就直接返回这个值
 * put这个Effect方法跟redux原始的dispatch相似，都是可以发出action，且发出的action都会被reducer监听到。
 * select方法对应的是redux中的getState
 * fork方法相当于web work，fork方法不会阻塞主线程，在非阻塞调用中十分有用

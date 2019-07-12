@@ -1,0 +1,61 @@
+.docker-detail-one{
+    max-width: 800px;
+    .ant-form-vertical .ant-form-item-control-wrapper .value{
+        color: #fff;
+    }
+    .ant-form-item-label{
+        text-align: right;
+    }
+    .last_no_margin{
+        padding-bottom:0;
+        margin-bottom:0;
+    }
+    .update_file_btn {
+        border-radius:4px;
+        border:1px solid #42BFFD;
+        font-size:14px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(219,226,234,1);
+    }
+    // .ant-upload-list-item-info {
+    //     display: block;
+    // }
+    // .ant-upload-list-item-info .anticon-loading, .ant-upload-list-item-info .anticon-paper-clip{
+    //     display: none;
+    // }
+    // .ant-upload-list-item:hover .ant-upload-list-item-info{
+    //     background: none;
+    // }
+    // .ant-upload-list-item-error .anticon-close {
+    //     background: #53627AFF;
+    //     width: 20px;
+    //     height: 20px;
+    //     border-radius: 20px;
+    //     line-height: 22px;
+    //     svg{
+    //         fill:#383856FF
+    //     }
+    // }
+    // .ant-upload-list-item-error, .ant-upload-list-item-error .anticon-paper-clip, .ant-upload-list-item-error .ant-upload-list-item-name {
+    //     color: #dbe2ea;
+    // }
+    // .ant-upload-list-item-name{
+    //     display: block;
+    // }
+}
+.cre-image-modal .file_path{
+    color: #fff;
+    word-break: break-all;
+    margin-top: 10px;
+}
+.cre_image_btn{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.upload_image_file{
+    .ant-upload-list{
+        display: none;
+    }
+}

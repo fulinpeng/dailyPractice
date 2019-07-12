@@ -8,7 +8,11 @@ console.log('rootSaga', rootSaga);
 
 // 异步redux
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(combineReducers(reducer), applyMiddleware(sagaMiddleware));
+const preloadedState = {
+    name: 'flp',
+    age: 22,
+};
+const store = createStore(combineReducers(reducer), preloadedState, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 // combineReducers返回的是一个函数
