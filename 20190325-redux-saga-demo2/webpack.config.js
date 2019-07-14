@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const path = require("path");
-const { join, resolve } = require("path");
+const { join, resolve } = path;
 const ROOT_PATH = resolve(__dirname);
 const APP_PATH = resolve(ROOT_PATH, "src");
 
@@ -48,14 +48,18 @@ webpackConfig = {
             {
                 test: /\.(js|jsx)$/,
                 loader: "babel-loader",
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                // .babelrc 文件：evn 处理es6，stage-0 处理es7，react 处理react
             },
+            // file-loader 解析图片地址，把图片拷贝到目标位置并修改引用地址
+            // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
             {
-                test: /\.(png|jpg)$/,
-                loader: 'url-loader?limit=8192',
+                test: /\.(png|jpg|gif|svg|bmp|eot|woff|woff2|ttf)$/,
+                loader: 'url-loader',
                 options: {
-                    limit: 3000, // 字节
-                    name: 'images/[name].[hash:7].[ext]'
+                    limit: 1024 * 5, // 字节
+                    name: 'images/[name].[hash:5].[ext]',
+                    // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
                 }
             },
         ]
@@ -80,8 +84,13 @@ webpackConfig = {
         compress: true,
         port: 9000
     },
+    // 解析：当加载一个文件的时候，按照如下的规则顺序查找
     resolve: {
-        extensions: [".js", ".jsx", ".less", ".css", ".scss"],
+        // 指定模块加载的查询顺序，特别是自定义模块
+        modules: [resolve(__dirname, 'node_modules'), resolve(APP_PATH, 'util')],
+        // 某个库做了同构处理，需要在 pagage.json 文件添加对应的配置，webpack 会根据 mainFields 来找
+        mainFields: ['main', 'browser', 'node'],
+        extensions: [".js", ".jsx", ".less", ".css", ".scss", '.json'], // 越靠前权重越高
         alias: {
             _root: APP_PATH,
             _components: resolve(APP_PATH, "webApp/components"),

@@ -8,8 +8,8 @@ module.exports = {
         publicPath: "/"
     },
     plugins: [
-        new ProgressBarPlugin(),
         new CleanWebpackPlugin(["dist"]),
+        new ProgressBarPlugin(),
         new WebpackBuildNotifierPlugin({
             title: "ReactApp Build",
             suppressSuccess: true
