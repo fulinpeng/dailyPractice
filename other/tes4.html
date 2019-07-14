@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var arr = [1,2,3,4];
+    function deal(num) {
+        return new Promise((resolve, rejected) => {
+            setTimeout(()=>{
+                resolve('resolve-'+num);
+            }, num*100);
+        });
+    }
+    async function foo(arr) {
+        var tempArr = [];
+        // for (var i = 0; i < arr.length; i++) {
+        //     var item = await deal(arr[i]);
+        //     tempArr.push(item);
+        // }
+        // 【下面注意了】因为那个await关键字只能出现在async函数中
+        // 而且下面的打印结果会出乎你意料，‘紧接着循环之后：’那个会先执行
+        arr.forEach(async(v, i) => {
+            var item = await deal(arr[i]);
+            tempArr.push(item);
+            console.log(tempArr);
+        });
+        console.log('紧接着循环之后：', tempArr);
+        var itemLen = await deal(arr.length+1);
+        tempArr.push(itemLen);
+        console.log(tempArr);
+    }
+    foo(arr);
+    </script>
+</body>
+</html>

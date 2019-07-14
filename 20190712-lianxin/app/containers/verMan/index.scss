@@ -1,0 +1,485 @@
+.cre-alg-modal .souUplBut {
+  width: auto!important;
+  height: 34px;
+  background: linear-gradient(315deg, #1270f0 0%, #00b3e7 100%);
+  border-radius: 4px;
+  border: none;
+  color: #FFFFFF !important;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  margin-top:60px;
+  &:hover {
+    background:linear-gradient(315deg,rgba(16,117,255,1) 0%,rgba(37,211,240,1) 100%);
+    border-radius:4px;
+    border: none;
+  }
+}
+.tip {
+  width:200px;
+  height:17px;
+  font-size:12px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(219,226,234,1);
+  line-height:17px;
+  color: #DBE2EA;
+  margin-top: 10px !important;
+}
+.cre-alg-modal .ant-upload-list {
+  width: 200px;
+  float: right;
+  margin-right: 123px;
+  margin-top: -100px;
+}
+.versionInfo label {
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:#BEBEBE;
+  line-height:22px;
+  float: right;
+  margin-right: 15px;
+  width: 140px;
+}
+.versionInfo .ant-form-item-children div {
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:#FFF;
+  line-height: 22px;
+}
+.versionEdit .ant-form-item-children div {
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(219,226,234,1);
+  line-height: 26px;
+}
+.versionInfo h3 {
+  height:22px;
+  font-size:16px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(219,226,234,1);
+  line-height:22px;
+  margin:0px 0 20px 10px;
+  padding-top: 8px;
+}
+.versionInfo .block {
+  width: 100%;
+}
+.versionInfo .inline {
+  .ant-form-item-children div{
+    width: 200px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+}
+.versionInfo .block {
+  .ant-form-item-children div{
+    width: 600px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+}
+.versionInfo  button {
+    width: 116px;
+    height: 34px;
+    background: linear-gradient(315deg, #1270f0 0%, #00b3e7 100%);
+    border-radius: 4px;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    border: none;
+    margin-right: 10px;
+    color:#fff !important;
+    &:hover {
+      background:linear-gradient(315deg,rgba(16,117,255,1) 0%,rgba(37,211,240,1) 100%);
+    }
+}
+.versionInfo  .but {
+  margin-left: 150px;
+}
+.versionInfo  .key {
+  margin-bottom: 30px;
+}
+.versionEdit  {
+  .ant-input {
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #dbe2ea;
+    line-height: 20px;
+    width: 200px;
+    background:rgba(31,31,36,1);
+    border-radius:4px;
+    border:1px solid rgba(56,56,86,1);
+  }
+  .shell {
+    .ant-input {
+      width: 300px;
+    }
+  }
+  label {
+    line-height: 26px;
+  }
+  .ant-form-item-control {
+    line-height: 0px;
+  }
+}
+.versionCreate .ant-modal-footer {
+  display: none;
+}
+.versionCreate .ant-form-item-children div {
+  width: 185px;
+}
+.add_version_form .ant-form-item-children .tipInfo {
+  width: 300px;
+}
+.versionCreate .ant-form-item-children .param  input{
+  width: 397px!important;
+}
+.add_version_form .ant-form-item-children .tipInfo  input{
+  width: 185px;
+}
+.versionCreate .ant-form-item-label  {
+  width: 88px;
+}
+.add_version_form .ant-form-item-children .tipInfo span {
+  color: #53627A;
+  padding-left: 10px;
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(83,98,122,1);
+  line-height:20px;
+}
+.add_version_form .ant-form-item {
+  width:100%;
+  min-height:64px;
+}
+.add_version_form .ant-form-item-with-help {
+  margin-bottom:0;
+}
+.versionCreate .ant-btn {
+  display: inline-block;
+}
+.versionCreate .submit_data {
+  width: 570px;
+  margin-right: 0;
+}
+.versionCreate .submit_data .ant-form-item-control {
+  padding-left:164px;
+}
+.versionCreate .submit_data .ant-btn-primary {
+  margin-left: 10px;
+}
+.versionCreate .change_file {
+  width:116px;
+  height:34px;
+  border-radius:4px;
+  border:1px solid #42BFFD;
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(219,226,234,1);
+  line-height:20px;
+  background:#171724;
+}
+.add_version_form .change_div {
+  width: 580px !important;
+  margin-bottom: 20px;
+}
+.add_version_form .change_div span.file-url {
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(219,226,234,1);
+  padding-left: 10px;
+  width: 450px;
+  display: inline-block;
+  overflow: hidden;/*超出部分隐藏*/
+  white-space: nowrap;/*不换行*/
+  text-overflow:ellipsis;/*超出部分文字以...显示*/
+  line-height: 15px;
+}
+.ant-upload-list-item-name {
+  display: none;
+}
+.ant-progress-bg {
+  height: 6px !important;
+  background:linear-gradient(315deg,rgba(18,112,240,1) 0%,rgba(0,179,231,1) 100%);
+  border-radius:3px;
+}
+.ant-progress-inner {
+  background:rgba(26,26,41,1);
+  border-radius:3px;
+}
+.ant-upload-list-item-info .anticon-loading {
+  color: #1270F0;
+}
+.ant-upload-list-item-done {
+  display: none;
+}
+.anticon-cross {
+  display: none !important;
+}
+.ant-upload-list-item-info {
+  display: none;
+}
+.tip-upload {
+  position: absolute;
+  top:176px;
+  font-size:12px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(219,226,234,1);
+  line-height:17px;
+  left: 309px;
+}
+.upload-repeat{
+  .upload-error {
+    width: 116px;
+    background:linear-gradient(315deg,rgba(255,70,0,1) 0%,rgba(231,164,0,1) 100%);
+    border-radius:4px;
+  }
+  .errorBar {
+    width:200px;
+    height:6px;
+    background:linear-gradient(315deg,rgba(255,70,0,1) 0%,rgba(231,164,0,1) 100%);
+    border-radius:3px;
+    margin-top: 10px;
+  }
+  .tip {
+    color: #FF4600;
+    position: relative;
+    top:-5px;
+  }
+}
+.is-validating.has-feedback .ant-form-item-children:after {
+  display: none;
+}
+.ver-cre-list  {
+  max-height: 290px;
+  overflow:auto;
+  position: relative;
+  left: -15px;
+  .ant-list-empty-text {
+    display: none;
+  }
+  .ant-list-item {
+    border: none!important;
+  }
+  .ant-row {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .ant-list-item-meta-title {
+    margin-bottom: 0px;
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(181,209,255,1);
+    text-indent: 136px;
+  }
+  .ant-list-item-meta {
+    margin-bottom: 0;
+  }
+  .ant-list-item {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .ant-form-item {
+    margin-right: 5px;
+  }
+  .ant-form-item-label {
+    width: 135px;
+  }
+  .ant-form-item-children div {
+    width: 172px;
+  }
+  .ant-table-placeholder {
+    display: none;
+  }
+  .ant-table-pagination {
+    display: none;
+  }
+  .ant-table-tbody > tr > td {
+    border-bottom: none;
+  }
+  // .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+  //   padding-top: 0;
+  //   padding-bottom: 15px;
+  //   &:hover {
+  //     background: none;
+  //   }
+  // }
+  .title {
+    margin-bottom: 0px;
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(181,209,255,1);
+    text-indent: 136px;
+  }
+}
+.ver-cre-list-wapper {
+  border-top: 1px rgba(52,57,81,1) solid;
+  padding-top: 10px;
+  border-bottom: 1px rgba(52,57,81,1) solid;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.ver-info {
+  width: 60%;
+  margin-left: 155px;
+  overflow: hidden!important;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 30px;
+  .label {
+    height:20px;
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(181,209,255,1);
+    width: 50px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin-right: 15px;
+  }
+  .info {
+    height:20px;
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(219,226,234,1);
+    display: inline-block;
+    position: relative;
+    top:-6px;
+  }
+  .ant-table-placeholder {
+    display: none;
+  }
+  .ant-row {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .ant-list-item-meta-title {
+    margin-bottom: 0px;
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(181,209,255,1);
+    text-indent: 136px;
+  }
+  .ant-list-item-meta {
+    margin-bottom: 0;
+  }
+  .ant-list-item {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .ant-form-item {
+    margin-right: 5px;
+  }
+  .ant-form-inline .ant-form-item {
+    margin-bottom: 0;
+    min-height: 54px;
+  }
+  .ant-form-item-label {
+    width: 135px;
+  }
+  .ant-form-item-children div {
+    width: 172px;
+  }
+  .ant-table-placeholder {
+    display: none;
+  }
+  .ant-table-pagination {
+    display: none;
+  }
+  .ant-table-tbody > tr > td {
+    border-bottom: none;
+  }
+  // .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+  //   padding-top: 0;
+  //   padding-bottom: 15px;
+  //   &:hover {
+  //     background: none;
+  //   }
+  // }
+  .title {
+    margin-bottom: 0px;
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(181,209,255,1);
+    text-indent: 136px;
+  }
+  // .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+  //  padding-top: 8px;
+  //  padding-bottom: 8px;
+  //  padding-left: 0;
+  // }
+}
+.dockerImage {
+  width: 100%;
+  .ant-select-selection {
+    width: 395px !important;
+  }
+  .ant-select-selection-selected-value {
+    width: 380px!important;
+  }
+  .ant-select-selection__rendered {
+    width: 380px!important;
+  }
+  .ant-select {
+    width: 393px !important;
+  }
+}
+.execFile {
+  width: 100%;
+  .ant-select-selection {
+    width: 395px !important;
+  }
+  .ant-select-selection-selected-value {
+    width: 380px!important;
+  }
+  .ant-select-selection__rendered {
+    width: 380px!important;
+  }
+  .ant-select {
+    width: 393px !important;
+  }
+  .tipInfo {
+    width: 500px !important;
+    input {
+      width: 395px !important;
+    }
+  }
+}
+.ver-cre-list-wapper-edit {
+  width: auto;
+  margin-left: 155px;
+  padding: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  .ver-cre-list {
+    left: 0;
+    .title {
+      text-indent: 75px;
+    }
+  }
+  .ant-form-item-label {
+    width: 74px;
+  }
+  // .ver-cre-list .ant-table-thead > tr > th, .ver-cre-list .ant-table-tbody > tr > td {
+  //   padding-top: 0;
+  //   padding-bottom: 15px;
+  //   padding-left: 0;
+  //  }
+}

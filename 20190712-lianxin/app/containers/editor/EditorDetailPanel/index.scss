@@ -1,0 +1,15 @@
+.detail-panel {
+  flex: 1;
+  background: none;
+  .btn_part{
+    padding:10px;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+:global {
+  .ant-card {
+    background: #FAFAFA;
+  }
+}

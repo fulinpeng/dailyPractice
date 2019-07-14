@@ -1,0 +1,138 @@
+.home_page{
+    .home_container{
+        margin: 10px 10px 0 10px;
+    }
+    .home_page_top{
+        height:408px;
+        display: flex;
+        flex-flow:row nowrap;
+        justify-content: space-between;
+        .alg_invok_curve{
+            width:900px;
+            height:100%;
+            flex:3;
+            border-radius: 5px;
+            background: #2e2f30;
+            position: relative;
+        }
+        .curve_select_date{
+            position: absolute;
+            top: 10px;
+            right:10px;
+            z-index: 1;
+            display: flex;
+            line-height: 34px;
+            .select_date_btns{
+                .data_btn{
+                    color:#BEBEBE;
+                    margin-right:20px;
+                    float: right;
+                    cursor: pointer;
+                }
+            }
+            .ant-calendar-picker{
+                width: 206px;
+                .ant-calendar-picker-input{
+                    padding: 0
+                }
+            }
+        }
+        
+    //     <div className="item_data">
+    //     <span className="data_num">342</span>
+    //     <span className="data_icon">10%</span>
+    //   </div>
+    //   <div className="item_des">
+    //     <span>Total Number of</span>
+    //     <span>This Mouth</span>
+    //   </div>
+        .alg_invok_curve_pannel{
+            width:91px;
+            height:100%;
+            flex:1;
+            padding-left: 10px;
+            display: flex;
+            flex-flow:column nowrap;
+            justify-content: space-between;
+            .info_item{
+                height:129px;
+                padding:10px 20px;
+                border-radius: 5px;
+                background: #2e2f30;
+                color:#BEBEBE;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                &.blue{
+                    background:#4C8BF5;
+                    color:#FFFFFF;
+                }
+                .item_data{
+                    font-size: 36px;
+                    font-weight:bold;
+                }
+                .data_icon{
+                    font-size: 14px;
+                    font-weight:normal;
+                    margin-left:10px;
+                }
+                &.green .data_icon{
+                    color:#97E960;
+                }
+            }
+        }
+    }
+    .home_page_buttom{
+        height:408px;
+        display: flex;
+        flex-flow:row nowrap;
+        padding-top: 10px;
+        justify-content: space-between;
+        .alg_invok_bar{
+            width:800px;
+            height:100%;
+            padding: 15px;
+            flex:7;
+            border-radius: 5px;
+            background: #2e2f30;
+            display: flex;
+            flex-flow:column;
+            // justify-content: space-between;
+            .invok_bar_head{
+                height:50px;
+                display: flex;
+                flex-flow:row nowrap;
+                justify-content: space-between;
+                align-items: center;
+                color:#BEBEBE;
+            }
+        }
+        .alg_invok_bar_table{
+            width:391px;
+            flex:3;
+            border-radius: 5px;
+            margin-left: 10px;
+            font-size:14px;
+            background: #2e2f30;
+            display: flex;
+            flex-flow: column;
+            .table_tit{
+                padding:15px 10px;
+                font-size: 16px;
+                display: flex;
+                color: #BEBEBE;
+                justify-content: space-between;
+                .view_all{
+                    color:#4C8BF5;
+                    cursor: pointer;
+                    text-decoration: underline;
+                    font-size: 14px;
+                }
+            }
+            .table_content{
+                overflow-x: hidden;
+            }
+
+        }
+    }
+}

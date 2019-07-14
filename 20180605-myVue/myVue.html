@@ -188,9 +188,6 @@
         //       因为它是闭包函数，数据存活周期同Vue对象本身
         //    2) compile 用来编译原来 #app 中的dom，返回真实dom
         //       编译的同时注册 watcher 到 dep 中，给表单绑定事件函数
-        //       没遇到一个药编译的dom节点就new一个wtacher，放到Dep.target上
-        //       当该节点赋值时会第一次触发那个字段的get方法，在这时取出target的watcher添加到dep中
-        //       第一次赋值后，后面更新怎么办？就得通过dep存着的watcher了，让batcher去调用watcher的update
         //    3) watcher 专注监听与更新(DOM到data 或者 data到DOM)
         //       同时， batcher 插件要在这里插入
         //    4) dep 是个单纯的发布订阅者的模型

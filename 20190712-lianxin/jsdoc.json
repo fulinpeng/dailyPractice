@@ -1,0 +1,16 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": ["app/"],                     
+        "includePattern": ".+\\.(js|es)$"      
+    },
+    "opts": {
+        "template": "templates/default",     
+        "destination": "./api/",               
+        "recurse": true,                       
+        "debug": true,                          
+        "readme": "README.md"                  
+    }
+}

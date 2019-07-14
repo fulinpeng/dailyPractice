@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 高阶函数
+        // 有毛病，又是自己不严谨，arg指的是参数列表，不是传进去的数组
+        const add = (...arg) => {
+            let res = 0;
+            console.log(arg);
+            for (let i = 0; i < arg.length; i++) {
+                res += arg[i];
+            }
+            return res;
+        }
+        const mathAdd = (fn, arr) => fn(arr);
+        const arr = [1,2,3];
+        const result = mathAdd(add, arr);
+        console.log('result:', result);
+    </script>
+</body>
+</html>

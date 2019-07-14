@@ -359,7 +359,10 @@ class Dashboard extends Component {
             <PhoneButton onClick={this.changeFixedModelState}>搜索</PhoneButton>
             <PhoneButton onClick={this.changeAddPeopleState}>添加</PhoneButton>
             <PhoneButton className="cancel" onClick={this.changeFixedModelState}>取消</PhoneButton>
+<<<<<<< HEAD
             <PhoneButton2 className="cancel" onClick={this.changeFixedModelState}>取消2</PhoneButton2>
+=======
+>>>>>>> 82cdc574ef04b019d499cb4d90f7da56db6b8a73
           </div>
         </FixedModel>}
       </main>

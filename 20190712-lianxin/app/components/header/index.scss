@@ -1,0 +1,31 @@
+.header-info {
+    height: 50px;
+    position: absolute;
+    right: 40px;
+    line-height: 50px;
+    top: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    .help {
+      font-size: 16px;
+      color:#bebebeb5;
+      margin-right: 0;
+      top:0;
+    }
+    .head {
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      border: 1px solid #1173EF;
+    }
+    .change_lang{
+      cursor: pointer;
+      color: #BEBEBE;
+      margin: 0 10px;
+    }
+}
+.ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+    right: 30px;
+    top:55%;
+}

@@ -1,0 +1,117 @@
+.createVersion {
+  width: 800px;
+}
+.createButton {
+  // margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top:4px;
+  margin-left: 0px;
+  width:116px;
+  height:34px;
+  background:linear-gradient(315deg,rgba(18,112,240,1) 0%,rgba(0,179,231,1) 100%);
+  border-radius:4px;
+  line-height: 34px;
+}
+.return {
+  margin-left: 30px;
+}
+.recVersion {
+  margin-top: 5px;
+}
+.alg-info {
+    width: 900px;
+    .alias,
+    .algType,
+    .status,
+    .algName {
+      width: 308px;
+      .value {
+        width: 228px;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // white-space:nowrap;
+        word-wrap: break-word;
+      }
+    }
+    .algType {
+      display: inline-block;
+    }
+    .algType {
+      margin-right: 10px;
+    }
+    .algNo {
+      display: block;
+      .ant-form-item-label{
+        padding-left: 0;
+      }
+      .value{
+        padding-left: 0;
+        line-height:40px;
+      }
+    }
+    .left {
+      .ant-form-item-label {
+          padding-left: 14px;
+      }
+    }
+    .ant-row {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .value {
+      font-size:14px;
+      font-family:PingFangSC-Regular;
+      font-weight:400;
+      color:#fff;
+      line-height:40px;
+    }
+    .ant-form-item-label {
+      width: 81px;
+    }
+    .description_info {
+        .ant-form-item-label {
+          line-height: 0;
+          vertical-align:top;
+        }
+        .ant-form-item-control-wrapper {
+          min-height: 35px;
+        }
+    }
+    .description_info_other {
+      padding-top: 10px;
+      .value {
+        position: relative;
+        top: -10px;
+      }
+    }
+    .submit .ant-form-item-control .confim {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .submit .ant-form-item-control {
+      padding-left: 80px;
+    }
+}
+.alg-edit {
+   width: 910px;
+   .algName {
+     margin-right: 75px;
+   }
+   .description-info {
+      .ant-form-item-control-wrapper {
+        width: 820px;
+        textarea {
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+      }
+      .ant-form-item-label {
+          position: relative;
+          top: -10px;
+          width: 88px;
+      }
+   }
+   .submit {
+     padding-top: 10px;
+   }
+}

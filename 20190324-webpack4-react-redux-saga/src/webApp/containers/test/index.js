@@ -67,4 +67,3 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
 
-console.log('react', new Test());

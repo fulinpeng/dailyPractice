@@ -1,0 +1,220 @@
+/*
+    公用样式文件，可以分文件
+*/
+// @import '~antd/dist/antd.css';
+@import '~react-grid-layout/css/styles.css';
+@import '~react-resizable/css/styles.css';
+
+$green: #4db14d;
+
+@font-face {
+    font-family: 'PingFangSC-Regular';
+    src: url('./../fonts/PingFangSC/PingFang-SC-Regular.ttf'); //你的资源目录
+    font-weight: normal;
+    font-style: normal;
+}
+html,
+body {
+   font-family: PingFangSC-Regular, sans-serif;
+   background:rgba(26,26,37,1);
+}
+html {
+  box-sizing: border-box;
+  font: 18pt 'Oswald';
+  letter-spacing: 0.05em;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.3em;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+ul,li{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+@font-face {
+  font-family: 'iconfont';
+  src: url('./../fonts/icon/iconfont.eot');
+  src: url('./../fonts/icon/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('./../fonts/icon/iconfont.woff') format('woff'),
+  url('./../fonts/icon/iconfont.ttf') format('truetype'),
+  url('./../fonts/icon/iconfont.svg#iconfont') format('svg');
+}
+#root{
+  height:100%;
+}
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ant-input {
+  background: #1f1f24;
+  border-radius: 4px;
+  border: 1px solid #383856;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #dbe2ea;
+  line-height: 34px;
+}
+.ant-input:hover {
+  border: 1px solid #42BFFD;
+}
+.ant-select-selection{
+  background-color: #212132;
+  border: 1px solid #424B5B;
+  color: #DBE2EA;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  background: #171724;
+}
+.ant-select-selection:hover {
+  border-color: #40a9ff;
+  border-right-width: 1px !important;
+}
+.ant-form-item-label label{
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #BEBEBE;
+  line-height: 20px;
+}
+.submit .ant-form-item-control .confim{
+  width: auto;
+  padding:0 40px;
+  background: linear-gradient(315deg, #1270f0 0%, #00b3e7 100%);
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: white;
+  line-height: 34px;
+  &:hover{
+    background: linear-gradient(315deg, #1075ff 0%, #25d3f0 100%);
+  }
+}
+.submit .ant-form-item-control .cancel{
+  width: auto;
+  padding:0 40px;
+  border-radius: 4px;
+  border: 1px solid #39394F;
+  background: #292838;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #b0b0b0;
+  line-height: 34px;
+  &:hover{
+    color: #DBE2EA;
+    border: 1px solid #42BFFD;
+  }
+}
+.clear_fix::before{
+  content: '';
+  display: block;
+  height:0;
+  clear:both;
+}
+.clear_fix::after{
+  content: '';
+  display: block;
+  height:0;
+  clear:both;
+}
+
+.ant-modal{
+  .ant-modal-content{
+    box-shadow: 0px 3px 10px 0px rgba(20, 20, 20, 0.5);
+    border-radius: 4px;
+    background: #2E2F30;
+  }
+  .ant-modal-header {
+    background: #2E2F30;
+    padding: 10px;
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .ant-modal-title {
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #BEBEBEFF;
+    line-height: 22px;
+  }
+  .ant-modal-footer{
+    border-top:none;
+  }
+  .ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label{
+    text-align: right;
+  }
+  .tip{
+    margin-left: 15px;
+    color: #6C6F73FF;
+  }
+  .ant-btn {
+    width: auto;
+    height: 34px;
+    border-radius: 4px;
+    border: 1px solid #39394F;
+    background: #2E2F30;
+    color: #B0B0B0;
+  }
+  .ant-btn:hover {
+    color: #DBE2EA;
+    border-radius: 4px;
+    border: 1px solid #42BFFD;
+  }
+  .ant-btn-primary {
+    width: auto;
+    height: 34px;
+    background: linear-gradient(315deg, #1270f0 0%, #00b3e7 100%);
+    border-radius: 4px;
+    border: none;
+    color: #FFFFFF !important;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+  }
+  .ant-btn-primary:hover {
+    background: linear-gradient(315deg, #1075ff 0%, #25d3f0 100%);
+    box-shadow: none;
+    border: none;
+  }
+  .change_file_btn {
+    border-radius:4px;
+    border:1px solid #42BFFD;
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(219,226,234,1);
+    background:#171724;
+  }
+}
+.ant-pagination-next .ant-pagination-item-link, .ant-pagination-prev .ant-pagination-item-link{
+  color:white;
+}
+.ant-checkbox-inner{
+  background:#44a5ff;
+}
+.ant-table-tbody > tr.ant-table-row-selected td{
+  background:none;
+}
+.ant-input-search .ant-input-group-addon{
+  background: #1F1F24;
+}   

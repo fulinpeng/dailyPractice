@@ -8,7 +8,6 @@ class PhoneButton extends Component {
   }
 
   render() {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@', this.props);
     const {className,onClick,text,children} = this.props;
     return (
       <div className={`phone-button-wrap ${className||''}`} >

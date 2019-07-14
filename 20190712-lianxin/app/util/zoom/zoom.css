@@ -1,0 +1,4 @@
+.zoomify {
+  transform-origin: left top;
+  overflow: hidden;
+}

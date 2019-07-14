@@ -1,0 +1,55 @@
+.login-body {
+    min-height: 100%;
+    background-image: url(./login_bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+    box-pack: center;
+    box-align: center;
+}
+.login-form {
+  max-width: 300px;
+  margin:80px auto;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+.login-form  .region-title {
+    padding-Left: 58px;
+    height: 50px;
+    width: 100%;
+    color: #408ee6;
+}
+.login-form .region-title .title-EN {
+    margin-left: 15px;
+    font-size: 14px;
+    white-space: pre;
+}
+.ant-row {
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    height: auto;
+    zoom: 1;
+    display: block;
+}
+.login-body .login-region {
+    display: inline-block;
+    width: 462px;
+    height: 462px;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+.login-body .region-title .title-CN {
+    font-size: 24px;
+}

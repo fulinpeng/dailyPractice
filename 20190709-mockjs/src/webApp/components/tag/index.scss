@@ -1,0 +1,32 @@
+.tag-input{
+  border: 0.01rem solid #DFDFDF;
+  border-radius: 0.03rem;
+  margin-bottom: 0.05rem;
+  span{
+    font-size: 0.14rem;
+    color: #333333;
+    letter-spacing: 0;
+    line-height: 0.2rem;
+    padding: 0 0.04rem;
+    border-radius: 0.02rem;
+    margin: 0.04rem 0 0.04rem 0.04rem;
+    cursor: pointer;
+  }
+  .new-tag{
+    border: 0.01rem dashed #999999;
+    line-height: 0.18rem;
+    background:#999999;
+  }
+  .tag-input-wrap{
+    border: 0.01rem solid #dfdfdf;
+    margin: 0.04rem;
+    border-radius: 0.02rem;
+    input{
+      outline: 0;
+      border: 0;
+      padding: 0.04rem;
+      width:100%;
+      color: #999999;
+    }
+  }
+}
