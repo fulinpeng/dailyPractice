@@ -21,7 +21,9 @@ class Test extends Component {
     reduxSagaInjector(store.dispatch, 'testApisTest1')('testApisTest1', null, (res) => {
       console.log('testApisTest1-success:', res);
     });
-    reduxSagaInjector(store.dispatch, 'testApisTest2')('testApisTest2', null, (res) => {
+    reduxSagaInjector(store.dispatch, 'testApisTest2')('testApisTest2', {
+      name: 'flp'
+    }, (res) => {
       console.log('testApisTest2-success:', res);
     });
   }

@@ -56,11 +56,3 @@ thunk 中间件：
 * takeEvery和takeLatest用于监听相应的动作并执行相应的方法，是构建在take和fork上面的高阶api
 
 * 使用redux，那种发请求的actions、reducers，最好封装成动态的，这样就不需要专门维护了，就像连心的项目与咪咕的相比，就能体现差别
-
-# 步骤
-
-1. 先弄好基础的saga配置
-2. 配好动态插入saga和reducer
-3. 配好mock
-4. 配好ajax
-5. 测试，哈哈结束了

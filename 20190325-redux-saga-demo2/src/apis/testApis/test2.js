@@ -1,5 +1,5 @@
 export default {
-  url: '/testApis/test2',
+  url: '/testApis/test2?name={name}',
   config:{
     method:'get'
   },
