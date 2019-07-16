@@ -17,7 +17,7 @@ const config = {
     output: {
         path: join("dist"),
         filename: "dell_[name].js", // 合成的新库的文件名
-        library: "[name]_[hash]", // 合成的新库代码内部模块的名字
+        library: "[name]", // 合成的新库代码内部模块的名字
     },
     
     // 不需要module和rules

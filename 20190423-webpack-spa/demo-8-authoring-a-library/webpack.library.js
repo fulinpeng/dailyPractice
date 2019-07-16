@@ -19,7 +19,7 @@ module.exports = {
         path: join('dist'),
         publicPath: '/', // 在服务器脚本用到，以确保文件资源能够在 http://localhost:xxxx 下正确访问
         filename: 'webpack-numbers.js',
-        libraryTarget: 'umd',
+        libraryTarget: 'umd', // 默认为 var 导出为全局变量
         globalObject: 'this',
         libraryExport: 'default', // 打包后的文件将不需要用webpackNumbers.default.XXX，直接用webpackNumbers.XXX
         library: 'webpackNumbers',

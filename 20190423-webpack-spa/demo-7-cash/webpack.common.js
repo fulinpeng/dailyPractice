@@ -45,7 +45,7 @@ module.exports = {
                 vendors: {
                     // test 可以是正则、名字、函数，规定哪些模块要被缓存
                     // test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/, // 只对node_modules里面的包进行分离
-                    test: /[\\/]src[\\/]/, // 只对node_modules里面的包进行分离
+                    test: /[\\/]src[\\/]/, // 只对src里面的包进行分离
                     filename: 'vendor-[name].js', // 这里的[name]会把上面 splitChunks 层级下的name值作为基础再次处理
                     reuseExistingChunk: true, // 默认为true，如果一个'splitChunk'又引用了其它'splitChunk'，这种情况会被优化处理，不会生成新的chunck
                     // enforce: true, // 强制分离；忽略这些配置：splitChunks.minSize, splitChunks.minChunks, splitChunks.maxAsyncRequests and splitChunks.maxInitialRequests
