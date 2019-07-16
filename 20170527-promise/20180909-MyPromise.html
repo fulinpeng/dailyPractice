@@ -8,7 +8,6 @@
 </head>
 <body>
     <script>
-        // 自己照着写一段
         var MyPromise = (function () {
             var PENDING = 'PENDING';
             var FULFILLED = 'FULFILLED';
@@ -19,6 +18,8 @@
                 this.defferd = [];
                 setTimeout(cb.bind(null, this.resolve.bind(this), this.rejected.bind(this)), 0);
                 // 此处也要绑定this，不然在resolve方法里面this将为window
+                // 要先执行一次cb，异步逻辑都写在这个cb中的，所以得在下个eventLoop尽快执行
+                // 但是resolve或rejected是不会马上执行的
             }
             _MyPromise.prototype = {
                 constructor : _MyPromise,
@@ -33,6 +34,11 @@
                         onResolve : resolve,
                         onRejected : rejected,
                         promise : new this.constructor(() => {})
+                        // cb是为了执行异步，然后调用resolve、rejected
+                        // 疑虑: new this.constructor(() => {...}) 中间没有resolve(data)？？？
+                        // 这里这个promise啊，不用执行异步逻辑，是拿到data直接传给他自己的resolve
+                        // 此时这个resolve方法是在内部执行的，不需要异步成功才触发所以不用写...
+                        // resolve、rejected是在then方法中注册成功的嘛，不懂？
                     };
                     if (this.status === PENDING) {
                         this.defferd.push(o);
@@ -40,6 +46,7 @@
                         this.handle(o);
                     }
                     return o.promise;
+                    // then 方法一定返回的是一个promise，但不能是本身
                 },
                 resolve : function(data) {
                     this.value = data;
@@ -79,6 +86,7 @@
                     }
                     if (p && p.constructor === this.constructor) {
                         p.defferd = o.promise.defferd;
+                        // o.promise 可以用另外一个对象来代替，不一定非要放到o中...
                     } else {
                         var data = p;
                         p = new this.constructor(function (resolve) {

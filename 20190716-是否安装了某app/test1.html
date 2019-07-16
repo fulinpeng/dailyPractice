@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="https://itunes.apple.com/cn/app/id477927812" id="openApp">进入客户端</a>
+
+    <script type="text/javascript">
+        document.getElementById('openApp').onclick = function (e) {
+            // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+            // 否则打开a标签的href链接
+            console.log('a标签click事件 比 href 先触发');
+            varifr = document.createElement('iframe');
+            ifr.src = 'com.baidu.tieba://';
+            ifr.style.display = 'none';
+            document.body.appendChild(ifr);
+            window.setTimeout(function () {
+                document.body.removeChild(ifr);
+            }, 3000)
+        };
+        // 原理：
+        // 点击a标签，会先执行click事件函数再执行href跳转
+    </script>
+</body>
+
+</html>
