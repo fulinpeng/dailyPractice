@@ -1,4 +1,4 @@
-
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const argv = require("yargs-parser")(process.argv.slice(2));
 const merge = require("webpack-merge");
@@ -78,6 +78,19 @@ webpackConfig = {
             filename: "index.html",
             template: "src/index.html"
         }),
+        // 引用 webpack.dll.js 中导出的库
+        new webpack.DllReferencePlugin({
+            context: join(__dirname, "./dist"), // 必须有context，不然找不到打包后的模块
+            // manifest: join(__dirname, 'dist/manifest.json'),
+            manifest: require('./dist/manifest.json'), // 用路径或者用require加载都可以
+        }),
+        // 插入js
+        // new AddAssetHtmlPlugin({
+        //   includeSourcemap: false,
+        //   filepath: join(__dirname, 'dist/dllLibrary.js'),
+        //   outputPath: '/',
+        //   publicPath: `${location.origin}/`
+        // }),
     ],
     devServer: {
         contentBase: join(__dirname, "dist"),
@@ -89,8 +102,9 @@ webpackConfig = {
         // 指定模块加载的查询顺序，特别是自定义模块
         modules: [resolve(__dirname, 'node_modules'), resolve(APP_PATH, 'util')],
         // 某个库做了同构处理，需要在 pagage.json 文件添加对应的配置，webpack 会根据 mainFields 来找
-        mainFields: ['main', 'browser', 'node'],
-        extensions: [".js", ".jsx", ".less", ".css", ".scss", '.json'], // 越靠前权重越高
+        // mainFields: ['main', 'browser', 'node'], // 暂时不需要
+        // 可省略文件后缀，越靠前权重越高
+        extensions: [".js", ".jsx", ".less", ".css", ".scss", '.json'],
         alias: {
             _root: APP_PATH,
             _components: resolve(APP_PATH, "webApp/components"),

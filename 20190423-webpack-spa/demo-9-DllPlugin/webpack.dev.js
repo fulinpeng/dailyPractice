@@ -97,6 +97,7 @@ const config = {
         //   outputPath: 'scripts',
           publicPath: `/`
         }),
+        // 引用 webpack.dll.js 中导出的库
         new webpack.DllReferencePlugin({
             manifest: join('dist/vendors_manifest.json'),
         }),
