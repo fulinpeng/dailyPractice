@@ -24,12 +24,6 @@
             _MyPromise.prototype = {
                 constructor : _MyPromise,
                 then : function (resolve, rejected) {
-                    // if (
-                    //     (!resolve || typeof resolve !== 'function') &&
-                    //     (!rejected || typeof rejected !== 'function')
-                    // ) {
-                    //     throw new Error('没有定义resolve或rejected');
-                    // }
                     var o = {
                         onResolve : resolve,
                         onRejected : rejected,
@@ -99,24 +93,24 @@
             };
             return _MyPromise;
         })();
-        // console.log(o);
+        // promise的 .then(...).then(...) 是【同步】的，内部的内容是在下一次事件循环才执行是【异步】的
         var o = new MyPromise(function (resolve) {
+            setTimeout(() => {
+                resolve('哈哈，第一次异步数据有了！');
+            }, 100);
             resolve('哈哈，第一次异步数据有了！');
-            // setTimeout(() => {
-            //     resolve('哈哈，第一次异步数据有了！');
-            // }, 1000);
         });
         o.then(function (data) {
             console.log('第一个promse：', data);
             return new MyPromise(function (resolve, rejected) {
-                // setTimeout(() => {
+                setTimeout(() => {
                     rejected('呵呵，第二次异步的错误数据！');
-                // }, 1000);
+                }, 1000);
             });
         }).then(null, function (data) {
             console.log('第二个promse：', data);
             return '这不是promise，嘿嘿！';
-            // 再次强调下：这个return是onRsolve的，不是then方法的。。。这个值赋给了p的
+            // 再次强调下：这个return是rsolve的，不是then方法的。。。这个值赋给了p的
         }).then(function (data) {
             console.log('第三个：', data);
         });

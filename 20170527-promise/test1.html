@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background:black;
+        }
+    </style>
+</head>
+<body>
+<script>
+    //快速排序
+
+    var arr=[2,34,55,3,1,45,67,78,23,26];
+    var quickSort = function(arr) {
+        if (arr.length <= 1)  return arr;
+        var pivotIndex = Math.floor(arr.length / 2);
+        var pivot = arr.splice(pivotIndex, 1)[0];
+        var left = [];
+        var right = [];
+        for (var i = 0; i<arr.length; i++) {
+            if (arr[i] < pivot) {
+                left.push(arr[i]);
+            } else {
+                right.push(arr[i]);
+            }
+        }
+        return quickSort(left).concat([pivot], quickSort(right));
+    };
+    console.log('快排', quickSort(arr))
+
+//JavaScript实现二分法查找
+
+
+
+// 非递归算法
+
+function binary_search(arr, key) {
+    var low = 0,
+        high = arr.length - 1;
+    while(low <= high){
+        var mid = parseInt((high + low) / 2);
+        if(key == arr[mid]){
+            return  mid;
+        }else if(key > arr[mid]){
+            low = mid + 1;
+        }else if(key < arr[mid]){
+            high = mid -1;
+        }else{
+            return -1;
+        }
+    }
+};
+var arr = [1,2,3,4,5,6,7,8,9,10,11,23,44,86];
+var result = binary_search(arr,10);
+console.log(result); // 9 返回目标元素的索引值
+//console.log(arr.indexOf(10));
+
+// 递归算法
+//function binary_search(arr,low, high, key) {
+//    if (low > high){
+//        return -1;
+//    }
+//    var mid = parseInt((high + low) / 2);
+//    if(arr[mid] == key){
+//        return mid;
+//    }else if (arr[mid] < key){
+//        high = mid - 1;
+//        return binary_search(arr, low, high, key);
+//    }else if (arr[mid] > key){
+//        low = mid + 1;
+//        return binary_search(arr, low, high, key);
+//    }
+//};
+//var arr = [1,2,3,4,5,6,7,8,9,10,11,23,44,86];
+//var result = binary_search(arr, 0, 13, 10);
+//console.log(result); // 9 返回目标元素的索引值
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
