@@ -94,7 +94,9 @@ create(null); // OK
 // create(undefined); // Error
 ///////////////////////////////////////////////////////
 // 类型断言
-// 尖括号 语法
+//    1. 变量声明的时候用 冒号 指定变量使用哪种接口类型、数据类型
+//    2. 参数申明的时候用 冒号
+//    3. 使用变量时用 尖括号(jsx中使用as)
 var someValue = "this is a string";
 var strLength1 = someValue.length;
 var strLength2 = someValue.length;

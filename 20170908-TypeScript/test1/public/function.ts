@@ -38,12 +38,23 @@ let myAdd1: (baseValue: number, increment: number) => number = function(
 ////////////////////////////////////////////////////
 // 推断类型
 // 在赋值语句的一边指定了类型但是另一边没有类型的话，TypeScript编译器会自动识别出类型
+// 所以就有两种写法
 let myAdd2 = function(x: number, y: number): number {
   return x + y;
 };
 let myAdd3: (baseValue: number, increment: number) => number = function(x, y) {
   return x + y;
 };
+
+// 定义函数类型(变量)有两种方式：
+//  1. => 方式
+//  2. function 方式
+let func1: (x: string) => string = function (xx) {
+  return xx;
+};
+function func2(x: string): string {
+  return x;
+}
 
 // 剩余参数
 function buildName(firstName: string, ...restOfName: string[]) {
@@ -82,6 +93,8 @@ let pickedCard2 = pickCard(15);
 type sumType = (a: number, b: number) => number;
 // 然后你就可以这样写了
 let fun: sumType;
+let fun2: sumType;
+let fun3: sumType;
 
 // never 返回值类型指的是
 // 永远不会执行完的函数或者没有返回值的函数
