@@ -7,6 +7,7 @@ const ENV_PRO = ENV == "production" ? true : false;
 const _mergeConfig = require(`./config/webpack.${ENV}.js`);
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HappyPack = require('happypack');
 
 const path = require("path");
 const { join, resolve } = path;
@@ -21,6 +22,7 @@ webpackConfig = {
         rules: [
             {
                 test: /\.(sa|sc)ss$/,
+                // use: 'happypack/loader?id=sass',
                 use: [
                     { loader: 'style-loader' },
                     {
@@ -35,6 +37,7 @@ webpackConfig = {
             },
             {
                 test: /\.css$/,
+                // use: 'happypack/loader?id=css', // 怎么加上插件啊用happypack时
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -47,7 +50,8 @@ webpackConfig = {
             },
             {
                 test: /\.(js|jsx)$/,
-                loader: "babel-loader",
+                use: 'happypack/loader?id=js',
+                // loader: "babel-loader",
                 exclude: /node_modules/,
                 // .babelrc 文件：evn 处理es6，stage-0 处理es7，react 处理react
             },
@@ -55,12 +59,13 @@ webpackConfig = {
             // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
             {
                 test: /\.(png|jpg|gif|svg|bmp|eot|woff|woff2|ttf)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 1024 * 5, // 字节
-                    name: 'images/[name].[hash:5].[ext]',
-                    // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
-                }
+                use: 'happypack/loader?id=img',
+                // loader: 'url-loader',
+                // options: {
+                //     limit: 1024 * 5, // 字节
+                //     name: 'images/[name].[hash:5].[ext]',
+                //     // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
+                // }
             },
         ]
     },
@@ -68,6 +73,53 @@ webpackConfig = {
         new CopyWebpackPlugin([
             { from: resolve(APP_PATH, "config/config.js"), to: 'config.js' }
         ]),
+        new HappyPack({
+            id: 'js',
+            threads: 2,
+            loaders: ['babel-loader']
+        }),
+        // new HappyPack({
+        //     id: 'css',
+        //     threads: 2,
+        //     loaders: [
+        //         { loader: 'style-loader' },
+        //         {
+        //             loader: MiniCssExtractPlugin.loader,
+        //             options: {
+        //                 publicPath: './'
+        //             }
+        //         },
+        //         { loader: 'css-loader' },
+        //         { loader: 'sass-loader' }
+        //     ]
+        // }),
+        // new HappyPack({
+        //     id: 'css',
+        //     threads: 2,
+        //     loaders: [
+        //         {
+        //             loader: MiniCssExtractPlugin.loader,
+        //             options: {
+        //                 publicPath: './'
+        //             }
+        //         },
+        //         { loader: 'css-loader' }
+        //     ]
+        // }),
+        new HappyPack({
+            id: 'img',
+            threads: 2,
+            loaders: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 1024 * 5, // 字节
+                        name: 'images/[name].[hash:5].[ext]',
+                        // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
+                    }
+                }
+            ]
+        }),
         new MiniCssExtractPlugin({
             filename: ENV_PRO ? "styles/[name].[hash:5].css" : "styles/[name].css",
             chunkFilename: ENV_PRO
