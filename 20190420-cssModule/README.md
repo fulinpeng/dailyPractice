@@ -48,4 +48,6 @@
 ## css模块化方案
 1. cssModule
 2. 用sass/less，加BEM命名规范
+    * https://blog.csdn.net/liwenfei123/article/details/77929527
+    * BEM: block-name__element--modifier (Block-name 可以用驼峰，也可以用 - 连接)
 3. 
