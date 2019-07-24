@@ -586,7 +586,6 @@
 .test-box h3 {
   margin: 1rem; }
 
-@charset "UTF-8";
 body,
 p,
 h1,
@@ -605,32 +604,40 @@ dd {
   padding: 0;
   font-family: "Microsoft Yahei", sans-serif;
   list-style: none;
-  cursor: default; }
-
+  cursor: default;
+}
 input,
 img {
   margin: 0;
   padding: 0;
   border: 0 none;
   outline-style: none;
-  vertical-align: bottom; }
-
+  vertical-align: bottom;
+}
 a,
 a:active,
 a:visited {
-  text-decoration: none; }
+  text-decoration: none;
+}
+
+a:hover {
+//   color: #333;
+}
 
 textarea {
   border: none;
   outline: none;
-  resize: none; }
+  resize: none;
+}
 
 i {
-  font-style: normal; }
+  font-style: normal;
+}
 
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0;
+}
 
 /* 使用伪元素清除浮动 */
 .clearfix::before,
@@ -640,49 +647,55 @@ table {
   line-height: 0;
   display: block;
   visibility: none;
-  clear: both; }
-
+  clear: both;
+}
 .clearfix {
-  *zoom: 1; }
-
+  *zoom: 1;
+}
 label {
   display: inline-block;
-  cursor: pointer; }
-
-body {
+  cursor: pointer;
+}
+body{
   background: #eff3f6;
-  color: #333333; }
-
+  color: #333333;
+}
+// 响应式
 @media screen and (max-width: 1024px) {
   .hidden-mobile {
-    display: none !important; }
+    display: none !important;
+  }
   .visible-mobile {
-    display: initial !important; } }
-
+    display: initial !important;
+  }
+}
 .visible-mobile {
-  display: none; }
-
+  display: none;
+}
+// 超出打点
 .sig-ellipsis {
   text-overflow: ellipsis;
   word-break: break-all;
   overflow: hidden;
-  white-space: nowrap; }
-
+  white-space: nowrap;
+}
 .mul-ellipsis {
   white-space: normal;
   -webkit-line-clamp: 3;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  overflow: hidden; }
-
+  overflow: hidden;
+}
+// 慎用
 .v-visible {
-  visibility: visible !important; }
-
+  visibility: visible !important;
+}
 .v-hidden {
-  visibility: hidden !important; }
-
+  visibility: hidden !important;
+}
 #root {
   letter-spacing: 0;
-  font-size: 0.14rem; }
+  font-size:0.14rem;
+}
 

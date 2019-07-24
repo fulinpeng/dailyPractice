@@ -19,5 +19,11 @@ store.runSaga = (saga) => {
   sagaMiddleware.run(saga)
 }
 console.log('store:', store);
-
+console.log('sssssssssssssssssssssssssssssssssss');
+console.log('sssssssssssssssssssssssssssssssssss');
+console.log('sssssssssssssssssssssssssssssssssss');
+console.log('sssssssssssssssssssssssssssssssssss');
+console.log('sssssssssssssssssssssssssssssssssss');
+var bb = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
+console.log('bb:', bb);
 export default store;

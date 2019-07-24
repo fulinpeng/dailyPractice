@@ -7,14 +7,12 @@ const ENV_PRO = ENV == "production" ? true : false;
 const _mergeConfig = require(`./config/webpack.${ENV}.js`);
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const HappyPack = require('happypack');
 
 const path = require("path");
 const { join, resolve } = path;
 const ROOT_PATH = resolve(__dirname);
 const APP_PATH = resolve(ROOT_PATH, "src");
-
-console.log('@@@@@@@@@--NODE_ENV:', process.env.NODE_ENV);
 
 webpackConfig = {
     entry: {
@@ -24,6 +22,7 @@ webpackConfig = {
         rules: [
             {
                 test: /\.(sa|sc)ss$/,
+                // use: 'happypack/loader?id=sass',
                 use: [
                     { loader: 'style-loader' },
                     {
@@ -38,6 +37,7 @@ webpackConfig = {
             },
             {
                 test: /\.css$/,
+                // use: 'happypack/loader?id=css', // 怎么加上插件啊用happypack时
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -50,7 +50,8 @@ webpackConfig = {
             },
             {
                 test: /\.(js|jsx)$/,
-                loader: "babel-loader",
+                use: 'happypack/loader?id=js',
+                // loader: "babel-loader",
                 exclude: /node_modules/,
                 // .babelrc 文件：evn 处理es6，stage-0 处理es7，react 处理react
             },
@@ -58,22 +59,67 @@ webpackConfig = {
             // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
             {
                 test: /\.(png|jpg|gif|svg|bmp|eot|woff|woff2|ttf)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 1024 * 5, // 字节
-                    name: 'images/[name].[hash:5].[ext]',
-                    // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
-                }
+                use: 'happypack/loader?id=img',
+                // loader: 'url-loader',
+                // options: {
+                //     limit: 1024 * 5, // 字节
+                //     name: 'images/[name].[hash:5].[ext]',
+                //     // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
+                // }
             },
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            _NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-        }),
         new CopyWebpackPlugin([
             { from: resolve(APP_PATH, "config/config.js"), to: 'config.js' }
         ]),
+        new HappyPack({
+            id: 'js',
+            threads: 2,
+            loaders: ['babel-loader']
+        }),
+        // new HappyPack({
+        //     id: 'css',
+        //     threads: 2,
+        //     loaders: [
+        //         { loader: 'style-loader' },
+        //         {
+        //             loader: MiniCssExtractPlugin.loader,
+        //             options: {
+        //                 publicPath: './'
+        //             }
+        //         },
+        //         { loader: 'css-loader' },
+        //         { loader: 'sass-loader' }
+        //     ]
+        // }),
+        // new HappyPack({
+        //     id: 'css',
+        //     threads: 2,
+        //     loaders: [
+        //         {
+        //             loader: MiniCssExtractPlugin.loader,
+        //             options: {
+        //                 publicPath: './'
+        //             }
+        //         },
+        //         { loader: 'css-loader' }
+        //     ]
+        // }),
+        new HappyPack({
+            id: 'img',
+            threads: 2,
+            loaders: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 1024 * 5, // 字节
+                        name: 'images/[name].[hash:5].[ext]',
+                        // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
+                    }
+                }
+            ]
+        }),
         new MiniCssExtractPlugin({
             filename: ENV_PRO ? "styles/[name].[hash:5].css" : "styles/[name].css",
             chunkFilename: ENV_PRO
@@ -96,22 +142,6 @@ webpackConfig = {
         //   filepath: join(__dirname, 'dist/dllLibrary.js'),
         //   outputPath: '/',
         //   publicPath: `${location.origin}/`
-        // }),
-        // 开启多核打包，但是报错...
-        // new WebpackParallelUglifyPlugin({
-        //     workerCount: 3,
-        //     uglifyJS: {
-        //         output: {
-        //             beautify: false, // 不格式化
-        //             comments: false, // 不保留注释
-        //         },
-        //         compress: {
-        //             warnings: false, // 去掉warnings
-        //             drop_console: true, // 去掉console
-        //             collapse_vars: true, // 内嵌只使用了一次变量
-        //             reduce_vars: true, // 多次使用的字符串，申明成变量
-        //         }
-        //     }
         // }),
     ],
     devServer: {

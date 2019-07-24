@@ -43,3 +43,6 @@ ReactDOM.render(
   fontSizeAuto(viewpor_max)();
   win.onresize = fontSizeAuto(viewpor_max);
 })(window, document);
+
+
+console.log('@@@@@@@@@--NODE_ENV:', _NODE_ENV);

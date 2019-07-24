@@ -5,7 +5,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 打包进�
 module.exports = {
     output: {
         filename: "scripts/[name].[hash:5].bundles.js",
-        publicPath: "/"
+        publicPath: "http://www.baidu.com/", // 生产环境一般配CDN地址
     },
     plugins: [
         new CleanWebpackPlugin(["dist"]),

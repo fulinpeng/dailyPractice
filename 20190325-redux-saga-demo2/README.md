@@ -18,3 +18,5 @@
 # 补充
 * 什么是同构？做多个平台兼容的过程叫同构
     * mainFields配置 见 20190423-webpack-spa/demo-12-mainFields/
+
+    * cross-env 可以跨平台设置参数
