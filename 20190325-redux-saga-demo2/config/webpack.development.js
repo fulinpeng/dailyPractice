@@ -1,4 +1,6 @@
-
+const webpack = require('webpack');
+const path = require("path");
+const { join, resolve } = path;
 module.exports = {
     output: {
         filename: "scripts/[name].bundles.js",
@@ -10,5 +12,14 @@ module.exports = {
         ignored: /node_modules/,
         poll: 1000,
         aggregateTimeout: 500,
-    }
+    },
+    devServer: {
+        contentBase: join(__dirname, "dist"),
+        compress: true,
+        port: 9000
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(), // 热更新插件
+        new webpack.NoEmitOnErrorsPlugin(), // 即使有错误也不中断运行
+    ]
 }

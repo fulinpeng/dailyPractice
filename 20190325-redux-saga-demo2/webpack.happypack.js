@@ -7,12 +7,21 @@ const ENV_PRO = ENV == "production" ? true : false;
 const _mergeConfig = require(`./config/webpack.${ENV}.js`);
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const os = require('os');
 const HappyPack = require('happypack');
-
+console.log('@@@@@@@@@--cpus:', os.cpus().length);
+const happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length-1 || 2});
 const path = require("path");
 const { join, resolve } = path;
 const ROOT_PATH = resolve(__dirname);
 const APP_PATH = resolve(ROOT_PATH, "src");
+
+// 保证开发时能使用icon，不知道是否有用???
+const iconConfig = {
+    'modifyVars': {
+        '@icon-url': '"/antd/dist/iconfont"'
+    }
+}
 
 webpackConfig = {
     entry: {
@@ -22,102 +31,78 @@ webpackConfig = {
         rules: [
             {
                 test: /\.(sa|sc)ss$/,
-                // use: 'happypack/loader?id=sass',
-                use: [
-                    { loader: 'style-loader' },
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: './'
-                        }
-                    },
-                    { loader: 'css-loader' },
-                    { loader: 'sass-loader' }
-                ]
+                use: 'happypack/loader?id=sass',
             },
             {
                 test: /\.css$/,
-                // use: 'happypack/loader?id=css', // 怎么加上插件啊用happypack时
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: './'
-                        }
-                    },
-                    { loader: 'css-loader' }
-                ]
+                use: 'happypack/loader?id=css', // 怎么加上插件是一样的，只是换了个位置
             },
             {
                 test: /\.(js|jsx)$/,
                 use: 'happypack/loader?id=js',
-                // loader: "babel-loader",
                 exclude: /node_modules/,
+                include: [APP_PATH]
                 // .babelrc 文件：evn 处理es6，stage-0 处理es7，react 处理react
             },
             // file-loader 解析图片地址，把图片拷贝到目标位置并修改引用地址
             // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
             {
-                test: /\.(png|jpg|gif|svg|bmp|eot|woff|woff2|ttf)$/,
-                use: 'happypack/loader?id=img',
-                // loader: 'url-loader',
-                // options: {
-                //     limit: 1024 * 5, // 字节
-                //     name: 'images/[name].[hash:5].[ext]',
-                //     // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
-                // }
+                test: /\.(png|jpe?g|gif|svg|bmp|eot|woff|woff2|ttf)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 1024 * 5, // 字节
+                            name: 'images/[name].[hash:5].[ext]',
+                            // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果)
+                        }
+                    }
+                ],
+                exclude: /node_modules/,
+                include: [APP_PATH]
             },
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            _NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        }),
         new CopyWebpackPlugin([
             { from: resolve(APP_PATH, "config/config.js"), to: 'config.js' }
         ]),
         new HappyPack({
             id: 'js',
-            threads: 2,
+            // threads: 7, // 用这个代替 threadPool 也是可以的
+            threadPool: happyThreadPool,
             loaders: ['babel-loader']
         }),
-        // new HappyPack({
-        //     id: 'css',
-        //     threads: 2,
-        //     loaders: [
-        //         { loader: 'style-loader' },
-        //         {
-        //             loader: MiniCssExtractPlugin.loader,
-        //             options: {
-        //                 publicPath: './'
-        //             }
-        //         },
-        //         { loader: 'css-loader' },
-        //         { loader: 'sass-loader' }
-        //     ]
-        // }),
-        // new HappyPack({
-        //     id: 'css',
-        //     threads: 2,
-        //     loaders: [
-        //         {
-        //             loader: MiniCssExtractPlugin.loader,
-        //             options: {
-        //                 publicPath: './'
-        //             }
-        //         },
-        //         { loader: 'css-loader' }
-        //     ]
-        // }),
         new HappyPack({
-            id: 'img',
-            threads: 2,
+            id: 'css',
+            threadPool: happyThreadPool,
             loaders: [
+                { loader: 'style-loader' },
                 {
-                    loader: 'url-loader',
+                    loader: MiniCssExtractPlugin.loader,
                     options: {
-                        limit: 1024 * 5, // 字节
-                        name: 'images/[name].[hash:5].[ext]',
-                        // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
+                        publicPath: './'
                     }
-                }
+                },
+                { loader: 'css-loader' }
+            ]
+        }),
+        new HappyPack({
+            id: 'sass',
+            threadPool: happyThreadPool,
+            loaders: [
+                { loader: 'style-loader' },
+                {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        publicPath: './'
+                    }
+                },
+                { loader: 'css-loader' },
+                { loader: `sass-loader?${JSON.stringify(iconConfig)}` }
             ]
         }),
         new MiniCssExtractPlugin({
@@ -144,11 +129,6 @@ webpackConfig = {
         //   publicPath: `${location.origin}/`
         // }),
     ],
-    devServer: {
-        contentBase: join(__dirname, "dist"),
-        compress: true,
-        port: 9000
-    },
     // 解析：当加载一个文件的时候，按照如下的规则顺序查找
     resolve: {
         // 指定模块加载的查询顺序，特别是自定义模块

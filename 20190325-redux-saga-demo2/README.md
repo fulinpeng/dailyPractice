@@ -20,3 +20,5 @@
     * mainFields配置 见 20190423-webpack-spa/demo-12-mainFields/
 
     * cross-env 可以跨平台设置参数
+* package.json 的 script 标签，其实执行的是：node_modules/.bin下面的文件
+    * node_modules/.bin/webpack-dev-server 等同于 webpack-dev-server

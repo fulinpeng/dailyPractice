@@ -1,5 +1,6 @@
 .layout-box {
-  display: flex; }
+  display: flex;
+  background: url("/Dashboard.png"); }
   .layout-box aside {
     width: 3rem;
     background: #38324a;

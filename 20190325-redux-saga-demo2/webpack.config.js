@@ -57,12 +57,12 @@ webpackConfig = {
             // file-loader 解析图片地址，把图片拷贝到目标位置并修改引用地址
             // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
             {
-                test: /\.(png|jpg|gif|svg|bmp|eot|woff|woff2|ttf)$/,
+                test: /\.(png|jpe?g|gif|svg|bmp|eot|woff|woff2|ttf)$/,
                 loader: 'url-loader',
                 options: {
                     limit: 1024 * 5, // 字节
                     name: 'images/[name].[hash:5].[ext]',
-                    // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果就一起咯)
+                    // outputPath: 'images/', // 文件输入目录(指定name也可以达到效果)
                 }
             },
         ]
@@ -114,11 +114,6 @@ webpackConfig = {
         //     }
         // }),
     ],
-    devServer: {
-        contentBase: join(__dirname, "dist"),
-        compress: true,
-        port: 9000
-    },
     // 解析：当加载一个文件的时候，按照如下的规则顺序查找
     resolve: {
         // 指定模块加载的查询顺序，特别是自定义模块

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development",
+    "happypack": "cross-env NODE_ENV=happypack webpack --config webpack.happypack.js --mode production",
     "prod": "cross-env NODE_ENV=production webpack --mode production",
     "dll": "cross-env NODE_ENV=development webpack --config webpack.dll.js --mode development"
   },
@@ -21,6 +22,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.3",
     "mockjs": "^1.0.1-beta3",
+    "os": "^0.1.1",
     "progress-bar-webpack-plugin": "^1.12.1",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
