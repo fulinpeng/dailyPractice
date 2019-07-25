@@ -16,7 +16,9 @@ module.exports = {
     devServer: {
         contentBase: join(__dirname, "dist"),
         compress: true,
-        port: 9000
+        port: 9000,
+        inline: true,
+        hot: true,
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(), // 热更新插件

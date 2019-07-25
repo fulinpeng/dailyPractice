@@ -1,7 +1,6 @@
 /*
  * @Description: 项目配置文件
   */
- import globalConfig from './config'
 
 let config = {}
 
@@ -12,7 +11,7 @@ export default {
    */
   merge(srcConfig) {
     config = {
-      ...globalConfig,
+      ...baseconfig,
       ...srcConfig
     }
   },

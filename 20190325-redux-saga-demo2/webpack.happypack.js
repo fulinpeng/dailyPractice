@@ -15,6 +15,7 @@ const path = require("path");
 const { join, resolve } = path;
 const ROOT_PATH = resolve(__dirname);
 const APP_PATH = resolve(ROOT_PATH, "src");
+const ModuleConcatenationPlugina = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 
 // 保证开发时能使用icon，不知道是否有用???
 const iconConfig = {
@@ -70,6 +71,7 @@ webpackConfig = {
         new CopyWebpackPlugin([
             { from: resolve(APP_PATH, "config/config.js"), to: 'config.js' }
         ]),
+        new ModuleConcatenationPlugina(), // 开启 Scope Hoisting
         new HappyPack({
             id: 'js',
             // threads: 7, // 用这个代替 threadPool 也是可以的

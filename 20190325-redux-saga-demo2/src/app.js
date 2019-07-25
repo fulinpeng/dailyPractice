@@ -46,3 +46,17 @@ ReactDOM.render(
 
 
 console.log('@@@@@@@@@--NODE_ENV:', _NODE_ENV);
+
+import testModuleHot from './test.module.hot';
+function render_test_module_hot(msg) {
+  console.log('@@@@@@@@@--test.module.hot:', msg);
+}
+render_test_module_hot(testModuleHot);
+
+if (module.hot) {
+  module.hot.accept('./test.module.hot', function () {
+    let testModuleHot = require('./test.module.hot');
+    render_test_module_hot(testModuleHot);
+  });
+}
+

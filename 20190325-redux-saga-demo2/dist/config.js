@@ -8,7 +8,7 @@ window.link_one_config = {
     // ...
 };
 
-export default {
+window.baseconfig = {
     // 是否使用mock模式，在mock模式下向服务器的请求被mockjs拦截
     mock: true, // search.indexOf('mock') !== -1,
     // 是否使用proxy模式，在proxy模式下会使用proxy的url来替换原来的url

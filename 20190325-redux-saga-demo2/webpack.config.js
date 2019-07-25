@@ -8,6 +8,7 @@ const _mergeConfig = require(`./config/webpack.${ENV}.js`);
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const ModuleConcatenationPlugina = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 
 const path = require("path");
 const { join, resolve } = path;
@@ -113,6 +114,7 @@ webpackConfig = {
         //         }
         //     }
         // }),
+        new ModuleConcatenationPlugina(), // 开启 Scope Hoisting
     ],
     // 解析：当加载一个文件的时候，按照如下的规则顺序查找
     resolve: {
