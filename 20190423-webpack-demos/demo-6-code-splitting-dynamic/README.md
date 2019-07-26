@@ -10,9 +10,9 @@
         )
     ```
     * `/* webpackChunkName: "main" */`用来定义vender的模块前缀名(即替换chunkFilename中的[name])
-    * `/* webpackPrefetch: true */`用来自动向index.html中注入预加载标签
+    * `/* webpackPrefetch: true */`用来自动向index.html中注入预加载标签，如下所示，就成功了
     ```html
-        <link rel="prefetch" as="script" href="/main-chunkbundle.js">
+        <link rel="prefetch" as="script" href="/importModule-8ed3760b3cc1dde3c186.js">
     ```
 
 * 原理：

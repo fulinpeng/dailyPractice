@@ -9,6 +9,7 @@ import FixedModel from "_components/fixedModel";
 import PhoneButton from "_components/phoneButton";
 import PeoplePanel from "_containers/peoplePanel";
 import AddAndEditPeople from "_containers/addAndEditPeople";
+import TestCommonChunk from "_components/testCommonChunk";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -337,6 +338,7 @@ class Dashboard extends Component {
         </div>
         {fixedModelState && <FixedModel onClick={this.changeFixedModelState}>
           <div className="btns-wrap-mobile">
+        <TestCommonChunk/>
             <div className="tip">选择功能</div>
             <PhoneButton onClick={this.changeFixedModelState}>搜索</PhoneButton>
             <PhoneButton onClick={this.changeAddPeopleState}>添加</PhoneButton>

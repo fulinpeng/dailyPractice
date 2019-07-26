@@ -56,6 +56,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new webpack.HashedModuleIdsPlugin(),
         new HtmlWebpackPlugin({
             title: 'cash',
             // template: join('index.html'),

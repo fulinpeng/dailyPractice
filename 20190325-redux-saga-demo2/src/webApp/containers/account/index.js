@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import "./index.scss";
+import TestCommonChunk from "_components/testCommonChunk";
 class Account extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +11,7 @@ class Account extends Component {
     return (
       <div className="account-wrap">
         <h1>Account</h1>
+        <TestCommonChunk/>
       </div>
     );
   }

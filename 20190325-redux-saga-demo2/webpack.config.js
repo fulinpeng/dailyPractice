@@ -7,7 +7,6 @@ const ENV_PRO = ENV == "production" ? true : false;
 const _mergeConfig = require(`./config/webpack.${ENV}.js`);
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const ModuleConcatenationPlugina = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 
 const path = require("path");
@@ -68,6 +67,25 @@ webpackConfig = {
             },
         ]
     },
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             // async chunk入口引入的分离为 common
+    //             app: {
+    //                 test: /[\\/]src[\\/]/,
+    //                 chunks: 'all',
+    //                 minChunks: 2,
+    //                 name: 'common',
+    //             },
+    //             // node_modules 里的分离为 vendor
+    //             vendor: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 chunks: 'all',
+    //                 name: 'vendor',
+    //             },
+    //         }
+    //     }
+    // },
     plugins: [
         new webpack.DefinePlugin({
             _NODE_ENV: JSON.stringify(process.env.NODE_ENV)
@@ -98,22 +116,6 @@ webpackConfig = {
         //   outputPath: '/',
         //   publicPath: `${location.origin}/`
         // }),
-        // 开启多核打包，但是报错...
-        // new WebpackParallelUglifyPlugin({
-        //     workerCount: 3,
-        //     uglifyJS: {
-        //         output: {
-        //             beautify: false, // 不格式化
-        //             comments: false, // 不保留注释
-        //         },
-        //         compress: {
-        //             warnings: false, // 去掉warnings
-        //             drop_console: true, // 去掉console
-        //             collapse_vars: true, // 内嵌只使用了一次变量
-        //             reduce_vars: true, // 多次使用的字符串，申明成变量
-        //         }
-        //     }
-        // }),
         new ModuleConcatenationPlugina(), // 开启 Scope Hoisting
     ],
     // 解析：当加载一个文件的时候，按照如下的规则顺序查找
@@ -127,7 +129,8 @@ webpackConfig = {
         alias: {
             _root: APP_PATH,
             _components: resolve(APP_PATH, "webApp/components"),
-            _containers: resolve(APP_PATH, "webApp/containers")
+            _containers: resolve(APP_PATH, "webApp/containers"),
+            _util: resolve(APP_PATH, "util"),
         }
     }
 };

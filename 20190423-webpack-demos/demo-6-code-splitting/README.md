@@ -6,3 +6,8 @@
 * index.html中会先引入vender包，再引入entry中配置的包
 # 问题
 * webpack得配置文件放到bulid目录下，entry 这样配置 `app: '../src/index.js'` ，就会报错！为什么？
+
+
+* 只是代码分离，并缓存
+    * 别和commonsChunk搞混了
+    * webpack.optimize.CommonsChunkPlugin 已经被移除了，用 config.optimization.splitChunks 代替

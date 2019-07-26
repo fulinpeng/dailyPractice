@@ -20,7 +20,7 @@ module.exports = merge(common, {
                 return chunk.name !== 'XXXX';
             },
             minSize: 1000,
-            maxSize: 30000,
+            maxSize: 30000, // 生成的包最大不能超过这个值，超过了就拆开
             minChunks: 2, // 至少被引用2次才分离成chunk
             maxAsyncRequests: 5, // 按需加载时并行请求的最大数量
             maxInitialRequests: 2, // 一个入口点的最大数量的并行请求

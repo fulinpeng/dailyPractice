@@ -22,3 +22,10 @@
     * cross-env 可以跨平台设置参数
 * package.json 的 script 标签，其实执行的是：node_modules/.bin下面的文件
     * node_modules/.bin/webpack-dev-server 等同于 webpack-dev-server
+
+* 预加载还是没有成功
+* 代码分割是可以了，按需加载也是可以的了
+* 用了 dll 就不用 vendor: ['jquery', 'other-lib'] 了，对不？
+
+* 发现一个规律：
+    * filename 才可以通过`[name]`动态定义name，name字段不可以

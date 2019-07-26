@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import AsyncComponent from './asyncComponent.js';
 
@@ -18,10 +18,14 @@ const ImportModule = AsyncComponent(() => import(
 
 ReactDOM.render(
     <Router>
-        <Route path="/" component={Main}>
-            <Route path="/main" component={Main} />
-            <Route path="/importModule" component={ImportModule} />
-        </Route>
+        {/* route外面必须包一层dev不然提示警告 */}
+        <div>
+            <Route path="/" component={Main}/>
+            <Switch>
+                <Route path="/main" component={Main} />
+                <Route path="/importModule" component={ImportModule} />
+            </Switch>
+        </div>
     </Router>,
     document.getElementById("root")
 )

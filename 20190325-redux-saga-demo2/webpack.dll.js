@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const path = require("path");
 const { join } = path;
@@ -13,6 +14,7 @@ dllConfig = {
         library: "[name]_[hash]", // 合成的新库代码内部模块的名字
     },
     plugins: [
+        new CleanWebpackPlugin(["dist"]),
         new webpack.DllPlugin({
             // context: join(__dirname, "./dist"),
             name: "[name]_[hash]", // name 值要和上面的 library 一致

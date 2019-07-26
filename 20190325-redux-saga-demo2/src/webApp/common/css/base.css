@@ -33,7 +33,7 @@ a:visited {
 }
 
 a:hover {
-//   color: #333;
+  color: #333;
 }
 
 textarea {
@@ -72,7 +72,7 @@ body{
   background: #eff3f6;
   color: #333333;
 }
-// 响应式
+
 @media screen and (max-width: 1024px) {
   .hidden-mobile {
     display: none !important;
@@ -84,7 +84,7 @@ body{
 .visible-mobile {
   display: none;
 }
-// 超出打点
+
 .sig-ellipsis {
   text-overflow: ellipsis;
   word-break: break-all;
@@ -99,7 +99,7 @@ body{
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-// 慎用
+
 .v-visible {
   visibility: visible !important;
 }
@@ -109,4 +109,7 @@ body{
 #root {
   letter-spacing: 0;
   font-size:0.14rem;
+}
+.display-none{
+  display: none;
 }

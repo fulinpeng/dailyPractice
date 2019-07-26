@@ -10,6 +10,5 @@ module.exports = merge(common, {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production') // 在所有src的模块中都能访问到process.env变量
         }),
-        new webpack.HashedModuleIdsPlugin(),
     ],
 });

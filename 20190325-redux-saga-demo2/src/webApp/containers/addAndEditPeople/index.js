@@ -7,6 +7,7 @@ import "./index.scss";
 import Input from "_components/input";
 import Button from "_components/button";
 import Textarea from "_components/textarea";
+import TestCommonChunk from "_components/testCommonChunk";
 class AddAndEditPeople extends Component {
   constructor(props) {
     super(props);
@@ -68,6 +69,7 @@ class AddAndEditPeople extends Component {
         <div className="user-pic">
           <img src={data.head || require("../../images/user-0.png")} />
         </div>
+        <TestCommonChunk/>
         <div className="edit-user-info">
           <div className="input-box">
             <Input
