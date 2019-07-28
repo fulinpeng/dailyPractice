@@ -1,10 +1,8 @@
 # 项目结构
 * ...
 
-# 运行
-* npm run dev
-
 * --mode development
+    * 不提供此参数，有警告，但是可以不提供
     * 这种方式提供参数，可以不用配置开发工具，因为内部都做了
     * 只能是 development、production
 
@@ -12,19 +10,11 @@
 * css压缩
 * js console.log 要去掉
 * treeshaking有吗
-* 清理dist目录好像无效
 * http请求的错误被吞了
 
-# 补充
-* 什么是同构？做多个平台兼容的过程叫同构
-    * mainFields配置 见 20190423-webpack-spa/demo-12-mainFields/
-
-    * cross-env 可以跨平台设置参数
-* package.json 的 script 标签，其实执行的是：node_modules/.bin下面的文件
-    * node_modules/.bin/webpack-dev-server 等同于 webpack-dev-server
-
-* 按需加载、懒加载
-    * bundle-loader
+# 按需加载、懒加载
+1. bundle-loader
+    * 路由的话，得放到组件的component中才行
     * 测试的时候，自动合并了vender，没有吧bundle-loader的内容分离出来，好像是缓存了
         * 第二天改成了这种方式，然后再改回去，就可以了，确定了是缓存的问题
         ```js
@@ -33,9 +23,26 @@
     * 用 include 可以， exclude 字段居然不行
     * 实现了懒加载，就不能分离出公共的chunk了，反正就是报错
         * 可能需要插件，去判断哪个先执行吧，得先提取了公共chunk再进行懒加载处理才行
+2. 自定义Bundle组件加载，引入模块必须得用 import
+    * 例子在webApp/layout/index.js 中，懒加载组件为 TestLazyLoad
 
-* 预加载还是没有成功
+# 预加载
+* 点击的例子在webApp/layout/index.js 中，路由的例子在webApp/index.js中
+* 出现下面表现时说明预加载成功
+    * 浏览器网页头部有 <link rel="prefetch" as="script" href="/scripts/async-9-b076c.js">
+    * 当点击按扭，加载该条js，http状态码为 Status Code: 200 OK (from disk cache)
+
 * 用了 dll 就不用 vendor: ['jquery', 'other-lib'] 了，对不？
 
 * 发现一个规律：
-    * filename 才可以通过`[name]`动态定义name，name字段不可以
+    * plugin中 filename 才可以通过`[name]`动态定义name，name字段不可以
+    * loader中name字段也是
+    * /笑哭/
+
+# 补充
+* 什么是同构？做多个平台兼容的过程叫同构
+    * mainFields配置 见 20190423-webpack-spa/demo-12-mainFields/
+
+    * cross-env 可以跨平台设置参数
+* package.json 的 script 标签，其实执行的是：node_modules/.bin下面的文件
+    * node_modules/.bin/webpack-dev-server 等同于 webpack-dev-server

@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{230:function(e,n,t){"use strict";t.r(n);var s=t(1),r=t.n(s);n.default=class extends s.Component{constructor(e){super(e),this.state={}}render(){return r.a.createElement("div",null,"TestLazyLoad")}}}}]);

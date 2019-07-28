@@ -20,7 +20,7 @@ module.exports = {
     //         chunks: 'all', // 哪些模块参与splitChunks，值为(all, async, initial, 函数)
     //         minSize: 1000,
     //         maxSize: 1000000, // 生成的包最大不能超过这个值，超过了就自动拆开
-    //         minChunks: 1, // 默认为1
+    //         minChunks: 2, // 默认为1
     //         maxAsyncRequests: 5, // 按需加载时并行请求的最大数量
     //         maxInitialRequests: 3, // 一个入口点的最大数量的并行请求
     //         automaticNameDelimiter: '-', // 指定分隔符 vendors-main.js
@@ -44,39 +44,6 @@ module.exports = {
     //                 test: /[\\/]src[\\/]/,
     //                 filename: 'scripts/[name]-vendor.js',
     //             },
-    //             // 设想：下面这样可以配合预加载，唉，不得行...
-    //             // layout: {
-    //             //     test: /[\\/]webApp[\\/]layout[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // dashboard: {
-    //             //     test: /[\\/]containers[\\/]dashboard[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // courses: {
-    //             //     test: /[\\/]containers[\\/]courses[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // forum: {
-    //             //     test: /[\\/]containers[\\/]forum[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // account: {
-    //             //     test: /[\\/]containers[\\/]account[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // messages: {
-    //             //     test: /[\\/]containers[\\/]messages[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // logout: {
-    //             //     test: /[\\/]containers[\\/]logout[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
-    //             // test: {
-    //             //     test: /[\\/]containers[\\/]test[\\/]/,
-    //             //     filename: 'scripts/[name]-vendor.js',
-    //             // },
     //         }
     //     }
     // },

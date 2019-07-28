@@ -52,25 +52,25 @@ webpackConfig = {
             {
                 test: /\.(js|jsx)$/,
                 loader: "babel-loader",
-                // exclude: /node_modules/,
-                exclude: /(node_modules)|(asyncModules)/,
+                exclude: /node_modules/,
+                // exclude: /(node_modules)|(asyncModules)/,
                 // .babelrc 文件：evn 处理es6，stage-0 处理es7，react 处理react
             },
-            {
-                test: /\.(js|jsx)$/,
-                include: /asyncModules/,
-                // exclude: /((?!asyncModules).)*/,
-                use: [
-                    {
-                        loader: 'bundle-loader',
-                        options: {
-                            lazy: true,
-                            // name: 'async-[name]',
-                        }
-                    },
-                    { loader: 'babel-loader' },
-                ],
-            },
+            // {
+            //     test: /\.(js|jsx)$/,
+            //     include: /asyncModules/,
+            //     // exclude: /((?!asyncModules).)*/,
+            //     use: [
+            //         {
+            //             loader: 'bundle-loader',
+            //             options: {
+            //                 lazy: true,
+            //                 // name: 'async-[name]',
+            //             }
+            //         },
+            //         { loader: 'babel-loader' },
+            //     ],
+            // },
             // file-loader 解析图片地址，把图片拷贝到目标位置并修改引用地址
             // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
             {

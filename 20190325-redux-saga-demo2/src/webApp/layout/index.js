@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import "./index.scss";
 import { NavLink, Route } from 'react-router-dom';
 
+import Bundle from '_util/bundle'
+const Welcome = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'./testLazyLoad')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+);
 
 const loginUser = {
   name: "Ramkumar k",
@@ -54,11 +60,17 @@ class Layout extends Component {
 
   state = {
     menuState: 0, // 当前导航栏处于第0个
+    testLazyLoad: false,
   }
 
   // 点击导航条，修改路由，当前按钮处于active状态
   changeMenuState = i => {
     this.setState({ menuState: i });
+  }
+  onClick = () => {
+    this.setState({
+      testLazyLoad: true
+    });
   }
 
   render() {
@@ -71,7 +83,9 @@ class Layout extends Component {
               <img src={require("../images/user-1.png")} />
             </div>
             <div className="info-desc">
-              <div className="welcome">Welcome</div>
+              <div className="welcome" onClick={this.onClick}>
+                {this.state.testLazyLoad ? <Welcome/> : 'LazyLoad'}
+              </div>
               <div className="name">{loginUser.name}</div>
               <div className="type">{loginUser.type}</div>
             </div>

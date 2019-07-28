@@ -40,22 +40,60 @@ import Layout from "_root/webApp/layout";
 // import testLoder from "_containers/asyncModules/test";
 
 // 3. import(...) 方式加载
-const dashboardLoder = import("_containers/asyncModules/dashboard");
-const coursesLoder = import("_containers/asyncModules/courses");
-const forumLoder = import("_containers/asyncModules/forum");
-const accountLoder = import("_containers/asyncModules/account");
-const messagesLoder = import("_containers/asyncModules/messages");
-const logoutLoder = import("_containers/asyncModules/logout");
-const testLoder = import("_containers/asyncModules/test");
+// const dashboardLoder = import("_containers/asyncModules/dashboard");
+// const coursesLoder = import("_containers/asyncModules/courses");
+// const forumLoder = import("_containers/asyncModules/forum");
+// const accountLoder = import("_containers/asyncModules/account");
+// const messagesLoder = import("_containers/asyncModules/messages");
+// const logoutLoder = import("_containers/asyncModules/logout");
+// const testLoder = import("_containers/asyncModules/test");
 
 // 处理成懒加载组件
-const Dashboard = ImportComponent(dashboardLoder);
-const Courses = ImportComponent(coursesLoder);
-const Forum = ImportComponent(forumLoder);
-const Account = ImportComponent(accountLoder);
-const Messages = ImportComponent(messagesLoder);
-const Logout = ImportComponent(logoutLoder);
-const Test = ImportComponent(testLoder);
+// const Dashboard = ImportComponent(dashboardLoder);
+// const Courses = ImportComponent(coursesLoder);
+// const Forum = ImportComponent(forumLoder);
+// const Account = ImportComponent(accountLoder);
+// const Messages = ImportComponent(messagesLoder);
+// const Logout = ImportComponent(logoutLoder);
+// const Test = ImportComponent(testLoder);
+
+// 4. Bundle组件，预加载懒加载组件（注意要把webpack.config中那个asyncModules别排除掉，也别使用bundle-loader）
+import Bundle from '_util/bundle'
+const Dashboard = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/dashboard')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
+const Courses = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/courses')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
+const Forum = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/forum')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
+const Account = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/account')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
+const Messages = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/messages')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
+const Logout = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/logout')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
+const Test = (props) => (
+  <Bundle loader={() => import(/* webpackPrefetch: true */'_containers/asyncModules/test')}>
+      {(C) => <C {...props}/>}
+  </Bundle>
+)
 
 class WebApp extends Component {
   render() {
@@ -72,7 +110,7 @@ class WebApp extends Component {
             <Route path="/account" component={Account}/>
             <Route path="/messages" component={Messages}/>
             <Route path="/logout" component={Logout}/>
-            <Route path="/test" component={Test}/>
+            <Route path="/test" render={()=><Test/>}/>
           </Layout>
         </Route>
       </Router>
