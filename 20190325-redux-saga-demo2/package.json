@@ -5,16 +5,17 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development",
-    "happypack": "cross-env NODE_ENV=happypack webpack --config webpack.happypack.js --mode production",
-    "prod": "cross-env NODE_ENV=production webpack --mode production",
-    "dll": "cross-env NODE_ENV=development webpack --config webpack.dll.js --mode development"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server",
+    "happypack": "cross-env NODE_ENV=happypack webpack --config webpack.happypack.js",
+    "prod": "cross-env NODE_ENV=production webpack",
+    "dll": "cross-env NODE_ENV=development webpack --config webpack.dll.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.4.0",
+    "bundle-loader": "^0.5.6",
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",

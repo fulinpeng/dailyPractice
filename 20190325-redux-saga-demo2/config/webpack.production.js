@@ -6,7 +6,7 @@ module.exports = {
     output: {
         filename: "scripts/[name].[hash:5].bundles.js", // entry chunk 文件名
         publicPath: "/", // 生产环境一般配CDN地址
-        chunkFilename: 'scripts/async-[name]-[contenthash].js', // 决定non-entry块文件的名称
+        chunkFilename: 'scripts/async-[name]-[contenthash:5].js', // 决定non-entry块文件的名称
     },
     // 用了分离，就不能用按需加载了...
     // optimization: {

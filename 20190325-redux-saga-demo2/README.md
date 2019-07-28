@@ -23,8 +23,18 @@
 * package.json 的 script 标签，其实执行的是：node_modules/.bin下面的文件
     * node_modules/.bin/webpack-dev-server 等同于 webpack-dev-server
 
+* 按需加载、懒加载
+    * bundle-loader
+    * 测试的时候，自动合并了vender，没有吧bundle-loader的内容分离出来，好像是缓存了
+        * 第二天改成了这种方式，然后再改回去，就可以了，确定了是缓存的问题
+        ```js
+        import forumLoder from "bundle-loader?lazy!_containers/asyncModules/forum";
+        ```
+    * 用 include 可以， exclude 字段居然不行
+    * 实现了懒加载，就不能分离出公共的chunk了，反正就是报错
+        * 可能需要插件，去判断哪个先执行吧，得先提取了公共chunk再进行懒加载处理才行
+
 * 预加载还是没有成功
-* 代码分割是可以了，按需加载也是可以的了
 * 用了 dll 就不用 vendor: ['jquery', 'other-lib'] 了，对不？
 
 * 发现一个规律：

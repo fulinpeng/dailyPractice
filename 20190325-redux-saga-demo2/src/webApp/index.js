@@ -5,60 +5,57 @@
 import React, { Component } from "react";
 import { HashRouter as Router, Route} from "react-router-dom";
 
+import ImportComponent from '_util/importComponent.js';
+
 // 容器组件
-// import Layout from "_root/webApp/layout";
-// import Dashboard from "_containers/dashboard";
-// import Courses from "_containers/courses";
-// import Forum from "_containers/forum";
-// import Account from "_containers/account";
-// import Messages from "_containers/messages";
-// import Logout from "_containers/logout";
-// import Test from "_containers/test";
+import Layout from "_root/webApp/layout";
 
-// 借用 AsyncComponent 实现：按需加载
-// 借用 webpackPrefetch 实现：预先加载
-import AsyncComponent from '_util/asyncComponent.js';
+// 不在 package.json 中配置 bundle-loader 可以在引入的时候配
+// import dashboardLoder from "bundle-loader?lazy!_containers/asyncModules/dashboard";
+// import coursesLoder from "bundle-loader?lazy!_containers/asyncModules/courses";
+// import forumLoder from "bundle-loader?lazy!_containers/asyncModules/forum";
+// import accountLoder from "bundle-loader?lazy!_containers/asyncModules/account";
+// import messagesLoder from "bundle-loader?lazy!_containers/asyncModules/messages";
+// import logoutLoder from "bundle-loader?lazy!_containers/asyncModules/logout";
+// import testLoder from "bundle-loader?lazy!_containers/asyncModules/test";
 
-const Layout = AsyncComponent(() => import(
-  /* webpackChunkName: "layout" */
-  /* webpackPrefetch: true */
-  '_root/webApp/layout'
-));
-const Dashboard = AsyncComponent(() => import(
-  /* webpackChunkName: "dashboard" */
-  /* webpackPrefetch: true */
-  '_containers/dashboard'
-));
-const Courses = AsyncComponent(() => import(
-  /* webpackChunkName: "courses" */
-  /* webpackPrefetch: true */
-  '_containers/courses'
-));
-const Forum = AsyncComponent(() => import(
-  /* webpackChunkName: "forum" */
-  /* webpackPrefetch: true */
-  '_containers/forum'
-));
-const Account = AsyncComponent(() => import(
-  /* webpackChunkName: "account" */
-  /* webpackPrefetch: true */
-  '_containers/Account'
-));
-const Messages = AsyncComponent(() => import(
-  /* webpackChunkName: "messages" */
-  /* webpackPrefetch: true */
-  '_containers/messages'
-));
-const Logout = AsyncComponent(() => import(
-  /* webpackChunkName: "logout" */
-  /* webpackPrefetch: true */
-  '_containers/logout'
-));
-const Test = AsyncComponent(() => import(
-  /* webpackChunkName: "test" */
-  /* webpackPrefetch: true */
-  '_containers/test'
-));
+// 这里用什么加载方式， ImportComponent 内部就得用对应的方式拿取组件
+
+// 1. require(...) 方式加载：
+// const dashboardLoder = require("_containers/asyncModules/dashboard");
+// const coursesLoder = require("_containers/asyncModules/courses");
+// const forumLoder = require("_containers/asyncModules/forum");
+// const accountLoder = require("_containers/asyncModules/account");
+// const messagesLoder = require("_containers/asyncModules/messages");
+// const logoutLoder = require("_containers/asyncModules/logout");
+// const testLoder = require("_containers/asyncModules/test");
+
+// 2. import from 方式加载，ImportComponent 中拿取组件的方式同require
+// import dashboardLoder from "_containers/asyncModules/dashboard";
+// import coursesLoder from "_containers/asyncModules/courses";
+// import forumLoder from "_containers/asyncModules/forum";
+// import accountLoder from "_containers/asyncModules/account";
+// import messagesLoder from "_containers/asyncModules/messages";
+// import logoutLoder from "_containers/asyncModules/logout";
+// import testLoder from "_containers/asyncModules/test";
+
+// 3. import(...) 方式加载
+const dashboardLoder = import("_containers/asyncModules/dashboard");
+const coursesLoder = import("_containers/asyncModules/courses");
+const forumLoder = import("_containers/asyncModules/forum");
+const accountLoder = import("_containers/asyncModules/account");
+const messagesLoder = import("_containers/asyncModules/messages");
+const logoutLoder = import("_containers/asyncModules/logout");
+const testLoder = import("_containers/asyncModules/test");
+
+// 处理成懒加载组件
+const Dashboard = ImportComponent(dashboardLoder);
+const Courses = ImportComponent(coursesLoder);
+const Forum = ImportComponent(forumLoder);
+const Account = ImportComponent(accountLoder);
+const Messages = ImportComponent(messagesLoder);
+const Logout = ImportComponent(logoutLoder);
+const Test = ImportComponent(testLoder);
 
 class WebApp extends Component {
   render() {
@@ -69,13 +66,13 @@ class WebApp extends Component {
         {/* Route 必须要一个div包一层，不然要提示警告，所以干脆用了这个Layout组建来包裹 */}
           <Layout>
             <Route path="/" exact component={Dashboard}/>
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/courses" component={Courses} />
-            <Route path="/forum" component={Forum} />
-            <Route path="/account" component={Account} />
-            <Route path="/messages" component={Messages} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/test" component={Test} />
+            <Route path="/dashboard" component={Dashboard}/>
+            <Route path="/courses" component={Courses}/>
+            <Route path="/forum" component={Forum}/>
+            <Route path="/account" component={Account}/>
+            <Route path="/messages" component={Messages}/>
+            <Route path="/logout" component={Logout}/>
+            <Route path="/test" component={Test}/>
           </Layout>
         </Route>
       </Router>

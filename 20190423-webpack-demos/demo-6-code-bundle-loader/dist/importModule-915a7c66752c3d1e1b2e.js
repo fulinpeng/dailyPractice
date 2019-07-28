@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{33:function(e,n,o){"use strict";o.r(n);var t=o(0),r=o.n(t);n.default=class extends t.Component{constructor(e){super(e)}render(){return console.log("ImportModule-bundle"),r.a.createElement("div",{className:"import-module"},r.a.createElement("h1",null,"ImportModule content"))}}}}]);

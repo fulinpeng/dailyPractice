@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const argv = require("yargs-parser")(process.argv.slice(2));
+// const argv = require("yargs-parser")(process.argv.slice(2));
 const merge = require("webpack-merge");
-const ENV = argv.mode || "development";
+const ENV = process.env.NODE_ENV || "development";
 const ENV_PRO = ENV == "production" ? true : false;
 const _mergeConfig = require(`./config/webpack.${ENV}.js`);
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -39,6 +39,7 @@ webpackConfig = {
             {
                 test: /\.css$/,
                 use: [
+                    { loader: 'style-loader' },
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
@@ -51,8 +52,24 @@ webpackConfig = {
             {
                 test: /\.(js|jsx)$/,
                 loader: "babel-loader",
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
+                exclude: /(node_modules)|(asyncModules)/,
                 // .babelrc 文件：evn 处理es6，stage-0 处理es7，react 处理react
+            },
+            {
+                test: /\.(js|jsx)$/,
+                include: /asyncModules/,
+                // exclude: /((?!asyncModules).)*/,
+                use: [
+                    {
+                        loader: 'bundle-loader',
+                        options: {
+                            lazy: true,
+                            // name: 'async-[name]',
+                        }
+                    },
+                    { loader: 'babel-loader' },
+                ],
             },
             // file-loader 解析图片地址，把图片拷贝到目标位置并修改引用地址
             // url-loader 可以处理任意二进制文件，在一定限制大小内可以转成base64串嵌入到页面
@@ -116,7 +133,7 @@ webpackConfig = {
         //   outputPath: '/',
         //   publicPath: `${location.origin}/`
         // }),
-        new ModuleConcatenationPlugina(), // 开启 Scope Hoisting
+        // new ModuleConcatenationPlugina(), // 开启 Scope Hoisting
     ],
     // 解析：当加载一个文件的时候，按照如下的规则顺序查找
     resolve: {
