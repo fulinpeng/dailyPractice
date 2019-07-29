@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function foo() {
+            console.log(this.a)
+        }
+        var a = 2
+        foo()
+
+        var obj = {
+            a: 2,
+            foo: foo
+        }
+        obj.foo()
+
+        // 以上两者情况 this 只依赖于调用函数前的对象，优先级是第二个情况大于第一个情况
+
+        // 以下情况是优先级最高的，this 只会绑定在 c 上
+
+
+        var c = new foo()
+        c.a = 3
+        console.log(c.a)
+
+        // 还有种就是利用 call，apply，bind 改变 this，这个优先级仅次于 new
+
+        // new > call... > 直接调用
+
+
+
+        // 箭头函数中的this
+        function a() {
+            return () => {
+                return () => {
+                    console.log(this)
+                }
+            }
+        }
+        console.log(a()()());
+        // 箭头函数其实是没有 this 的，这个函数中的 this 只取决于他外面的第一个不是箭头函数的函数的 this
+
+
+        var a = {
+            name: 'js',
+            log: function () {
+                console.log(this)
+                function setName() {
+                    this.name = 'javaScript'
+                    console.log(this)
+                }
+                setName()
+            }
+        }
+        a.log()
+
+        // 闭包
+        function a() {
+            var array = []
+            for (var i = 0; i < 3; i++) {
+                array.push(
+                    function () {
+                        console.log(i)
+                    }
+                )
+            }
+            return array
+        }
+        var b = a()
+        b[0]()
+        b[1]()
+        b[2]()
+            // i被提升为a函数的局部变量
+            // console.log(i) 里面的i，在他的函数作用域中没有，但是在父级作用域中存在
+            // 解决办法是用let
+
+
+            // 立即执行函数其实就是直接调用匿名函数,
+            // 因为解释器认为这是一个函数声明，不能直接调用，所以我们加上了一个括号来让解释器认为这是一个函数表达式，这样就可以直接调用了
+            // 立即执行函数最大的作用就是模块化，其次就是解决上述闭包的问题
+            (function () { })();
+        true && function () { }();
+
+
+        // es6
+        // 新增函数内部方法
+        // 在 JS 中，函数有多种用法，可以直接调用，也可以通过 new 构造函数。
+        // 在 ES6中，函数内部新增了 [[Call]] 和 [[Construct]] 两个方法。后者会在使用 new 构造函数时执行，其他情况会执行前者方法。
+        // 当一个函数必须使用 new 构造时，你可以使用这个新属性 new.target 判断
+        // new.target 只能在函数中使用
+        function Fn() {
+            if (typeof new.target === 'underfined') {
+                //throw ...
+            }
+        }
+
+        class Person {
+            // 构造函数
+            constructor() {
+                this.name = name
+            }
+            sayName() {
+                console.log(this.name)
+            }
+        }
+        // extends 代表继承自Person
+        class Student extends Person {
+            constructor(name, age) {
+                // super 的注意事项之前有说过
+                super(name)
+                // 必须在 super 之后调用 this
+                this.age = age
+            }
+            sayName() {
+                // 如果像使用父类的方法就使用这个方法使用
+                // 不像使用的话就不写 super，会覆盖掉父类的方法
+                super.sayName(this.name)
+                console.log(this.age)
+            }
+        }
+
+        // 使用 new 操作符时，生成的实例对象拥有了 _proto_属性
+        // new 的过程:
+        // 新生成了一个对象
+        // 链接到原型
+        // 绑定 this
+        // 返回新对象
+        function create() {
+            // 创建一个空的对象
+            let obj = new Object();
+            // 获得构造函数
+            let Con = arguments.shift.call([]);
+            // 链接到原型
+            obj.__proto__ = Con.prototype;
+            // 绑定 this，执行构造函数
+            let result = Con.apply(obj, arguments);
+            // 确保 new 出来的是个对象
+            return typeof result === 'object' ? result : obj;
+        }
+        // 对于实例对象来说，都是通过 new 产生的，无论是 function Foo() 还是 let a = { b : 1 } 。
+        // 对于创建一个对象来说，更推荐使用字面量的方式创建对象。因为你使用 new Object()
+        // 的方式创建对象需要通过作用域链一层层找到 Object（在window上），但是你使用字面量的方式就没这个问题。
+        // top.Object.prototype.__proto__ ==》 null ; Object 是在顶层对象上
+        // window.Function.prototype.__proto__.__proto__ ==> null
+        // window.Function.prototype.__proto__.__proto__ ==> null
+        // window.Function.prototype.__proto__ == window.Object.prototype; // true
+
+        // 所以可以这样说，所有实例都是对象，但是对象不一定都是实例。
+        // 所有对象都可以通过原型链最终找到 Object.prototype 
+        // 虽然 Object.prototype 也是一个对象，但是这个对象却不是 Object 创造的，而是引擎自己创建了 Object.prototype
+
+        // 我们知道函数都是通过 new Function() 生成的，难道 Function.prototype 也是通过 new Function() 产生的吗？
+        // 答案也是否定的，这个函数也是引擎自己创建的
+
+        // Generator 函数
+        // 用于异步编程。该函数可以暂停和恢复执行，和同步写法很像。
+    </script>
+</body>
+
+</html>

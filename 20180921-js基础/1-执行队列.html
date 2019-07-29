@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 其实 JS 的异步和其他语言的异步是不相同的，本质上还是同步。因为浏览器会有多个 Queue 存放异步通知，
+        // 并且每个 Queue 的优先级也不同，JS 在执行代码时会产生一个执行栈，同步的代码在执行栈中，异步的在 Queue 中。
+        // 有一个 Event Loop 会循环检查执行栈是否为空，
+
+        // 为空时会在 Queue 中查看是否有需要处理的通知，有的话拿到执行栈中去执行。
+        function sleep() {
+            var ms = 2000 + new Date().getTime()
+            while (new Date() < ms) { }
+            console.log('sleep finish')
+        }
+
+        document.addEventListener('click', function () {
+            console.log('click')
+        })
+
+        sleep()
+        setTimeout(function () {
+            console.log('timeout');
+        }, 0);
+
+        Promise.resolve().then(function () {
+            console.log('promise');
+        });
+        console.log('finish')
+        // 如果你在 sleep 被调用期间点击，只有当 sleep 执行结束并且 log finish
+
+        // sleep finish
+        // finish
+        // promise
+        // click
+        // timeout
+
+        // promise 会进入 Microtask Queue 中，这个是 微队列 会先于宏队列执行
+        // click 也会进入 Microtask Queue 中吧？？？
+        // setTimeout 会进入 task Queue 中，这是 宏队列
+
+        // 后才会响应其他异步事件。所以要注意 setTimeout 并不是你设定多久 JS 就会准时的响应，
+        // 并且 setTimeout 也有个小细节，第二个参数设置为 0 也许会有人认为这样就不是异步了，其实还是异步。
+        
+        // 这是因为 HTML5 标准规定这个函数第二个参数不得小于 4 毫秒，不足会自动增加。 
+
+        console.log(typeof 'undefined'); // 'string'
+        console.log(typeof undefined); // 'undefined'
+        console.log(typeof null); // 'object'
+        console.log(typeof NaN); // 'number'
+
+    </script>
+</body>
+
+</html>
