@@ -26,7 +26,7 @@
 
             // 照相机
             // 参数: left right top bottom near far
-            // 为了保持照相机的横竖比，需保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例(800/600)一致
+            // 为了保持照相机的横竖比，需保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例(800/400)一致
             var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);
             // var camera = new THREE.OrthographicCamera(-1, 1, 1.5, -1.5, 1, 10); // 效果会变为长方形
             camera.position.set(1,0,5); // 相机

@@ -26,10 +26,11 @@
 
             // 照相机
             // 参数: left right top bottom near far
-            // 为了保持照相机的横竖比，需保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例(800/600)一致
-            // var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);
-            var camera = new THREE.OrthographicCamera(-1, 1, 1.5, -1.5, 1, 10); // 效果会变为长方形
-            camera.position.set(0,0,5);
+            // 为了保持照相机的横竖比，需保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例(800/400)一致
+            var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);
+            camera.position.set(4, 4, 5);
+            // lookAt函数指定正交相机看着原点方向
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
             scene.add(camera);
 
             // 创建一个x、y、z方向长度分别为1、1、11的长方体，并设置为红色

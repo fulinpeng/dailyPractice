@@ -25,11 +25,16 @@
             var scene = new THREE.Scene();
 
             // 照相机
-            // 参数: left right top bottom near far
-            // 为了保持照相机的横竖比，需保证(right - left)与(top - bottom)的比例与Canvas宽度与高度的比例(800/600)一致
-            // var camera = new THREE.OrthographicCamera(-2, 2, 1.5, -1.5, 1, 10);
-            var camera = new THREE.OrthographicCamera(-1, 1, 1.5, -1.5, 1, 10); // 效果会变为长方形
-            camera.position.set(4,4,5);
+            // 参数: fov, aspect, near, far
+            // Fov – 相机的视锥体的垂直视野角
+            // Aspect – 相机视锥体的宽高比(Canvas宽度与高度的比例)
+            // Near – 相机视锥体的近平面
+            // Far – 相机视锥体的远平面
+            var camera = new THREE.PerspectiveCamera(30, 800 / 400, 4.5, 10);
+            // 当Near增加为4.5的时候就已经贴在物体表面了
+            // 当Near增加到大于4.5就会投影成凹形
+            // 将照相机的竖直张角设置得更大时，视景体变大了，因而正方体相对于整个视景体的大小就变小了，看起来正方形就显得变小了
+            camera.position.set(0, 0, 5);
             scene.add(camera);
 
             // 创建一个x、y、z方向长度分别为1、1、11的长方体，并设置为红色
