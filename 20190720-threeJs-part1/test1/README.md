@@ -233,6 +233,7 @@ point1.set(4,8,9);
 ## 线
 * 在Threejs中，一条线由点，材质和颜色组成
     * [实例](./index.6.html)
+    * Threejs中没有提供单独画点的函数，它必须被放到一个THREE.Geometry形状中，这个结构中包含一个数组vertices，这个vertices就是存放无数的点（THREE.Vector3）的数组
 1. 首先，声明一个几何体geometry
     ```js
     var geometry = new THREE.Geometry(); // 几何体里面有个vertices变量，可以用来存放点

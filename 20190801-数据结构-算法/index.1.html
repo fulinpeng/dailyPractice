@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二叉查找树</title>
+</head>
+
+<body>
+    <script>
+
+        // 二叉查找树
+
+        function Node(data, left, right) { // 创建节点
+            this.data = data;
+            this.left = left;
+            this.right = right;
+            this.show = show
+        }
+
+        function show() { // 显示树的数据
+            return this.data
+        }
+
+        function BST() { // 二叉查找树类
+            this.root = null;
+        }
+
+        BST.prototype = {
+            constructor: BST,
+            insert: function (data) { // 向树中插入数据
+                var n = new Node(data, null, null)
+                if (this.root == null) {
+                    this.root = n;
+                } else {
+                    var current = this.root;
+                    var parent;
+                    while (true) {
+                        parent = current
+                        if (data < current.data) {
+                            current = current.left;
+                            if (current == null) {
+                                parent.left = n;
+                                break;
+                            }
+                        } else {
+                            current = current.right;
+                            if (current == null) {
+                                parent.right = n;
+                                break;
+                            }
+                        }
+                    }
+                }
+            },
+            getMin: function () {
+                let minNode = null;
+                const getmin = (node) => {
+                    if (node.left) {
+                        getmin(node.left);
+                    } else {
+                        minNode = node;
+                    }
+                };
+                getmin(this.root);
+                return minNode
+            },
+            getMax: function () {
+                let maxNode = null;
+                const getmax = (node) => {
+                    if (node.right) {
+                        getmax(node.right);
+                    } else {
+                        maxNode = node;
+                    }
+                };
+                getmax(this.root);
+                return maxNode
+            },
+            // 递归直插
+            findNode: function (value) {
+                let relNode = null;
+                const findnode = (node) => {
+                    if (value > node.data) {
+                        if (node.right) {
+                            findnode(node.right)
+                        } else {
+                            relNode = `${value}不存在`;
+                        }
+                    } else if (value < node.data) {
+                        if (node.left) {
+                            findnode(node.left)
+                        } else {
+                            relNode = `${value}不存在`;
+                        }
+                    } else {
+                        relNode = node;
+                    }
+                };
+                findnode(this.root);
+                return relNode
+            },
+            // 中序遍历递归算法
+            inOrder: function (value) {
+                let backs = [];
+                let res = null;
+                const inOrderNode = (node, callback) => {
+                    if (node !== null) {
+                        inOrderNode(node.left, callback);
+                        // 处理逻辑 start
+                        // 此处用来添加处理逻辑的，其余部分是用来遍历整个二叉树的
+                        backs.push(callback(node.data)); // 为了将二叉树转成数组
+                        if (node.data == value) res = node; // 查找传入的值所在的节点
+                        // 处理逻辑 end
+                        inOrderNode(node.right, callback)
+                    }
+                };
+                inOrderNode(this.root, callback);
+                function callback(v) {
+                    return v
+                }
+                // return backs
+                return res;
+            },
+        }
+
+        var data = new BST();
+        data.insert(3);
+        data.insert(5);
+        data.insert(7);
+        data.insert(4);
+        data.insert(8);
+        data.insert(2);
+        data.insert(0);
+        data.insert(1);
+
+        console.log('data:', data);
+        console.log('findNode:', data.findNode(5));
+        console.log('inOrder:', data.inOrder(5));
+
+
+
+    </script>
+</body>
+
+</html>

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="../three.min.js"></script>
+    <script type="text/javascript" src="../js/three.min.js"></script>
     <script>
         function init() {
             // 渲染器
@@ -28,6 +28,11 @@
 
             // 设置相机的位置
             camera.position.set(0, 0, 5);
+            camera.up.x = 0;
+            camera.up.y = 1;
+            camera.up.z = 0;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            console.log('camera:', camera);
             // 将相机添加到场景中
             scene.add(camera);
 

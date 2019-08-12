@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="../three.min.js"></script>
+    <script type="text/javascript" src="../js/three.min.js"></script>
     <script>
         function init() {
             // 渲染器
@@ -46,6 +46,9 @@
             var material = new THREE.LineBasicMaterial({
                 vertexColors: true, // 使用顶点颜色
             });
+            // NoColors: 0,
+            // FaceColors: 1,
+            // VertexColors: 2,
 
             // 为两个顶点添加颜色
             // geometry中colors表示顶点的颜色，必须在材质中vertexColors等于THREE.VertexColors时，geometry.colors才有效

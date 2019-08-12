@@ -22,6 +22,11 @@ new THREE.Mesh(geometry,material)
 
 ## 位置(移动)、缩放、旋转
 * THREE.Mesh中，有分别对应的属性来修改: position/scale/rotation
+* 还有种运动方式：物体不动，通过相机移动来模拟运动
 
-
+## 性能检测
+* threejs的性能检测器: https://github.com/mrdoob/stats.js 
+* FPS表示：一秒的帧数，这个值越大越好，一般都为60左右
+    * 人眼仍能继续保留其影像1/24秒左右的图像
+    * 大多数游戏都会有超过30的FPS
 
