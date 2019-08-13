@@ -23,15 +23,12 @@
             var cache = {};
             // 定义一个构造函数的私有方法，
             this.makeChange = function (amount) {
-                // 这里的this指向的就是this.makeChange私有函数本身，把它赋值给一个变量是为了不用在每次调用的时候都要计算（个人见解）
                 var me = this;
-                // amount就是我们要找零的钱数，如果为非正数，直接返回空数组，因为你找零的钱数不应该为负数。
-                if (!amount) {
+                if (amount <= 0) {
                     return [];
                 };
 
                 // cache[amount]的判断是为了在重复计算前面已经计算过的结果时可以直接返回结果
-                // 避免重复计算所造成的时间浪费
                 if (cache[amount]) {
                     return cache[amount];
                 };
@@ -43,18 +40,22 @@
                     var coin = coins[i];
                     // 我们用要找零的钱数减去当前要找零的面额。并存储为newAmount变量。
                     newAmount = amount - coin;
-                    // 在当前循环的递归中，如果newAmount是不小于0的值，也就是合法的找零的钱数，我们同样为该数调用找零方法。
-                    // 这里就是有点类似分而治之的那种策略了，递归求解。
-                    if (newAmount >= 0) {
+                    if (newAmount > 0) {
                         newMin = me.makeChange(newAmount);
-                    };
-                    // 在前面符合条件的newAmount递归后会进入下一个值得逻辑执行，然后就会到这里的逻辑判断
-                    // 下面的if判断主要是判断是否是当前的最优解，如果是，那么就放入我们最终的数组内。
-                    console.log(!min.length, min.length)
-                    if (newAmount >= 0 && (newMin.length < min.length - 1 || !min.length) && (newMin.length || !newAmount)) {
-                        min = [coin].concat(newMin);
-                        //console.log('new Min' + min + 'for' + amount);
+                        min = newMin.concat([coin]);
+                        return (cache[amount] = min);
+                    } else if (newAmount == 0) {
+                        min = [coin];
+                        return (cache[amount] = min);
+                    } else {
+                        // 小于0不做处理，min为空数组
                     }
+                    // if (newAmount >= 0) {
+                    //     newMin = me.makeChange(newAmount);
+                    // }
+                    // if (newAmount >= 0 && (newMin.length < min.length - 1 || !min.length) && (newMin.length || !newAmount)) {
+                    //     min = [coin].concat(newMin);
+                    // }
                 };
                 //cache存储了1到amount之间的所有结果
                 //console.log(cache)
@@ -62,7 +63,7 @@
             };
         };
 
-        var minCoinChange = new MinCoinChange([1, 5, 10, 25]);
+        var minCoinChange = new MinCoinChange([25, 10, 5, 1]);
         console.log(minCoinChange.makeChange(36))
     </script>
 </body>
