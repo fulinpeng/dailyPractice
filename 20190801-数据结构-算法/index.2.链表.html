@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>链表</title>
+</head>
+
+<body>
+    <script>
+
+        // 链表
+        // 存贮有序元素的集合
+        // 但是不同于数组,每个元素是一个存贮元素本身的节点和指向下一个元素引用组成
+        // 要想访问链表中间的元素,需要从起点开始遍历找到所需元素
+
+        class Node {
+            constructor(element) {
+                this.element = element;
+                this.next = null;
+            }
+        }
+
+        // 链表
+        class LinkedList {
+            constructor() {
+                this.head = null;
+                this.length = 0;
+            }
+
+            // 追加元素
+            append(element) {
+                const node = new Node(element);
+                let current = null;
+                if (this.head === null) {
+                    this.head = node;
+                } else {
+                    current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = node;
+                }
+                this.length++;
+            }
+
+            // 任意位置插入元素
+            insert(position, element) {
+                if (position >= 0 && position <= this.length) {
+                    const node = new Node(element);
+                    let current = this.head;
+                    let previous = null;
+                    let index = 0;
+                    if (position === 0) {
+                        this.head = node;
+                    } else {
+                        while (index++ < position) {
+                            previous = current;
+                            current = current.next;
+                        }
+                        node.next = current;
+                        previous.next = node;
+                    }
+                    this.length++;
+                    return true;
+                }
+                return false;
+            }
+
+            // 移除指定位置元素
+            removeAt(position) {
+                // 检查越界值
+                if (position > -1 && position < length) {
+                    let current = this.head;
+                    let previous = null;
+                    let index = 0;
+                    if (position === 0) {
+                        this.head = current.next;
+                    } else {
+                        while (index++ < position) {
+                            previous = current;
+                            current = current.next;
+                        }
+                        previous.next = current.next;
+                    }
+                    this.length--;
+                    return current.element;
+                }
+                return null;
+            }
+
+            // 寻找元素下标
+            findIndex(element) {
+                let current = this.head;
+                let index = -1;
+                while (current) {
+                    if (element === current.element) {
+                        return index + 1;
+                    }
+                    index++;
+                    current = current.next;
+                }
+                return -1;
+            }
+
+            // 删除指定元素的节点
+            remove(element) {
+                const index = this.findIndex(element);
+                return this.removeAt(index);
+            }
+
+            isEmpty() {
+                return !this.length;
+            }
+
+            size() {
+                return this.length;
+            }
+
+            // 转为字符串
+            toString() {
+                let current = this.head;
+                let string = "";
+                while (current) {
+                    string += ` ${current.element}`;
+                    current = current.next;
+                }
+                return string;
+            }
+        }
+        const linkedList = new LinkedList();
+
+        console.log(linkedList);
+        linkedList.append(2);
+        linkedList.append(6);
+        linkedList.append(24);
+        linkedList.append(152);
+        console.log(linkedList.toString());
+
+        linkedList.insert(3, 18);
+        console.log(linkedList);
+        console.log(linkedList.findIndex(24));
+        
+        linkedList.remove(152);
+        console.log(linkedList.toString());
+
+
+    </script>
+</body>
+
+</html>

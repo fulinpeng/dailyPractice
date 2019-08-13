@@ -65,6 +65,7 @@
                     }
                 };
                 getmin(this.root);
+                // 注意 return 的位置
                 return minNode
             },
             getMax: function () {
@@ -103,26 +104,20 @@
                 return relNode
             },
             // 中序遍历递归算法
-            inOrder: function (value) {
-                let backs = [];
+            inOrder: function (callback) {
                 let res = null;
                 const inOrderNode = (node, callback) => {
                     if (node !== null) {
                         inOrderNode(node.left, callback);
-                        // 处理逻辑 start
+                        /************** 处理逻辑 start *************/
                         // 此处用来添加处理逻辑的，其余部分是用来遍历整个二叉树的
-                        backs.push(callback(node.data)); // 为了将二叉树转成数组
-                        if (node.data == value) res = node; // 查找传入的值所在的节点
-                        // 处理逻辑 end
+                        // 把每个节点的值传出去，让callback去处理
+                        callback(node.data, node);
+                        /************** 处理逻辑 end *************/
                         inOrderNode(node.right, callback)
                     }
                 };
                 inOrderNode(this.root, callback);
-                function callback(v) {
-                    return v
-                }
-                // return backs
-                return res;
             },
         }
 
@@ -138,7 +133,12 @@
 
         console.log('data:', data);
         console.log('findNode:', data.findNode(5));
-        console.log('inOrder:', data.inOrder(5));
+        let res = [];
+        data.inOrder((val, node) => {
+            if (val == 5) console.log('value为5的节点：', node);
+            res.push(val);
+        })
+        console.log('inOrder:', res);
 
 
 
