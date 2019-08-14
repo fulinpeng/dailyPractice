@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态规划</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @name: MinCoinChange
+         * @param {type} 
+         * @return: 
+         */
+        class MinCoinChange {
+            constructor(coins) {
+                this.coins = coins
+                this.cache = {}
+            }
+            makeChange(amount) {
+                if (!amount) return []
+                if (this.cache[amount]) return this.cache[amount]
+                let min = [], newMin, newAmount
+                this.coins.forEach(coin => {
+                    newAmount = amount - coin
+                    if (newAmount >= 0) {
+                        newMin = this.makeChange(newAmount)
+                    }
+                    if (newAmount >= 0 &&
+                        (newMin.length < min.length - 1 || !min.length) &&
+                        (newMin.length || !newAmount)) {
+                        min = [coin].concat(newMin)
+                    }
+                })
+                return (this.cache[amount] = min)
+            }
+        }
+
+        const minCoinChange = new MinCoinChange([1, 5, 10, 25])
+        console.log(minCoinChange.makeChange(36)) // [1, 10, 25]
+
+        const minCoinChange2 = new MinCoinChange([25, 18, 7, 3])
+        console.log(minCoinChange2.makeChange(36)) // [18, 18]
+    </script>
+</body>
+
+</html>
