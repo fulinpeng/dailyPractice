@@ -13,10 +13,11 @@
         // async 函数就是将 Generator 函数和自动执行器，包装在一个函数里
         function fn(args) {
             return spawn(function* () {
+                console.log('~~~~ start');
                 yield new Promise(function (resolve) {
-                    setTimeout(resolve, 1000);
+                    setTimeout(() => resolve('1'), 1000);
                 });
-                console.log('~~~~');
+                console.log('~~~~ end');
             });
         }
         function spawn(genF) {
@@ -27,6 +28,7 @@
                     let next;
                     try {
                         next = nextF(); // 就是执行 gen.next()
+                        console.log('next', next);
                     } catch (e) {
                         return reject(e);
                     }
@@ -40,6 +42,7 @@
                     // 可以用 Timeout 吗？不好，因为 Promise 更方便值的传递
                     // step参数为什么是个函数？看到这里就明白了，为了在上面去执行，执行这个函数才调用下一次的next方法【学到了吧】
                     Promise.resolve(next.value).then(function (v) {
+                        console.log('then', v);
                         step(function () { return gen.next(v); });
                     }, function (e) {
                         step(function () { return gen.throw(e); }); // gen.throw(e) 抛出错误
