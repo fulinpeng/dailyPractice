@@ -34,10 +34,13 @@
         }
 
         myAsync(function* () {
-            yield new Promise(function (resolve) {
-                setTimeout(resolve, 1000);
+            let res1 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(1), 1000);
             });
-            console.log('~~~~');
+            let res2 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(2 + res1), 1000);
+            });
+            console.log('~~~~', res2);
         });
     </script>
 </body>
