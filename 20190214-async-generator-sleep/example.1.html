@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 计算： (n + 2) * 2 - 2 ，每一步都是异步，后面的依赖前一步的结果
+        // 加2
+        function calc1(value, cb) {
+            setTimeout(() => {
+                let res = value + 2;
+                cb(res);
+            }, 500);
+        }
+        // 乘2
+        function calc2(value, cb) {
+            setTimeout(() => {
+                let res = value * 2;
+                cb(res);
+            }, 500);
+        }
+        // 减2
+        function calc3(value, cb) {
+            setTimeout(() => {
+                let res = value - 2;
+                cb(res);
+            }, 500);
+        }
+        // 继发式异步promise写法
+        function calcSync(n) {
+            // return new Promise(function (resolve) {
+            //     calc1(n, resolve);
+            // })
+            return Promise.resolve().then(function () {
+                return new Promise(function (resolve) {
+                    calc1(n, resolve);
+                });
+            }).then(function (res) {
+                return new Promise(function (resolve) {
+                    calc2(res, resolve);
+                });
+            }).then(function (res) {
+                return new Promise(function (resolve) {
+                    calc3(res, resolve);
+                });
+            });
+        }
+        // setTimeout(()=>console.log(calcSync(10)), 3000);
+        calcSync(10).then((res) => {
+            console.log('~~~end', res);
+        });
+
+        // 发现：只要操作中有异步，就得新new一个promise，因为这样才有resolve，否则是没法回调的啊
+    </script>
+</body>
+
+</html>

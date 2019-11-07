@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>Document</title>
+    <style>
+        .box {
+            text-align: center;
+            margin-bottom: 400px;
+        }
+
+        .modal {
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: none;
+        }
+
+        .modal-frame {
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: solid 1px #ddd;
+            background: #fff;
+            padding: 1em;
+        }
+
+        .page {
+            padding: 0 15px;
+            width: 100%;
+            margin: 0 auto;
+            /*-webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;*/
+        }
+
+        body.modal-open {
+            position: fixed;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body style="overflow-x: hidden;width: 100%;">
+        <div class="page">
+                <h1>解决滚动穿透问题demo</h1>
+                <div class="box" style="margin-top: 150px;">
+                        <a href="javascript:;" class="js-open-modal" id="click1">Open Modal One</a>
+                    </div>
+                <div class="box">
+                        <a href="javascript:;" class="js-open-modal" id="click2">Open Modal Two</a>
+                    </div>
+                <div id="modal" class="modal">
+                      <div class="modal-frame">
+                            <div style="height:9em;overflow-y:auto;">
+                                这里是可滚动内容<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                滚动 Content<br>
+                                </div>
+                          </div>
+                    </div>
+            </div>
+</body>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    // $("#click1").click(function()
+    $(function () {
+        var scrollTop;
+        var ModalHelper = (function (bodyCls) {
+            return {
+                afterOpen: function () {
+                    // 获取弹窗前body的scrollTop
+                    scrollTop = document.scrollingElement.scrollTop;
+                    document.body.classList.add(bodyCls);
+                    // 将body做fixed处理之后在此赋值
+                    document.body.style.top = -scrollTop + 'px';
+                },
+                beforeClose: function () {
+                    document.body.classList.remove(bodyCls);
+                    // 再次取消body的fixed之后，给body的scrollTop再次赋值
+                    document.scrollingElement.scrollTop = scrollTop;
+                }
+            };
+        })('modal-open');
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            ModalHelper.afterOpen();
+        }
+        function closeModal() {
+            ModalHelper.beforeClose();
+            document.getElementById('modal').style.display = 'none';
+        }
+        var btns = document.querySelectorAll('.js-open-modal');
+        console.log(btns);
+        btns[0].onclick = openModal;
+        btns[1].onclick = openModal;
+        document.querySelector('#modal').onclick = closeModal;
+    })
+</script>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图</title>
+</head>
+
+<body>
+    <script>
+        // https://blog.csdn.net/weixin_34232744/article/details/87961940
+        var Queue = function () {
+            var items = [];
+            //入队
+            this.enqueue = function (el) {
+                items.push(el)
+            }
+            //出队
+            this.dequeue = function () {
+                return items.shift();
+            }
+            // 队头
+            this.front = function () {
+                return items[0]
+            }
+            //队是否为空
+            this.isEmpty = function () {
+                return items.length === 0;
+            }
+            //队的长度
+            this.size = function () {
+                return items.length;
+            }
+        }
+
+        // 定义图
+        var Graph = function () {
+            //存储顶点
+            var vertices = []
+            //边
+            var adjList = {}
+            //添加顶点
+            this.addVertices = function (v) {
+                vertices.push(v)
+                adjList[v] = []
+            }
+            // 添加边
+            this.addEdge = function (a, b) {
+                adjList[a].push(b)
+                adjList[b].push(a)
+            }
+
+            //white  未发现
+            //gray   已发现未探索
+            //black  已探索
+            var initColor = function () {
+                var color = {}
+                for (var i = 0; i < vertices.length; i++) {
+                    color[vertices[i]] = 'white'
+                }
+                return color
+            }
+
+            // 广度优先
+            this.bfs = function (v, callback) {
+                var color = initColor()
+                var queue = new Queue()
+                queue.enqueue(v)
+                while (!queue.isEmpty()) {
+                    var now = queue.dequeue()
+                    var bian = adjList[now]
+                    for (var i = 0; i < bian.length; i++) {
+                        var w = bian[i]
+                        if (color[w] === 'white') {
+                            color[w] = 'gray'
+                            queue.enqueue(w)
+                        }
+                    }
+                    color[now] = 'black'
+                    if (callback) {
+                        callback(now)
+                    }
+                }
+            }
+        }
+
+        var g = new Graph()
+        g.addVertices('A')
+        g.addVertices('B')
+        g.addVertices('C')
+        g.addVertices('D')
+        g.addVertices('E')
+        g.addVertices('F')
+
+
+        g.addEdge('A', 'B')
+        g.addEdge('A', 'C')
+        g.addEdge('A', 'D')
+        g.addEdge('B', 'E')
+        g.addEdge('B', 'F')
+        g.addEdge('C', 'D')
+
+
+
+
+        // 代码实现A-F的最短路径
+        g.addEdge('D', 'F')
+
+        var s = g.bfs("A")
+        var zuiduan = function (from, to) {
+            var v = to; //设置当前点
+            while (v != from) {
+                console.log(v)
+                v = s.pred[v]
+            }
+            console.log(v)
+        }
+
+        zuiduan("A", "F")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var Stack = function () {
+            var items = [];
+            // this.items = [];
+            this.push = function (val) {
+                items.push(val)
+            }
+            this.pop = function () {
+                return items.pop()
+            }
+            this.peek = function () {
+                return items[items.length - 1]
+            }
+            this.isEmpty = function () {
+                return items.length === 0
+            }
+            this.size = function () {
+                return items.length
+            }
+            this.clear = function () {
+                items = []
+            }
+        }
+
+        //省略
+
+        var s = g.bfs("A")
+        var zuiduan = function (from, to) {
+            var v = to; //设置当前点
+            var path = new Stack()
+            while (v != from) {
+                path.push(v)
+                v = s.pred[v]
+            }
+            path.push(v)
+            var str = ''
+            while (!path.isEmpty()) {
+                str += path.pop() + '-'
+            }
+            str = str.slice(0, str.length - 1)
+            console.log(str)
+        }
+
+        zuiduan("A", "F")
+
+
+
+
+
+
+
+        //深度优先
+        var dfsVisite = function (u, color, callback) {
+            color[u] = 'gray'
+            var n = adjList[u]
+            for (var i = 0; i < n.length; i++) {
+                var w = n[i]
+                if (color[w] === 'white') {
+                    dfsVisite(w, color, callback)
+                }
+            }
+            color[u] = 'black'
+            if (callback) {
+                callback(u)
+            }
+        }
+        this.dfs = function (v, callback) {
+            var color = initColor()
+            dfsVisite(v, color, callback)
+        }
+
+
+
+        function test(str) {
+            let result = [];
+            for (let i = 0; i < str.length; i++) {
+                result[i] = [];
+                if (i === 0) {
+                    result[0] = str[0];
+                }
+                if (i === 1) {
+                    result[0] = str[0];
+                    result[1] = [str[0] + str[1], str[1] + str[0]]
+                }
+                if (i > 1) {
+                    for (let j = 0; j < result[i - 1].length; j++) {
+                        for (let n = 0; n <= result[i - 1][j].length; n++) {
+                            let minStr = result[i - 1][j].slice(0, n) + str[i] + result[i - 1][j].slice(n);
+                            result[i].push(minStr)
+                        }
+                    }
+                }
+            }
+            return result
+        }
+        var res = test('abcde');
+    </script>
+</body>
+
+</html>

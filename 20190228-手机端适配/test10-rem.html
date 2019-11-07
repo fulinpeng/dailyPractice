@@ -14,10 +14,12 @@
         }
 
         .test {
-            font-size: 0.16rem;
-            height: 0.3rem;
-            line-height: 0.3rem;
-            background: steelblue;
+            width:19.1rem;
+            height:4.8rem;
+            font-size:3.4rem;
+            line-height:4.8rem;
+            color:#333;
+            border: 1px solid steelblue;
         }
     </style>
 </head>
@@ -28,13 +30,14 @@
         var fontSizeAuto = function (uiW) {
             return function () {
                 var screenW = document.documentElement.clientWidth;
-                var k = 128.824;
-                var htmlFontSize = screenW * devicePixelRatio / uiW * k
+                var k = 10 * screenW / 375; // 375 为测试机的逻辑像素宽
+                var htmlFontSize = screenW * devicePixelRatio / uiW * k;
                 document.documentElement.style.fontSize = htmlFontSize + 'px';
             }
         }
-        fontSizeAuto(1600)();
-        window.onresize = fontSizeAuto(1600);
+        var fontSizeAutoFn = fontSizeAuto(750);
+        fontSizeAutoFn();
+        window.onresize = fontSizeAutoFn;
         var i = 1;
     </script>
 </body>
