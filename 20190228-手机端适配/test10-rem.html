@@ -14,10 +14,14 @@
         }
 
         .test {
-            width:19.1rem;
-            height:4.8rem;
-            font-size:3.4rem;
-            line-height:4.8rem;
+            width:1.91rem;
+            height:0.48rem;
+            font-size:0.34rem;
+            line-height:0.48rem;
+            /* width:9.95rem;
+            height:2.4rem;
+            font-size:1.7rem;
+            line-height:2.4rem; */
             color:#333;
             border: 1px solid steelblue;
         }
@@ -27,11 +31,15 @@
 <body>
     <div class="test">这是一段测试文字</div>
     <script>
+        // 通过如下设置出来，在使用时除以10就行
         var fontSizeAuto = function (uiW) {
             return function () {
                 var screenW = document.documentElement.clientWidth;
-                var k = 10 * screenW / 375; // 375 为测试机的逻辑像素宽
-                var htmlFontSize = screenW * devicePixelRatio / uiW * k;
+                var k = 100;
+                var dpr = devicePixelRatio > 3 ? 3: devicePixelRatio;
+                var htmlFontSize = screenW / uiW * k * (screenW / 375) * (dpr / 2); // 测试机的逻辑像素宽为 375 dpr为 2
+                // 还要个 baseSize 为2，使用的地方都得除以这个baseSize;
+                // 对比之下没有人家自然，还是flexible牛比啊...还加上了缩放比例的啊
                 document.documentElement.style.fontSize = htmlFontSize + 'px';
             }
         }
