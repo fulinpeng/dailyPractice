@@ -31,6 +31,7 @@
         BST.prototype = {
             constructor: BST,
             insert: function (data) { // 向树中插入数据
+                // 是不平衡的树
                 var n = new Node(data, null, null)
                 if (this.root == null) {
                     this.root = n;
@@ -80,9 +81,13 @@
                 getmax(this.root);
                 return maxNode
             },
-            // 递归直插
+            // 递归直查
             findNode: function (value) {
                 let relNode = null;
+                // 笔记20191107：有些递归只需要一个循环就可以替代，而有些递归的改写需要循环+栈
+                // 循环的时间复杂度和空间复杂度都要优于递归，但递归的优越性在于条理清晰，可读性强，
+                // 比较适宜于问题本身是递归性质的、用循环难于解决的问题。在二者都不难的情况下，
+                // 一般都是优先选用循环来解决问题的。
                 const findnode = (node) => {
                     if (value > node.data) {
                         if (node.right) {
