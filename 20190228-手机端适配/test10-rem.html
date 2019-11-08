@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- 必须设置多方比例为1 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
@@ -14,14 +14,16 @@
         }
 
         .test {
-            width:1.91rem;
+            /* width:1.91rem;
             height:0.48rem;
             font-size:0.34rem;
             line-height:0.48rem;
-            /* width:9.95rem;
-            height:2.4rem;
-            font-size:1.7rem;
-            line-height:2.4rem; */
+            color:#333;
+            border: 1px solid steelblue; */
+            width:2.54rem;
+            height:0.64rem;
+            font-size:0.45rem;
+            line-height:0.64rem;
             color:#333;
             border: 1px solid steelblue;
         }
@@ -31,16 +33,23 @@
 <body>
     <div class="test">这是一段测试文字</div>
     <script>
-        // 通过如下设置出来，在使用时除以10就行
         var fontSizeAuto = function (uiW) {
             return function () {
-                var screenW = document.documentElement.clientWidth;
-                var k = 100;
+                var docEl = document.documentElement;
+                var clientW = docEl.getBoundingClientRect().width;
                 var dpr = devicePixelRatio > 3 ? 3: devicePixelRatio;
-                var htmlFontSize = screenW / uiW * k * (screenW / 375) * (dpr / 2); // 测试机的逻辑像素宽为 375 dpr为 2
-                // 还要个 baseSize 为2，使用的地方都得除以这个baseSize;
-                // 对比之下没有人家自然，还是flexible牛比啊...还加上了缩放比例的啊
-                document.documentElement.style.fontSize = htmlFontSize + 'px';
+                clientW / dpr > 540 && (clientW = 540 * dpr);
+
+                // 动态设置 htmlFontSize
+                var htmlFontSize = clientW / 10 ;
+                docEl.style.fontSize = htmlFontSize + 'px';
+                
+                // 动态设置 viewport
+                // 如果已经设置了 viewport initial-scale=1.0 ，下面这段可以注释
+                var meta = document.createElement("meta");
+                meta.setAttribute("name", "viewport"),
+                meta.setAttribute("content", "initial-scale=" + 1/dpr + ", maximum-scale=" + 1/dpr + ", minimum-scale=" + 1/dpr + ", user-scalable=no");
+                docEl.firstElementChild.appendChild(meta);
             }
         }
         var fontSizeAutoFn = fontSizeAuto(750);
