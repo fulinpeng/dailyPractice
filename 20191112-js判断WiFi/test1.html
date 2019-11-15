@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+    <button id="btn">测试</button>
+    <div id="re"></div>
+<body>
+
+</body>
+<script type="text/javascript">
+
+    var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || { tyep: 'unknown' };
+
+    var type_text = ['unknown', 'ethernet', 'wifi', '2g', '3g', '4g', 'none'];
+
+    console.log(connection.type);
+
+    var re_el = document.getElementById("re");
+    var btn_el = document.getElementById("btn");
+
+    function get_status() {
+        if (typeof (connection.type) == "number") {
+            connection.type_text = type_text[connection.type];
+        } else {
+            connection.type_text = connection.type;
+        }
+
+        if (typeof (connection.bandwidth) == "number") {
+            if (connection.bandwidth > 10) {
+                connection.type_text = 'wifi';
+            } else if (connection.bandwidth > 2) {
+                connection.type_text = '3g';
+            } else if (connection.bandwidth > 0) {
+                connection.type_text = '2g';
+            } else if (connection.bandwidth == 0) {
+                connection.type_text = 'none';
+            } else {
+                connection.type_text = 'unknown';
+            }
+        }
+
+        var html = 'Type : ' + connection.type_text + '\r\n';
+        html += 'Bandwidth : ' + connection.bandwidth + '\r\n';
+        html += 'isOnline : ' + navigator.onLine + '\r\n';
+        re_el.innerHTML = html;
+    }
+
+    btn_el.onclick = function () {
+        re_el.innerHTML = 'Waiting...';
+        get_status();
+    }
+
+</script>
+
+</html>
