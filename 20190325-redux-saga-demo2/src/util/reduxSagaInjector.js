@@ -77,6 +77,7 @@ export default (dispatch, keyStr) =>
     const now = new Date()
     const time = now.getTime()
     // action的type字符串，为防止重复，在末尾添加当前时间的毫秒数
+    // 为什么这个action这样子就行啊，一个字符串？？？，你懂吗，去看看 20190710-redux-saga
     const requestAction = `${keyStr.toString().toUpperCase()}_REQUEST_${time}`
     const successAction = `${keyStr.toString().toUpperCase()}_SUCCESS_${time}`
 

@@ -24,6 +24,6 @@ function * watchIncrement(){
 
 export default function* rootSaga() {
   // 这里演示了两种方式：1. takeEvery 2. take ，都可以监听
-  yield takeEvery('INCREMENT_ASYNC', incrementAsync); // takeEvery，用于监听所有的 INCREMENT_ASYNC action，并在 action 被匹配时执行
+  yield takeEvery('INCREMENT_ASYNC', incrementAsync); // takeEvery，用于监听每一次 INCREMENT_ASYNC action，并在 action 被匹配时执行
   yield watchIncrement();
 }

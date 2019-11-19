@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>shadow-dom</title>
+    <style>
+        h1 {
+            color: #db73ff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <el-h1>
+        <h1>这是不支持shadow-dom的标题~</h1>
+    </el-h1>
+    <script>
+        var createShadowRoot = document.body.createShadowRoot || document.body.webkitCreateShadowRot;
+        if (createShadowRoot) {
+            let host = document.querySelector('el-h1');
+            let root = host.createShadowRoot();
+            root.innerHTML = '<h1 style="background-color: #2cacff; color: white;">这是支持shadow-dom的标题~</h1>';
+        }
+    </script>
+
+</html>

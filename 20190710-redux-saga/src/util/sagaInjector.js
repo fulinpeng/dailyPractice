@@ -97,7 +97,7 @@ export default (dispatch, keyStr) =>
       store.runSaga(saga)
     }
 
-    // 如果没有传入结果对象的名称，则认为开发者自定义了reducer，不再需要动态注入
+    // 如果传入的是开发者自定义了 reducer ，还需要动态注入这个 reducer
     if(reducerName && reducerNameType === 'string') {
       injectAsyncReducer(store, reducerName, createReducer(successAction))
     }

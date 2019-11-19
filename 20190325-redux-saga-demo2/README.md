@@ -1,5 +1,7 @@
-# 项目结构
-* ...
+
+* 加入mockjs
+* 接口请求会动态生成saga
+* [示例]('./src/webApp/containers/asyncModules/test/index.js')
 
 * --mode development
     * 不提供此参数，有警告，但是可以不提供

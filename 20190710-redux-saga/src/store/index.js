@@ -8,6 +8,8 @@ console.log('rootSaga', rootSaga);
 
 // 异步redux
 const sagaMiddleware = createSagaMiddleware();
+
+// preloadedState ，它是state的初始值
 const preloadedState = {
     name: 'flp',
     age: 22,
@@ -18,7 +20,7 @@ sagaMiddleware.run(rootSaga);
 // combineReducers返回的是一个函数
 // const store = createStore(combineReducers(reducer)); // 不用saga就用这个
 
-// console.log('@@@@@@@@@@@@store', store, store.getState());
+console.log('@@@@@@@@@@@@store', store, store.getState());
 export default store;
 
 

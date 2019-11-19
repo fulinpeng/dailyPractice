@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>shadow-dom</title>
+    <style>
+        h1,
+        p {
+            color: #db73ff !important;
+        }
+
+        #host {
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="host">
+        <h1 class="title">I am title</h1>
+        <p class="subtitle">I am subtitle</p>
+    </div>
+    <template id="temp">
+        <style>
+            span {
+                color: rebeccapurple;
+            }
+
+            ::content * {
+                background-color: orangered;
+            }
+
+            :host {
+                border: 2px solid steelblue;
+            }
+        </style>
+        <p onclick="alert('hello~');" pseudo="test">template - 点我吧~~</p>
+        <span>I'm the span tag of template</span>
+        <!-- 绑定#host所有内容 -->
+        <!--<content></content>-->
+
+        <!-- 绑定#host p的内容 -->
+        <content select=".subtitle"></content>
+        <!-- 绑定#host h1的内容 -->
+        <content select="h1"></content>
+    </template>
+    <script>
+        var host = document.querySelector('#host');
+        var root = host.createShadowRoot();
+        var temp = document.querySelector('#temp');
+        // 代码放入一个 template 中，再通过 importNode 插入到 shadow-dom 中
+        var clone = document.importNode(temp.content, true);
+
+        root.appendChild(clone);
+        document.addEventListener('click', function (e) {
+            console.log(e.target.innerHTML + ' click!');
+        });
+    </script>
+
+</html>
