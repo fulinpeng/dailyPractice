@@ -48,3 +48,8 @@
     * cross-env 可以跨平台设置参数
 * package.json 的 script 标签，其实执行的是：node_modules/.bin下面的文件
     * node_modules/.bin/webpack-dev-server 等同于 webpack-dev-server
+* 这次优化了reduxSagaInjector：
+    1. 调用httpApi时，可以存数据到store中，只需将原来的callback参数换成自己的reducer名称即可
+    2. 遗留问题
+        * 请搜索`这个判断很明显是一个坑`，不好解决
+        * 那些action/reducer名称最好以全局变量维护

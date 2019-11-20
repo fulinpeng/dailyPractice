@@ -18,14 +18,22 @@ class Test extends Component {
   componentDidMount() {
     // 那个请求的封装，吧错误吞掉了。。。改改
     // 热加载那个hot什么意思了，什么意义了
-    reduxSagaInjector(store.dispatch, 'testApisTest1')('testApisTest1', null, (res) => {
-      console.log('testApisTest1-success:', res);
-    });
+    // reduxSagaInjector(store.dispatch, 'testApisTest1')('testApisTest1', null, (res) => {
+    //   console.log('testApisTest1-success:', res);
+    // });
     reduxSagaInjector(store.dispatch, 'testApisTest2')('testApisTest2', {
       name: 'flp'
-    }, (res) => {
-      console.log('testApisTest2-success:', res);
-    });
+    }, 'testApisTest2');
+
+    // 这是一个需要保存到store中的请求
+    // reduxSagaInjector(store.dispatch, 'testApisTest3')('testApisTest3', {
+    //   name: 'flp-'
+    // }, 'testApisTest3');
+    // 等请求完毕，在其它地方你就可以使用这个testApisTest3的数据了
+    // 你得在 mapStateToProps 中导入，在另一个组件中用啊
+    setTimeout(() => {
+      console.log('!!!!!!!!!!!!!!!!!!!-setTimeout-store', store.getState());
+    }, 2000);
   }
 
   incrementHandle = () => {

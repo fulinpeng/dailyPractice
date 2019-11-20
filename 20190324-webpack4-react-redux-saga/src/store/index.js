@@ -8,6 +8,7 @@ import * as reducer from '_root/reducers/index';
 // 异步redux
 const sagaMiddleware = createSagaMiddleware();
 
+// createStore有三个参数哦
 // const store = createStore(incrementReducer, applyMiddleware(sagaMiddleware));
 // sagaMiddleware.run(watchIncrementAsync);
 // combineReducers返回的是一个函数

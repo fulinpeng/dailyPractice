@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 
-import * as reducer from '_root/reducers/index';
-import rootSaga from '_root/sagas/index'
+import reducer from '_root/reducers/index';
+import rootSaga from '_root/sagas/index';
+import makeReducer from '../util/makeReducer';
 
 console.log('rootSaga', rootSaga);
 
@@ -11,16 +12,17 @@ const sagaMiddleware = createSagaMiddleware();
 
 // preloadedState ，它是state的初始值
 const preloadedState = {
-    name: 'flp',
-    age: 22,
+    // name: 'flp', // 会报错，Unexpected keys will be ignored
+    increment: {number: 11},
+    reduce: {number: 111}
 };
-const store = createStore(combineReducers(reducer), preloadedState, applyMiddleware(sagaMiddleware));
+const store = createStore(makeReducer(reducer), preloadedState, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 // combineReducers返回的是一个函数
 // const store = createStore(combineReducers(reducer)); // 不用saga就用这个
 
-console.log('@@@@@@@@@@@@store', store, store.getState());
+console.log('*************-store', store, store.getState());
 export default store;
 
 

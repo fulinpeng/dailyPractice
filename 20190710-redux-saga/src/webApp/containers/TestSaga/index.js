@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import "./index.scss";
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import { increment, increment2, reduce } from '_root/actions/index';
+import { incrementSaga, increment2, reduceSaga } from '_root/actions/index';
 
 class TestSaga extends Component {
   constructor(props) {
@@ -15,14 +15,14 @@ class TestSaga extends Component {
   incrementHandle = () => {
     // console.log(this.props.increment); // 打印结果：ƒ () { return dispatch(actionCreator.apply(this, arguments));}
     // 再次证明actions文件夹只能放actionCreactor，不能放action对象
-    this.props.increment();
+    this.props.incrementSaga();
   }
   increment2Handle = () => {
     this.props.increment2();
   }
 
   onClick2 = () => {
-    this.props.reduce();
+    this.props.reduceSaga();
   }
 
   render() {
@@ -57,9 +57,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   console.log('@@@@@@@@@@@@@ownProps', ownProps);
   return bindActionCreators({
-    increment,
+    incrementSaga,
     increment2,
-    reduce,
+    reduceSaga,
   }, dispatch);
 };
 
