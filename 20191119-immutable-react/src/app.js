@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import WebApp from "./webApp";
+import "./webApp/common/css/ant-default";
 import "./webApp/common/css/base";
 
 import rootSaga from './sagas';
@@ -15,7 +16,7 @@ import apis from './apis';
 import zhCN from 'antd/es/locale/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.less';
 moment.locale('zh-cn');
 
 

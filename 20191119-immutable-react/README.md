@@ -54,3 +54,9 @@
         * 请搜索`这个判断很明显是一个坑`，不好解决
         * 那些action/reducer名称最好以全局变量维护
         * css并没有热更新啊...缓存很严重，不是的啊，时你做了分离css，开发环境不做就是了
+* ant自定制主题：
+    1. app.js 中引入 `import 'antd/dist/antd.less';` 不要引入错了，注意时less不是css
+    2. ant用的less，必须用less-loader
+    3. webpack的less配置要加上有modifyVars配置的option
+        * 如果引入js的话，webpack是commonJs环境，module.exports, exports.xxx 才行的
+

@@ -3,6 +3,17 @@
 const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 打包进度
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const antOptions = {
+    modifyVars: {
+        'primary-color': '#1DA57A',
+        'link-color': '#1DA57A',
+        'border-radius-base': '2px',
+        // or
+        'hack': `true; @import "./ant-default.less";`, // Override with less file
+    },
+    javascriptEnabled: true,
+}
+
 module.exports = {
     output: {
         filename: "scripts/[name].[hash:5].bundles.js", // entry chunk 文件名
@@ -36,7 +47,7 @@ module.exports = {
                         }
                     },
                     { loader: 'css-loader' },
-                    { loader: 'less-loader' }
+                    { loader: 'less-loader', options: antOptions}
                 ]
             },
             {

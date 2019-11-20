@@ -5,6 +5,8 @@ import "./index.scss";
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
+import Home from "_root/webApp/containers/home";
+
 class AppLayout extends Component {
   constructor(props){
     super(props)
@@ -20,7 +22,10 @@ class AppLayout extends Component {
           <Sider>Sider</Sider>
           <Layout>
             <Header>Header</Header>
-            <Content>Contentssss</Content>
+            <Content>
+              Contentssss
+              <Home/>
+            </Content>
             <Footer>Footer</Footer>
           </Layout>
         </Layout>

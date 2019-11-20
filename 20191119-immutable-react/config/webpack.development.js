@@ -1,6 +1,13 @@
 const webpack = require('webpack');
 const path = require("path");
 const { join, resolve } = path;
+const antLessOverride = require('./antLessOverride.js');
+console.log('@@@@@@@@@@@@@@@@@@@@', antLessOverride);
+// 自定制主题使用，也可以在 .babelrc 中配置 hack
+const antOptions = {
+    modifyVars: antLessOverride, // Override with less file
+    javascriptEnabled: true,
+}
 module.exports = {
     output: {
         filename: "scripts/[name].bundles.js",
@@ -35,8 +42,12 @@ module.exports = {
                 use: [
                     { loader: 'style-loader' },
                     { loader: 'css-loader' },
-                    { loader: 'less-loader' }
-                ]
+                    {
+                        loader: 'less-loader',
+                        options: antOptions
+                    }
+                ],
+                // include: /node_modules/,
             },
             {
                 test: /\.css$/,
