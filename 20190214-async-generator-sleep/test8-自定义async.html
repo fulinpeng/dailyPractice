@@ -30,10 +30,13 @@
             let res1 = yield new Promise(function (resolve) {
                 setTimeout(() => resolve(1), 1000);
             });
-            let res2 = yield new Promise(function (resolve) {
-                setTimeout(() => resolve(2 + res1), 1000);
+            console.log('~~~res1', res1);
+            let res2 = yield res1 + 2;
+            console.log('~~~res2', res2);
+            let res3 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(3 + res2), 1000);
             });
-            console.log('~~~end', res2);
+            console.log('~~~res3', res3);
         });
     </script>
 </body>

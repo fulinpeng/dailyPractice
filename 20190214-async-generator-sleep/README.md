@@ -25,6 +25,7 @@
 * generator + for...of 来做数组扁平化
 
 * Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行
+    * 执行 next() 方法后，返回的是yield表达式后面的语句执行结果
 * Generator还是很有意思的，可以细读，里面的所有例子都很六
     * Generator函数里面嵌套for...of遍历另外一个Generator，然后遍历外层Generator就会出现嵌套效果啊...
     * Generator函数相互嵌套，也是同样的效果!!!
