@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>webworker</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // Worker()构造函数的参数是一个脚本文件，该文件就是 Worker 线程所要执行的任务。
+    var worker = new Worker('./work.js');
+
+    worker.postMessage({ method: 'echo', args: ['Work'] });
+
+    worker.addEventListener('message', function (event) {
+        console.log('Received message: ', event.data);
+        // ...
+    })
+
+    // 错误监听
+    worker.onerror = function (event) {
+        console.log([
+            'ERROR: Line ', e.lineno, ' in ', e.filename, ': ', e.message
+        ].join(''));
+    };
+
+    setTimeout(() => {
+        // 请及时关闭
+        worker.terminate();
+    }, 100);
+
+</script>
+
+</html>
