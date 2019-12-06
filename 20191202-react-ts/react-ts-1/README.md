@@ -59,13 +59,20 @@
     2. ant用的less，必须用less-loader
     3. webpack的less配置要加上有modifyVars配置的option
         * 如果引入js的话，webpack是commonJs环境，module.exports, exports.xxx 才行的
-* yarn add babel-plugin-import
-    * 这个插件能对antd, antd-mobile, lodash, material-ui等库做按需加载
 
 * react-router:
     * 路由对应的组件有两种写法 `render={() => <route.main/>}` `children={route.footer}`
     * switch是在有多个路由的时候用
 
+* typeScript:
+    * 添加React和React-DOM以及它们的声明文件
+        * npm install --save react react-dom @types/react @types/react-dom
+    * 添加开发时依赖awesome-typescript-loader和source-map-loader
+        * npm install --save-dev typescript awesome-typescript-loader source-map-loader
+        * awesome-typescript-loader可以让Webpack使用TypeScript的标准配置文件 tsconfig.json编译TypeScript代码
+        * source-map-loader使用TypeScript输出的sourcemap文件来告诉webpack何时生成 自己的sourcemaps，方便调试
+* 参考:
+    * https://www.jianshu.com/p/1798ed80f70d
 
 
-    
+* ts配置失败....看react-ts2吧

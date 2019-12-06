@@ -9,6 +9,7 @@ module.exports = {
         chunkFilename: 'scripts/async-[name]-[contenthash:5].js', // 决定non-entry块文件的名称
     },
     // 用了分离，就不能用按需加载了...
+    // 看能不能兼顾啊
     // optimization: {
     //     // minimizer: [
     //     //     new UglifyJsPlugin({
@@ -22,7 +23,7 @@ module.exports = {
     //         maxSize: 1000000, // 生成的包最大不能超过这个值，超过了就自动拆开
     //         minChunks: 2, // 默认为1
     //         maxAsyncRequests: 5, // 按需加载时并行请求的最大数量
-    //         maxInitialRequests: 3, // 一个入口点的最大数量的并行请求
+    //         maxInitialRequests: 3, // 首屏加载最大并行请求
     //         automaticNameDelimiter: '-', // 指定分隔符 vendors-main.js
     //         // name: true, // 默认为true， based on chunks and cache group key
     //         name (module, chunks, cacheGroupKey) {

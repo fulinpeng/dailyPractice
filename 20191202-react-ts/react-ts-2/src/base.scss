@@ -1,0 +1,14 @@
+html {
+    background-color: #666;
+
+    p {
+        color: red;
+        display: flex;
+    }
+    a {
+        color: greenyellow;
+    }
+
+}
+// 引入 babel-plugin-import 后可不要下面这个样式
+@import '~antd/dist/antd.css';
