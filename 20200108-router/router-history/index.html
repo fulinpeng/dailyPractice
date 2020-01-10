@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="javascript:void(0)" data-path="steelblue">steelblue</a></li>
+        <li><a href="javascript:void(0)" data-path="yellowgreen">yellowgreen</a></li>
+        <li><a href="javascript:void(0)" data-path="orange">orange</a></li>
+    </ul>
+</body>
+<script src="./router.js"></script>
+<script src="./index.js"></script>
+<script>
+
+    (function () {
+        history.replaceState(null, '', ''); // 最开始的状态，采用replace直接替换
+        var aa = document.querySelectorAll('a');
+        for (let i = 0; i < aa.length; i++) {
+            let a = aa[i];
+            a.onclick = function () {
+                var text = this.innerHTML;
+                console.log('text', text)
+                history.pushState({path: text}, '', text);
+                setTimeout(() => {
+                    window.onpopstate();
+                }, 100);
+            }
+        }
+    })()
+</script>
+
+</html>
