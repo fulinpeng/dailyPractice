@@ -5,7 +5,7 @@ function Router() {
     window.onload = function () {
         _this.resolve();
     }
-    // js调用history的api谷歌浏览器不会触发这个事件
+    // js调用history的api谷歌浏览器不会触发onpopstate事件
     window.onpopstate = function (e) {
         console.log('E', e);
         _this.resolve();

@@ -43,5 +43,5 @@
     * self.onmessageerror：指定 messageerror 事件的监听函数。
         * 发送的数据无法序列化成字符串时，会触发这个事件。
     * self.close()：关闭 Worker 线程。
-    * self.postMessage()：向产生这个 Worker 线程发送消息。
-    * self.importScripts()：加载 JS 脚本。
+    * self.postMessage()：`向产生这个 Worker 线程发送消息`。
+    * self.importScripts()：为webworker进程加载外部 JS 脚本。

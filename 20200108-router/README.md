@@ -18,3 +18,11 @@
 ```
 
 * 测试history的时候，需要开服务器才行哦
+
+* js调用history的api谷歌浏览器不会触发onpopstate事件
+    * 用js主动调用一次这个方法
+    ```js
+    setTimeout(() => {
+        window.onpopstate();
+    }, 100);
+    ```
