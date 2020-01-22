@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 实例：用户提交表单数据之前需要用户行为统计
+
+        // 函数处理前执行fn
+        Function.prototype.before=function (fn) {
+            var self=this;
+            return function () {
+                fn.call(this);
+                self.apply(this, arguments);
+            }
+        }
+        // 函数处理后执行fn
+        Function.prototype.after=function (fn) {
+            var self=this;
+            return function () {
+                self.apply(this, arguments);
+                fn.call(this);
+            }
+        }
+
+        
+        function report() {
+            console.log('上报数据');
+        }
+        function submit() {
+            console.log('提交数据');
+        }
+        submit.before(report)(); //提交之前执行report
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-2.2.0.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <input class="test-input" type="file" />
+        <button class="test-button">上传</button>
+    </div>
+    <script>
+        let fileInput=$('.test-input');
+        let fileButton=$('.test-button');
+
+        fileInput.on('change', handleFileChange);
+        fileButton.on('click', handleUpload);
+
+        const LENGTH=10; // 切片数量
+        let container={
+            file: null
+        };
+        let data=[];
+
+        function handleFileChange(e) {
+            const [file]=e.target.files;
+            if (!file) return;
+            Object.assign(this.$data, this.$options.data());
+            this.container.file=file;
+        }
+
+        // 生成文件切片
+        function createFileChunk(file, length=LENGTH) {
+            const fileChunkList=[];
+            const chunkSize=Math.ceil(file.size/length);
+            let cur=0;
+            while (cur<file.size) {
+                fileChunkList.push({file: file.slice(cur, cur+chunkSize)});
+                cur+=chunkSize;
+            }
+            return fileChunkList;
+        }
+
+        // 上传切片
+        async function uploadChunks() {
+            const requestList=this.data
+                .map(({chunk, hash}) => {
+                    const formData=new FormData();
+                    formData.append("chunk", chunk);
+                    formData.append("hash", hash);
+                    formData.append("filename", this.container.file.name);
+                    return {formData};
+                })
+                .map(async ({formData}) =>
+                    this.request({
+                        url: "http://localhost:3000",
+                        data: formData
+                    })
+                );
+            await Promise.all(requestList); // 并发切片
+            // 合并切片
+            await this.mergeRequest();
+        }
+
+        async function handleUpload() {
+            if (!this.container.file) return;
+            const fileChunkList=this.createFileChunk(this.container.file);
+            this.data=fileChunkList.map(({file}, index) => ({
+                chunk: file,
+                hash: this.container.file.name+"-"+index // 文件名 + 数组下标
+            }));
+            await this.uploadChunks();
+        }
+
+        async function mergeRequest() {
+            await this.request({
+                url: "http://localhost:3000/merge",
+                headers: {
+                    "content-type": "application/json"
+                },
+                data: JSON.stringify({
+                    filename: this.container.file.name
+                })
+            });
+        }
+
+        function request({
+            url,
+            method="post",
+            data,
+            headers={},
+            requestList
+        }) {
+            return new Promise(resolve => {
+                const xhr=new XMLHttpRequest();
+                xhr.open(method, url);
+                Object.keys(headers).forEach(key =>
+                    xhr.setRequestHeader(key, headers[key])
+                );
+                xhr.send(data);
+                xhr.onload=e => {
+                    resolve({
+                        data: e.target.response
+                    });
+                };
+            });
+        }
+    </script>
+</body>
+
+</html>
