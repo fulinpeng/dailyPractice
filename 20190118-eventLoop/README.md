@@ -3,11 +3,12 @@
 * https://juejin.im/post/59e85eebf265da430d571f89
 
 * 注意：
-1. 第二次事件循环开始，每执行一条宏任务就会执行一次当前所有的微任务；
-2. 浏览器中`.then(...).then(...)`加入microTask是同步执行的，第一个then的微执行完了，第二个then就执行马上又在microTask里添加下一个微任务，`这两个微任务是在同一次EventLoop中执行的`；
-3. 浏览器与node执行结果不一样的，node的执行是执行所有宏任务，完了再执行微任务
-4. node环境下，`nextTick`会优先于`Promise.then`
-5. 还有`dom事件`和`MutationObserver`，详情请看：`https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/`
+1. 主线程代码也属于宏任务，执行完了，会立马执行一次微任务
+2. 每执行一条宏任务就会执行所有本次宏任务添加的所有的微任务；
+3. `.then(...).then(...)`加入microTask是同步执行的，第一个then的微执行完了，第二个then就执行马上又在microTask里添加下一个微任务，检查发现还有微任务就立即执行，`这两个微任务是在同一次EventLoop中执行的`；
+4. 浏览器与node执行结果不一样的，node的执行当前添加的宏任务一次执行完，再检查执行当前添加的所有微任务
+5. node环境下，`nextTick`会优先于`Promise.then`
+6. 还有`dom事件`和`MutationObserver`，详情请看：`https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/`
     * the 'click' event is a task. MutationObserver and promise callbacks are queued as microtasks. The setTimeout callback is queued as a task. 
     * 事件冒泡的执行也优先于Timer，Timer的地位就这么低
     * 不同浏览器，的执行顺序不一样的。这咋搞啊？用`inner.click();`，【js调用click事件（不通过浏览器，直接走 js stack 来调用）】各大浏览器的执行顺序就都是一样的了。
