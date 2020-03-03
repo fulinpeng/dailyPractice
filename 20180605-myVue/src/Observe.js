@@ -3,7 +3,7 @@ function defineReactive(vm, key, val) {
     Object.defineProperty(vm, key, {
         get: function() {
             // 这个getter触发的次数在于页面上要绑定的个数，触发一次就要添加一个Dep.target(watcher)到Dep中
-            // 添加订阅者watcher到主题对象Dep
+            // 添加watcher到主题对象Dep
             if (Dep.target) {
                 // JS的浏览器单线程特性，保证这个全局变量在同一时间内，只会有同一个监听器使用
                 dep.addSub(Dep.target);

@@ -11,8 +11,6 @@
 <body>
     <script>
 
-        // 这个策略失败！！！！！！！！！！！！
-
         // 我们有1，5，10，25面额的硬币，如果要找36面额的钱，要如何实现最少硬币找零？
         // 答案是一个25，一个10，一个1
 
@@ -25,10 +23,9 @@
          * @note：3. 如果最小值硬币都不能找零，那就判定为'找零失败'
          */
         function MinCoinChange(coins) {
-            //cache存储了1到amount之间的所有结果
+            //cache存储了1到amount之间计算过的所有结果
             var cache = {};
-            var cacheCoins = coins.sort((a,b) => b - a);
-            console.log(cacheCoins);
+            var cacheCoins = coins.sort((a, b) => b - a);
             this.makeChange = function (amount) {
                 var me = this;
                 if (amount <= 0) {
@@ -64,8 +61,8 @@
             };
         };
 
-        // var minCoinChange = new MinCoinChange([1, 5, 10, 25]); // 成功
-        var minCoinChange = new MinCoinChange([25, 18, 7, 3]); // 失败
+        // var minCoinChange = new MinCoinChange([1, 5, 10, 25]);
+        var minCoinChange = new MinCoinChange([25, 18, 7, 8]);
         console.log(minCoinChange.makeChange(36))
     </script>
 </body>
