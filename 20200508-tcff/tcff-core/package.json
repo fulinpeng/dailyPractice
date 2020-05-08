@@ -1,0 +1,56 @@
+{
+  "_args": [
+    [
+      "@tencent/tcff-core@3.2.11",
+      "E:\\work\\emr\\module\\statics\\tcff3"
+    ]
+  ],
+  "_from": "@tencent/tcff-core@3.2.11",
+  "_id": "@tencent/tcff-core@3.2.11",
+  "_inBundle": false,
+  "_integrity": "sha1-MtQBqcHuYqcp8GQ+viclCkyq9xc=",
+  "_location": "/@tencent/tcff-core",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@tencent/tcff-core@3.2.11",
+    "name": "@tencent/tcff-core",
+    "escapedName": "@tencent%2ftcff-core",
+    "scope": "@tencent",
+    "rawSpec": "3.2.11",
+    "saveSpec": null,
+    "fetchSpec": "3.2.11"
+  },
+  "_requiredBy": [
+    "/",
+    "/@tencent/tcff-plugin-render",
+    "/@tencent/tcff-plugin-router",
+    "/@tencent/tcff-plugin-saga",
+    "/@tencent/tcff-plugin-service",
+    "/@tencent/tcff-preset-cloud-pc"
+  ],
+  "_resolved": "http://r.tnpm.oa.com/@tencent/tcff-core/download/@tencent/tcff-core-3.2.11.tgz",
+  "_spec": "3.2.11",
+  "_where": "E:\\work\\emr\\module\\statics\\tcff3",
+  "author": {
+    "name": "questguo"
+  },
+  "dependencies": {
+    "global": "^4.3.2",
+    "invariant": "^2.2.4",
+    "lodash.pick": "^4.4.0"
+  },
+  "description": "tcff core framework",
+  "keywords": [],
+  "license": "",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "name": "@tencent/tcff-core",
+  "scripts": {
+    "build": "node ../../scripts/build.js --name=TcffCore",
+    "prepublishOnly": "npm run build"
+  },
+  "sideEffects": false,
+  "version": "3.2.11"
+}
