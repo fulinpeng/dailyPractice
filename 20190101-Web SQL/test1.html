@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="status"></div>
+    <script>
+        // openDatabase：这个方法使用现有的数据库或者新建的数据库创建一个数据库对象
+        var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024, function () { console.log('打开数据库') });
+        
+        // transaction：这个方法让我们能够控制一个事务，以及基于这种情况执行提交或者回滚
+        db.transaction(function (tx) {
+            tx.executeSql('CREATE TABLE IF NOT EXISTS WIN (id unique, name)');
+            tx.executeSql('INSERT INTO WIN (id, name) VALUES (1, "winty")');
+            tx.executeSql('INSERT INTO WIN (id, name) VALUES (2, "LuckyWinty")');
+        });
+
+        // executeSql：这个方法用于执行实际的 SQL 查询
+        db.transaction(function (tx) {
+            tx.executeSql('SELECT * FROM WIN', [], function (tx, results) {
+                var len = results.rows.length, i;
+                msg = "<p>查询记录条数: " + len + "</p>";
+                document.querySelector('#status').innerHTML += msg;
+                for (i = 0; i < len; i++) {
+                    alert(results.rows.item(i).name);
+                }
+            }, null);
+        });
+
+        // 未完...
+
+    </script>
+</body>
+
+</html>

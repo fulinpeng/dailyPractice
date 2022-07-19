@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-3bom操作</title>
+
+<script>
+window.onload=function(){
+
+	var aIput=document.getElementsByTagName('input');
+	var opener=null;
+	
+	//open方法---有两个参数：open(url,打开方式)，默认为是以新窗口方式打开一个空白窗口
+	aIput[0].onclick=function(){
+		//window.open('http://127.0.0.1' , '_self');
+		
+		//open可以返回值，为新打开的窗口window
+		opener=open();
+		//alert(opener);
+		opener.document.body.style.background='red';
+	};
+	
+	aIput[1].onclick=function(){
+		window.close();//close    firfox无法关闭，ie会提示，chorm会直接关闭
+	};
+	
+	aIput[2].onclick=function(){
+		opener.close();//close    可以关闭通过本窗口js代码打开的新窗口
+	};
+
+	aIput[3].onclick=function(){
+		alert(window.navigator.userAgent);//navigator.userAgent 识别浏览器信息
+		
+		if(window.navigator.userAgent.indexOf('MSIE')!=-1){
+			alert('我是sbie');
+		}else{
+			alert('我不是ie');
+		};
+	};
+	
+	aIput[4].onclick=function(){
+		alert(window.location);//location    获取浏览器地址,用window啊
+		alert(typeof(window.location));//window.location  是一个object,那么他就有属性：
+		alert(window.location.href);//href       一、href属性返回url
+		alert(window.location.search);//search   二、url  从?之后的内容
+		alert(window.location.hash);//hash       三、url  从#之后的内容
+	};
+	
+	aIput[5].onfocus=function(){			//text.onfocus	方法  获得焦点
+		if(this.value=='请输入内容'){
+			this.value='';
+		}else{
+			this.select();					//text.select   方法  可以点击全选
+		};
+	};
+	aIput[5].onblur=function(){				//text.onblur	方法  取消焦点
+		if(this.value==''){
+			this.value='请输入内容';
+		};
+	};
+	
+	
+	
+};
+</script>
+</head>
+<body>
+	<input type="button" value="按钮"/>
+	<input type="button" value="关闭窗口"/>
+	<input type="button" value="关闭新窗口"/>
+	<input type="button" value="判断是否是ie"/>
+	<input type="button" value="获取浏览器地址"/><br/>
+	<input type="text" value="请输入内容"/>
+
+
+</body>
+</html>

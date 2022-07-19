@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/home.css"/>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/home.js"></script>
+</head>
+<body>
+<section>
+    <div class="content clear">
+        <!--导航-->
+        <ul class="sidbar-nav  padding-50 panel-group">
+            <li class="logobox clear">
+                <a href="" class="logoa"><span>&#xe610;</span>skygarten</a>
+            </li>
+            <li class="idalbox clear">
+                <img  src="images/idal.jpg"/>
+            </li>
+            <li class="searchbox clear">
+                <div class="search">
+                    <button type="submit" class="searchbtn">
+                        <span >&#x3433;</span>
+                    </button>
+                    <input type="text" class="searchctrl" placeholder="Search" name="srch-term">
+                </div>
+            </li>
+            <li class="active">
+                <a href="javascript:void(0)">数据管理<span class="iconspan">&#xe60a;</span></a>
+                <ul class="childe-ul" style="display:block">
+                    <li><a href="javascript:void(0)" name="DataManagement/divisionmanagement"><span>&#xf0145;</span>部门管理</a></li>
+                    <li><a href="javascript:void(0)" name="DataManagement/staffmanages"><span>&#xe6f3;</span>职工管理</a></li>
+                    <li><a href="javascript:void(0)" name="DataManagement/classmanagement"><span>&#xe600;</span>班级管理</a></li>
+                    <li><a href="javascript:void(0)" name="DataManagement/studentManagement"><span>&#xe6ae;</span>学生管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)">照片墙<span class="iconspan">&#xe62b;</span></a>
+                <ul class="childe-ul">
+                    <!--<li><a href="javascript:void(0)" name="addphoto"><span>&#xe6f2;</span>发布照片</a></li>-->
+                    <li><a href="javascript:void(0)" name="photowallshow"><span>&#xe7b0;</span>查看照片</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)">考勤中心<span class="iconspan">&#xe64f;</span></a>
+                <ul class="childe-ul">
+                    <li><a href="javascript:void(0)" name="attendance"><span>&#xe84c;</span>出勤管理</a></li>
+                    <li><a href="javascript:void(0)" name="atten2"><span>&#xe84c;</span>请假情况</a></li>
+                    <li><a href="javascript:void(0)" name="atten3"><span>&#xe84c;</span>查询</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)">公告管理<span class="iconspan">&#xe655;</span></a>
+                <ul class="childe-ul">
+                    <li> <a href="javascript:void(0)" name="noticeadd"><span class="iconspan">&#xe6f2;</span>发布公告</a></li>
+                    <li> <a href="javascript:void(0)" name="principalbulletinboard"><span>&#xe7b0;</span>查看公告</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!--主体内容-->
+        <div class="mainbox">
+            <div class="navtop">
+                <a href="javascript:;" class="rightTopa" name="noticeadd">发布公告</a>
+                <a href="javascript:;" class="rightTopa" name="photowallshow">图片管理</a>
+                <a href="javascript:;" class="rightTopa" name="DataManagement/classmanagement">班级管理</a>
+                <a href="javascript:;" class="rightTopa lasta" name="attendance" >考勤管理</a>
+                <a href="login.html" class="now zhuxiao">注销</a>
+            </div>
+            <iframe id="frame_1"  class="main clear" onload="iFrameHeight()" src="pages/home.html" frameborder="0"></iframe>
+            <!--onload="iFrameHeight()"-->
+        </div>
+    </div>
+</section>
+<script>
+
+
+    //设置iframe高度
+    function iFrameHeight(){
+        var ifm= document.getElementById("frame_1");
+        var subWeb = document.frames ? document.frames["frame_1"].document : ifm.contentDocument;
+        setTimeout(function(){
+            if(ifm != null && subWeb != null){
+                ifm.style.height = subWeb.body.offsetHeight +200+ "px";
+            }
+        },1000)
+    }
+</script>
+<script>
+    var jsonpFn=function (data){
+        console.log(data)
+    }
+    $.ajax({
+        url:"http://127.0.0.1:3688/jsonp.do",
+        type:"get",
+        dataType:"json",
+        data:{callBack:function (data){
+            console.log(data)
+        }},
+        success:function (data) {console.log(data)
+//            jsonpFn(data)
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo"></div>
+    <div id="test"></div>
+    <script>
+        var A = function (selector) {
+            return new A.fn.init(selector);
+        }
+        var _arr = [];
+        A.fn = A.prototype = {
+            init: function (selector) {
+                this[0] = document.getElementById(selector);
+                this.length = 1;
+                return this;
+            },
+            length: 2,
+            size: function () {
+                return this.length;
+            },
+            push: _arr.push,
+            sort: _arr.sort,
+            splice: _arr.splice,
+            pop: _arr.pop
+        }
+        // 上面的问题，只要加上这句话就可以了
+        A.fn.init.prototype = A.fn;
+
+        var demo = A('demo');
+        var test = A('test');
+        console.log('demo', demo); // 加上new后，正常了
+
+        console.log('size', demo.size());
+
+        test.push(document.getElementById('demo'));
+        test.push(document.getElementById('demo'));
+        console.log('test', test); // 小有问题哦。。。但是那个length怎么自动递增的呀，怎么这么智能呢
+
+        // 懂了吧，产生的实例本身没有也就 size 属性呀，它的__proto__上也没得啊，哪怎么办
+        // 结果出来你一看，啊呀，没有size属性呀。在__proto__身上啊，撒肤肤的
+    </script>
+</body>
+</html>

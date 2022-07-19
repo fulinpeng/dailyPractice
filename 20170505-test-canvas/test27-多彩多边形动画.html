@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body style="margin:0px;padding:0px;width:100%;height:100%;overflow:hidden;">
+    <canvas id="c"></canvas>
+
+
+    <script>
+        var c = document.getElementById("c"),
+            cvs = c.getContext("2d"),
+            U = 0,
+            R = 10,
+            L = 200,
+            mysin = Math.sin,
+            mycos = Math.cos,
+            W = c.width = window.innerWidth,
+            H = c.height = window.innerHeight,
+            X = W / 2,
+            Y = H / 2,
+            angle = 0,
+            startAngle = 0,
+            num = 30,
+            big = true,
+            rand = 1,
+            timer;
+
+        cvs.fillRect(0, 0, W, H);
+        cvs.globalCompositeOperation = "lighter";
+        cvs.lineWidth = 0.2;
+        cvs.lineCap = "round";
+
+        function draw(e) {
+
+            cvs.save();
+            cvs.globalCompositeOperation = "source-over";
+            cvs.fillStyle = "rgba(0,0,0,0.03)";
+            cvs.fillRect(0, 0, W, H);
+            cvs.restore();
+            for (var i = 0; i < num; i++) {
+                angle = 2 * Math.PI / num * i + startAngle;
+                cvs.save();
+                cvs.globalCompositeOperation = "source-over";
+                cvs.translate(X, Y);
+                var x1 = R * mysin(angle) - L * mycos(angle);
+                var y1 = -(R * mycos(angle) + L * mysin(angle));
+                var x2 = R * mysin(angle) + L * mycos(angle);
+                var y2 = -(R * mycos(angle) - L * mysin(angle));
+                cvs.beginPath();
+                cvs.moveTo(x1, y1);
+                cvs.lineTo(x2, y2);
+                cvs.strokeStyle = "hsla(" + (U % 360) + ",100%,50%,0.75)";
+                cvs.stroke();
+                cvs.restore();
+            }
+
+            U += 0.1;
+
+            if (!e) {
+                startAngle = startAngle >= 2 * Math.PI ? 0 : startAngle + Math.PI / 18;
+            }
+
+            timer = setTimeout(function() {
+                draw(e = null);
+            }, 30)
+        }
+        document.onmousemove = function(e) {
+            var even = e.event || window.event;
+            X = even.clientX;
+            Y = even.clientY;
+            clearTimeout(timer);
+            startAngle = startAngle >= 2 * Math.PI ? 0 : startAngle + Math.PI / 18;
+            R += big ? rand : -rand;
+            if (R == 200) {
+                big = false;
+            } else if (R == 50) {
+                big = true;
+            }
+
+            draw(e);
+        };
+    </script>
+
+    <!--  你看看人家的效果。。。 -->
+    <!-- <script type="text/javascript">
+            window.onload = function() {
+                main();
+            };
+            function main(e) {
+                j = document;
+                d = j.getElementById("c");
+                c = d.getContext("2d");
+                MyCos = Math.cos;
+                MySin = Math.sin;
+                W = d.width = window.innerWidth;
+                H = d.height = window.innerHeight;
+                c.fillRect(0, 0, W, H);
+                c.globalCompositeOperation = "lighter";
+                c.lineWidth = 0.2;
+                c.lineCap = "round";
+    
+                X = W / 2;
+                Y = H / 2;
+                RadiousA = 100;
+                RadiousB = 1;
+                AngleA = 0;
+                BeginA = 0;
+                U = 0;
+                big = true;
+    
+                a = 0;
+                b = 0;
+                x = X + RadiousA * MyCos(BeginA);
+                y = Y + RadiousA * MySin(BeginA);
+    
+                d.onmousemove = function(e) {
+                    if (e) {
+                        X = e.x;
+                        Y = e.y;
+                        x = X + RadiousA * MyCos(BeginA);
+                        y = Y + RadiousA * MySin(BeginA);
+                    }
+                    setInterval(f = function(e) {
+                        c.save();
+                        c.globalCompositeOperation = "source-over";
+                        if (e != 1) {
+                            c.fillStyle = "rgba(0,0,0,0.02)";
+                            c.fillRect(0, 0, W, H);
+                        }
+                        c.restore();
+                        AngleA = Math.acos(RadiousB / RadiousA) * 2;
+                        i = 25;
+                        while (i--) {
+                            c.beginPath();
+                            BeginA += AngleA;
+                            a = X + RadiousA * MyCos(BeginA);
+                            b = Y + RadiousA * MySin(BeginA);
+                            c.moveTo(x, y);
+                            c.lineTo(a, b);
+                            c.strokeStyle = "hsla(" + (U % 360) + ",100%,50%,0.75)";
+                            c.stroke();
+                            x = a;
+                            y = b;
+                            U += 0.1;
+                        }
+                        RadiousB += (big ? 1 : -1);
+                        RadiousA += (big ? 1 : -1);
+                        if (RadiousB >= Y) {
+                            big = false;
+                        } else if (RadiousB <= 100) {
+                            big = true;
+                        }
+                    }, 16);
+                };
+                d.onmousemove();
+            }
+        </script> -->
+</body>
+
+</html>

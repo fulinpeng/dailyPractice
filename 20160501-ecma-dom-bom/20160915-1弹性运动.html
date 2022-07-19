@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-15-1弹性运动</title>
+<style>
+#div1{width:100px;height:100px;background:red;position:absolute;left:30;top:50px;}
+</style>
+<script>
+var iSpeed=0;
+/*
+function startMove(){
+	var oDiv=document.getElementById('div1');
+	
+	setInterval(function(){
+		iSpeed-=(oDiv.offsetLeft-300)/5;
+		iSpeed*=0.7;
+		oDiv.style.left=oDiv.offsetLeft+iSpeed+'px';
+	},30);
+};
+
+*/
+function startMove(){
+	var oDiv=document.getElementById('div1');
+	var a=0;
+	var timer=setInterval(function(){
+//这是弹性运动，a的由来，就是以300为基点，物体左右摆动，5相当于时间
+		a=(300-oDiv.offsetLeft)/5;//加速度
+		if(iSpeed>=0){//此时，合力向右，oDiv.offsetLeft在变大，所以a在变小，可理解为F在变小导致的
+			if(a>=0){//此时速度向右，
+				a-=a*0.3;//此时合力向右，加速度变小,相当于摩擦力的存在，让合力变小
+			}else{
+				a+=a*0.3;//此时合力向左，加速度变大,相当于摩擦力的存在，让合力进一步变大
+			};
+			
+		}else{//此时合力向左
+			if(a>=0){
+				a+=a*0.3;
+			}else{
+				a-=a*0.3;
+			};
+		};
+		
+		iSpeed+=a;
+		if(Math.abs(a)<=0.2){
+			setInterval(timer);
+			oDiv.style.left='300px';
+		}else{
+			oDiv.style.left=oDiv.offsetLeft+iSpeed+'px';
+		};
+	},30);
+};
+	
+	
+</script>
+</head>
+<body>
+<input id="btn" type="button" value="开始" onclick="startMove()"/>
+<div id="div1"></div>
+<div style="width:1px;height:300px;background:black;position:absolute;left:350px;">
+</body>
+</html>

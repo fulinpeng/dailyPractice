@@ -1,0 +1,77 @@
+.people-panel {
+  margin: 0.3rem 0.4rem 0;
+  padding-left: 0.8rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 0.01rem solid #ebebeb;
+  .user-pic {
+    width: 0.65rem;
+    height: 0.65rem;
+    overflow: hidden;
+    border-radius: 0.65rem;
+    margin-left: -0.8rem;
+    float: left;
+    img {
+      width: 100%;
+    }
+  }
+  .user-name-tags {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .user-name {
+      font-size: 0.26rem;
+      color: #333333;
+      letter-spacing: -0.0062rem;
+      line-height: 0.37rem;
+    }
+    .user-tags {
+      font-size: 0.14rem;
+      color: #333333;
+      letter-spacing: 0;
+      span {
+        margin-right: 0.1rem;
+        padding: 0 0.05rem;
+        display: inline-block;
+        background: #e0f2ff;
+        border-radius: 0.02rem;
+        &:nth-last-child(1) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .user-info {
+    display: flex;
+    margin: 0.1rem 0;
+    .info {
+      margin-right: 0.2rem;
+      padding-left: 0.25rem;
+      font-size: 0.16rem;
+      color: #999999;
+      letter-spacing: 0;
+    }
+    .tel {
+      background: url("../../images/tel.png") no-repeat;
+      background-size: 0.2rem 0.2rem;
+      background-position: left center;
+    }
+    .adress {
+      background: url("../../images/adress.png") no-repeat;
+      background-size: 0.2rem 0.2rem;
+      background-position: left center;
+    }
+    .country {
+      background: url("../../images/country.png") no-repeat;
+      background-size: 0.2rem 0.2rem;
+      background-position: left center;
+    }
+  }
+  .user-desc {
+    font-family: PingFangSC-Regular;
+    font-size: 0.16rem;
+    color: #333333;
+    letter-spacing: 0;
+    .more {
+    }
+  }
+}

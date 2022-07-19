@@ -1,0 +1,18 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "defaultSeverity": "warning",
+  "rules": {
+    "jsx-no-lambda": false, // 为 false 是允许使用箭头函数
+    "ordered-imports": false, // 为 true 指在导入模块时，必须按照字母顺序导入
+    "interface-name": [true, "never-prefix"], // 接口名称必须以大写的I开头
+    "ordered-imports": false, // 组内的导入源必须按字母顺序排列
+    "object-literal-sort-keys": false, // 键没有按字母顺序排序
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  }
+}

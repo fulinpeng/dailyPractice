@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+
+<header id="head">
+    <div class="headfont"></div>
+    <div class="loginbox">
+        <div class="info user">
+            <span class="ico"></span>
+            <input autocomplete="off" name="userName" value="00001101" type="text" maxlength="12">
+            <span class="error"></span>
+        </div>
+        <div class="info pasw">
+            <span class="ico"></span>
+            <input autocomplete="off" name="userPwd" value="1" type="password" maxlength="12">
+            <span class="error"></span>
+        </div>
+        <div class="info yanzheng">
+            <input autocomplete="off" name="captchaValue" type="text" maxlength="4">
+            <span class="yzmdes"><img src=""></span>
+            <span class="new"></span>
+            <span class="error"></span>
+        </div>
+        <div class="info login">登录</div>
+    </div>
+</header>
+
+
+<script>
+    $('.info.login').click(function () {console.log('jinle')
+        var user = $('.info.user input').val().trim();
+        var psw = $('.info.pasw input').val().trim();
+        var yzm = $('.info.yanzheng input').val().trim();
+
+        var url='http://192.168.1.222:8484/ppt/login';
+        var data='userName='+user+'&userPwd='+psw+'&captchaValue='+yzm;
+
+        ajax(url, 'post', data, showSuccess, true);
+    });
+    function showSuccess(res) {
+        console.log(res.code);
+    }
+
+    function ajax(url, type, data, successFn, isCross){
+        /**
+         *   url: 请求地址
+         *   type: 请求方式
+         *   url: 请求数据（标准数据格式：userName=1&userPwd=1&...）
+         *   successFn: 回调函数
+         *   isCross: 是否跨域
+         **/
+        data = data || '';
+        successFn = successFn || new Function();
+        isCross = isCross || false;
+        if (isCross && window.XDomainRequest) {    // IE 8、9、10 跨域 POST
+            var xdr = new XDomainRequest();
+            xdr.onload = function() {
+                var res = JSON.parse(xdr.responseText);
+                successFn(res);
+            };
+            xdr.onerror = function() {
+                alert("error");
+            }
+            xdr.open(type, url + '?' + data);
+            xdr.send();
+        } else {    // 常规 Ajax
+            var xhr = null;
+            try{
+                xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+            } catch(e) {
+                try{
+                    xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch (e) {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+
+            xhr.onreadystatechange = function(){
+                if(this.readyState===4 && this.status===200){
+                    var res = JSON.parse(xhr.responseText);
+                    successFn(res);
+                }
+            }
+            xhr.onerror = function(e){
+                console.log(e);
+            }
+            if (type === 'GET') {
+                // ----------------GET请求格式----------------------
+                xhr.open("GET", url + '?' + data , true);
+                xhr.send(null);
+            } else {
+                // ----------标准键值对POST-------------
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhr.send(data);
+
+                // ---------JSON格式------------
+                // xhr.open("POST", url, true);
+                // xhr.send(JSON.stringify(data));
+            }
+        }
+    }
+</script>
+</body>
+</html>

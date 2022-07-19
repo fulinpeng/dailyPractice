@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>demo</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    // 解析一个url，解析出协议、域名和参数（参数要是对象）
+
+    parseParam('https://www.m.qq.jianshu.cn/p/f871c43d/index.html?name=qqq&age=23');
+
+    function parseParam(url) {
+      let reg = /(http[s]?)\:\/\/((www\.)?([a-zA-Z0-9][-a-zA-Z0-9]*\.)+[a-z]{2,})(\/[a-zA-Z0-9]+[-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9].[a-zA-Z])?)*(\?[a-zA-Z0-9][-a-zA-Z0-9]*=\w+(\&[a-zA-Z0-9][-a-zA-Z0-9]*=\w+)*)?/;
+
+      let matchRes = url.match(reg);
+      if (!matchRes) return {};
+
+      // 解析出协议、域名和参数
+      let protocol = matchRes[1];
+      let domain = matchRes[2];
+      let paramStr = matchRes[7].slice(1);
+
+      // 将?name=qqq&age=23转成对象
+      let paramArr = paramStr.match(/([a-zA-Z0-9][-a-zA-Z0-9]*=\w+)/g);
+      let params = {};
+      if (paramArr && paramArr.length) {
+        paramArr.forEach((v) => {
+          let item = v.split('=');
+          params[item[0]] = item[1]
+        });
+      }
+
+      return {protocol, domain, params, };
+    }
+  </script>
+</body>
+
+</html>

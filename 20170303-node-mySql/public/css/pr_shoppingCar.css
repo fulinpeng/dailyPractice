@@ -1,0 +1,274 @@
+.pay_section{
+    color: black;
+    margin-bottom: 30px;
+    font-family: 微软雅黑;
+}
+.pay_main_ft_line_2{
+    margin-bottom: 30px;
+}
+.pay_section_logo{
+    width: 200px;
+    height: 25px;
+    float: left;
+    margin-left: 10px;
+}
+.pay_section_logo img{
+    width: 200px;
+    height: 25px;
+}
+.pay_section_logo_r{
+    float: right;
+}
+.pay_section_logo_r_under{
+    margin-top: 2px;
+}
+.pay_section_logo_r_under div{
+    color: black;
+    float: right;
+    font-size: 11px;
+    color: #9B9B9B;
+}
+.pay_section_logo_r_under div:nth-child(1){
+    margin-left: 15px;
+}
+.pay_section_logo_r_under div:nth-child(2){
+    margin-left: 45px;
+}
+.pay_section_logo_r_under div:nth-child(3){
+    margin-left: 43px;
+}
+.pay_section_logo_r_common{
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    border-color: #72C551;
+    background: #72C551;
+}
+.pay_section_logo_r_common1{
+    border-color: #9B9B9B;
+    background: #9B9B9B;
+}
+.pay_section_logo_r_top div{
+    float: right;
+}
+.not_pay_section_logo_r_common{
+    border-bottom: 2px solid #72C551;
+    width: 100px;
+    margin-top: 5px;
+}
+.not_pay_section_logo_r_common1{
+    border-bottom: 2px solid #9B9B9B;
+}
+.not_pay_section_logo_r_common2{
+    border-bottom: 2px solid #9B9B9B;
+}
+
+
+
+.pr_shoppingCar_section{
+    margin-bottom: 25px;
+}
+.pay_main_ft_line_2_1{
+    width: 74%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.pr_shoppingCar{
+    width: 74%;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: #FAFAFA;
+    border: 1px solid rgba(218,218,218,1);
+    height: 30px;
+    font-family: 微软雅黑;
+
+}
+.pr_shoppingCar div{
+    color: black;
+    line-height: 30px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar>div{
+    float: left;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar div:nth-child(1){
+    margin-right: 6px;
+    margin-left: 10px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_head{
+    float: left;
+    font-family: 微软雅黑;
+    margin-left: 65px;
+}
+.pr_shoppingCar>div:nth-child(3){
+    margin-left: 470px;
+    font-family: 微软雅黑;
+}
+
+.pr_shoppingCar_detail{
+    width: 74%;
+    height: 90px;
+    margin: 0 auto;
+    border: 1px solid rgba(218,218,218,1);
+    border-top: none;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common1{
+     float: left;
+     color: black;
+    font-family: 微软雅黑;
+ }
+.pr_shoppingCar_detail_common2{
+    float: right;
+    color: black;
+    font-family: 微软雅黑;
+    line-height: 80px;
+    text-align: center;
+}
+.pr_shoppingCar_detail_common1{
+    margin-left: 35px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common12{
+    margin-top: 17px;
+    width: 50px;
+    height: 50px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common13{
+    margin-top: 32px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common13 a{
+    color: black;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common12 img{
+    width: 50px;
+    font-family: 微软雅黑;
+    height: 50px;
+}
+.pr_shoppingCar_detail_common1_sp{
+    margin-left: 10px;
+    margin-top: 32px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common21{
+    width: 112px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common22{
+     width: 120px;
+    font-family: 微软雅黑;
+ }
+.pr_shoppingCar_detail_common23{
+    width: 93px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_detail_common24{
+    width: 156px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_footer{
+    width: 74%;
+    height: 30px;
+    margin: 0 auto;
+    background: #FAFAFA;
+    border: 1px solid rgba(218,218,218,1);
+    border-top: none;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_footer div span{
+    float: right;
+    font-family: 微软雅黑;
+    color: #999999;
+    margin-top: 3px;
+    margin-right: 10px;
+}
+.pr_shoppingCar_footer div span:nth-child(1){
+    color: red;
+    font-size: 18px;
+    font-family: 微软雅黑;
+    font-weight: bolder;
+    margin-top: 2px;
+}
+.pr_shoppingCar_last{
+    width: 74%;
+    margin: 0 auto;
+    font-family: 微软雅黑;
+    height: 50px;
+    background: #FAFAFA;
+    margin-top: 10px;
+}
+.pr_shoppingCar_last_ft{
+    float: left;
+    font-family: 微软雅黑;
+    font-size: 13px;
+}
+.pr_shoppingCar_last_ft div{
+    float: left;
+    color: black;
+    height: 50px;
+    font-family: 微软雅黑;
+    line-height: 50px;
+}
+.pr_shoppingCar_last_ft div:nth-child(1){
+    margin-left: 10px;
+    font-family: 微软雅黑;
+}
+.go_on_shopping{
+    margin-left: 20px;
+    font-size: 13px;
+    font-family: 微软雅黑;
+}
+.go_on_shopping a{
+    color: black;
+    font-size: 13px;
+    text-decoration: none;
+    font-family: 微软雅黑;
+}
+.pr_clearCar{
+    margin-left: 15px;
+    font-size: 13px;
+    font-family: 微软雅黑;
+    cursor: pointer;
+}
+
+.pr_shoppingCar_last_sd div{
+    float: right;
+    color: black;
+    font-family: 微软雅黑;
+    font-size: 13px;
+    line-height: 50px;
+}
+.pr_shoppingCar_last_sd div:nth-child(3){
+    margin-right: 13px;
+    font-family: 微软雅黑;
+}
+.pr_shoppingCar_last_sd div:nth-child(3) span{
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: 微软雅黑;
+    color: #F26031;
+}
+.pr_shoppingCar_last_sd div:nth-child(2){
+     margin-right: 13px;
+    font-family: 微软雅黑;
+ }
+.pr_shoppingCar_last_sd div:nth-child(2) span{
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: 微软雅黑;
+    color:#F26031;
+}
+.pr_shoppingCar_last_sd div:nth-child(1) button{
+    height: 50px;
+    width: 145px;
+    background: #F26031;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-family: 微软雅黑;
+}

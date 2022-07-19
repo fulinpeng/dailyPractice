@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <form>
+        <input type="file" id="file-input" name="fileContent">
+    </form>
+    <script>
+
+        // # 按base64的方式读取，结果是base64，任何文件都可转成base64的形式
+        // fileReader.readAsDataURL(this.files[0]);
+
+        // 而使用FileReader可以读取整个文件的内容
+        $("#file-input").on("change", function () {
+            let fileReader = new FileReader(),
+                fileType = this.files[0].type;
+
+            // # 按base64的方式读取，结果是base64，任何文件都可转成base64的形式
+            fileReader.readAsDataURL(this.files[0]);
+
+            // 打印原始File对象
+            console.log('原始File对象:', this.files[0]);
+            // 包含了文件的修改时间、文件名、文件的大小、文件的mime类型等
+            // 要判断是否为图片文件就可以通过type类型是否以image开头，这种方法比较准确稳定
+
+            console.log('fileReader：', fileReader); // fileReader的原型链上还有方法
+
+            fileReader.onload = function (res) {
+                console.log('res:', res); // 执行了 onload 方法才有执行，否则没有的
+                if (/^image\/[jpeg|png|gif]/.test(fileType)) {
+                    // 读取结果在fileReader.result里面
+                    $(`<img src="${this.result}">`).appendTo("body");
+                }
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>

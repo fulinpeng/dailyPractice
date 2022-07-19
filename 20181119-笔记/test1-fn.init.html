@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo"></div>
+    <div id="test"></div>
+    <script>
+        var A = function (selector) {
+            return A.fn.init(selector);
+        }
+        A.fn = A.prototype = {
+            init: function (selector) {
+                this[0] = document.getElementById(selector);
+                this.length = 1;
+                return this;
+            },
+            length: 2,
+            size: function () {
+                return this.length;
+            }
+        }
+        var demo = A('demo');
+        var test = A('test');
+        console.log('demo', demo); // 发现是test，不是demo，demo被覆盖了
+
+        // 要加上new
+        // 。。。
+    </script>
+</body>
+</html>

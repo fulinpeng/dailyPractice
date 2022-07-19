@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="height:2000px">
+<script>
+
+  /*我们这里说的throttle就是函数节流的意思。再说的通俗一点就是函数调用的频度控制器，
+    是连续执行时间间隔控制。主要应用的场景比如：
+
+    鼠标移动，mousemove 事件
+    DOM 元素动态定位，window对象的resize和scroll 事件
+    我们开发时用的上面这些事件也是一样，你不松开鼠标，它的事件就一直触发。
+    回到window resize和scroll事件的基本优化提到的优化：*/
+
+//    var resizeTimer=null;
+//    $(window).on('resize',function(){
+//            if(resizeTimer){
+//                clearTimeout(resizeTimer)
+//            }
+//            resizeTimer=setTimeout(function(){
+//                console.log("window resize");
+//            },400);
+//        }
+//    );
+
+
+
+  /*在现代浏览器中，帧速率为60fps是流畅性能的目标，给定我们16.7ms的时间预算用于响应一些事件所
+  有需要的更新。这样可以推断，如果每秒发生n个事件并且回调执行，需要t秒的时间，为了流畅运行，
+
+  1 / n >= t, 如果t以毫秒为单位，1000 / n >= t
+
+  如果你曾经使用mousemove事件，你会知道产生mousemove事件的数量每秒可以超过60次。如果我们的
+  回调需要超过16.7ms，那就开始凌乱了。*/
+
+//    var delta = 1000;
+//    var then = 0;
+//    function log() {
+//      console.log('foo');
+//    }
+//    function throttledLog() {
+//      var now = Date.now();
+//      if (now - then >= delta) {
+//          log();
+//          then = now;
+//      }
+//    }
+//    window.onmousemove = throttledLog;
+
+ /*我们可以用 fps替换delta，并推断出不同的代码。*/
+
+//  var fps = 60;
+//  var then = 0;
+//  function log() {
+//      console.log('foo');
+//  }
+//  function throttledLog() {
+//      var now = Date.now();
+//      if (1000 / (now - then) <= fps) {
+//          log();
+//          then = now;
+//      }
+//  }
+//  window.onmousemove = throttledLog;
+
+
+  /*我们也可以通过使用setTimeout来实现相同的结果。 但是，不是检查时间差，而是检查状态变化。
+
+  第一次，我们可以安全地激活回调。一旦完成，只有在等待 delta 时间之后才能再次激活回调。*/
+
+
+
+    var num=0;
+    function srollFn() {
+        num++;
+        console.log(num);
+    }
+    var safe = true;
+    function throttle() {
+      if (safe) {
+          srollFn();
+          safe = false;
+          setTimeout(function() {
+              safe = true;
+          }, 500);
+      }
+    }
+    window.onscroll= function () {
+        throttle()
+    };
+
+
+
+
+
+</script>
+</body>
+</html>

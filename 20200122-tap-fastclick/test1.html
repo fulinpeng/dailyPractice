@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="target">tap</div>
+    <script>
+        // 选择器，返回一个类似于jQuery对象
+        var $=function (selector) {
+            var dom=null;
+            if (typeof selector==="string") {
+                dom=document.querySelectorAll(selector);
+            } else if (selector instanceof HTMLElement) {
+                dom=selector;
+            }
+            return new $Element(dom);
+        }
+        window.$=$;
+
+        class $Element {
+            constructor(_doms) {
+                var doms=_doms.constructor===Array||_doms.constructor===NodeList? _doms:[_doms];
+                this.doms=doms;
+                this.init();
+                for (var i=0;i<doms.length;i++) {
+                    this[i]=doms[i];
+                    if (!doms[i].listeners) {
+                        doms[i].listeners={};
+                    }
+                }
+            }
+            init() {
+                for (var i=0;i<this.doms.length;i++) {
+                    if (!this.doms[i].listeners) {
+                        this.initTapEvent(this.doms[i]);
+                    }
+                }
+            }
+            trigger(eventType, event) {
+                for (var i=0;i<this.doms.length;i++) {
+                    $Element.dispatchEvent(this.doms[i], eventType, event);
+                }
+            }
+            static dispatchEvent(dom, eventType, event) {
+                var listeners=dom.listeners[eventType];
+                if (listeners) {
+                    for (var i=0;i<listeners.length;i++) {
+                        listeners[i].call(dom, event);
+                    }
+                }
+            }
+            initTapEvent(dom) {
+                var x1=0, x2=0, y1=0, y2=0;
+                dom.addEventListener("touchstart", function (event) {
+                    var touch=event.touches[0];
+                    x1=touch.pageX;
+                    y1=touch.pageY;
+                });
+                dom.addEventListener("touchmove", function (event) {
+                    var touch=event.touches[0];
+                    x2=touch.pageX;
+                    y2=touch.pageY;
+                });
+                dom.addEventListener("touchend", function (event) {
+                    if (Math.abs(x2-x1)<10&&Math.abs(y2-y1)<10||(!x2&&!y2)) {
+                        $Element.dispatchEvent(dom, "tap", new $Event(x1, y1));
+                    }
+                    y2=x2=0;
+                });
+            }
+            on(eventType, callback) {
+                for (var i=0;i<this.doms.length;i++) {
+                    var dom=this.doms[i];
+                    if (!dom.listeners[eventType]) {
+                        dom.listeners[eventType]=[];
+                    }
+                    dom.listeners[eventType].push(callback);
+                }
+            }
+        }
+
+        class $Event {
+            constructor(pageX, pageY) {
+                this.pageX=pageX;
+                this.pageY=pageY;
+            }
+        }
+
+        var dom=$("#target");
+
+        // dom.on("tap", function (event) {
+        //     console.log("tap", event.pageX, event.pageY);
+        // });
+
+        var tapTime=0;
+        dom.on("tap", function (event) {
+            console.log("tap", event.pageX, event.pageY);
+            tapTime=Date.now();
+        });
+
+        dom[0].addEventListener("click", function (event) {
+            console.log("time diff", Date.now()-tapTime);
+        });
+
+    </script>
+</body>
+
+</html>

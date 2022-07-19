@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            background: #fff;
+            font-size: 100px;
+        }
+
+        body {
+            min-width: 320px;
+            max-width: 640px;
+            font-size: 0.16rem;
+            margin: 0 auto;
+            color: #5f646d;
+            text-rendering: optimizeLegibility;
+        }
+
+
+
+        .tab-content {
+            padding: 0.64rem 0 0.2rem 0;
+        }
+
+        .tab-pannel {
+            margin: 0 0.1rem;
+        }
+
+        .number-input-control {
+            display: none;
+        }
+
+        .number-input-control button {
+            display: inline-block;
+            /*margin-left: 0.1rem;*/
+            height: 0.42rem;
+            line-height: 0.42rem;
+            border: 0;
+            white-space: nowrap;
+            background: none;
+            font-size: 0.16rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .number input {
+            outline: none;
+            height: 26px;
+            line-height: 26px;
+            height: 0.26rem;
+            line-height: 0.26rem;
+            font-size: 20px;
+            font-size: 0.2rem;
+            padding: 0.08rem 0;
+            border-radius: 4px;
+            background: #e4e4e4;
+            color: #3d4245;
+            width: 100%;
+            text-indent: 10px;
+            font-family: arial;
+            border: 0;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-modify: read-write;
+        }
+
+        .number .tel-control {
+            position: relative;
+        }
+
+        .number .number-clear,
+        .number .contact-name,
+        .number .contact-trigger {
+            position: absolute;
+            top: 0;
+            z-index: 99;
+        }
+
+        .number .contact-trigger {
+            height: 26px;
+            right: 0.14rem;
+            font-size: 0.28rem;
+            top: 50%;
+            margin-top: -0.14rem;
+            font-family: 'iconfont';
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .number .contact-trigger:after {
+            content: '\e601';
+        }
+
+        .number .contact-trigger2:after {
+            content: '\e602';
+        }
+
+        .number .contact-name {
+            white-space: nowrap;
+            right: 44px;
+            height: 44px;
+            line-height: 44px;
+            max-width: 96px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #4771a8;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .number .contact-name .not-contact {
+            color: #999;
+        }
+
+        .number .number-clear {
+            display: none;
+            padding: 0;
+            right: 0.14rem;
+            top: 50%;
+            margin-top: -0.09rem;
+
+        }
+
+        .action {
+            margin-top: 30px;
+        }
+
+        .submit {
+            text-align: center;
+            color: #fff;
+            height: 40px;
+            line-height: 40px;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            border-radius: 4px;
+            background: #fc511e;
+            border-color: #fc511e;
+        }
+
+        .number-clear {
+            font-size: 18px;
+            font-size: 0.18rem;
+            font-family: 'iconfont';
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .number-clear:after {
+            content: '\e600'
+        }
+
+        .tb-number-input-mode .number {
+            position: relative;
+        }
+
+        .tb-number-input-mode .tel-control {
+            margin-right: 0.45rem;
+        }
+
+        .tb-number-input-mode .number-input-control {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .tb-number-input-mode .contact-name,
+        .tb-number-input-mode .contact-trigger {
+            display: none;
+        }
+
+        .tb-number-input-mode .tab-nav {
+            display: none;
+        }
+
+        .soldOff {
+            color: #444444;
+        }
+
+        .tb-popup {
+            position: fixed;
+            visibility: hidden;
+            z-index: 99;
+            font-size: 0.14rem;
+        }
+
+        .tb-popup .error,
+        .tb-popup .loading {
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .tb-popup .error {
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .tb-popup .loading {
+            background: rgba(0, 0, 0, 0.5);
+            width: 110px;
+            height: 80px;
+            line-height: 80px;
+        }
+
+        .tb-history {
+            position: absolute;
+            visibility: hidden;
+            width: 100%;
+            left: 0;
+            background: #fff;
+            z-index: 199;
+        }
+
+        .tb-history .empty {
+            text-align: center;
+            color: #ccc;
+            margin-top: 50px;
+        }
+
+        .tb-history .wrap {
+            border-bottom: 1px solid #ddd;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tb-history .wrap:first-child {
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        .tb-history .row {
+            width: 3rem;
+            margin: 0 auto;
+            display: table;
+        }
+
+        .tb-history .cell {
+            display: table-cell;
+            vertical-align: middle;
+            line-height: 0.4rem;
+        }
+
+        .tb-history .number {
+            text-align: right;
+            font-family: arial;
+        }
+
+        .tb-history .del {
+            width: 0.3rem;
+            text-align: right;
+            line-height: 1;
+        }
+
+        .tb-history .number-clear {
+            display: block;
+            float: right;
+        }
+
+        .tb-history .not-contact {
+            color: #999;
+        }
+
+        .itemlist ul {
+            text-align: justify;
+            font-size: 0;
+            letter-spacing: -4px;
+        }
+
+        .itemlist ul:after {
+            display: inline-block;
+            overflow: hidden;
+            width: 100%;
+            height: 0;
+            content: '';
+            vertical-align: top;
+            clear: both;
+        }
+
+        .itemlist li {
+            display: inline-block;
+            vertical-align: top;
+            list-style: none;
+            margin-top: 10px;
+            margin-top: 0.1rem;
+            font-size: 0.16rem;
+            outline: none;
+            letter-spacing: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .itemlist li.num-fix {
+            visibility: hidden;
+        }
+
+        .itemlist li div {
+            /*position: relative;*/
+            /*padding: 1px;*/
+            /*margin-right: 8px;*/
+            /*height: 32px;*/
+            /*line-height: 32px;*/
+            /*margin-right: 0.08rem;*/
+            height: 0.32rem;
+            line-height: 0.32rem;
+            border: 1px solid #bfc1c5;
+            border-radius: 4px;
+            text-align: center;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .itemlist li div .s {
+            display: none;
+        }
+
+        .itemlist li div strong {
+            font-weight: normal;
+            font-family: arial;
+            margin-right: 1px;
+        }
+
+        .itemlist li.active div {
+            background: #fc511e;
+            border-color: #fc511e;
+            color: #fff;
+        }
+
+        .tb-wx .denom li.num-2 div {
+            margin-right: 0;
+        }
+
+        .itemlist li.active .s {
+            visibility: visible;
+        }
+
+        .itemlist li.disable div {
+            color: #ddd;
+            border-color: #ddd;
+            border-width: 1px;
+        }
+
+        .info {
+            display: table;
+            width: 100%;
+            margin: 10px 0 0;
+            line-height: 22px;
+            margin-top: 24px;
+        }
+
+        .info .carrier,
+        .info .price {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+        .info .carrier span {
+            display: block;
+            height: 22px;
+            padding-left: 24px;
+            background-position: 0 50%;
+            background-size: 22px 22px;
+            background-repeat: no-repeat;
+        }
+
+        .info .price {
+            text-align: right;
+            color: #f05b23;
+        }
+
+        .info .price strong {
+            margin-left: 4px;
+            font-family: arial;
+            font-weight: normal;
+        }
+
+        .tb-wx .denom li {
+            width: 0.96rem;
+        }
+
+        .cz-buy {
+            padding-top: 0;
+        }
+
+        .cz-buy .info {
+            margin-top: 0;
+        }
+
+        .cz-buy .tab-pannel {
+            min-width: 320px;
+            max-width: 640px;
+            width: auto;
+        }
+
+        .cz-buy .item-info {
+            padding: 0 12px;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .cz-buy .item-info div {
+            padding: 16px 0;
+        }
+
+        .cz-buy .item-info .first {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cz-buy .item-info span {
+            color: #999;
+        }
+
+        .cz-buy .number_padding {
+            padding: 20px 12px;
+        }
+
+        .cz-buy .info .carrier {
+            padding-left: 12px;
+            vertical-align: middle;
+        }
+
+        .cz-buy .info .price {
+            padding-right: 12px;
+            color: #999;
+            vertical-align: middle;
+        }
+
+        .cz-buy .info .price strong {
+            font-size: 1.5em;
+            color: #f05b23;
+        }
+
+        .cz-buy .info .price span {
+            color: #f05b23;
+        }
+
+        .cz-buy .action {
+            margin-top: 24px;
+            padding: 30px 12px 0;
+        }
+
+        .cz-buy .info .error-info {
+            color: #fc5225;
+        }
+
+        .tmall-search .submit {
+            background: #c20712;
+        }
+
+        /*.tmall-search .itemlist li.active div {
+        border-color: #c20712;
+        background: #c20712;
+        color: #fff;
+    }*/
+
+        /*.tmall-search .itemlist li .s {
+        border-color: #c20712;
+    }
+    .tmall-search .itemlist li .s s {
+        background: none;
+    }*/
+
+        .tmall-search .info .price strong {
+            color: #c20712;
+        }
+
+        .tmall-search .info .price span {
+            color: #c20712;
+            vertical-align: top;
+        }
+
+        .tb-flow .type li {
+            margin-right: 20px;
+        }
+
+        .tb-flow .type li span {
+            padding: 0 25px;
+        }
+
+
+
+
+        .dropdown select {
+            color: #999;
+            background-color: #fff;
+        }
+
+        .soldOff {
+            position: relative;
+            left: -8px;
+        }
+
+        .tb-flow .number {
+            padding-bottom: 0.16rem
+        }
+
+        #J_Content_new .border {
+            background-image: linear-gradient(180deg, #f2f2f2, #f2f2f2 50%, transparent 50%), linear-gradient(270deg, #f2f2f2, #f2f2f2 50%, transparent 50%), linear-gradient(0deg, #f2f2f2, #f2f2f2 50%, transparent 50%), linear-gradient(90deg, #f2f2f2, #f2f2f2 50%, transparent 50%);
+            background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+            background-repeat: no-repeat;
+            background-position: top, right top, bottom, left top;
+            padding: 10px;
+        }
+
+
+
+        .banner img {
+            width: 100%;
+            display: block;
+            height: 0.6rem
+        }
+
+        .banner a {
+            margin: 0 0.1rem 0.1rem 0.1rem;
+            display: block;
+        }
+
+        /*导航*/
+
+        .nav {
+            background: #eeeeee;
+            height: 0.38rem;
+            padding-top: 0.1rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .nav_inner {
+            position: relative;
+            margin: 0 auto;
+            min-width: 320px;
+            max-width: 640px;
+            height: 0.26rem;
+            line-height: 0.26rem;
+        }
+
+        .nav_list {
+            border-radius: 4px;
+            margin: 0 0.1rem;
+            display: flex;
+            box-sizing: border-box;
+            border: 1px solid #5e646e;
+        }
+
+        .nav_list a {
+            flex: 1;
+            text-align: center;
+            border-right: 1px solid #5e646e;
+            color: #5e646e;
+            text-decoration: none;
+        }
+
+        .nav_inner a:last-child {
+            border-right: 0;
+        }
+
+        .nav_inner a.cur {
+            background: #5e646e;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav_inner">
+            <div class="nav_list">
+                <a href="##" class="cur">话费</a>
+                <a href="##">流量</a>
+                <a href="##">QQ充值</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="J_Content" class="tab-content">
+        <div id="J_Content_new" class="tab-pannel tb-wx">
+            <div class="hidden"></div>
+            <div class="number">
+                <div class="tel-control">
+                    <input type="tel" class="tel" value="" placeholder="请输入或选择手机号码">
+                    <span class="number-clear"></span>
+                </div>
+                <div class="number-input-control">
+                    <button class="number-input-cancel" type="button">取消</button>
+                </div>
+            </div>
+            <div class="denom itemlist">
+                <ul>
+                    <li data-denom="10" class="num-0">
+                        <div>
+                            <strong>10</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="20" class="num-1">
+                        <div>
+                            <strong>20</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="30" class="num-2">
+                        <div>
+                            <strong>30</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="50" class="num-0 active">
+                        <div>
+                            <strong>50</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="100" class="num-1">
+                        <div>
+                            <strong>100</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="200" class="num-2">
+                        <div>
+                            <strong>200</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="300" class="num-0">
+                        <div>
+                            <strong>300</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li data-denom="500" class="num-1">
+                        <div>
+                            <strong>500</strong>元
+                            <s class="s">
+                                <s></s>
+                            </s>
+                        </div>
+                    </li>
+                    <li class="num-fix"></li>
+                </ul>
+            </div>
+            <div class="info">
+                <div class="carrier"></div>
+                <div class="price"></div>
+            </div>
+            <div class="action">
+                <div class="submit">立即充值</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var handlerOrientationChange = function () {
+            var width = (window.innerWidth <= 320) ? 320 : ((window.innerWidth >= 640) ? 640 : window.innerWidth);
+            var fontSize = 100 * (width / 320);
+            document.documentElement.style.fontSize = fontSize + "px";
+        };
+        window.onresize = handlerOrientationChange;
+        setTimeout(handlerOrientationChange, 0)
+
+        // (function (doc, win) {
+        //     var docEl = doc.documentElement,
+        //         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        //         recalc = function () {
+        //             var clientWidth = docEl.clientWidth;
+        //             if (!clientWidth) return;
+        //             docEl.style.fontSize = 100 * (clientWidth / 320) + 'px';
+        //         };
+
+        //     // Abort if browser does not support addEventListener
+        //     if (!doc.addEventListener) return;
+        //     win.addEventListener(resizeEvt, recalc, false);
+        //     doc.addEventListener('DOMContentLoaded', recalc, false);
+        // })(document, window);
+    </script>
+</body>
+
+</html>

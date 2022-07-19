@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="../js/three.min.js"></script>
+    <script>
+        function init() {
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 设置Canvas元素宽高
+            renderer.setSize(800, 400);
+            // 清除画面的颜色(将背景色设置为黑色)
+            renderer.setClearColor(0xffffff);
+            // 将渲染器对应的Canvas元素添加到body中
+            document.body.appendChild(renderer.domElement);
+
+            // 场景
+            var scene = new THREE.Scene();
+
+            // 照相机
+            // 参数: left right top bottom near far
+            var camera = new THREE.OrthographicCamera(-5, 5, 2.5, -2.5, 0.1, 100);
+            camera.position.set(0, -25, 0);
+            // 相机看向
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            scene.add(camera);
+
+            // 需要一个几何体
+            var geometry = new THREE.Geometry(); // 几何体里面有个vertices变量，可以用来存放点
+
+            // 在x轴上定义两个点p1(-2,0,0)，p2(2,0,0)
+            geometry.vertices.push(new THREE.Vector3(-2, 0, 0));
+            geometry.vertices.push(new THREE.Vector3(2, 0, 0));
+
+            for (var i = 0; i <= 20; i++ ) {
+                var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 }));
+                line.position.z = (i * 0.8) - 2;
+                scene.add(line);
+
+                var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 }));
+                line.position.x = (i * 0.8) - 2;
+                line.rotation.y = 90 * Math.PI / 180;   //  rotation 旋转90度
+                scene.add(line);
+            }
+
+            // 渲染
+            renderer.render(scene, camera);
+
+        }
+        window.onload = function () {
+            init();
+        }
+    </script>
+</body>
+
+</html>

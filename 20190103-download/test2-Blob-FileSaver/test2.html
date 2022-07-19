@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./FileSaver.js"></script>
+</head>
+
+<body>
+    <script>
+        // Blob的存在，允许我们可以通过JS直接操作二进制数据
+
+        // Blob： https://www.cnblogs.com/hhhyaaon/p/5928152.html
+
+        // 数组里面可以放数字、字符串、布尔值以及对象和数组等，ArrayBuffer放0和1组成的二进制数据
+        // 数组放在堆中，ArrayBuffer则把数据放在栈中（所以取数据时后者快）
+        // ArrayBuffer初始化后固定大小，数组则可以自由增减。
+
+        var content = "What's up , hello world";
+        // var content = "../file.todownload";
+        // any kind of extension (.txt,.cpp,.cs,.bat)
+        var filename = "hello.txt";
+
+        var blob = new Blob([content], {
+            type: "text/plain;charset=utf-8"
+        });
+
+        saveAs(blob, filename);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var MyPromise = (function () {
+            var PENDING = 'PENDING';
+            var FULFILLED = 'FULFILLED';
+            var REJECTED = 'REJECTED';
+            var _MyPromise = function (cb) {
+                this.status = PENDING;
+                this.value = '';
+                this.defferd = [];
+                setTimeout(cb.bind(null, this.resolve.bind(this), this.rejected.bind(this)), 0);
+                // 此处也要绑定this，不然在resolve方法里面this将为window
+                // 要先执行一次cb，异步逻辑都写在这个cb中的，所以得在下个eventLoop尽快执行
+                // 但是resolve或rejected是不会马上执行的
+            }
+            _MyPromise.prototype = {
+                constructor : _MyPromise,
+                then : function (resolve, rejected) {
+                    var o = {
+                        onResolve : resolve,
+                        onRejected : rejected,
+                        promise : new this.constructor(() => {})
+                        // cb是为了执行异步，然后调用resolve、rejected
+                        // 疑虑: new this.constructor(() => {...}) 中间没有resolve(data)？？？
+                        // 这里这个promise啊，不用执行异步逻辑，是拿到data直接传给他自己的resolve
+                        // 此时这个resolve方法是在内部执行的，不需要异步成功才触发所以不用写...
+                        // resolve、rejected是在then方法中注册成功的嘛，不懂？
+                    };
+                    if (this.status === PENDING) {
+                        this.defferd.push(o);
+                    } else {
+                        this.handle(o);
+                    }
+                    return o.promise;
+                    // then 方法一定返回的是一个promise，但不能是本身
+                },
+                resolve : function(data) {
+                    this.value = data;
+                    this.status = FULFILLED;
+                    this.done();
+                },
+                rejected : function(data) {
+                    this.value = data;
+                    this.status = REJECTED;
+                    this.done();
+                },
+                done : function () {
+                    if (this.status === PENDING) return;
+                    var defferd = this.defferd;
+                    for (var i=0; i<= defferd.length; i++) {
+                        this.handle(defferd[i]);
+                    }
+                },
+                handle : function (o) {
+                    if (!o) return;
+                    var onResolve = o.onResolve;
+                    var onRejected = o.onRejected;
+                    var p;
+                    var status = this.status;
+                    if (status === FULFILLED) {
+                        if (onResolve && typeof onResolve === 'function') {
+                            p = onResolve(this.value);
+                        } else {
+                            throw new Error('请给then方法传入正确的参数');
+                        }
+                    } else if (status === REJECTED) {
+                        if (onRejected && typeof onRejected === 'function') {
+                            p = onRejected(this.value);
+                        } else {
+                            throw new Error('then的第二个参数错了');
+                        }
+                    }
+                    if (p && p.constructor === this.constructor) {
+                        p.defferd = o.promise.defferd;
+                        // o.promise 可以用另外一个对象来代替，不一定非要放到o中...
+                    } else {
+                        var data = p;
+                        p = new this.constructor(function (resolve) {
+                            resolve(data);
+                        });
+                        p.defferd = o.promise.defferd;
+                        // then的参数返回的不是promise时，先转成promise，然后把then的宿主的defferd赋给p，哈哈
+                    }
+                }
+            };
+            return _MyPromise;
+        })();
+        // promise的 .then(...).then(...) 是【同步】的，内部的内容是在下一次事件循环才执行是【异步】的
+        var o = new MyPromise(function (resolve) {
+            setTimeout(() => {
+                resolve('哈哈，第一次异步数据有了！');
+            }, 100);
+            resolve('哈哈，第一次异步数据有了！');
+        });
+        o.then(function (data) {
+            console.log('第一个promse：', data);
+            return new MyPromise(function (resolve, rejected) {
+                setTimeout(() => {
+                    rejected('呵呵，第二次异步的错误数据！');
+                }, 1000);
+            });
+        }).then(null, function (data) {
+            console.log('第二个promse：', data);
+            return '这不是promise，嘿嘿！';
+            // 再次强调下：这个return是rsolve的，不是then方法的。。。这个值赋给了p的
+        }).then(function (data) {
+            console.log('第三个：', data);
+        });
+    </script>
+</body>
+</html>

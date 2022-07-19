@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="height:2000px">
+<script>
+
+    /*immediate与debounce相似， immediat连续执行，且间隔不超过500ms，
+     srollFn 只执行一次，不同的是srollFn 会先执行*/
+
+
+
+
+    var timer = null;
+    var num=0;
+    function srollFn() {
+        num++;
+        console.log(num);
+    }
+    var safe=true;
+    function immediate() {
+        if (safe) {
+            srollFn();
+            safe = false;
+        }
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            safe = true;
+        }, 500);
+    }
+    window.onscroll = immediate;
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<div class="OtherGoodShow">
+    <div>
+        <h3>骑行装备推荐</h3>
+    </div>
+    <div class="OtherGoodShow_zhuangbei">
+        <% accessList.forEach(function(access){%>
+        <div class="hat">
+            <div>
+                <img src="<%=access.pc_src%>/<%=access.pc_name%>" alt=""/>
+            </div>
+            <div>
+                <h4><%=access.a_name%></h4>
+                <p>¥：<%=access.a_price%></p>
+                <button class="ltbtn-deta">
+                    <a href="getStorDetails.do?name=<%=access.pc_name%>&&src=<%=access.pc_src%>">查看详情</a>
+                </button>
+            </div>
+        </div>
+        <%})%>
+    </div>
+</div>

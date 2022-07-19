@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态规划</title>
+</head>
+
+<body>
+    <script>
+
+        // 我们有1，5，10，25面额的硬币，如果要找36面额的钱，要如何实现最少硬币找零？
+        // 答案是一个25，一个10，一个1
+
+        /**
+         * @description: 使用动态规划实现最少硬币找零
+         * @param {coins 有多少种面额的钱币}
+         * @return: Array
+         * @note：1. 确定策略为，将coins降序处理
+         * @note：2. 依次查找是否能找零，直到遍历到最小值硬币
+         * @note：3. 如果最小值硬币都不能找零，那就判定为'找零失败'
+         */
+        function MinCoinChange(coins) {
+            //cache存储了1到amount之间计算过的所有结果
+            var cache = {};
+            var cacheCoins = coins.sort((a, b) => b - a);
+            this.makeChange = function (amount) {
+                var me = this;
+                if (amount <= 0) {
+                    return [];
+                };
+                if (cache[amount]) {
+                    return cache[amount];
+                };
+                var min = [], newMin, newAmount;
+                for (var i = 0; i < cacheCoins.length; i++) {
+                    var coin = cacheCoins[i];
+                    newAmount = amount - coin;
+                    if (newAmount < 0) {
+                        continue;
+                        // 小于0不做处理，此时min仍为空数组
+                        // continue语句，会直接进入下一次遍历，也就是说下面的if分支都不会进入，提高了性能
+                    } else if (newAmount > 0) {
+                        // 大于0，说明该值为可找零的最大值的硬币了，加入结果中
+                        newMin = me.makeChange(newAmount);
+                        min = newMin.concat([coin]);
+                        return (cache[amount] = min);
+                    } else {
+                        // 等于0也合适
+                        console.log('cache:', cache);
+                        min = [coin];
+                        return (cache[amount] = min);
+                    }
+                };
+                // 程序能执行到这里，说明遍历了整个coins都没有被返回出去
+                // 如果遍历了整个coins都找不到一个满足 newAmount == 0 的那么这个找零就算失败
+                console.log(`%c总数为:${amount}, 找零失败`, 'color:blue');
+                return (cache[amount] = ['failed...']);
+            };
+        };
+
+        // var minCoinChange = new MinCoinChange([1, 5, 10, 25]);
+        var minCoinChange = new MinCoinChange([25, 18, 7, 8]);
+        console.log(minCoinChange.makeChange(36))
+    </script>
+</body>
+
+</html>

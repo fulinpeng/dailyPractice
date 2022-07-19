@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 如果提交数据之前，需要数据验证并且依据验证结果判断是否能提交，怎么做？
+        // 函数处理前执行fn
+        Function.prototype.before=function (fn) {
+            var self=this;
+            return function () {
+                var res=fn.call(this);
+                if (res)//返回成功则执行函数
+                    self.apply(this, arguments);
+            }
+        }
+        // 函数处理后执行fn
+        Function.prototype.after=function (fn) {
+            var self=this;
+            return function () {
+                self.apply(this, arguments);
+                fn.call(this);
+            }
+        }
+
+        function report() {
+            console.log('上报数据');
+            return true;
+        }
+        function validate() {
+            console.log('验证不通过');
+            return false;
+        }
+        function submit() {
+            console.log('提交数据');
+        }
+        submit.before(report).before(validate)(); // 验证不通过
+
+        console.log('__________________________')
+        function report() {
+            console.log('上报数据');
+            return true;
+        }
+        function validate() {
+            console.log('验证通过');
+            return true;
+        }
+        function submit() {
+            console.log('提交数据');
+        }
+        function goBack() {
+            console.log('返回首页')
+        }
+        // AOP思想在前端分解隔离业务已经做到位了，但是却有了一串长长的链式出来，如果处理不当很容易让维护者看晕
+        submit.before(report).before(validate).after(goBack)();
+        // 验证通过
+        // 上报数据
+        // 提交数据
+        // 返回首页
+
+    </script>
+</body>
+
+</html>

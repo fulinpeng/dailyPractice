@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-6-5操作滚动条-侧边栏居中</title>
+<style>
+
+	#div1{
+		width:100px;
+		height:100px;
+		right:0;
+		background:red;
+		position:absolute;
+	}
+	
+</style>
+<script>
+	
+	window.onscroll=function(){
+		var oDiv=document.getElementById('div1');
+		
+		var scrollTop=document.documentElement.scrollTop || document.body.scrollTop;
+		//oDiv.style.top=scrollTop + (document.documentElement.clientHeight-oDiv.offsetHeight)/2 +'px';
+		
+		var t=scrollTop + (document.documentElement.clientHeight-oDiv.offsetHeight)/2;
+		t=parseInt(t);
+		startMove(oDiv,t);
+		
+	};
+	
+	
+	var timer=null;
+	
+	function startMove(obj,iTarget){
+		
+		
+		clearInterval(timer);
+		timer=setInterval(function(){
+			var iSpeed=(iTarget-obj.offsetTop)/8;
+			iSpeed=iSpeed>0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+			
+			if(iTarget==obj.offsetTop){
+				clearInterval(timer);
+			}else{
+				obj.style.top=obj.offsetTop+iSpeed+'px';
+			};
+		},30);
+	};
+	
+	
+	
+	
+</script>
+</head>
+<body style="height:2000px;">
+
+<div id="div1" ></div>
+
+</body>
+</html>

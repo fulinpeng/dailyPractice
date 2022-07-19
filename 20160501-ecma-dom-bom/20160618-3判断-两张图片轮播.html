@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script>
+  window.onload=function(){
+    var oImg=document.getElementById('img1');
+	var onOff=true;
+	
+	
+	
+	oImg.onclick=function(){
+	  if(onOff){
+	    oImg.src='img/3.jpg';
+		onOff=false;
+	  }else{
+	    oImg.src='img/4.jpg';
+		onOff=true;
+	  }
+	
+	};
+	
+	
+  };
+
+
+
+</script>
+
+
+
+</head>
+
+<body>
+
+  <p width="400px">
+    1、判断语句中，else后面不能用（）了，<br/>
+	2、下面是代码（把代码显示出来叫做“预格式”，使用 pre 标签）：<br/>
+	<pre>
+
+  window.onload=function(){
+      var oImg=document.getElementById('img1');
+	  var onOff=true;
+	  oImg.onclick=function(){
+	    if(onOff){
+	    oImg.src='img/3.jpg';
+		onOff=false;
+	    }else{
+	    oImg.src='img/4.jpg';
+		onOff=true;
+	    }
+	  };
+    };
+	</pre>
+	3、<b>要是只有两个在循环</b>，就用true和false的for循环；<b>有n
+	个</b>就用for循环n个；
+  </p>
+  <img id="img1" width="500px" src="img/4.jpg"/>
+  
+ 
+
+</body>
+</html>

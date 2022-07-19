@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="../js/three.min.js"></script>
+    <script>
+        function init() {
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 场景
+            var scene = new THREE.Scene();
+            // 照相机
+            var camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000);
+
+            // 设置Canvas元素宽高
+            renderer.setSize(800, 400);
+            // 清除画面的颜色(将背景色设置为黑色)
+            renderer.setClearColor(0x000000);
+            // 将渲染器对应的Canvas元素添加到body中
+            document.body.appendChild(renderer.domElement);
+
+            // 设置相机的位置
+            camera.position.set(0, 0, 5);
+            camera.up.x = 0;
+            camera.up.y = 1;
+            camera.up.z = 0;
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            console.log('camera:', camera);
+            // 将相机添加到场景中
+            scene.add(camera);
+
+            // 创建一个x、y、z方向长度分别为1、2、3的长方体，并设置为红色
+            var geometry = new THREE.CubeGeometry(1, 2, 3); // 是一个立方体
+            var material = new THREE.MeshBasicMaterial({ // 表示物体的材质
+                color: 0xff0000,
+                wireframe: true, // 非实心材料
+            });
+            var cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+            // 渲染
+            renderer.render(scene, camera);
+
+        }
+        window.onload = function() {
+            init();
+        }
+    </script>
+</body>
+
+</html>

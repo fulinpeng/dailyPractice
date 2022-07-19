@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/photowallshow.css"/>
+    <link rel="stylesheet" href="../js/layer/mobile/need/layer.css"/>
+    <link rel="stylesheet" href="../js/layer/skin/default/layer.css"/>
+    <link rel="stylesheet" href="../css/fileinput.min.css"/>
+</head>
+<style>
+
+</style>
+<body>
+<header class="container framebox">
+    <div class="row show-title">
+        <h1 class="col-sm-12 col-xs-12"><span class="glycolor glyphicon glyphicon-align-left"></span>&nbsp;照片墙</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button class="mybtn photoup"type="button" data-toggle="modal" data-target="#myModal">
+                <span class="changecolor glycolor glyphicon glyphicon-plus-sign"></span>
+                发布照片
+            </button>
+            <!--弹出层-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <!--<form action="">-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">发布照片</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <p class="add-select"><span class="glycolor glyphicon glyphicon-leaf"></span>&nbsp;请选择年级:</p>
+                                <label class="radio-inline">
+                                    <input type="radio" name="nianji" id="nianji1" value="1">大班
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="nianji" id="nianji2" value="2">中班
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="nianji" id="nianji3" value="3">小班
+                                </label>
+                            </div>
+                            <div>
+                                <p class="add-select"><span class="glycolor glyphicon glyphicon-leaf"></span>&nbsp;请选择班级：</p>
+                                <label class="radio-inline">
+                                    <input type="radio" name="banji" id="banji1" value="1">一班
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="banji" id="banji2" value="2">二班
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio"  name="banji" id="banji3" value="3">三班
+                                </label>
+                            </div>
+                            <div>
+                                <!--这里必须这样写-->
+                                <form action="upPic.do" id="form1" method="post" enctype="multipart/form-data">
+                                <label class="control-label add-sephoto">
+                                    <span class="glycolor glyphicon glyphicon-leaf"></span>
+                                    &nbsp;选择图片
+                                </label>
+                                <input id="input-1" type="file" name="myfiles" class="file"/>
+                                </form>
+                            </div>
+                            <div class="add-textarea">
+                                <textarea class="col-sm-12 add-scr" rows="5" placeholder="添加描述..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer show-estb">
+                            <button type="reset" class="btn">取消</button>
+                            <button type="button" class="btn" onclick="fabu()">发布</button>
+                        </div>
+                    </div>
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-lg-push-3 col-sm-9 col-xs-12">
+            <p class="visible-xs konghang"></p>
+            <label class="show-label">选择年级：</label>
+            <select name="" class="show-chose">
+                <option value="">大班</option>
+                <option value="">小班</option>
+            </select>
+            <label class="show-label">选择班级：</label>
+            <select name="" class="show-chose">
+                <option value="">一班</option>
+                <option value="">二班</option>
+            </select>
+            <button class="mybtn">筛选</button>
+            <button class="mybtn show-deletmore">批量操作</button>
+            <button class="mybtn show-m-d">删除</button>
+        </div>
+    </div>
+    <div class="row">
+        <section class="framebox secframe">
+            <div class="row nn">
+
+            </div>
+        </section>
+    </div>
+    <div class="row">
+        <nav class="col-sm-6 col-sm-push-6 col-xs-12 show-ul">
+            <ul class="pagination">
+                <li><a href="javascript:;" onclick="pre()">&laquo;</a></li>
+                <li><a href="javascript:;" >1</a></li>
+                <li><a href="javascript:;" >2</a></li>
+                <li><a href="javascript:;" >3</a></li>
+                <li><a href="javascript:;" >4</a></li>
+                <li><a href="javascript:;" >5</a></li>
+                <li><a href="javascript:;" onclick="next()">&raquo;</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<script src="../js/jquery-3.1.1.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/fileinput.min.js"></script>
+<script>
+   $("input[type=radio]").attr("checked",'2');//设置value=2的项目为当前选中项
+var nianji;
+var banji;
+var pageNum=1;
+var maxPageNum;
+var picSrc;
+var picArr=new Array();
+//初始化
+function getPic(){
+    $.ajax({
+        url:"getPic.do",
+        type:"post",
+        data:{pageNum:pageNum},
+        dataType:"json",
+        success:function(data){
+            var innerhtml="";
+            for(var i= 0; i<data.length; i++){
+            innerhtml+=
+                    "<div class='wallitem'>"+
+                    "<div class='delet' onclick='del(this)' index='"+data[i].p_id+"'>&#xe63e;</div>"+
+                    "<div class='show-checkeddiv' >"+
+                    "<input type='checkbox'  index='"+data[i].p_id+"'/>"+
+                    "</div>"+
+                    "<img class='img-responsive' src='../"+data[i].p_url+"'/>"+
+                    "<p>"+data[i].p_title+"</p>"+
+                    "</div>"
+            }
+            $(".row.nn").html(innerhtml);
+        }
+    })
+}
+function getMaxPageNum(){
+    $.ajax({
+        url:"getMaxPageNum_pic.do",
+        type:"post",
+        data:{},
+        dataType:"json",
+        async:"false",
+        success:function(data){
+            maxPageNum=Math.ceil(data[0].count/10);
+        }
+    })
+}
+function showPic(){
+    getMaxPageNum();
+    getPic();
+}
+showPic();
+function pre(){
+    if(pageNum>1){
+        pageNum--;
+        showPic();
+    }
+}
+function next(){
+    if(pageNum<maxPageNum){
+        pageNum++;
+        showPic();
+    }
+}
+//上传照片
+$("#input-1").change(function (){
+    $.ajax({
+        url:"upPic.do",
+        type:"post",
+        data:new FormData($("#form1")[0]),
+        dataType:"json",
+        contentType:false,//必须设置，取消按照文本格式提交
+        processData:false,
+        success:function(data){
+            picSrc=data.url;
+        }
+    })
+});
+//添加
+function fabu(){
+    nianji=$('input:radio[name="nianji"]:checked').val();
+    banji=$('input[name="banji"]:checked').val();
+    var alt=$(".add-scr").val();
+    var title=alt.substr(0,15);
+    //存数据
+    $.ajax({
+        url:"fabuPic.do",
+        type:"post",
+        data:{title:title,nianji:nianji,banji:banji,picSrc:picSrc,alt:alt},
+        dataType:"json",
+        success:function(data){
+            console.log("成功上传")
+        }
+    });
+    showPic();
+}
+//删除
+function del(obj){
+    var id=$(obj).attr("index");
+    layer.confirm('您确定要删除这张照片?', {icon: 3, title:'提示'}, function(index){
+        $.ajax({
+            url:"delete_pic.do",
+            type:"post",
+            data:{id:id},
+            dataType:"json",
+            success:function(data){
+            }
+        });
+        showPic();
+        layer.close(index);
+    });
+}
+$("#input-1").change(function(){
+    var n=$("#input-1").val();
+    var re=/(.*)\.(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/;
+    var flag=re.test(n);
+    if(flag==false){
+        $(".add-textarea").before("<p class='tishi'>只允许上传图片！</p>");
+    }else{
+        $(".tishi").remove();
+    }
+});
+    function judgetf(obj){
+            obj.parent(".wallitem").parent("div").remove();
+//  $(".show-warning").css("-webkit-transform","scale(0.0)");
+    }
+    $(".wallitem img").click(function(){
+        location.href="photodetails.html";
+    });
+    $(".show-deletmore").click(function(){
+        if($(".show-m-d").css("opacity")==0){
+            $(".show-m-d").css("opacity","1");
+            $(".show-checkeddiv").css("opacity","1");
+        }else{
+            $(".show-m-d").css("opacity","0");
+            $(".show-checkeddiv").css("opacity","0");
+        }
+    });
+   //批量删除
+   $(".show-m-d").click(function(){
+       var chlist=$("input[type=checkbox]");
+       $.each(chlist,function(i,n){
+           if($(n).prop("checked")==true){
+               if(picArr.indexOf($(this).attr("index"))==-1){
+                   picArr.push($(this).attr("index"));
+               }
+           }
+       });
+       if(picArr.length!=0){
+           layer.confirm('您确定要删除这些照片?', {icon: 3, title:'提示'}, function(index){
+               //在数据库中删除
+               console.log(picArr)
+               $.ajax({
+                   url:"delete_pics.do",
+                   type:"post",
+                   data:{picArr:picArr},
+                   dataType:"json",
+                   success:function(data){
+                   }
+               });
+               showPic();
+               picArr=[];
+               $(".show-m-d").css("opacity","0");
+               $(".show-checkeddiv").css("opacity","0");
+               layer.close(index);
+           });
+       }else{
+           layer.msg('未选择照片！', {
+               time: 1000 //2秒关闭（如果不配置，默认是3秒）
+           });
+       }
+   });
+        layer.config({
+            skin: 'layui-layer-molv'
+        });
+    //设置body高度
+setTimeout(function(){
+    $(document).find("body").height($("header").height());
+},1000)
+
+</script>
+</body>
+</html>

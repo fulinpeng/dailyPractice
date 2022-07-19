@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>账号申领</title>
+    <style>
+        html{
+            height: 100%;
+        }
+        body,ul,h1,p{
+            margin: 0;
+            padding: 0;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #d2d2d2;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #d2d2d2;
+        }
+
+        input:-ms-input-placeholder{
+            color: #d2d2d2;
+        }
+
+        input::-webkit-input-placeholder{
+            color: #d2d2d2;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-family: '黑体';
+        }
+        .header{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('../images/header.png')no-repeat;
+            background-size: 100% 100%;
+            color:#fff;
+            vertical-align: middle;
+            z-index: 0;
+        }
+        .header >.title{
+            position: relative;
+            display: table;
+            /* display: flex; */
+            /* justify-content: center;
+            align-items: center; */
+            width: 100%;
+            height: 8%;
+            box-sizing: border-box;
+        }
+        .header >.title >.text-wrap{display: table-cell; vertical-align: middle;width: 100%;height: 100%;}
+        .header >.title >.text-wrap >img{height: 40%;vertical-align: middle;}
+        .header >.title >.text-wrap >span{display: inline-block; margin-left: 5px;font-size: 1.1rem;vertical-align: middle;}
+        h1{
+            position: relative;
+            margin-top: 8%;
+            font-size: 1.8rem;
+            color: #AEDFFF;
+            z-index: 1;
+            font-family: '华文中宋';
+        }
+        @media screen and (max-width: 768px) {
+            h1{margin-top: 18%;}
+            .footer img{position: absolute;}
+        }
+        @media screen and (min-width: 1024px) and (min-height: 1366px){
+            h1{margin-top: 18%;}
+            .footer img{position: absolute;}
+        }
+        p{
+            position: relative;
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+            color: #AEDFFF;
+            z-index: 1;
+            font-family: '华文中宋';
+        }
+        ul{
+            position: relative;
+            list-style: none;
+            width: 100%;
+            z-index: 99;
+        }
+        ul li{
+            position: relative;     
+            margin-bottom: 3%;
+            left: 10%;
+            width: 80%;
+            text-align: left;
+            border: 1px solid #1892e8;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        ul li label{
+            position: relative;
+            display: block;
+            padding: 2%;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        ul li label span{
+            color: #6fb6e7;
+            letter-spacing: 1px;
+        }
+        ul li label input{
+            border: none;
+            outline: none;
+            width: 65%;
+            text-indent: 10px;
+            letter-spacing: 1px;
+            background-color: transparent;
+        }
+        ul li label #warning{
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: url('../images/warning.png')no-repeat center right;
+            background-size: contain;
+        }
+        ul .submit{
+            padding: 2%;
+            text-align: center;
+            background-color: #59B4E2;
+            color: #fff;
+            text-indent: 40px;
+            letter-spacing: 40px;
+        }
+        .footer{
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+            height: 50px;
+        }
+        .footer img{
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .tipLayer{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 100;
+        }
+        .tipLayer >div{
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            margin-left: -112.5px;
+            width: 225px;
+            border-radius: 20px;
+            background-color: #59B4E2;
+            color: #fff;
+        }
+        .tipLayer >div >div{
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .tipLayer >div >.content{
+            padding: 15px;
+        }
+        .tipLayer >div >.content >img{width: 30%;}
+        .tipLayer >div >.content >p{margin: 0;color: #fff;font-size: 1.1rem;text-align: left;}
+        .tipLayer >div >.confirm{
+            border-top: 1px solid #fff;
+            height: 40px;
+            line-height: 40px;
+        }
+        .tipLayer >.error{display: none;}
+        .tipLayer >.error >.content >p{margin: 10px 0;text-align: center;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">
+            <div class="text-wrap">
+                <img src="../images/logo.png" alt=""><span>农村电商大数据中心（映潮科技）</span>
+            </div>
+        </div>
+    </div>
+    <h1>农村电商权威数据报告</h1>
+    <p>账号申领</p>
+    <ul>
+        <li>
+            <label>
+                <span>联系姓名</span>
+                <input type="text" id="userName" placeholder="张三">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>联系电话</span>
+                <input type="tel" id="phoneNumber" placeholder="15800000000" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" onblur="checkPhoneNumber();">
+                <div id="warning"></div>
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>所在区县</span>
+                <input type="text" id="area" placeholder="浦江县">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>工作单位</span>
+                <input type="text" id="company" placeholder="商务局">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>工作部门</span>
+                <input type="text" id="department" placeholder="浦江电子商务促进中心">
+            </label>
+        </li>
+        <li>
+            <label>
+                <span>所任职务</span>
+                <input type="text" id="job" placeholder="副局长">
+            </label>
+        </li>
+        <li class="submit" id="submit">
+            提交
+        </li>
+    </ul>
+    <div class="footer">
+        <img src="../images/footer.png" alt="">
+    </div>
+
+    <div class="tipLayer" id="tipLayer">
+        <div class="success" id="successBox">
+            <div class="content">
+                <img src="../images/success.png" alt="">
+                <p>县域数据账号申请成功，3-5个工作日审核后将发放使用账号</p>
+            </div>
+            <div class="confirm" id="successConfirm">确认</div>
+        </div>
+        <div class="error" id="errorBox">
+            <div class="content">
+                <img src="../images/error.png" alt="">
+                <p id="errorMsg">请完善申请信息再提交</p>
+            </div>
+            <div class="confirm" id="errorConfirm">确认</div>
+        </div>
+    </div>
+    <script src="../js/api.js"></script>
+    <script>  
+        // 重写 trim() 函数，兼容IE8 trim()报错
+        String.prototype.trim = function () {
+            return this .replace(/^\s\s*/, '' ).replace(/\s\s*$/, '' );
+        }
+        // 获取数据包装方法
+        function packingData(){
+            var name = document.getElementById('userName').value.trim(),
+            tel = document.getElementById('phoneNumber').value.trim(),
+            area = document.getElementById('area').value.trim(),
+            unit = document.getElementById('company').value.trim(),
+            department = document.getElementById('department').value.trim(),
+            job = document.getElementById('job').value.trim();
+            if( !name || !tel || !area){
+                showError();
+                return false;
+            } else if (checkPhoneNumber()) {
+                return 'name=' + name + '&tel=' + tel + '&area=' + area + '&unit=' + unit + '&department=' + department + '&job=' + job;
+            }
+            // return {
+            //     name: document.getElementById('userName').value.trim(),
+            //     tel: document.getElementById('phoneNumber').value.trim(),
+            //     area: document.getElementById('area').value.trim(),
+            //     unit: document.getElementById('company').value.trim(),
+            //     department: document.getElementById('department').value.trim(),
+            //     job: document.getElementById('job').value.trim()
+            // }
+        }
+
+        // 获取提交按钮
+        var submitBtn = document.getElementById('submit');
+        // 提交按钮绑定事件
+        submitBtn.onclick = function() {
+            var data = packingData();
+            if (data) {
+                // -----------------开发用-----------------------
+                // var url = 'http://192.168.1.80:8083/ppt/signInfo';
+                
+                //  ---------------------线上URL-----------------------
+                var url = api.signInfo;
+                ajax(url, 'GET', data, function(res){
+                    if (res.code == 0) {
+                        showSuccess();
+                    } else {
+                        showError(res.desc);
+                    }
+                }, true);
+            }
+        };
+
+        function ajax(url, type, data, successFn, isCross){
+            /**
+            *   url: 请求地址
+            *   type: 请求方式
+            *   url: 请求数据（标准数据格式：userName=1&userPwd=1&...）
+            *   successFn: 回调函数
+            *   isCross: 是否跨域
+            **/
+            data = data || '';
+            successFn = successFn || new Function();
+            isCross = isCross || false;
+            if (isCross && window.XDomainRequest) {    // IE 8、9、10 跨域 POST
+                var xdr = new XDomainRequest();
+                xdr.onload = function() {
+                    var res = JSON.parse(xdr.responseText);
+                    successFn(res); 
+                };
+                xdr.onerror = function() {
+                    alert("error");
+                }
+                xdr.open(type, url + '?' + data);
+                xdr.send();
+            } else {    // 常规 Ajax
+                var xhr = null;
+                try{
+                    xhr = new XMLHttpRequest();
+                    xhr.withCredentials = true;
+                } catch(e) {
+                    try{
+                        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                }
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState===4 && xhr.status===200){
+                        var res = JSON.parse(xhr.responseText);
+                        successFn(res); 
+                    }
+                }
+                xhr.onerror && (xhr.onerror = function(e){
+                    console.log(e);
+                });
+                if (type === 'GET') {
+                    // ----------------GET请求格式----------------------
+                    xhr.open("GET", url + '?' + data , true);
+                    xhr.send(null);
+                } else {
+                    // ----------标准键值对POST-------------
+                    xhr.open("POST", url, true);
+                    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    xhr.send(data);
+
+                    // ---------JSON格式------------
+                    // xhr.open("POST", url, true);
+                    // xhr.send(JSON.stringify(data));
+                }           
+            }
+        }
+
+        // 获取弹出层
+        var tipLayer = document.getElementById('tipLayer');
+        // 获取提示框
+        var successBox = document.getElementById('successBox');
+        var errorBox = document.getElementById('errorBox');
+        // 获取错误信息文本节点
+        var errorMsg = document.getElementById('errorMsg');
+        // 获取弹出框确认按钮
+        var successConfirm = document.getElementById('successConfirm');
+        var errorConfirm = document.getElementById('errorConfirm');
+
+        // 弹出框确认按钮绑定事件
+        successConfirm.onclick = function(){
+            var inputs = document.getElementsByTagName('input');
+            for(var i = 0; i < inputs.length; i++){
+                inputs[i].value = "";
+            }
+            tipLayer.style.display = 'none';
+        }
+        errorConfirm.onclick = function(){
+            tipLayer.style.display = 'none';
+        }
+
+        function showSuccess(){
+            tipLayer.style.display = "block";
+            successBox.style.display = "block";
+            errorBox.style.display = "none";
+        }
+        function showError(msg){
+            msg = msg || '请完善申请信息再提交';
+            errorMsg.innerHTML = msg;
+            tipLayer.style.display = "block";
+            errorBox.style.display = "block";
+            successBox.style.display = "none";
+        }
+        // 电话号码检测
+        function checkPhoneNumber(){
+            var warning = document.getElementById('warning');
+            var tel = document.getElementById('phoneNumber').value.trim();
+            if (!isNaN(Number(tel)) && tel.length === 11 && tel.substr(0,1) == '1') {
+                warning.style.display = "none";
+                return true;
+            } else {
+                warning.style.display = "block";
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

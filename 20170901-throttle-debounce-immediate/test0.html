@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="height:20000px">
+<script>
+    var num=0,start=new Date();
+    setTimeout(function () {
+        window.onscroll=function () {
+            var now=new Date();
+            console.log(now-start);
+            start=now;
+        };
+        setTimeout(function () {
+            window.onscroll=null;
+        }, 2000);
+    }, 1000);
+
+</script>
+</body>
+</html>

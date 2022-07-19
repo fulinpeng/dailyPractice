@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="input" type="text" value="www.baidu.com?name=flp&age=22" style="width: 100%;">
+</body>
+<script>
+    var input=document.getElementById('input');
+    document.onclick= function () {
+        var url=input.value;
+//        queryUrlParameters1(url);
+//        queryUrlParameters2(url);
+        var obj=url.myQueryUrlParameters();
+        console.log(obj);
+    };
+    /**
+     * 第一种方法：split拆分字符串
+     * @param url
+     */
+    function queryUrlParameters1(url) {
+        var parames={};
+        var arr=url.split('?')[1].split('&');
+        arr.forEach(function (parame) {
+            var keyVal=parame.split('=');
+            parames[keyVal[0]]=keyVal[1];
+        });
+        console.log(parames);
+        return parames;
+    }
+    /**
+     * 第二种方法：正则匹配
+     * @param url
+     */
+    function queryUrlParameters2(url) {
+        var reg=/([^?=&]+)=([^?=&]+)/g,
+            parames={};
+        url.replace(reg, function () {
+            parames[arguments[1]]=arguments[2];
+        });
+        console.log(parames);
+        return parames;
+    }
+    /**
+     * 第二种方法的扩展，更符合面向对象
+    **/
+    String.prototype.myQueryUrlParameters=function () {
+        let reg=/([^?=&]+)=([^?=&]+)/g,
+            parames={};
+        this.replace(reg, (...arg)=>{
+            parames[arg[1]]=arg[2];
+        });
+        return parames;
+    };
+</script>
+</html>

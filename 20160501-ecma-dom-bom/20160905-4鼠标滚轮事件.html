@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-5-4鼠标滚轮事件</title>
+<style>
+
+	#div1{
+		width:100px;
+		height:100px;
+		background:red;
+		position:absolute;
+	}
+	
+</style>
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	
+	oDiv1.onmousewheel=fn;
+	if (oDiv1.addEventListener){//解决Firefox不能滚
+		oDiv1.addEventListener('DOMMouseScroll', fn, false);
+	};
+	
+	function fn(ev){
+		var ev=ev || event;
+		if(ev.wheelDelta){//wheelDetail返回滚轮返回值
+			b=ev.wheelDelta > 0 ? true : false;
+		}else{
+			b=ev.detail < 0 ? true : false;
+		};
+		if(b){
+			oDiv1.style.height=oDiv1.offsetHeight-10 +'px';
+		}else{
+			oDiv1.style.height=oDiv1.offsetHeight+10 +'px';
+		};
+		
+		if(ev.preventDefault){//Firefox解绑默认滚动
+			ev.preventDefault();
+		};
+		return false;//Ie、Chrome解绑默认滚动
+	};
+	
+};
+
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div id="div1" ></div>
+
+</body>
+</html>

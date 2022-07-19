@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态规划-字母排列</title>
+</head>
+
+<body>
+    <script>
+        // 给定字母一批字母，在允许任意字母顺序的情况下，每个字母必须且只能出现一次
+        // 我们可以得到多少种长度与输入字母长度相等的字母组合？
+        function fn() {
+            var cache = [];
+            cache[0] = 0;
+            cache[1] = 1;
+            cache[2] = 2;
+            return function fnn(n) {
+                var sn;
+                if (cache[n]) return cache[n];
+                if (cache[n - 1]) {
+                    sn = n * cache[n - 1];
+                } else {
+                    sn = n * fnn(n - 1);
+                }
+                cache[n] = sn;
+                return sn;
+            }
+        }
+        var fnn = fn();
+        fnn(5);
+    </script>
+</body>
+
+</html>

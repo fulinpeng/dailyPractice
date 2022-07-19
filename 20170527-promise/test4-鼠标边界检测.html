@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .main{
+            width:100%;
+            height:670px;
+            position:relative;
+        }
+        .center{
+            width:300px;
+            height:300px;
+            position:absolute;
+            left:50%;
+            margin-left:-150px;
+            top:50%;
+            margin-top:-150px;
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="center"></div>
+</div>
+</body>
+<script>
+    var div=document.getElementsByClassName('center')[0];
+    var divLeft=div.offsetLeft;
+    var divTop=div.offsetTop;
+    var divRight=divLeft+div.offsetWidth;
+    var divButtom=divTop+div.offsetHeight;
+    console.log(divTop,divRight,divTop,divLeft);
+    document.onmousemove=function (event) {
+        var e=event||window.event;
+        console.log(e)
+        var x=e.clientX;
+        var y=e.clientY;
+
+        if(x>divLeft&&x<divRight&&y>divTop&&y<divButtom){
+            console.log('进入区域');
+            if(document.getElementsByTagName('body')[0].style.cursor!='crosshair') {
+                document.getElementsByTagName('body')[0].style.cursor='crosshair';
+            }
+        }else{
+            console.log('离开区域');
+            if(document.getElementsByTagName('body')[0].style.cursor!='default') {
+                document.getElementsByTagName('body')[0].style.cursor='default';
+            }
+        }
+    }
+</script>
+</html>

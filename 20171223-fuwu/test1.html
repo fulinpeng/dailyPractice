@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+
+</body>
+<script>
+    var app = angular.module('myApp', []);
+    app.factory('myService', function () {
+        return {
+            name: 'flp',
+            age: 22,
+            say: function () {
+                return 'hello!' + this.name + ',I am ' + this.age;
+            }
+        }
+    });
+    app.provider('myProvider', function () {
+        return {
+            $get: function () {
+                return {
+                    name: 'flp',
+                    age: 22,
+                    say: function () {
+                        return 'hello!' + this.name + ',I am ' + this.age;
+                    }
+                }
+            }
+        }
+    });
+    app.controller('mainCtrl', ['$scope', 'myService', 'myProvider', function ($scope, myService, myProvider) {
+        console.log(myService);
+        console.log(myProvider);
+    }]);
+</script>
+</html>

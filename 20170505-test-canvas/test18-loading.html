@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="gbk">
+    <title>loading</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <script>
+        var oC = document.getElementById("canvas");
+        var cvs = oC.getContext("2d");
+        var color = ["rgb(0, 0, 0)", "rgb(20, 20, 20)", "rgb(40, 40, 40)", "rgb(60, 60, 60)", "rgb(80, 80, 80)",
+            "rgb(100, 100, 100)", "rgb(120, 120, 120)", "rgb(140, 140, 140)"
+        ];
+        var R = 100;
+        var r = 100 - 50;
+        var w = 2 * Math.PI * r / 16;
+        var num = 0;
+        cvs.translate(oC.width / 2, oC.height / 2);
+        cvs.lineWidth = w;
+        setInterval(function() {
+            cvs.clearRect(-oC.width / 2, -oC.height / 2, oC.width, oC.height);
+            cvs.lineCap = "round";
+            //        num=num<8 ? ++num : 0;
+            //        num++;
+            var first = color.shift();
+            color.push(first);
+            for (var i = 0; i < 8; i++) {
+                cvs.beginPath();
+                cvs.moveTo(R * Math.cos(Math.PI / 180 * i * 2 * 360 / 16), R * Math.sin(Math.PI / 180 * i * 2 * 360 / 16));
+                cvs.lineTo(r * Math.cos(Math.PI / 180 * i * 2 * 360 / 16), r * Math.sin(Math.PI / 180 * i * 2 * 360 / 16));
+                cvs.strokeStyle = color[i];
+                cvs.stroke();
+            }
+        }, 200)
+    </script>
+</body>
+
+</html>

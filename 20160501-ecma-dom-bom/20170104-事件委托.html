@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-1阻止右键+自制右键菜单</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	
+</style>
+<script>
+window.onload=function(){
+	// this 事件绑定在谁身上，就是谁
+	// target 指的是触发事件的源
+	// currentTarget 指的是和this一样了
+	var oDiv1=document.getElementById('div1');
+	oDiv1.onclick = function (e) {
+		console.log('this:', this);
+		console.log('e.target:', e.target);
+		console.log('e.currentTarget:', e.currentTarget);
+	}
+};
+</script>
+</head>
+<body>
+
+<div id="div1" >
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+
+</div>
+
+</body>
+</html>

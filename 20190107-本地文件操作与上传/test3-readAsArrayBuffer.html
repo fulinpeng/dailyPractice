@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <form>
+        <input type="file" id="file-input" name="fileContent">
+    </form>
+    <script>
+        $("#file-input").on("change", function () {
+            let fileReader = new FileReader(),
+                fileType = this.files[0].type;
+
+            // 以原始二进制方式读取，读取结果可直接转成整数数组
+            fileReader.readAsArrayBuffer(this.files[0]);
+
+            console.log('fileReader：', fileReader); // fileReader的原型链上还有方法
+
+            fileReader.onload = function (res) {
+                console.log('res:', res); 
+                console.log('res.target.result:', res.target.result);
+                if (/^image\/[jpeg|png|gif]/.test(fileType)) {
+                    // 读取结果在fileReader.result里面
+                    // $(`<img src="${this.result}">`).appendTo("body");
+                }
+            }
+
+        });
+
+
+    </script>
+</body>
+
+</html>

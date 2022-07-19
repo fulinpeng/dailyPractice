@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*这个术语-去抖动 来自电子学的领域，手动开关输入的信号被发送到数字电路中。
+    在电子学中，当你按一个物理按钮一次，数字电路可能读到多个按压，因为按钮的
+    物理属性（金属触点，弹簧，磨损件等）。
+
+    去抖动意味着采集到的所有这些波动的信号，并把它们当作一个。*/
+
+    //测试
+//    window.onkeyup = function() {
+//        console.log('onkeyup');
+//    }
+//    window.onkeydown = function() {
+//        console.log('onkeydown');
+//    }
+
+
+    var delta = 1000;
+    var timeoutID = null;
+    function log() {
+        console.log('foo');
+    }
+    function debouncedLog() {
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(function() {
+            log();
+        }, delta);
+    }
+    window.onkeydown = debouncedLog;
+
+
+
+</script>
+</body>
+</html>

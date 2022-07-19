@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 计算： (n + 2) * 2 - 2 ，每一步都是异步，后面的依赖前一步的结果
+        // 加2
+        function calc1(value, cb) {
+            setTimeout(() => {
+                let res = value + 2;
+                cb(res);
+            }, 500);
+        }
+        // 乘2
+        function calc2(value, cb) {
+            setTimeout(() => {
+                let res = value * 2;
+                cb(res);
+            }, 500);
+        }
+        // 减2
+        function calc3(value, cb) {
+            setTimeout(() => {
+                let res = value - 2;
+                cb(res);
+            }, 500);
+        }
+        // 继发式异步generator写法
+        function * calcSync(n) {
+            let res1 = yield new Promise((resolve) => {
+                calc1(n, resolve);
+            });
+            console.log('~~~res1', res1);
+            let res2 = yield new Promise((resolve) => {
+                calc2(res1, resolve);
+            });
+            console.log('~~~res2', res2);
+            let res3 = yield new Promise((resolve) => {
+                calc3(res2, resolve);
+            });
+            console.log('~~~res3', res3);
+            return res3;
+        }
+        let gen = calcSync(10);
+        function runner(gen) {
+            // console.log('~~~gen', gen) // 不是你理解的那个有next方法的对象啊
+            return new Promise(function (resolve) {
+                // let arr = [];
+                function step(genNext) {
+                    console.log('~~~genNext', genNext)
+                    // arr.push(genNext);
+                    // if (arr.length == 2) {
+                    //     console.log('~~~genNext', arr[0], arr[1], arr[0] == arr[1]); // false 啊，说明更不是同一个哦
+                    // }
+                    if (genNext.done) {
+                        resolve(genNext.value);
+                    } else {
+                        Promise.resolve(genNext.value).then((value) => {
+                            step(gen.next(value));
+                        });
+                    }
+                }
+                step(gen.next(undefined));
+            });
+        }
+        runner(gen).then((res) => {
+            console.log('~~~', res)
+        });
+
+        // 发现：
+        // 每次执行了一次next，其实next的宿主对象不是同一个啊...
+    </script>
+</body>
+
+</html>

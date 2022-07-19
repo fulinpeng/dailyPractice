@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>队列</title>
+</head>
+
+<body>
+    <script>
+
+        // 队列
+        // 先进先出
+        
+        class Queue {
+            constructor(items) {
+                this.items = items || [];
+            }
+
+            enqueue(element) {
+                this.items.push(element);
+            }
+
+            dequeue() {
+                return this.items.shift();
+            }
+
+            front() {
+                return this.items[0];
+            }
+
+            clear() {
+                this.items = [];
+            }
+
+            get size() {
+                return this.items.length;
+            }
+
+            get isEmpty() {
+                return !this.items.length;
+            }
+
+            print() {
+                console.log(this.items.toString());
+            }
+        }
+
+        const queue = new Queue();
+        console.log(queue.isEmpty); // true
+
+        queue.enqueue("John");
+        queue.enqueue("Jack");
+        queue.enqueue("Camila");
+        console.log(queue.size); // 3
+        console.log(queue.isEmpty); // false
+        queue.dequeue();
+        queue.dequeue();
+
+
+    </script>
+</body>
+
+</html>

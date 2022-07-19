@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function add(a, b) {
+        //     return a + b;
+        // }
+        // const res = add(1, 2);
+        // console.log(res);
+
+        // 将上述函数进行柯里化
+        const addB = (a) => (b) => a + b;
+
+        const fnA = addB(1); // 缓存参数 1，后面的都可以用
+        const res1 = fnA(1);
+        const res2 = fnA(2);
+        const res3 = fnA(3);
+
+        console.log(res1, res2, res3);
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图</title>
+</head>
+
+<body>
+    <script>
+        var Queue = function () {
+            this.list = [];
+            this.enqueue = function (v) {
+                this.list.push(v);
+                return this.size();
+            };
+            this.dequeue = function () {
+                return this.list.shift();
+            };
+            this.isEmpty = function () {
+                return this.size() == 0;
+            };
+            this.front = function () {
+                return this.list[0];
+            };
+            this.end = function () {
+                return this.list[this.size()];
+            };
+            this.size = function () {
+                return this.list.length;
+            };
+        }
+        var Graph = function () {
+            this.points = [];
+            this.adj
+            this.lines = {};
+            this.bfsFlag = {};
+            this.inite = function () {
+                this.initBfsFlag();
+                this.initLins();
+            }
+            this.initBfsFlag = function () {
+                var points = this.points;
+                for (var i=0,len = points.length; i<len; i++) {
+                    this.bfsFlag[points[i]] = 'white';
+                }
+            }
+            this.initLins = function () {
+                var points = this.points;
+                for (var i=0,len = points.length; i<len; i++) {
+                    this.lines[points[i]] = [];
+                }
+            }
+            this.addPoint = function (v) {
+                this.points.push(v);
+            }
+            this.addLine = function (a, b) {
+                this.lines[a].push(b);
+                this.lines[b].push(a);
+            }
+            this.bfs = function (v, callback) {
+                var queue = new Queue();
+                queue.enqueue(v);
+                this.initBfsFlag();
+                while (queue.size()) {
+                    var currentPoint = queue.front();
+                    var otherPoints = this.lines[currentPoint];
+                    for (var i=0,len=otherPoints.length; i<len; i++) {
+                        var nextPoint = otherPoints[i];
+                        if (this.bfsFlag[nextPoint] == 'white') {
+                            this.bfsFlag[nextPoint] = 'gray';
+                            queue.enqueue(nextPoint);
+                        }
+                    }
+                    this.bfsFlag[currentPoint] = 'black';
+                    queue.dequeue();
+                    if (callback) callback(currentPoint)
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var g = new Graph()
+        g.addPoint('A')
+        g.addPoint('B')
+        g.addPoint('C')
+        g.addPoint('D')
+        g.addPoint('E')
+        g.addPoint('F')
+        g.inite();
+
+
+        g.addLine('A', 'B')
+        g.addLine('A', 'C')
+        g.addLine('A', 'D')
+        g.addLine('B', 'E')
+        g.addLine('B', 'F')
+        g.addLine('C', 'D')
+
+
+        var s = g.bfs("F", function (v) {
+            console.log(v);
+        })
+
+    </script>
+</body>
+
+</html>

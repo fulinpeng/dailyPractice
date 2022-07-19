@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="getData">getData</button>
+    <button id="updateData">updateData</button>
+    <button id="delete">delete</button>
+    <button id="clear">clear</button>
+    <script>
+        // https://www.cnblogs.com/dolphinX/p/3415761.html
+        // 打开一个indexedDB
+        // 得到的是一个IDBOpenDBRequest对象，而我们希望得到的DB对象在其result属性中
+        // var request=window.indexedDB.open('testDB');
+        // onerror: 请求失败的回调函数句柄
+        // onsuccess:请求成功的回调函数句柄
+        // onupgradeneeded:请求数据库版本变化句柄
+
+        // 所谓异步API是指并不是这条指令执行完毕，
+        // 我们就可以使用request.result来获取indexedDB对象了
+        // 语句执行完并不代表已经获取到了对象，需要一个回调函数
+
+        function openDB(name, version) {
+            var version = version || 1;
+            var request = window.indexedDB.open(name, version);
+            request.onerror = function (e) {
+                console.error('onerror:', e.currentTarget.error.message);
+            };
+            request.onsuccess = function (e) {
+                myDB.db = e.target.result;
+                console.log('onsuccess', myDB.db);
+            };
+            // 当我们传入的版本号和数据库当前版本号不一致的时候onupgradeneeded就会被调用
+            request.onupgradeneeded = function (e) {
+                console.log('DB version changed to ' + version);
+                var db = e.target.result;
+                // onupgradeneeded的db和onsuccess的db应该是一样的，只是他们不是同一个对象
+                if (!db.objectStoreNames.contains('students')) {
+                    db.createObjectStore('students', { keyPath: "id" }); // 为对象时，必须用 keyPath 指定某个属性为键值
+                    // db.createObjectStore('students', { autoIncrement: true });
+                }
+                // 删除一个object store，
+                // if (db.objectStoreNames.contains('students')) {
+                //     db.deleteObjectStore('students');
+                // }
+            };
+        }
+
+        var myDB = {
+            name: 'test',
+            version: 10, // 想更新 indexDB 就改它（而且本次修改的不能比以前的小）
+            db: null
+        };
+        openDB(myDB.name, myDB.version);
+        console.log(myDB);
+
+        // 关闭与删除数据库
+        function closeDB(db) {
+            db.close();
+        }
+
+        // 删除数据库使用indexedDB对象的deleteDatabase方法
+        function deleteDB(name) {
+            indexedDB.deleteDatabase(name);
+        }
+
+        // 先关闭，后删除
+        // setTimeout(function(){
+        //     closeDB(myDB.db);
+        //     deleteDB(myDB.name);
+        // },500);
+
+        // *** indexedDB中没有表的概念，而是objectStore，objectStore是一个灵活的数据结构，
+        // 可以存放多种类型数据,也就是说一个objectStore相当于一张表，
+        // 里面存储的每条数据和一个键相关联
+
+        var students = [{
+            id: 1001,
+            name: "Byron",
+            age: 24
+        }, {
+            id: 1002,
+            name: "Frank",
+            age: 30
+        }, {
+            id: 1003,
+            name: "Aaron",
+            age: 26
+        }];
+
+        function addData(db, storeName) {
+            console.log(db, db.transaction);
+            var transaction = db.transaction(storeName, 'readwrite'); // 打开一个事务，使用students 和teacher object store
+            var store = transaction.objectStore(storeName); // 获取students object store
+
+            for (var i = 0; i < students.length; i++) {
+                store.add(students[i]);
+            }
+        }
+
+        openDB(myDB.name, myDB.version);
+        setTimeout(function () {
+            addData(myDB.db, 'students');
+        }, 1000);
+
+        // 每次刷新页面，请点击 Refresh 按钮
+        // 这样我们就在students object store里添加了三条记录，以id为键
+
+        // # 事务有三种模式（上面使用了 readwrite）
+
+        //1、读：read，不能修改数据库数据，可以并发执行
+        //2、写：readwrite，可以进行读写操作
+        //3、版本变更：verionchange
+
+        // # 设置键值
+
+        // 键类型	      存储数据
+        // 不使用	      任意值，但是没添加一条数据的时候需要指定键参数
+        // keyPath	      Javascript对象，对象必须有一属性作为键值
+        // keyGenerator	  任意值
+        // 都使用	      Javascript对象，如果对象中有keyPath指定的属性则不生成新的键值，如果没有自动生成递增键值，填充keyPath指定属性
+
+        // 以下简单的操作，只是根据主键来的
+
+        // 查找数据
+        function getDataByKey(db, storeName, value) {
+            var transaction = db.transaction(storeName, 'readwrite');
+            var store = transaction.objectStore(storeName);
+            var request = store.get(value);
+            request.onsuccess = function (e) {
+                var student = e.target.result;
+                console.log('getData:', student.name);
+            };
+        }
+        document.getElementById('getData').onclick = function () {
+            getDataByKey(myDB.db, 'students', 1001);
+        }
+        // 更新数据
+        function updateDataByKey(db, storeName, value) {
+            var transaction = db.transaction(storeName, 'readwrite');
+            var store = transaction.objectStore(storeName);
+            var request = store.get(value);
+            request.onsuccess = function (e) {
+                var student = e.target.result;
+                student.name = 'ha ha ha';
+                student.age = 100;
+                console.log('updateDataByKey:', student);
+                store.put(student);
+                store.put({
+                    id: 1004,
+                    name: "fourth one",
+                    age: 22
+                });
+            };
+        }
+        document.getElementById('updateData').onclick = function () {
+            updateDataByKey(myDB.db, 'students', 1001);
+        }
+        // 删除数据及object store
+
+        function deleteDataByKey(db, storeName, value) {
+            console.log('deleteDataByKey:', value);
+            var transaction = db.transaction(storeName, 'readwrite');
+            var store = transaction.objectStore(storeName);
+            store.delete(value);
+        }
+        document.getElementById('delete').onclick = function () {
+            deleteDataByKey(myDB.db, 'students', 1003);
+        }
+        // 调用object store的clear方法可以清空object store
+        function clearObjectStore(db, storeName) {
+            var transaction = db.transaction(storeName, 'readwrite');
+            var store = transaction.objectStore(storeName);
+            store.clear();
+        }
+        document.getElementById('clear').onclick = function () {
+            clearObjectStore(myDB.db, 'students');
+        }
+        // 调用数据库实例的deleteObjectStore方法可以删除一个object store，
+        // 这个就得在 onupgradeneeded 里面调用了:
+        // if (db.objectStoreNames.contains('students')) {
+        //     db.deleteObjectStore('students');
+        // }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <canvas style="background: black" id="canvas1" width="1400" height="700"></canvas>
+    <script>
+        var oC = document.getElementById("canvas1");
+        var ctx = oC.getContext("2d");
+
+        //画格子
+        ctx.beginPath();
+        for (var i = 0; i < oC.width; i += 10) {
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, oC.height);
+        }
+        for (var i = 0; i < oC.height; i += 10) {
+            ctx.moveTo(0, i);
+            ctx.lineTo(oC.width, i);
+        }
+        ctx.strokeStyle = "rgba(255,255,255,0.3)";
+        ctx.stroke();
+
+        //坐标轴
+        ctx.save();
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(50, 50); //纵轴
+        ctx.lineTo(50, oC.height - 10);
+        ctx.moveTo(50, 50);
+        ctx.lineTo(55, 55);
+        ctx.moveTo(50, 50);
+        ctx.lineTo(45, 55);
+        ctx.moveTo(10, oC.height - 300); //横轴
+        ctx.lineTo(oC.width - 50, oC.height - 300);
+        ctx.moveTo(oC.width - 50, oC.height - 300);
+        ctx.lineTo(oC.width - 55, oC.height - 305);
+        ctx.moveTo(oC.width - 50, oC.height - 300);
+        ctx.lineTo(oC.width - 55, oC.height - 295);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        ctx.restore();
+
+        //填充文字
+        ctx.font = "bold 16px sans-self";
+        ctx.fillStyle = "white";
+        ctx.fillText("x", oC.width - 55, oC.height - 280);
+        ctx.fillText("y", 30, 55);
+        ctx.fillText("0", 30, oC.height - 280);
+
+        //正弦曲线
+        function sinCurve(x) {
+            ctx.save();
+            var gradient = ctx.createLinearGradient(0, 0, oC.width, 0);
+            gradient.addColorStop("0", "orange");
+            gradient.addColorStop("0.5", "blue");
+            gradient.addColorStop("1.0", "red");
+            ctx.translate(50, oC.height - 300);
+            ctx.beginPath();
+            ctx.moveTo(x, -(100 * Math.sin((x - 5) * Math.PI / 180) + 100)); //公式
+            for (var i = x; i < oC.width - 50; i++) {
+                console.log(i);
+                ctx.lineTo(i, -(100 * Math.sin((i - 5) * Math.PI / 180) + 100)); //公式
+            }
+            ctx.strokeStyle = gradient;
+            ctx.stroke();
+            ctx.restore();
+        }
+        sinCurve(-30);
+    </script>
+</body>
+
+</html>

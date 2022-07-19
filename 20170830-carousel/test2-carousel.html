@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .section>.tit{
+            line-height:30px;
+            font-size:30px;
+            text-align: center;
+        }
+        .section>.tit-eng{
+            line-height:30px;
+            font-size:14px;
+            text-align: center;
+        }
+        .data>.desbox {
+            width:75%;
+            margin:0 auto;
+        }
+        .data>.data-img img{
+            width:100%;
+        }
+        .data>.desbox>.data-des>hr{
+            width:20%;
+            height:1px;
+            background: #8f90a0;
+            margin:0 auto;
+        }
+        .data>.desbox>.data-des>p{
+            line-height: 25px;
+        }
+
+        .section.archit{
+            width:100%;
+            height: 500px;
+            padding:75px 0;
+            background:#d2b067;
+            color:white;
+            overflow:hidden;
+        }
+        .archit .contentbox{
+            width:50%;
+            height:290px;
+            margin-top:20px;
+            margin-left:25%;
+            position:relative;
+            overflow: hidden;
+        }
+        .archit .contentbox ul{
+            position:relative;
+            width:300%;
+            height:290px;
+        }
+        .contentbox ul .content{
+            float:left;
+            width:33.33%;
+        }
+        .content .desbox{
+            float:left;
+            width:45%;
+            margin-top:40px;
+        }
+        .content .desbox .liu{
+            margin-left:30%;
+            padding-left:40px;
+            line-height: 40px;
+            font-size:24px;
+            font-weight:bold;
+            background-size: auto 30px;
+        }
+        .content .desbox .yuan .item{
+            margin-left:30%;
+            padding-left:40px;
+            height:40px;
+            background-size: 20px 20px;
+        }
+        .content .desbox .yuan .item p{
+            line-height: 40px;
+            font-size:16px;
+        }
+        .content .desbox .yuan .hastwo .p_one{
+            line-height: 20px;
+            height:20px;
+        }
+        .content .desbox .yuan .hastwo .p_two{
+            font-size:14px;
+            line-height: 20px;
+            height:20px;
+        }
+        .content .imgbox{
+            float:left;
+            width:50%;
+            height:260px;
+        }
+        .content .imgbox img{
+            width:200%;
+            max-width:360px!important;
+        }
+        .archit .btn{
+            width:40px;
+            height:70px;
+            position:absolute;
+            top:55%;
+            cursor:pointer;
+            margin-top:-35px;
+        }
+        .archit .pre{
+            left:15%;
+            background: url('../images/pre.png') no-repeat center center;
+            background-size:cover;
+        }
+        .archit .next{
+            right:15%;
+            background: url('../images/next.png') no-repeat center center;
+            background-size:cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section archit">
+    <div class="tit">技术架构</div>
+    <div class="tit-eng">Technical Architecture</div>
+    <div class="contentbox ">
+        <ul class="clear">
+            <div class="content">
+                <div class="desbox">
+                    <div class="liu">专业</div>
+                    <div class="yuan">
+                        <div class="item"><p>数据科学家团队</p></div>
+                        <div class="item"><p>科学数学建模</p></div>
+                        <div class="item"><p>专注的从业精神</p></div>
+                    </div>
+                </div>
+                <div class="imgbox"><img src="../images/pic1.png" alt=""></div>
+            </div>
+            <div class="content">
+                <div class="imgbox"><img src="../images/pic2.png" alt=""></div>
+                <div class="desbox">
+                    <div class="liu">创新</div>
+                    <div class="yuan">
+                        <div class="item"><p>Hadoop与人工智能</p></div>
+                        <div class="item"><p>网页规则可视化配置</p></div>
+                        <div class="item"><p>全量采集 分层采样</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="desbox">
+                    <div class="liu">领先</div>
+                    <div class="yuan">
+                        <div class="item"><p>基于大数据云计算技术</p></div>
+                        <div class="item hastwo">
+                            <p class="p_one">云服务器</p>
+                            <p class="p_two">安全高效 弹性稳定</p>
+                        </div>
+                        <div class="item"><p>分布式并行处理</p></div>
+                    </div>
+                </div>
+                <div class="imgbox"><img src="../images/pic3.png" alt=""></div>
+            </div>
+        </ul>
+    </div>
+    <div class="btn pre"></div>
+    <div class="btn next"></div>
+</div>
+</body>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script>
+    var w = $('.archit .contentbox').width();
+    var len = $('.archit .contentbox .content').length;
+    var isfinish = true;
+    $('.btn.pre').click(function () {
+        clearInterval(interval);
+        if (isfinish) {
+            isfinish = false;
+            var temp = $('.archit .contentbox').scrollLeft();
+            var node = $('.archit .contentbox .content')[len - 1];
+            $('.archit .contentbox ul').prepend(node);
+            $('.archit .contentbox').scrollLeft($('.archit .contentbox').scrollLeft() + w);
+            $('.archit .contentbox').animate({
+                'scrollLeft': $('.archit .contentbox').scrollLeft() - w
+            }, 500);
+            setTimeout(function () {//添加定时器，为了节流，类似的可以参考imagesLazyLoad中的节流函数
+                isfinish = true;
+                interval = setInterval(function () {
+                    $('.btn.next').click();
+                }, 3000)
+            }, 600);
+        } else {
+            return false;
+        }
+    });
+    $('.btn.next').click(function () {
+        clearInterval(interval);
+        if (isfinish) {
+            isfinish = false;
+            var temp = $('.archit .contentbox').scrollLeft();
+            var node = $('.archit .contentbox .content')[0];
+            $('.archit .contentbox').animate({
+                'scrollLeft': $('.archit .contentbox').scrollLeft() + w
+            }, 500);
+            setTimeout(function () {
+                $('.archit .contentbox ul').append(node);
+                $('.archit .contentbox').scrollLeft($('.archit .contentbox').scrollLeft() - w);
+                isfinish = true;
+                interval = setInterval(function () {
+                    $('.btn.next').click();
+                }, 3000)
+            }, 600);
+        } else {
+            return false;
+        }
+    });
+    var interval = setInterval(function () {
+        $('.btn.next').click();
+    }, 3000);
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/personal.css"/>
+    <link rel="stylesheet" href="../../css/personal-main.css"/>
+</head>
+<body>
+@@include("../include/header.html")
+
+<section  class="myinformation container-fluid">
+    <div class="myinformation_sd_div">
+        <div class="changeim">管理收货地址</div>
+        <div id="ad1">
+            <div>新增收货地址</div>
+            <div>
+                <a>收件人姓名：</a>
+                <input type="text"/>
+                <span>*此栏不能为空</span>
+            </div>
+            <div class="small_arti">
+                <a>收件人地址： </a>
+                <select id="sheng"   class="adre" name='sheng'>
+                    <option value="0">省</option>
+                </select>
+                <select id='shi' class="adre">
+                    <option value="0">市</option>
+                </select>
+                <select id='xian'class="adre">
+                    <option value="0">县</option>
+                </select>
+                <span>*此栏不能为空</span>
+            </div>
+            <div><a>详细地址：</a><input type="text" id="ad2" /><span id="span99">*此栏不能为空</span></div>
+            <div><a>手机号码：</a><input type="text" id="testphone" maxlength="11"/><span id="span100">*此栏不能为空</span></div>
+            <button class="ltbtn" id="baocun">保存地址</button>
+        </div>
+        <div class="conserve">
+            <div>已保存的地址</div>
+            <div></div>
+
+            <div class="conserve-2">
+
+                 <table class="mytb" cellpadding="0" cellspacing="0">
+                    <!--<tr>-->
+                        <!--<th>收货人</th>-->
+                        <!--<th>收货地址</th>-->
+                        <!--<th>手机号码</th>-->
+                        <!--<th>操作</th>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>张二毛</td>-->
+                        <!--<td>四川省成都市金牛区花园大道金域南湾小区2栋5楼12号</td>-->
+                        <!--<td>158215*235</td>-->
+                        <!--<td><a class="change-1" >修改</a> <a class="delate-1">删除</a></td>-->
+                    <!--</tr>-->
+                     <!--<tr>-->
+                         <!--<td>张二毛</td>-->
+                         <!--<td>四川省成都市金牛区花园大道金域南湾小区2栋5楼12号</td>-->
+                         <!--<td>158215*235</td>-->
+                         <!--<td><a class="change-1" >修改</a> <a class="delate-1">删除</a></td>-->
+                     <!--</tr>-->
+                     <!--<tr>-->
+                         <!--<td>张二毛</td>-->
+                         <!--<td>四川省成都市金牛区花园大道金域南湾小区2栋5楼12号</td>-->
+                         <!--<td>158215*235</td>-->
+                         <!--<td><a class="change-1" >修改</a> <a class="delate-1">删除</a></td>-->
+                     <!--</tr>-->
+                 </table>
+            </div>
+    </div>
+    </div>
+</section>
+<div class="pr_main_nav_2">
+    <div><a href="personal-main.html">我的中心</a></div>
+    <div><a href="information.html">我的信息</a></div>
+    <div><a href="personal-ind.html">我的订单</a></div>
+    <div><a href="activity.html">我的活动</a></div>
+    <div><a href="address.html">我的地址</a></div>
+    <div><a href="pr_shoppingCar.html">购物车</a></div>
+
+    <div id="pr_main_nav_logo"> > </div>
+</div>
+<!--@@include("../include/footer.html")-->
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script src="../../js/areaData.js"></script>
+<script src="../../js/personal-adress-xiugai.js"></script>
+<script src="../../js/layui/layui.js"></script>
+</body>
+</html>

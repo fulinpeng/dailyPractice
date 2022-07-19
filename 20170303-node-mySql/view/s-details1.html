@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/s-store.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+</head>
+<body>
+<!--@@include("../include/header.html")-->
+<section class="clear">
+    <!--页头线-->
+    <div class="detailsHeadLine">
+        <div class="detailsLine detailsLine1">
+            <div></div>
+            <img src="../../images/store/log.png" alt=""/>
+        </div>
+            <p class="Orders">Orders for goods</p>
+       <div class="detailsLine">
+           <img src="../../images/store/log.png" alt="" />
+           <div ></div>
+       </div>
+    </div>
+    <!--商品展示1-->
+    <div class="goods-show1 goods-show2">
+            <div>
+                <div id="page1">
+                    <div class="imgbox imgbox1">
+                        <div class="probox probox1">
+                            <img src="<%=shplist.pc_src%>/<%=shplist.pc_name%>" alt="" class="goods1"/>
+                            <div class="hoverbox hoverbox1"></div>
+                            <h3><%=shplist.a_name%></h3>
+                        </div>
+                        <div class="showbox showbox1">
+                            <img src="<%=shplist.pc_src%>/<%=shplist.pc_name%>" alt="" class="goods1"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="LT330">
+                    <h4><%=shplist.a_name%><br/>¥:<%=shplist.a_price%></h4>
+                    <div>
+                        <span>数量：</span>
+                        <select name="" id="bike_number" >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>颜色：</span>
+                        <select name="" id="color2" >
+                            <option value="1">黑色</option>
+                            <option value="2">蓝色</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>重量：&nbsp;8kg</span>
+                    </div>
+                    <div>
+                        <span id="bikeid">
+                            商品编号：<%=shplist.a_id%>
+                       </span>
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <button class="ltbtn-deta btn-details-mai1">立即购买</button>
+                &nbsp; &nbsp;
+                <!--<button class="ltbtn"><a href="../personal/pr_shoppingCar.html">加入购物车</a></button>-->
+            </div>
+        </div>
+    <!--商品推荐-->
+</section>
+<!--@@include("../include/footer.html")-->
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script src="../../js/storDtails.js"></script>
+<!--<script src="../../js/store.js"></script>-->
+</body>
+</html>

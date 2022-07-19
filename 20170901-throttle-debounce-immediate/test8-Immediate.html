@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*Immediate是Debounce的精确版本。比起 Debounce 的 等待后续事件触发，
+    然后再激活回调，Immediate 是 立即激活回调，然后等待后续事件在一定时
+    间内触发。*/
+
+    var delta = 1000;
+    var timeoutID = null;
+    var safe = true;
+    function log() {
+        console.log('foo');
+    }
+    function immediatedLog() {
+        if (safe) {
+            log();
+            safe = false;
+        }
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(function() {
+            safe = true;
+        }, delta);
+    }
+    window.onkeydown = immediatedLog;
+
+</script>
+</body>
+</html>

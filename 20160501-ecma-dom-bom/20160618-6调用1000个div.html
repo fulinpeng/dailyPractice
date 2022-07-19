@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>butagname调用</title>
+
+<style>
+  div{
+  width:40px;
+  height:40px;
+  background-color:red;
+  color:#fff;
+  text-align:center;
+  line-height:40px;
+  font-size:23px;
+  border:1px solid #333;
+  position:absolute;
+  }
+
+</style>
+<script>
+  window.onload=function(){
+    
+    var oBody=document.body;
+    var str='';
+    
+	  for( var i=0;i<100;i++ ){
+	    str+='<div>' + i + ' </div>';
+	  };
+	  //下面这句代码必须写在前面，否则提示错误；弄了一晚上！！！
+	  oBody.innerHTML=str;
+	  var aDiv=document.getElementsByTagName('div');
+	  
+	  for( var i=0;i<100;i++ ){
+	    aDiv[i].style.left=i*40 + 'px';
+		if(Math.floor(i/10)%2 ==0){//识别奇偶数
+		  aDiv[i].style.top=400-i%10*40 + 'px';
+		}else{
+		  aDiv[i].style.top=i%10*40 + 'px';
+		};
+	  };
+	  
+	  
+  };
+
+</script>
+
+
+
+</head>
+
+<body>
+<pre>javascript除法如何取整
+Math.round(x) 四舍五入，如Math.round(0.60)，结果为1；Math.round(0.49)，结果为0；
+Math.floor(x) 向下舍去，如Math.floor(0.60)与Math.floor(0.49)，结果均为0；
+Math.ceil(x)向上舍入，如Math.ceil(0.60)与Math.ceil(0. 49)，结果均为1。
+思路：奇数为顺序排列，偶数为倒序排列，识别奇偶用：num%2 ==0
+       每逢十个，变一次排列方式。都用这个思路
+</pre>
+</body>
+</html>

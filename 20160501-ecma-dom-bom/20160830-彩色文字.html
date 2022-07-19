@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>彩色文字</title>
+<style>
+#main{
+	width:260px;
+	height:300px;
+	padding:5px;
+	border:1px solid #000;
+	font-size:16px;
+	line-height:40px;
+}
+#main span{
+	padding:5px 15px;
+	
+}
+	
+</style>
+<script>
+	window.onload=function(){
+	var oDiv=document.getElementById('main');
+	var aInp=document.getElementsByTagName('input');
+	var str='';
+	var arrColor=['#cc3','#6fc','#fcd','#9ce',]
+	
+	aInp[1].onclick=function(){
+		str=aInp[0].value;
+		arr=str.split('');
+		for(var i=0; i<arr.length; i++){
+			arr[i]='<span style="background:'+arrColor[i%arrColor.length]+'">'+arr[i]+'</span>';
+		};
+		oDiv.innerHTML+=arr.join('');
+	};
+	};
+</script>
+</head>
+<body>
+<div id="main">
+
+</div>
+<input type="text" />
+<input type="button" value="按钮"/>
+
+
+
+
+
+</body>
+</html>

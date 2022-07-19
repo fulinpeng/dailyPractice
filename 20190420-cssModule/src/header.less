@@ -1,0 +1,27 @@
+:global {
+    .border{
+        border: 2px solid orange;
+    }
+    .bold {
+        font-weight:bold;
+    }
+}
+:local {
+    .base {
+        font-size: 20px;
+    }
+    
+    .disabled {
+        composes: base;
+        color: #ddd;
+    }
+    
+    .header {
+        color: yellowgreen;
+        composes: base;
+    }
+    
+    [data-test="red"] {
+        color: coral;
+    }
+}

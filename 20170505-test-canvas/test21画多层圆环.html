@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas style="background: black" id="canvas1" width="1400" height="700"></canvas>
+<script>
+    var oC=document.getElementById("canvas1");
+    var ctx=oC.getContext("2d");
+    var pies=0;
+    var RGB=0;
+    ctx.translate(oC.width/2,oC.height/2);
+    setInterval(function(){
+        pies=pies<100?pies+0.1:0;
+        RGB=RGB<=255?++RGB:0;
+        ctx.clearRect(-oC.width/2,-oC.height/2,oC.width,oC.height);
+        drawArc(7,50,'rgb('+RGB+','+Math.floor(RGB/4)+','+(255-RGB)+')',pies);
+        drawArc(14,100,'rgb('+RGB+','+Math.floor(255-RGB/5)+','+(255-RGB)+')',-pies);
+        drawArc(22,150,'rgb('+255-RGB+','+Math.floor(RGB)+','+(RGB)+')',pies);
+        drawArc(28,200,'rgb('+RGB+','+Math.floor(255-RGB)+','+(255-RGB)+')',-pies);
+        drawArc(35,250,'rgb('+255-RGB+','+Math.floor(RGB/8)+','+(255-RGB)+')',pies);
+        drawArc(41,300,'rgb('+RGB+','+Math.floor(255-RGB/9)+','+(RGB)+')',-pies);
+    },50);
+    function drawArc(n,R0,color,pie){
+        var R=R0/Math.cos(Math.PI/n);
+        var r=R0*Math.tan(Math.PI/n);
+        for (var i=0; i<n; i++){
+            ctx.beginPath();
+            ctx.arc(R*Math.cos(Math.PI/n*(2*i+pie)),R*Math.sin(Math.PI/n*(2*i+pie)),r,0,2*Math.PI);
+            ctx.fillStyle=color;
+            ctx.fill();
+        }
+    }
+</script>
+</body>
+</html>

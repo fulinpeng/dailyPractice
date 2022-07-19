@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+
+<script>
+    (function () {
+        return [
+            (function () {
+                console.log(this.x);
+                return this.x
+            }.bind({ x: 'inner' }))()
+        ];
+    }).call({ x: 'outer' });
+
+    // var handler = {
+    //     id: '123456',
+    //     init: function () {
+    //         document.addEventListener('click',
+    //             event => this.doSomething(event.type), false);
+    //     },
+    //     doSomething: function (type) {
+    //         console.log('Handling ' + type + ' for ' + this.id);
+    //     }
+    // };
+    // handler.init();
+    
+/////////////////////////////////////////////////////////////
+
+    // var handler = {
+    //     id: '123456',
+    //     init: function () {
+    //         document.addEventListener('click',function (event) {
+    //                 this.doSomething(event.type)
+    //             }, false)
+    //     },
+    //     doSomething: function (type) {
+    //         console.log('Handling ' + type + ' for ' + this.id);
+    //     }
+    // };
+    // handler.init();
+
+////////////////////////////////////////////////////////////////
+
+    var sortNumbers = (a, ...numbers) => numbers.sort();
+    var result=sortNumbers(1,2,3,4,5);
+    console.log(result);
+
+</script>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>切图，精简代码</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+		font-size:14px;
+	}
+	#left{
+		width:250px;
+		margin:0 auto;
+		background:#4ff;
+		overflow: hidden;
+	}
+	#top{
+		width:240px;
+		margin-left:10px;
+		float:left;
+		padding-top:10px;
+	}
+	#top h3{
+		text-indent:10px;
+		margin-top:5px ;
+		display:inlin-block;
+		float:left;
+		line-height:30px;
+		padding-right:10px;
+		border-bottom:1px solid #000;
+		border-right:1px solid #000;
+	}
+	#top span{
+		margin-top:5px ;
+		float:left;
+		line-height:30px;
+		font-size:14;
+		padding:0 5px;
+		border-top:1px solid #000;
+		border-right:1px solid #000;
+		border-bottom:1px solid #000;
+	}
+	#top .span1{
+		background:#fff;
+		border-bottom:none;
+	}
+	ul{
+		width:250px;
+		float:left;
+		margin-top:15px;
+	}
+	li{
+		width:230px;
+		float:left;
+		padding:10px 0;
+		margin: 0 10px;
+		line-height:24px;
+		border-bottom:1px solid #fff;
+		position:relative;
+	}
+	li img{
+		width:80px;
+		height:50px;
+		float:left;
+		display:none;
+	}
+	li p{
+		line-height:16px;
+	}
+	
+	
+	
+</style>
+<script>
+	window.onload=function(){
+		var oTop=document.getElementById('top');
+		var oLeft=document.getElementById('left');
+		var aSpan=oTop.getElementsByTagName('span');
+		var aUl=oLeft.getElementsByTagName('ul');
+		var num=0;
+		var oOld='';
+		
+		aUl[num].style.display='block';
+			//给第一张图片初始化，并给oOld赋值
+			var aLi=aUl[num].getElementsByTagName('li')[0];
+			var oImg=aLi.getElementsByTagName('img')[0];
+			oImg.style.display='block';
+			oOld=aLi;
+		
+		aSpan[num].className='span1';
+		for(var i=0; i<aUl.length; i++ ){
+			aSpan[i].index=i;
+			aSpan[i].onclick=function(){
+				for(var i=0; i<aUl.length;i++){
+					aUl[i].style.display='none';
+					aSpan[i].className='';
+				};
+				aUl[this.index].style.display='block';
+				this.className='span1';
+			};
+			//鼠标移入展现图片的效果
+			var aLi=aUl[i].getElementsByTagName('li');
+			for(j=0; j<aLi.length;j++){
+				aLi[j].onmouseover=function(){//实现的思路：当鼠标移入后先执行上一个Li中的img隐藏
+					fnOut();
+					var oImg=this.getElementsByTagName('img')[0];
+					oImg.style.display='block';
+					oOld=this;
+				};
+				function fnOut(){
+					
+					var oImg=oOld.getElementsByTagName('img')[0];
+					oImg.style.display='none';
+				};
+
+			};
+		};
+		
+		
+		
+	};
+</script>
+</head>
+<body>
+	<div id="left">
+		<div id="top">
+			<h3>观看热榜</h3>
+			<span >每日</span>
+			<span>每周</span>
+			<span>全部</span>
+		</div>
+	<ul  style="display:none;">
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【诫命】四六级的福利机构额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【诫命】四六级的福利机构额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【诫命】四六级的福利机构额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【诫命】四六级的福利机构额外</p>
+	</li>
+
+	</ul>
+	<ul  style="display:none;">
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【2222】四六级的22额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【222】四六级的22构额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【222】四六级22222额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【222】四六级的222222额外</p>
+	</li>
+
+	</ul>
+	<ul  style="display:none;">
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【3333】四六级333构额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【333】四六级的福333外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【33命】四六级的333333额外</p>
+	</li>
+	<li>
+		<img src="img/1.jpg"/>
+		<p>【3333】四六级的3333额外</p>
+	</li>
+
+	</ul>
+
+	
+	
+
+	</div>
+	
+	
+	
+	
+	
+	
+</body>
+</html>

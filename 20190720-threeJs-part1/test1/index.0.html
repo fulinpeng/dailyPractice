@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvasId" width="800" height="400"></canvas>
+    <script type="text/javascript" src="../js/three.min.js"></script>
+    <script>
+        function init() {
+            // 方法一：
+            var canvas = document.getElementById('canvasId');
+            var renderer1 = new THREE.WebGLRenderer({
+                canvas,
+            });
+
+            // 方法二：
+            var renderer2 = new THREE.WebGLRenderer();
+            // 设置Canvas元素宽高
+            renderer2.setSize(800, 400);
+            // 清除画面的颜色(将背景色设置为黑色)
+            renderer2.setClearColor(0x000000);
+            // 将渲染器对应的Canvas元素添加到body中
+            document.body.appendChild(renderer2.domElement);
+        }
+        init();
+    </script>
+</body>
+
+</html>

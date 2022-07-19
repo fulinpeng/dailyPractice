@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../js/layer/skin/default/layer.css"/>
+    <link rel="stylesheet" href="../css/attendance.css"/>
+</head>
+<body class="container-fluid">
+<div class="fullbox">
+    <!--增加-->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">学生请假详情</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>学生姓名</label>
+                            <input type="email" class="form-control stuName"  placeholder="请输入姓名"><span class="namewarning"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>班级</label>
+                            <input type="text" class="form-control stuCLass"  placeholder="请输入班级"><span class="classwarning"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>请假日期</label>
+                            <input type="text" class="form-control stuDaytime"  placeholder="请输入请假日期"><span class="daytimewarning"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>请假时长</label>
+                            <input type="text" class="form-control stuHoltime"  placeholder="请输入请假天数"><span class="holtimewarning"></span>
+                        </div>
+                        <div class="form-group">
+                            <label >请假原因</label>
+                            <input type="text" class="form-control stuReason"  placeholder="请输入请假原因"><span class="reasonwarning"></span>
+                        </div>
+                        <div class="form-group">
+                            <label >备注</label>
+                            <input type="text" class="form-control stuOther"  placeholder="备注"><span class="otherwarning"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary mybtn mybtn1">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--请假管理-->
+    <div class="mainvisible2 container mymenu">
+        <h1 class="col-sm-12 col-xs-12"><span class="glycolor glyphicon glyphicon-align-left"></span>&nbsp;请假情况</h1>
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3 class="col-lg-12 col-md-12 col-sm-12">今日请假情况</h3>
+            <p class="col-lg-9 mydescribe col-md-9 col-sm-12">仅显示同学请假情况，需添加请假同学，请点击添加</p>
+            <div class="col-lg-2 col-md-12 hidden-sm"></div>
+            <div class="col-lg-1  col-md-12 col-sm-12 mybtdiv">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-md col-lg-offset-2" data-toggle="modal" data-target="#myModal">
+                    添加
+                </button>
+            </div>
+            <div class="zhanwei col-md-12 col-sm-12">
+
+            </div>
+        </div>
+
+        <div class="mytablediv col-lg-12">
+            <table class="mytable table-responsive" id="mytable">
+                <tr class="first_tr">
+                    <td>学生姓名</td>
+                    <td>班级</td>
+                    <td>请假日期</td>
+                    <td>请假时长</td>
+                    <td>请假事由</td>
+                    <td>邮件推送</td>
+                    <td>备注</td>
+                    <td>修改</td>
+                    <td>删除</td>
+                </tr>
+                <tr>
+                    <td class="name">张文</td>
+                    <td class="class1">大班三班</td>
+                    <td class="daytime">2016/12/14</td>
+                    <td class="time">一天</td>
+                    <td class="reason">病假</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td class="othermes">无</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td class="name">李丹</td>
+                    <td class="class1">小班二班</td>
+                    <td class="daytime">2016/12/14</td>
+                    <td class="time">半天</td>
+                    <td class="reason">事假</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td class="othermes">无</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td class="name">杨凯</td>
+                    <td class="class1">中班一班</td>
+                    <td class="daytime">2016/12/14</td>
+                    <td class="time">三天</td>
+                    <td class="reason">病假</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td class="othermes">无</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td class="name">张文</td>
+                    <td class="class1">大班三班</td>
+                    <td class="daytime">2016/12/14</td>
+                    <td class="time">一天</td>
+                    <td class="reason">病假</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td class="othermes">无</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td class="name">李丹</td>
+                    <td class="class1">小班二班</td>
+                    <td class="daytime">2016/12/14</td>
+                    <td class="time">半天</td>
+                    <td class="reason">事假</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td class="othermes">无</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr class="lastTr">
+                    <td class="name">杨凯</td>
+                    <td class="class1">中班一班</td>
+                    <td class="daytime">2016/12/14</td>
+                    <td class="time">三天</td>
+                    <td class="reason">病假</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td class="othermes">无</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="../js/laydate/laydate.js"></script>
+<script src="../js/jquery-3.1.1.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/attendance.js"></script>
+
+
+</body>
+</html>

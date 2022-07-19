@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="./11111.pdf" target="_black">预览PDF文件</a>
+    <script>
+        var arrObj = {
+            value : [1,2,3,4,5]
+        };
+        var addMethod = function (obj, name, fn) {
+            var oldFn = obj[name];
+            obj[name] = function () {
+                if (oldFn && oldFn.length == arguments.length) {
+                    return oldFn.apply(this, arguments);
+                } else {
+                    return fn.apply(this, arguments);
+                }
+            }
+        }
+        var fn0 = function () {
+            return this.value;
+        }
+        var fn1 = function (val) {
+            var arr = this.value;
+            for (var i=0; i<arr.length; i++) {
+                if (arr[i] == val) {
+                    return val + ' 在第' + i + '位'; 
+                }
+            }
+            return '没有' + val + '元素';
+        }
+        addMethod(arrObj, 'find', fn0);
+        addMethod(arrObj, 'find', fn1);
+        var result0 = arrObj.find();
+        var result1 = arrObj.find(4);
+        console.log('result0', result0);
+        console.log('result1', result1);
+    </script>
+</body>
+</html>

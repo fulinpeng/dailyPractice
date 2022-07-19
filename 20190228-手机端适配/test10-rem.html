@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 必须设置多方比例为1 -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .test {
+            /* width:1.91rem;
+            height:0.48rem;
+            font-size:0.34rem;
+            line-height:0.48rem;
+            color:#333;
+            border: 1px solid steelblue; */
+            width:2.54rem;
+            height:0.64rem;
+            font-size:0.45rem;
+            line-height:0.64rem;
+            color:#333;
+            border: 1px solid steelblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test">这是一段测试文字</div>
+    <script>
+        var fontSizeAuto = function (uiW) {
+            return function () {
+                var docEl = document.documentElement;
+                var clientW = docEl.getBoundingClientRect().width;
+                var dpr = devicePixelRatio > 3 ? 3: devicePixelRatio;
+                clientW / dpr > 540 && (clientW = 540 * dpr);
+
+                // 动态设置 htmlFontSize
+                var htmlFontSize = clientW / 10 ;
+                docEl.style.fontSize = htmlFontSize + 'px';
+                
+                // 动态设置 viewport
+                // 如果已经设置了 viewport initial-scale=1.0 ，下面这段可以注释
+                var meta = document.createElement("meta");
+                meta.setAttribute("name", "viewport"),
+                meta.setAttribute("content", "initial-scale=" + 1/dpr + ", maximum-scale=" + 1/dpr + ", minimum-scale=" + 1/dpr + ", user-scalable=no");
+                docEl.firstElementChild.appendChild(meta);
+            }
+        }
+        var fontSizeAutoFn = fontSizeAuto(750);
+        fontSizeAutoFn();
+        window.onresize = fontSizeAutoFn;
+        var i = 1;
+    </script>
+</body>
+
+</html>

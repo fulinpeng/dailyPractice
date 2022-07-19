@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态规划-爬楼梯</title>
+</head>
+
+<body>
+    <script>
+        // 有n级台阶，一个人每次上一级或者两级，问有多少种走完n级台阶的方法
+        function fn() {
+            var cache = [];
+            cache[0] = 0;
+            cache[1] = 1;
+            cache[2] = 2;
+            console.log(cache);
+            return function fnn(n) {
+                var sn;
+                if (cache[n]) return cache[n];
+                // 		sn = cache[n - 1] + cache[n - 2];
+                if (cache[n - 1]) {
+                    sn = cache[n - 1] + cache[n - 2];
+                } else if (cache[n - 2]) {
+                    sn = fnn(n - 1) + cache[n - 2];
+                } else {
+                    sn = fnn(n - 1) + fnn(n - 2);
+                }
+                cache[n] = sn;
+                return sn;
+            }
+        }
+        var fnn = fn();
+        fnn(7);
+    </script>
+</body>
+
+</html>

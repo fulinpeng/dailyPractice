@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+
+<body>
+    <div ng-controller="LogController">
+        <p>
+            打开控制台，点击按钮。。。
+        </p>
+        <label>Message:
+            <input type="text" ng-model="message" /></label>
+
+        <button ng-click="$log.log(message)">log</button>
+        <button ng-click="$log.warn(message)">warn</button>
+        <button ng-click="$log.info(message)">info</button>
+        <button ng-click="$log.error(message)">error</button>
+        <button ng-click="$log.debug(message)">debug</button>
+
+    </div>
+</body>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('LogController', ['$scope', '$log', function($scope, $log) {
+
+        $scope.$log = $log;
+        $scope.message = 'Hello World!';
+
+    }]);
+</script>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let obj = [
+            {
+                name: 'yit',
+                sex: '男',
+                age: 26
+            },
+            {
+                name: 'yit',
+                sex: '男',
+                age: 27
+            },
+            {
+                name: 'yit2',
+                sex: '男',
+                age: 28
+            }
+        ];
+
+        // let inputSearch = {
+        //     name: 'yit',
+        //     // age: 26
+        // };
+        // let swichedArr = Object.keys(inputSearch);
+        // let calcArr = [];
+        // obj.forEach((item) => {
+        //     let countArr = [];
+        //     for (let minItem in item) {
+        //         if (minItem == 'name') {
+        //             if (item[minItem] == inputSearch.name) {
+        //                 countArr.push(1);
+        //             }
+        //         }
+        //         if (minItem == 'sex') {
+        //             if (item[minItem] == inputSearch.sex) {
+        //                 countArr.push(1);
+        //             }
+        //         }
+        //         if (minItem == 'age') {
+        //             if (item[minItem] == inputSearch.age) {
+        //                 countArr.push(1);
+        //             }
+        //         }
+        //     }
+        //     if (countArr.length == swichedArr.length) {
+        //         calcArr.push(item);
+        //     }
+        // });
+        // console.log(calcArr);
+
+        // let finalArr = [];
+        // let inputArr = ['男', 'yit', 27];
+        // obj.forEach((item, index) => {
+        //     let swichedObj = {}, calcArr = [];
+        //     for (let minItem in item) {
+        //         swichedObj[item[minItem]] = 1;
+        //     }
+        //     inputArr.forEach((inputItem) => {
+        //         swichedObj[inputItem] && calcArr.push(1);
+        //     });
+        //     (calcArr.length == inputArr.length) && (finalArr.push(index));
+        // });
+        // console.log(finalArr);
+
+        // 每次用一个条件去执行一次遍历匹配，将结果存起来
+        // 下一个条件的搜索，就不遍历obj了，只遍历匹配上一个条件的匹配结果
+        var searchVals = ['男', 'yit', 27]; // 条件
+        var results = null; // 结果
+        for (var j = 0; j < searchVals.length; j++) {
+            results = obj;
+            temp = [];
+            for (var i = 0; i < results.length; i++) {
+                var item = results[i];
+                for (var k in item) {
+                    if (searchVals[j] == item[k]) {
+                        temp.push(item);
+                    }
+                }
+                if (i == results.length - 1) {
+                    results = temp;
+                }
+            }
+        }
+        console.log('results:', results);
+    </script>
+</body>
+
+</html>

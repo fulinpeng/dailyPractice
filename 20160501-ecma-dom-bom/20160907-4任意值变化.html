@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-7-4任意值变化</title>
+<style>
+
+	div{
+		width:100px;
+		height:60px;
+		border:1px solid black;
+		margin-top:20px;
+		left:0;
+		background:red;
+		
+	}
+	
+</style>
+<script>
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else{
+			return getComputedStyle(obj,false)[attr];
+		};
+	};
+
+	window.onload=function(){
+		
+		var aDiv=document.getElementsByTagName('div');
+		for(var i=0; i<aDiv.length; i++){
+			
+			aDiv[i].timer=null;
+			aDiv[i].onmouseover=function(){
+				startMove(this,300);
+			};
+			aDiv[i].onmouseout=function(){
+				startMove(this,100);
+			};
+		};
+	};
+	
+	
+	function startMove(obj,iTarget){
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			var iCur=parseInt(getStyle(obj,'width'));
+			var iSpeed=(iTarget-iCur)/8;
+			iSpeed=iSpeed>0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iSpeed==0){
+				clearInterval(obj.timer);
+			}else{
+				obj.style.width=iCur+iSpeed+'px';
+			};
+		},30);
+	};
+	
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div></div>
+<div></div>
+<div></div>
+
+</body>
+</html>

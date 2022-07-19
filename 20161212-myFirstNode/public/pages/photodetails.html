@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/home.css"/>
+    <link rel="stylesheet" href="../css/photodetails.css"/>
+    <link rel="stylesheet" href="../js/layer/mobile/need/layer.css"/>
+    <link rel="stylesheet" href="../js/layer/skin/default/layer.css"/>
+</head>
+<body>
+<section class="container framebox pdetails-sec">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="pdetails-title">
+                <h1><span class="glycolor glyphicon glyphicon-align-left"></span>&nbsp;保留童年美好的记忆</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row pdetails-img">
+        <div class="col-sm-3 col-sm-push-1">
+            <h4><span class="glyphicon glyphicon-leaf"></span>&nbsp;发布人：<span>王老师</span></h4>
+            <h4><span class="glyphicon glyphicon-leaf"></span>&nbsp;发布时间：<span>2014-12-10</span></h4>
+            <h4><span class="glyphicon glyphicon-leaf"></span>&nbsp;所属年级：<span>大班</span></h4>
+            <h4><span class="glyphicon glyphicon-leaf"></span>&nbsp;所属班级：<span>二班</span></h4>
+            <h4><span class="glyphicon glyphicon-leaf"></span>&nbsp;照片描述：<span>孩子们吃完午饭，刚刚睡着，看他们的睡姿好可爱！</span></h4>
+            <div class="pdetails-btn">
+                <button class="btn gotoshow">返回</button>&nbsp;&nbsp;<button class="btn pdetails-delet">删除</button>
+            </div>
+        </div>
+        <div class="col-sm-6 col-sm-offset-1">
+            <img class="img-responsive" src="../images/photowall/13.jpg" alt=""/>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="../js/jquery-3.1.1.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/layer/layer.js"></script>
+<script>
+    window.onload=function(){
+    $(".pdetails-delet").click(function(){
+        layer.confirm('您确定要删除这张照片?', {icon: 3, title:'提示'}, function(index){
+            location.href="photowallshow.html";
+            layer.close(index);
+        });
+    });
+    $(".gotoshow").click(function(){
+        location.href="photowallshow.html";
+    });
+
+    //设置body高度
+    var bodyH=$("section").height()+100;
+    $(document).find("body").height(bodyH);
+
+    }
+
+</script>
+</body>
+</html>

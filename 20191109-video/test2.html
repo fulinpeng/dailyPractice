@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>自定义播放器音量拖动</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            box-sizing: border-box;
+        }
+
+        .video-warp {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: black;
+            overflow: hidden;
+            font-size: 24px;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 99;
+        }
+
+        /*这里是将下面canvas绘制放大后的视频缩小为设备的大小*/
+        video {
+            /* display: none */
+        }
+
+        /* 隐藏video */
+
+        .controls {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .controls .video-play {
+            width: 102px;
+            height: 102px;
+            border: 2px solid white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -51px;
+            margin-left: -51px;
+        }
+
+        .video-play i.play {
+            /* width: 0;
+            height: 0; */
+            border-left: 50px solid white;
+            border-top: 30px solid transparent;
+            border-bottom: 30px solid transparent;
+            position: absolute;
+            left: 29px;
+            top: 19px;
+        }
+
+        .video-tools {
+            width: 100%;
+            padding: 15px;
+            position: absolute;
+            color: white;
+            bottom: 6.7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-tools .progress {
+            flex: 1;
+            height: 2px;
+            background: white;
+            position: relative;
+        }
+
+        .video-tools .progress .point {
+            width: 12px;
+            height: 12px;
+            background: #1D91FD;
+            border-radius: 50%;
+            position: absolute;
+            left: -6px;
+            top: -6px;
+        }
+
+        .video-tools .timer {
+            margin: 0 15px;
+        }
+
+        .video-tools .video-sound {
+            width: 34px;
+            height: 34px;
+            background: url('./images/video-sound.png') no-repeat;
+            background-position: center;
+        }
+
+        /*全屏*/
+        #screen {
+            float: right;
+            margin-right: 25px;
+            margin-top: 5px;
+            width: 10px;
+            height: 10px;
+            background: url(img/full-screen.png);
+            background-size: contain;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="video-warp" id="video-warp">
+        <!-- <video style="position: relative;  object-fit: fill;" loop id="video1" x5-video-player-type="h5"
+            x5-video-orientation="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" x5-playsinline="true"
+            webkit-playsinline="true" playsinline="true" src="http://www.w3school.com.cn/i/movie.ogg"></video> -->
+        <video id="video1" x5-playsinline="" playsinline="" webkit-playsinline="" poster="" preload=""
+        src="http://www.w3school.com.cn/i/movie.ogg">
+            当前浏览器不支持 video直接播放，点击这里下载视频：
+        </video>
+            <canvas id="myCanvas" width="400" height="400"></canvas>
+        <!-- 预览图 -->
+        <img src='./images/videoPreview.jpg' id='poster' style='display: none;'>
+        <!-- 播放暂停按钮 -->
+        <div class='palyChange'></div>
+    </div>
+
+    <script>var timer = null;
+        var video = document.getElementById('video1');
+        var poster = document.getElementById('poster'); //用于视频初始化poster图片
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        canvas.width = window.innerWidth;  //获取屏幕宽度作为canvas的宽度  这个设置的越大，画面越清晰（相当于绘制的图像大，然后被css缩小）
+        canvas.height = window.innerHeight;
+        context.drawImage(poster, 0, 0, canvas.width, canvas.height);//canvas上绘制postere图片 也可以点击播放后隐藏图片无需绘制
+        function draw1() {//绘制视频
+            video.play();
+            timer = setInterval(function () {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);//绘制视频
+            }, 40);
+        };
+        var isplay = false;//视频播放状态
+        // var video = document.createElement('video');
+        // video.setAttribute('x5-playsinline', '');
+        // video.setAttribute('playsinline', '');
+        // video.setAttribute('webkit-playsinline', '');
+        // video.setAttribute('poster', '');
+        // video.setAttribute('preload', '');
+        // video.setAttribute('src', 'http://www.w3school.com.cn/i/movie.ogg');
+        // $('#video-warp').append(video);
+        $('#myCanvas').on('touchstart', function (e) {
+            var e = e || event;
+            e.preventDefault();
+            if (!isplay) {
+                isplay = true;
+                video.pause();
+                $('.palyChange').show();
+                clearInterval(timer)
+            } else {
+                alert(video.play)
+                video.play();
+                $('.palyChange').hide();
+                isplay = false;
+                draw1()
+            }
+        })
+        $('.palyChange').click(function () { //初始化暂停状态下 点击播放（开始绘制视频） 
+            video.play();
+            $('.palyChange').hide();
+            isplay = false;
+            draw1();
+        });
+    </script>
+</body>
+
+</html>

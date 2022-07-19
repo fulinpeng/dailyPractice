@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .div1 {
+            width: 20%;
+        }
+
+        /* 为svg写样式 */
+
+        .red {
+            fill: red;
+        }
+
+        .fancy {
+            fill: none;
+            stroke: black;
+            stroke-width: 3pt;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- SVG 图像默认大小是300像素（宽） x 150像素（高） -->
+    <!-- 如果只想展示 SVG 图像的一部分，就要指定viewBox属性 -->
+    <!-- 指定视口从(50, 50)这个点开始。视口的大小是 50 x 50 -->
+    <div>
+        <svg>
+            <circle id="mycircle" cx="50" cy="50" r="50" />
+        </svg>
+    </div>
+    <!-- 由于 SVG 图像的大小是 100 x 100，所以视口会放大去适配 SVG 图像的大小，即放大了四倍。 -->
+    <div>
+        <svg width="100" height="100" viewBox="50 50 50 50">
+            <circle id="mycircle" cx="50" cy="50" r="50" />
+        </svg>
+    </div>
+    <!-- 如果不指定width属性和height属性，只指定viewBox属性，则相当于只给定 
+        SVG 图像的长宽比。这时，SVG 图像的默认宽度将等于所在的 HTML 元素的宽度，高度当然会撑开。 -->
+    <div class="div1">
+        <svg viewBox="50 50 50 80">
+            <circle id="mycircle" cx="50" cy="50" r="50" />
+        </svg>
+    </div>
+    <!-- <circle>标签代表圆形 -->
+    <!-- 单位都是px，cx、cy为原点 -->
+    <div class="div2">
+        <svg width="300" height="180">
+            <circle cx="30" cy="50" r="25" />
+            <circle cx="90" cy="50" r="25" class="red" />
+            <circle cx="150" cy="50" r="25" class="fancy" />
+            <!-- 也可以写行间样式 -->
+            <circle cx="210" cy="50" r="25" style="fill: green;" />
+        </svg>
+    </div>
+    <!-- <line>标签用来绘制直线 -->
+    <div class="div3">
+        <svg width="300" height="20">
+            <line x1="0" y1="0" x2="200" y2="0" style="stroke:rgb(0,0,0);stroke-width:5" />
+        </svg>
+    </div>
+    <!-- <polyline>标签用于绘制一根折线 -->
+    <!-- 横纵坐标之间有逗号哦 -->
+    <!-- fill可以内填充的 -->
+    <div class="div4">
+        <svg width="300" height="100">
+            <polyline points="3,3 30,28 3,53" fill="none" stroke="rgba(0,0,0,0.5)" style="stroke-width:5" />
+        </svg>
+    </div>
+    <!-- <rect>标签用于绘制矩形 -->
+    <div class="div5">
+        <svg width="300" height="180">
+            <rect x="0" y="0" height="100" width="200" style="stroke: #70d5dd; fill: #dd524b" />
+        </svg>
+    </div>
+    <!-- <ellipse>标签用于绘制椭圆 -->
+    <div class="div6">
+        <svg width="300" height="180">
+            <ellipse cx="60" cy="60" ry="40" rx="20" stroke="black" stroke-width="5" fill="silver" />
+        </svg>
+    </div>
+    <!-- <polygon>标签用于绘制多边形 -->
+    <div class="div7">
+        <svg width="300" height="180">
+            <polygon fill="green" stroke="orange" stroke-width="3" points="0,0 100,0 100,100 0,100 0,0" />
+        </svg>
+    </div>
+    <!-- <path>标签用于制路径 -->
+    <!-- d属性表示绘制顺序 -->
+    <!-- M：移动到（moveto） -->
+    <!-- L：画直线到（lineto） -->
+    <!-- Z：闭合路径 -->
+    <div class="div8">
+        <svg width="300" height="180">
+            <path d="
+                      M 18,3
+                      L 46,3
+                      L 46,40
+                      L 61,40
+                      L 32,68
+                      L 3,40
+                      L 18,40
+                      Z
+                    "></path>
+        </svg>
+    </div>
+    <!-- <text>标签用于绘制文本 -->
+    <!-- (x,y)用于指定文字起始位置。准确的说，x指定文字最左侧坐标位置，y指定文字baseline所处y轴位置。 -->
+    <!-- fill的默认为black，stroke默认为none。 -->
+    <!-- 如果设置了stroke，字的边缘会再“描一层边”。 -->
+    <!-- 如果设置了stroke并将fill设为none，呈现为空心字。 -->
+    <div class="div9">
+        <svg width="300" height="180">
+            <text x="50" y="25">Hello World</text>
+            <defs>
+                    <path id="semi" d="M110 100a50 50 0 1 1 100 0"></path>
+                </defs>
+                <use xlink:href="#semi" stroke="grey" fill="none"></use>
+                <text text-anchor="middle">
+                    <textPath xlink:href="#semi" startOffset="50%">
+                        Middle
+                    </textPath>
+                </text>
+                <defs>
+                        <path id="circle" d="M70 20a40 40 0 1 1 -1 0"></path>
+                    </defs>
+                    <text>
+                        <textPath xlink:href="#circle">
+                            Text following a circle.............
+                        </textPath>
+                    </text>
+        </svg>
+    </div>
+    <!-- <use>标签用于复制一个形状 -->
+    <div class="div10" style="width:30%;">
+        <svg viewBox="0 0 30 10" xmlns="http://www.w3.org/2000/svg">
+            <circle id="myCircle" cx="5" cy="5" r="4" />
+
+            <use href="#myCircle" x="10" y="0" fill="blue" />
+            <use href="#myCircle" x="20" y="0" fill="white" stroke="blue" />
+        </svg>
+    </div>
+    <!-- <g>标签用于将多个形状组成一个组（group），方便复用 -->
+    <div class="div11">
+        <svg width="300" height="100">
+            <g id="myCircle">
+                <text x="25" y="20">圆形</text>
+                <circle cx="50" cy="50" r="20" />
+            </g>
+
+            <use href="#myCircle" x="100" y="0" fill="blue" />
+            <use href="#myCircle" x="200" y="0" fill="white" stroke="blue" />
+        </svg>
+    </div>
+    <!-- <defs>标签用于自定义形状，它内部的代码不会显示，仅供引用 -->
+    <div class="div12">
+        <svg width="300" height="100">
+            <defs>
+                <g id="myCircle">
+                    <text x="25" y="20">圆形</text>
+                    <circle cx="50" cy="50" r="20" />
+                </g>
+            </defs>
+
+            <use href="#myCircle" x="0" y="0" />
+            <use href="#myCircle" x="100" y="0" fill="blue" />
+            <use href="#myCircle" x="200" y="0" fill="white" stroke="blue" />
+        </svg>
+    </div>
+    <!-- <pattern>标签用于自定义一个形状，该形状可以被引用来平铺一个区域 -->
+    <div class="div13">
+        <svg width="300" height="300">
+            <defs>
+                <pattern id="dots" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <circle fill="#bee9e8" cx="50" cy="50" r="35" />
+                </pattern>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#dots)" />
+        </svg>
+    </div>
+    <!-- <image>标签用于插入图片文件 -->
+    <div class="div14">
+        <svg viewBox="0 0 100 100" width="100" height="100">
+            <image xlink:href="../../images/1.jpg" width="50%" height="50%" />
+        </svg>
+    </div>
+    <!-- <animate>标签用于产生动画效果 -->
+    <!-- attributeName：发生动画效果的属性名。 -->
+    <!-- from：单次动画的初始值。 -->
+    <!-- to：单次动画的结束值。 -->
+    <!-- dur：单次动画的持续时间。 -->
+    <!-- repeatCount：动画的循环模式。 -->
+    <div class="div15">
+        <svg width="500px" height="500px">
+            <rect x="0" y="0" width="100" height="100" fill="#feac5e">
+                <animate attributeName="x" from="0" to="500" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="y" from="0" to="500" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="width" to="500" dur="2s" repeatCount="indefinite" />
+            </rect>
+        </svg>
+    </div>
+    <!-- <animate>标签对 CSS 的transform属性不起作用，如果需要变形 -->
+    <!-- 要使用<animateTransform>标签 -->
+    <div class="div16">
+        <svg width="300px" height="300px">
+            <rect x="250" y="250" width="50" height="50" fill="#4bc0c8">
+                <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400"
+                    repeatCount="indefinite" />
+            </rect>
+        </svg>
+    </div>
+    <!-- 要使用<animateTransform>标签 -->
+    <div class="div17">
+        <svg width="300px" height="300px">
+            <rect x="250" y="250" width="50" height="50" fill="#4bc0c8">
+                <animateTransform attributeName="transform" type="rotate" begin="0s" dur="10s" from="0 200 200" to="360 400 400"
+                    repeatCount="indefinite" />
+            </rect>
+        </svg>
+    </div>
+    <!-- 折线图 -->
+    <div class="div18">
+        <svg width="350" height="160">
+            <g class="layer" transform="translate(60,10)">
+                <circle r="5" cx="0" cy="105" />
+                <circle r="5" cx="90" cy="90" />
+                <circle r="5" cx="180" cy="60" />
+                <circle r="5" cx="270" cy="0" />
+                <polyline points="0,105 90,90 180,60, 270,0" fill="none" stroke="rgba(0,0,0,0.5)" stroke-width="1" />
+                <g class="y axis">
+                    <line x1="0" y1="0" x2="0" y2="120" stroke="rgb(0,0,0)" stroke-width="2" />
+                    <text x="-40" y="105" dy="5">$10</text>
+                    <text x="-40" y="0" dy="5">$80</text>
+                </g>
+                <g class="x axis" transform="translate(0, 120)">
+                    <line x1="0" y1="0" x2="270" y2="0" stroke="rgb(0,0,0)" stroke-width="2" />
+                    <text x="-30" y="20">January 2014</text>
+                    <text x="240" y="20">April</text>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <!-- 曲线 -->
+    <!-- M = moveto 移动到 -->
+    <!-- L = lineto 画直线到 -->
+    <!-- H = horizontal lineto 画水平线到 -->
+    <!-- V = vertical lineto 画垂直线到-->
+    <!-- C = curveto 曲线-->
+    <!-- S = smooth curveto -->
+    <!-- Q = quadratic Bézier curve 贝塞尔曲线 -->
+    <!-- T = smooth quadratic Bézier curveto -->
+    <!-- A = elliptical Arc 椭圆 -->
+    <!-- Z = closepath -->
+
+    <!-- 大写表示绝对定位，小写表示相对定位 -->
+    <!-- l 为相对于当前点位置 -->
+    <!-- q、c 为相对于贝塞尔起始点位置 -->
+
+    <!-- 画圆弧 -->
+    <!-- (rx,ry x-axis-rotation large-arc-flag,sweep-flag x,y)+ -->
+    <!-- rx ry 是椭圆的两个半轴的长度 -->
+    <!-- x-axis-rotation 是椭圆相对于坐标系的旋转角度，角度数而非弧度数 -->
+    <!-- large-arc-flag 是标记绘制大弧(1)还是小弧(0)部分 -->
+    <!-- sweep-flag 是标记向顺时针(1)还是逆时针(0)方向绘制 -->
+    <!-- x y 是圆弧终点的坐标 -->
+
+    <div class="div19">
+        <svg width="800" height="800">
+            <path id="lineAB" d="M 100 350 l 150 -300" stroke="red" stroke-width="3" fill="none" />
+            <path id="lineBC" d="M 250 50 l 150 300" stroke="red" stroke-width="3" fill="none" />
+            <path d="M 175 200 l 150 0" stroke="green" stroke-width="3" fill="none" />
+            <path d="M 100 350 q 150 -300 300 0" stroke="blue" stroke-width="5" fill="none" />
+            <!-- Mark relevant points -->
+            <g stroke="black" stroke-width="3" fill="black">
+                <circle id="pointA" cx="100" cy="350" r="3" />
+                <circle id="pointB" cx="250" cy="50" r="3" />
+                <circle id="pointC" cx="400" cy="350" r="3" />
+            </g>
+            <!-- Label the points -->
+            <g font-size="30" font="sans-serif" fill="black" stroke="none" text-anchor="middle">
+                <text x="100" y="350" dx="-30">A</text>
+                <text x="250" y="50" dy="-10">B</text>
+                <text x="400" y="350" dx="30">C</text>
+            </g>
+            <!-- 圆弧 -->
+            <path d="M300,200 h-150 a150,150 0 1,0 150,-150 z" fill="red" stroke="blue" stroke-width="5" />
+        </svg>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/personal.css"/>
+    <link rel="stylesheet" href="../../css/personal-main.css"/>
+</head>
+<body>
+@@include("../include/header.html")
+
+<section class="myinformation">
+
+    <div class="myinformation_sd_div">
+          <div class="changeim">个人头像设置</div>
+          <div class="headpt">
+                <div id="head-ch">
+                   <div></div>
+                   <div></div>
+                </div>
+          <div id="choice">选择头像:
+              <form action="updateImg.do" method="post" id="form1" enctype="multipart/form-data">
+                    <input type="file" id="file" value="选择文件" name="myfile"/>
+              </form>
+              <div id="chicoe1" class="ltbtn">选择文件</div>
+          </div>
+
+
+          <div>友情提示：更换头像后，其他地方（如口碑中心等）的头像可能需要过一段时间才会生效</div>
+          <button class="ltbtn" id="new">更新头像</button>
+          </div>
+    </div>
+
+</section>
+<div class="pr_main_nav_2">
+    <div><a href="information.html">我的信息</a></div>
+    <div><a href="personal-ind.html">我的订单</a></div>
+    <div><a href="activity.html">我的活动</a></div>
+    <div><a href="address.html">我的地址</a></div>
+    <div><a href="personal-friend.html">我的骑友</a></div>
+    <!--<div><a href="credit.html">我的积分</a></div>-->
+    <div id="pr_main_nav_logo"> > </div>
+</div>
+<!--@@include("../include/footer.html")-->
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script>
+    $("#chicoe1").click(function(){
+        $("#file").click();
+    });
+</script>
+<!--<script src="../../js/layui/layui.js"></script>-->
+<script src="../../js/personal-adress-xiugai.js"></script>
+<script src="../../js/layui/layui.js"></script>
+
+</body>
+</html>

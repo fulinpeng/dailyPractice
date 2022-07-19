@@ -1,0 +1,473 @@
+@import './reset'; // 可以不要后缀
+
+$family: unquote("Droid+Sans");
+@import url("http://fonts.googleapis.com/css?family=#{$family}");
+
+$font-stack: Helvetica,
+sans-serif;
+$primary-color:#333;
+$h1-color: #d94e37;
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+}
+
+.block {
+    text-align: center;
+
+    h1 {
+        color: $h1-color;
+    }
+
+    p {}
+}
+
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+.rotate {
+    @include transform(rotate(3deg));
+}
+
+/* This CSS will print because %message-shared is extended. */
+%message-shared {
+    padding: 10px;
+    margin: 10px;
+    color: #333;
+    background: gray;
+}
+
+// This CSS won't print because %equal-heights is never extended.
+%equal-heights {
+    display: flex;
+    flex-flow: wrap row;
+}
+
+.attention {
+    font-size: 2em;
+}
+
+.message_box {
+    @extend %equal-heights;
+}
+
+.message {
+    @extend .attention;
+    @extend %message-shared;
+}
+
+.success {
+    @extend %message-shared;
+    background: green;
+}
+
+.error {
+    @extend %message-shared;
+    background: red;
+}
+
+.warning {
+    @extend %message-shared;
+    background: yellow;
+}
+
+.container {
+    width: 100%;
+    overflow: hidden;
+}
+
+article[role="main"] {
+    background: salmon;
+    float: left;
+    height: 100px;
+    width: 600px / 960px * 100%;
+}
+
+aside[role="complementary"] {
+    background: seagreen;
+    float: right;
+    height: 100px;
+    width: 300px / 960px * 100%;
+}
+
+.funky {
+    font: {
+        family: fantasy;
+        size: 30em;
+        weight: bold;
+    }
+}
+
+// !global可以随处修改全局变量
+$width: null;
+
+#main {
+    $width: 5em !global;
+    width: $width;
+}
+
+#sidebar {
+    width: $width;
+}
+
+// 测试 Data Types
+$margin: 10px 15px 0 0;
+
+@mixin firefox-message($selector) {
+    body.firefox #{$selector}:before {
+        content: "Hi, Firefox users!";
+        margin: $margin;
+    }
+}
+
+@include firefox-message(".header");
+
+$mapColor: (key1: 'red', key2: 'blue', key3: 'black');
+
+p {
+    font: 10px/8px; // Plain CSS, no division
+    $width: 1000px;
+    width: $width/2; // Uses a variable, does division
+    width: round(1.5)/2; // Uses a function, does division
+    height: (500px/2); // Uses parentheses, does division
+    margin-left: 5px + 8px/2px; // Uses +, does division
+    font: (italic bold 10px/8px); // In a list, parentheses don't count
+}
+
+.p1 {
+    width: 1em + 2em * 3;
+}
+
+// 插入：#{}
+$name: foo;
+$attr: border;
+
+p.#{$name} {
+    #{$attr}-color: blue;
+}
+
+.p2 {
+    $font-size: 12px;
+    $line-height: 30px;
+    font: #{$font-size}/#{$line-height};
+}
+
+.foo.bar .baz.bang,
+.bip.qux {
+    $selector: &;
+
+    #{$selector} {
+        color: yellowgreen;
+    }
+}
+
+$content: "First content";
+$content: "Second content?" !default;
+$new_content: "First time reference" !default;
+
+#main {
+    content: $content;
+    new-content: $new_content;
+}
+
+// 嵌入一个 scss 模块
+#main2 {
+    @import "./_example";
+}
+
+// 链式继承
+.first {
+    border: 1px #f00;
+    background-color: #fdd;
+}
+
+.second {
+    @extend .first;
+    border-width: 3px;
+}
+
+.third {
+    @extend .second;
+    position: fixed;
+    top: 10%;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
+}
+
+// 选择器序列
+#fake-links .link {
+    @extend a;
+}
+
+a {
+    color: blue;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// 调试
+@debug 10em+12em;
+
+// @if
+p {
+    @if 1+1==2 {
+        border: 1px solid;
+    }
+
+    @if 5 < 3 {
+        border: 2px dotted;
+    }
+
+    @if null {
+        border: 3px double;
+    }
+}
+
+$type: monster;
+
+p {
+    @if $type==ocean {
+        color: blue;
+    }
+
+    @else if $type==matador {
+        color: red;
+    }
+
+    @else if $type==monster {
+        color: green;
+    }
+
+    @else {
+        color: black;
+    }
+}
+
+// 包括3
+.wrap {
+    @for $i from 1 through 3 {
+        .item-#{$i} {
+            width: 2em * $i;
+        }
+    }
+}
+
+// 不包括3
+.wrap2 {
+    @for $i from 1 to 3 {
+        .item-#{$i} {
+            width: 2em * $i;
+        }
+    }
+}
+
+// 遍历
+@each $animal in puma,
+sea-slug,
+egret,
+salamander {
+    .#{$animal}-icon {
+        background-image: url('/images/#{$animal}.png');
+    }
+}
+
+// 多重遍历
+@each $animal,
+$color,
+$cursor in (puma, black, default),
+(sea-slug, blue, pointer),
+(egret, white, move) {
+    .#{$animal}-icon {
+        background-image: url('/images/#{$animal}.png');
+        border: 2px solid $color;
+        cursor: $cursor;
+    }
+}
+
+@each $header,
+$size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
+    #{$header} {
+        font-size: $size;
+    }
+}
+
+.wrap_while {
+    $i: 6;
+
+    @while $i>0 {
+        .item-#{$i} {
+            width: 2em * $i;
+        }
+
+        $i: $i - 2;
+    }
+}
+
+// 混合
+@mixin font-weight {
+    // 注意这个font不是选择器
+    font-weight: bold;
+}
+
+@mixin title-font {
+
+    // 注意这个font不是选择器
+    font: {
+        family: Arial;
+        size: 20px;
+    }
+
+    @include font-weight
+}
+
+@mixin title-color {
+    color: #ff0000;
+}
+
+.page-title {
+    @include title-font;
+    @include title-color; // 混合多条
+    padding: 4px;
+    margin-top: 10px;
+}
+
+@mixin sexy-border($color, $width: 1in) {
+    border: {
+        color: $color;
+        width: $width;
+        style: dashed;
+    }
+}
+
+p {
+    @include sexy-border(steelblue);
+}
+
+h1 {
+    @include sexy-border(steelblue, 2in);
+}
+
+// mixin变量参数
+@mixin box-shadow($shadows...) {
+    -moz-box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    box-shadow: $shadows;
+}
+
+.shadows {
+    @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+@mixin colors($text, $background, $border) {
+    color: $text;
+    background-color: $background;
+    border-color: $border;
+}
+
+$values: #ff0000,
+#00ff00,
+#0000ff;
+
+.primary {
+    @include colors($values...);
+}
+
+$value-map: (text: #00ff00, background: #0000ff, border: #ff0000);
+
+.secondary {
+    @include colors($value-map...);
+}
+
+// Mixin内容块
+@mixin apply-to-ie6-only {
+    * html {
+        @content;
+    }
+}
+
+@include apply-to-ie6-only {
+    #logo {
+        background-image: url(/logo.gif);
+    }
+}
+
+// mixin 变量作用域
+$color: white;
+
+@mixin colors($color: blue) {
+    background-color: $color;
+    @content;
+    border-color: $color;
+}
+
+.colors {
+    @include colors {
+        color: $color;
+    }
+}
+
+// @include引入的mixin，里面的变量，值都来自于@include所在的位置
+@mixin sidebar-width {
+    $sidebar-width: 30px;
+    @content;
+}
+
+#sidebar {
+    $sidebar-width: 300px;
+    width: $sidebar-width;
+
+    nav {
+        @include sidebar-width {
+            width: $sidebar-width / 3;
+        }
+    }
+}
+
+// 函数
+$grid-width: 10px;
+$gutter-width: 1px;
+
+@function grid-width($n) {
+    $result: null;
+
+    @if $n==0 {
+        $result: red;
+    }
+
+    @else if $n==1 {
+        $result: yellowgreen;
+    }
+
+    @else if $n==2 {
+        $result: steelblue;
+    }
+
+    @else {
+        $result: $grid-width + ($n - 1) * $gutter-width;
+    }
+
+    @return $result
+}
+
+#sidebar {
+    color: grid-width(0);
+}
+
+#sidebar {
+    color: grid-width(1);
+}
+
+#sidebar {
+    color: grid-width(2);
+}
+
+#sidebar {
+    width: grid-width(5);
+}

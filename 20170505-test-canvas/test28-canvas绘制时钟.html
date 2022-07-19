@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #eee;
+            color: #fff;
+            font: 14px/1.3 Arial, sans-serif;
+        }
+        
+        .clocks {
+            height: 500px;
+            margin: 25px auto;
+            position: relative;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clocks">
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+</body>
+<script>
+    var c = document.getElementById("canvas"),
+        cvs = c.getContext("2d"),
+        img = new Image(),
+        X = c.width / 2,
+        Y = c.height / 2,
+        sec_R = 235,
+        min_R = sec_R * 0.8,
+        hour_R = min_R * 0.6,
+        r = 20,
+        l = 5;
+    img.src = "images/clock.png";
+    cvs.translate(X, Y);
+
+    function play(angle1, angle2, angle3) {
+        cvs.clearRect(-X, -Y, 2 * X, 2 * Y);
+        cvs.drawImage(img, -X, -Y, 500, 500); //在画布上定位图像，并规定图像的宽度和高度：
+        needle(hour_R, angle3, "black"); //时针
+        needle(min_R, angle2, "black"); //分针
+        needle(sec_R, angle1, "green"); //秒针
+    }
+
+    function needle(R, angle_, color) {
+        var x1 = R * Math.sin(angle_),
+            y1 = -R * Math.cos(angle_),
+            x2 = -r * Math.sin(angle_) - l * Math.cos(angle_),
+            y2 = -(-r * Math.cos(angle_) + l * Math.sin(angle_)),
+            x3 = -r * Math.sin(angle_) + l * Math.cos(angle_),
+            y3 = -(-r * Math.cos(angle_) - l * Math.sin(angle_));
+        cvs.beginPath();
+        cvs.moveTo(x1, y1);
+        cvs.lineTo(x2, y2);
+        cvs.lineTo(x3, y3);
+        cvs.closePath();
+        cvs.fillStyle = color;
+        cvs.fill();
+    }
+    setInterval(function() {
+        var time = new Date(),
+            sec = time.getSeconds(),
+            min = time.getMinutes(),
+            hour = time.getHours(),
+            angle1 = sec * 2 * Math.PI / 60,
+            angle2 = min * 2 * Math.PI / 60,
+            angle3 = hour % 12 * 2 * Math.PI / 12;
+        play(angle1, angle2, angle3);
+    }, 1000);
+</script>
+
+</html>

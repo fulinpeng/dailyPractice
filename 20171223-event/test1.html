@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body>
+<div ng-controller="contrl">
+    <p ng-click="$broadcast('changeNum')">{{num}}</p>
+    <ul ng-controller="contrl">
+        <p ng-click="$emit('changeNum')">{{num}}</p>
+        <li ng-controller="contrl">
+            <p ng-click="$emit('changeNum')">{{num}}</p>
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.controller('contrl', ['$scope', function ($scope) {
+        $scope.num=10;
+        $scope.$on('changeNum', function () {
+            $scope.num++;
+        });
+    }]);
+</script>
+</html>

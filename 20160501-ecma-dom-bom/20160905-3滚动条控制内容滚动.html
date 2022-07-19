@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-5-3滚动条控制内容滚动</title>
+<style>
+
+	#div1{
+		width:30px;
+		height:400px;
+		background:gray;
+		position:absolute;
+	}
+	#div2{
+		width:30px;
+		height:60px;
+		position:absolute;
+		top:0;
+		left:0;
+		background:yellow;
+	}
+	#div3{
+		width:300px;
+		height:400px;
+		position:absolute;
+		left:60px;
+		background:#bfc;
+		overflow:hidden;
+	}
+	#div4{
+		width:300px;
+		position:absolute;
+		font-size:16px;
+		line-height:26px;
+	}
+</style>
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	var oDiv2=document.getElementById('div2');
+	var oDiv3=document.getElementById('div3');
+	var oDiv4=document.getElementById('div4');
+	
+	oDiv2.onmousedown=function(ev){
+		var ev=ev || event;
+		var disY=ev.clientY - this.offsetTop;
+		
+		document.onmousemove=function(ev){
+			var ev=ev || event;
+			
+			var t=ev.clientY - disY;
+			var maxT=oDiv1.offsetTop + oDiv1.offsetHeight - oDiv2.offsetHeight;
+			if(t < 0){
+				t=0;
+			}else if(t > maxT){
+				t=maxT;
+			};
+			oDiv2.style.top=t + 'px';
+			
+			
+			oDiv4.style.top=(oDiv3.offsetHeight - oDiv4.offsetHeight) * t / maxT + 'px';
+		};
+		
+		document.onmouseup=function(){
+			document.onmousemove=document.onmouseup=null;
+		};
+	};
+	
+	
+	
+};
+	
+	
+	
+</script>
+</head>
+<body >
+
+<div id="div1" >
+	<div id="div2" ></div>
+</div>
+<div id="div3" >
+	<div id="div4" >
+	
+	大型企业实力雄厚，而且基于企业自身庞大的数据库以及安全方面的考虑，以选择自己架设服务器为最佳选择；而中型企业比较乐于选择服务器托管服务，这样就可以省去管理、维护服务器的大笔费用和网络管理员；小型企业可与人共同分享网站空间，即空间的租赁。一般的中小型企业网站大概空间在100M-200M空间。
+
+选择空间一般从三个方面因素考虑：第一方面，要考虑功能，第二方面考虑因素是速度，一般情况下，北方地区网通空间比电信空间速度快（如北京）；南方地区相反（如深圳）。最后一个因素就是稳定，也是非常重要的一个因素，一般情况下，名气大的主机提供商所提供的空间相对稳定。
+
+做一个普通的企业网站需要多大的空间呢？100M空间有多大？有很多企业老板并不知道服务器空间的某方面知识！那么，100M空间够用吗？对一般的企业网站甚至一些行业网站来说，100M空间足够了。如果单纯放置文字，100M相当于5000多万个汉字；若以标准网页计算，大致可容纳1000页A4幅面的网页和2000张网页图片。您看您的现在文件有多大。以后存放图片多不多。我建议一般在200mb的空间是绝对够用了。你也没必要买太的。不然也是用不了。浪费钱。一般来说，一个企业网站的基本网页html文件和网页图片大概需要30Ｍ左右空间。加上产品照片和各种介绍性页面，一般在100Ｍ左右。另外企业需要存放反馈信息和备用文件的空间，和另外一些硬盘空间的剩余（否则容易导致数据丢失）。一个一般的企业的企业网站总共大概需要100Ｍ－300Ｍ的网站空间（即虚拟空间）就足够了，租用太大的空间会白白浪费你的钱。 
+	
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // Generator 函数
+        // yield 写在for循环中感觉很怪是不是？
+        // 其实，for的本质不就是一行行的写代码吗？这样想通了没
+        const g = (function* () {
+            for (var i = 0; i < 5; i++) {
+                yield console.log(new Date, i);
+            }
+            yield console.log(new Date, i);
+        })();
+        
+        // 直接同步的调用 next方法没有延时的
+        // 要想上面的 yield 延时，还得再设置定时器
+        // 【必须有一个任务运行器，自动执行 Generator 函数】
+
+        // 执行 next() 得到的是一个包含了 done 和 value 的对象
+        // value 保存着 yield 后面的语句执行的结果
+        const timer = setInterval(()=>{
+            const res = g.next();
+            console.log('res:', res);
+            if (res.done) clearInterval(timer);
+        }, 1000);
+
+        console.log('~~~');
+    </script>
+</body>
+
+</html>

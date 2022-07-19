@@ -1,0 +1,29 @@
+.pdetails-sec{
+    padding-bottom: 30px;
+}
+.pdetails-title{
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.pdetails-delet{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.glyphicon{
+    color: #39ADB4;
+}
+.pdetails-btn{
+    text-align: right;
+}
+.mybtn{
+    border: 1px solid #39ADB4;
+    background: none;
+    padding: 5px 20px;
+    outline: none;
+    -webkit-transition: all .2s linear;
+}
+.mybtn:hover{
+    background:#39ADB4;
+    color:white;
+}

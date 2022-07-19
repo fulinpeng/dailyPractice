@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-2ClassName的删除</title>
+
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	
+	oDiv1.onclick=function(){
+		removeClass(oDiv1,'box1');
+	};
+	function removeClass(obj,cn){
+		if(obj.className !=''){
+			var arrCn=obj.className.split(' ');
+			var indexCn=classIndex(arrCn,cn);
+			if(indexCn !=-1){
+				arrCn.splice(indexCn,1);//删除数组中的元素，不能写成‘arrCn=arrCn.splice(indexCn,0);’
+				obj.className=arrCn.join(' ');
+			};
+		};
+	};
+	function classIndex(arr_ ,cn_){
+		for(var i=0; i<arr_.length; i++){
+			if(arr_[i]==cn_){
+				return i;
+			};
+		};
+		return -1;
+	};
+///////////////////////////////////////return的实例//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	var oDiv2=document.getElementById('div2');
+	var oDiv3=document.getElementById('div3');
+	oDiv2.onclick=function(){
+		alert(num(2,5));
+	};
+	oDiv3.onclick=function(){
+		alert(num(8,3));
+	};
+	function num(m,n){
+		var arr=[];
+		if(m<n){
+			for(var i=m; i<=n; i++){
+				arr.push(i);
+			};
+		}else{
+			for(var i=n; i<=m; i++){
+				arr.push(i);
+			};
+		};
+		return arr;
+	};
+	
+};
+</script>
+</head>
+<body>
+<div id="div1" class="box box3 box1 boxa">div1</div>
+<div id="div2" >从小到大弹出2-5</div>
+<div id="div3" >从小到大弹出8-3</div>
+
+</body>
+</html>

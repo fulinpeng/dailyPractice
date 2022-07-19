@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="getDataByIndex">getDataByIndex</button>
+    <button id="fetchStoreByCursor">fetchStoreByCursor</button>
+    <button id="getMultipleData">getMultipleData</button>
+    <button id="getMultipleData_B_E">getMultipleData_B_E</button>
+    <script>
+        // 索引
+        // 索引的一个好处就是可以迅速定位数据，提高搜索速度，在indexedDB中有两种索引
+        // 一种是自增长的int值
+        // 一种是keyPath：自己指定索引列
+
+        // # 创建索引
+        // 我们可以在创建 object store 的时候指明索引
+
+        // 使用object store的 createIndex 创建索引
+
+        function openDB(name, version) {
+            var version = version || 1;
+            var request = window.indexedDB.open(name, version);
+            request.onerror = function (e) {
+                console.log(e.currentTarget.error.message);
+            };
+            request.onsuccess = function (e) {
+                myDB.db = e.target.result;
+            };
+            request.onupgradeneeded = function (e) {
+                var db = e.target.result;
+                console.log('onupgradeneeded ', db.objectStoreNames.contains('students'));
+
+                if (!db.objectStoreNames.contains('students')) {
+                    var store = db.createObjectStore('students', { keyPath: 'id' });
+                    // 三个参数：索引名称, 索引属性字段名, 索引属性值是否唯一
+                    store.createIndex('nameIndex', 'name', { unique: true });
+                    store.createIndex('ageIndex', 'age', { unique: false });
+                }
+                console.log('DB version changed to ' + version);
+            };
+        }
+
+        var myDB = {
+            name: 'test',
+            version: 1, // 想更新 indexDB 就改它（而且本次修改的不能比以前的小）
+            db: null
+        };
+        openDB(myDB.name, myDB.version);
+        console.log(myDB);
+
+        var students = [{
+            id: 1001,
+            name: "Byron",
+            age: 24
+        }, {
+            id: 1002,
+            name: "Frank",
+            age: 30
+        }, {
+            id: 1003,
+            name: "Aaron",
+            age: 26
+        }];
+
+        function addData(db, storeName) {
+            console.log(db, db.transaction);
+            var transaction = db.transaction(storeName, 'readwrite'); // 打开一个事务，使用students 和teacher object store
+            var store = transaction.objectStore(storeName); // 获取students object store
+
+            for (var i = 0; i < students.length; i++) {
+                store.add(students[i]);
+            }
+        }
+
+        openDB(myDB.name, myDB.version);
+        setTimeout(function () {
+            addData(myDB.db, 'students');
+        }, 1000);
+
+        // # 利用索引获取数据
+        function getDataByIndex(db, storeName) {
+            var transaction = db.transaction(storeName);
+            var store = transaction.objectStore(storeName);
+            var index = store.index("nameIndex");
+            index.get('Byron').onsuccess = function (e) {
+                var student = e.target.result;
+                console.log('onsuccess：', student);
+            }
+        }
+        document.getElementById('getDataByIndex').onclick = function () {
+            getDataByIndex(myDB.db, 'students');
+        }
+
+        // name的索引是唯一的没问题，但是对于age索引只会取到第一个匹配值
+        // 要想得到所有age符合条件的值就需要使用游标了
+
+        // 注意：报错提示语法错误，store.createIndex方法也未生效，请清空indexDB然后刷新页面
+
+        // # 游标 cursor
+        // 使用object store的openCursor()方法打开游标，遍历数据
+        function fetchStoreByCursor(db, storeName) {
+            var transaction = db.transaction(storeName);
+            var store = transaction.objectStore(storeName);
+            var request = store.openCursor();
+            request.onsuccess = function (e) {
+                var cursor = e.target.result;
+                if (cursor) {
+                    console.log('key:', cursor.key);
+                    var currentStudent = cursor.value;
+                    console.log('value:', currentStudent.name);
+                    cursor.continue(); // 使游标下移，知道没有数据返回undefined
+                }
+            };
+        }
+        document.getElementById('fetchStoreByCursor').onclick = function () {
+            fetchStoreByCursor(myDB.db, 'students');
+        }
+
+        // index与游标结合
+        function getMultipleData(db, storeName) {
+            var transaction = db.transaction(storeName);
+            var store = transaction.objectStore(storeName);
+            var index = store.index("ageIndex");
+            // var request = index.openCursor(IDBKeyRange.only(26)); // ageIndex 等于26的
+            // var request = index.openCursor(IDBKeyRange.lowerBound(26,false)); // 大于等于26
+            var request = index.openCursor(IDBKeyRange.bound(24, 40, true, false)); // 区间：(24, 40]
+            request.onsuccess = function (e) {
+                var cursor = e.target.result;
+                if (cursor) {
+                    var student = cursor.value;
+                    console.log('getMultipleData：', student);
+                    cursor.continue();
+                }
+            }
+        }
+        document.getElementById('getMultipleData').onclick = function () {
+            getMultipleData(myDB.db, 'students');
+        }
+
+        // # 指定游标范围
+        // index.openCursor()/index.openKeyCursor()方法在不传递参数的时候会获取object store所有记录
+        // 可以使用key range 限制游标中值的范围，把它作为第一个参数传给 openCursor() 或是 openKeyCursor()
+        // IDBKeyRange.only(value):只获取指定数据
+        // IDBKeyRange.lowerBound(value,isOpen)：获取最小是value的数据，第二个参数用来指示是否排除value值本身，也就是数学中的是否是开区间
+        // IDBKeyRange.upperBound(value,isOpen)：和上面类似，用于获取最大值是value的数据
+        // IDBKeyRange.bound(value1,value2,isOpen1,isOpen2)：区间
+
+        // # 首字母区间
+        // 获取名字首字母在 [B, F) 的student
+
+        function getMultipleData_B_E(db, storeName) {
+            var transaction = db.transaction(storeName);
+            var store = transaction.objectStore(storeName);
+            var index = store.index("nameIndex");
+            var request = index.openCursor(IDBKeyRange.bound('B', 'F', false, true));
+            request.onsuccess = function (e) {
+                var cursor = e.target.result;
+                if (cursor) {
+                    var student = cursor.value;
+                    console.log('getMultipleData_B_E：', student);
+                    cursor.continue();
+                }
+            }
+        }
+        document.getElementById('getMultipleData_B_E').onclick = function () {
+            getMultipleData_B_E(myDB.db, 'students');
+        }
+
+
+    </script>
+</body>
+
+</html>

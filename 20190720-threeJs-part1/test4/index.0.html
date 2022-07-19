@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="../js/three.min.js"></script>
+    <script>
+        function init() {
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 设置Canvas元素宽高
+            renderer.setSize(800, 400);
+            // 清除画面的颜色(将背景色设置为黑色)
+            renderer.setClearColor(0x000000);
+            // 将渲染器对应的Canvas元素添加到body中
+            document.body.appendChild(renderer.domElement);
+
+            // 场景
+            var scene = new THREE.Scene();
+
+            // 照相机
+            // 参数: left right top bottom near far
+            var camera = new THREE.OrthographicCamera(-5, 5, 2.5, -2.5, 0.1, 100);
+            camera.position.set(25, 25, 25);
+            // 相机看向
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            scene.add(camera);
+
+            // 光照
+            var light = new THREE.PointLight(0xffffff, 1, 200);
+            light.position.set(10, 15, 25);
+            scene.add(light);
+            
+            var material = new THREE.MeshLambertMaterial({
+                color: 0xffff00
+            });
+            var geometry = new THREE.CubeGeometry(0.6, 1.2, 1.8);
+            var mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // 修改位置属性
+            mesh.position.set(1, 0, 0);
+            // mesh.position = new THREE.Vector3(1.5, -0.5, 0);
+            // mesh.position.x = 1;
+
+            var light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(20, 10, 5);
+            scene.add(light);
+
+            // 在init 函数里调用这个函数 即可在屏幕上显示一个坐标系了
+            drawAxes(scene);
+
+            // 渲染
+            renderer.render(scene, camera);
+        }
+
+        // 一个坐标系函数
+        function drawAxes(scene) {
+            // x-axis
+            var xGeo = new THREE.Geometry();
+            xGeo.vertices.push(new THREE.Vector3(0, 0, 0));
+            xGeo.vertices.push(new THREE.Vector3(3, 0, 0));
+            var xMat = new THREE.LineBasicMaterial({
+                color: 0xff0000
+            });
+            var xAxis = new THREE.Line(xGeo, xMat);
+            scene.add(xAxis);
+
+            // y-axis
+            var yGeo = new THREE.Geometry();
+            yGeo.vertices.push(new THREE.Vector3(0, 0, 0));
+            yGeo.vertices.push(new THREE.Vector3(0, 3, 0));
+            var yMat = new THREE.LineBasicMaterial({
+                color: 0x00ff00
+            });
+            var yAxis = new THREE.Line(yGeo, yMat);
+            scene.add(yAxis);
+
+            // z-axis
+            var zGeo = new THREE.Geometry();
+            zGeo.vertices.push(new THREE.Vector3(0, 0, 0));
+            zGeo.vertices.push(new THREE.Vector3(0, 0, 3));
+            var zMat = new THREE.LineBasicMaterial({
+                color: 0x00ccff
+            });
+            var zAxis = new THREE.Line(zGeo, zMat);
+            scene.add(zAxis);
+        }
+
+        window.onload = function () {
+            init();
+        }
+    </script>
+</body>
+
+</html>

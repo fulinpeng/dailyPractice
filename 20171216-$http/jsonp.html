@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtroller">
+<input type="text" ng-change="search(searchStr)" ng-model="searchStr">
+<input type="button" value="搜索" ng-click="search(searchStr)">
+<ul>
+    <li ng-repeat="result in results">{{result}}</li>
+</ul>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.controller('mainCtroller', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+        $scope.searchStr=[];
+        var timer=null;
+        $scope.search=function (searchStr) {
+            $timeout.cancel(timer);
+            timer=$timeout(function () {
+                // JSON_CALLBACK是angularJs提供的JSONP？回调函数的名字
+                var url='https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+searchStr+'&cb=JSON_CALLBACK';
+                $http({
+                    methed:'JSONP',
+                    url:url
+                }).success(function (data, state, header, config) {
+                    // console.log(data, state, header, config);
+                    $scope.results=data.s;
+                }).error(function (err) {
+                    console.log(err);
+                });
+            }, 600);
+        }
+    }])
+</script>
+</html>

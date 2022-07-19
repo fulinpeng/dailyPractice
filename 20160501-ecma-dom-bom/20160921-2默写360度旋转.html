@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-21-1旋转360度.html</title>
+<style>
+img{margin:0 auto;position:absolute;top:10px;left:250px;}
+</style>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById('img1');
+	var aImg=document.getElementsByTagName('img');
+	var oLastImg=oImg;
+	var x=0;
+	var disX=0;
+	var timer=null;
+	var lastX=0;
+	var iSpeed=0;
+	for(var i=1; i<77; i++){
+		var oNewImg=document.createElement('img');
+		oNewImg.src='img_360/miaov ('+i+').jpg';
+		oNewImg.style.display='none';
+		document.body.appendChild(oNewImg);
+	};
+	
+	document.onmousedown=function(ev){
+		clearInterval(timer);//清除定时器是这样的不是timer=clearInterval;
+		var oEv=ev || event;
+		var disX=oEv.clientX-x;
+		
+		document.onmousemove=function(ev){
+			var oEv=ev || event;
+			x=parseInt(oEv.clientX-disX);
+			zhuan();
+			
+			iSpeed=x-lastX;
+			lastX=x;
+			return false;
+		};
+		document.onmouseup=function(){
+			timer=setInterval(function(){
+				document.title=iSpeed;
+				x+=iSpeed;
+				if(iSpeed>0){
+					iSpeed--;
+				}else if(iSpeed==0){
+					clearInterval(timer);
+				}else{
+					iSpeed++;
+				};
+				zhuan();
+			},30);
+			document.onmouseup=null;//写在一起会出现双击会速度翻很多倍
+			document.onmousemove=null;
+		};
+		function zhuan(){
+			var l=-parseInt(x/10);
+			if(l>0){
+				l=l%77;
+			}else{
+				l=l-Math.floor(l/77)*77;
+			};
+			if(oLastImg!=aImg[l]){
+				oLastImg.style.display='none';
+				aImg[l].style.display='block';
+				oLastImg=aImg[l];
+			};
+		};
+		return false;
+	};
+};
+
+
+</script>
+</head>
+<body>
+<img id="img1" src="img_360/miaov (0).jpg">
+
+</body>
+</html>

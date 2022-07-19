@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <ul id="ul">ul
+        <li>li<a href="">a</a></li>
+        <li>li<a href="">a</a></li>
+        <li>li<a href="">a</a></li>
+    </ul>
+    <script>
+        var ul = document.getElementById("ul");
+        ul.onclick = function(event){
+            var tar = event.target;
+            var tagName = tar.nodeName.toLowerCase();
+            console.log("你点击了:"+tagName);
+            event.preventDefault();
+        }
+    </script> -->
+
+
+
+
+
+
+
+
+    <input type="text" id="text">
+    <input type="button" value="添加" id="button">
+    <ul>
+        <li>第1个<button class="btn" id="1">删除</button></li>
+        <li>第2个<button class="btn" id="2">删除</button></li>
+        <li>第3个<button class="btn" id="3">删除</button></li>
+    </ul>
+
+
+    <script>
+        var button = document.getElementById("button");
+        var text = document.getElementById("text");
+        var ul = document.getElementsByTagName("ul")[0];
+        var btnClass = document.getElementsByClassName("btn");
+        button.onclick = function () {
+            var deleteButton = document.createElement("button");
+            var value = text.value;
+            deleteButton.setAttribute("class", "btn");
+            var deleteText = document.createTextNode("删除");
+            deleteButton.appendChild(deleteText);
+            var li = document.createElement("li");
+            var liText = document.createTextNode(value);
+            li.appendChild(liText);
+            li.appendChild(deleteButton);
+            ul.appendChild(li);
+        }
+        ul.onclick = function (event) {
+            var tar = event.target;
+            console.log(event.target);
+            console.log(event.currentTarget);
+            if (tar.nodeName.toLowerCase() == "button") {
+                tar.parentNode.parentNode.removeChild(tar.parentNode);
+            }
+        }
+    </script>
+</body>
+
+</html>

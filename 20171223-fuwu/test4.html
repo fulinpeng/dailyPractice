@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+
+</body>
+<script>
+    var m1=angular.module('module1', []); // 定义一个模块，名字叫：module1，在需要加载这个模块的地方用，m1也是模块的名字，但是是在js代码中用
+    m1.provider('myService', function () {
+        return {
+            name: 'flp',
+            age: 22,
+            $get: function () {
+                return {
+                    name: this.name,
+                    age: this.age,
+                    say: function () {
+                        return 'hello!' + this.name + ',I am ' + this.age;
+                    }
+                }
+            }
+        }
+    });
+
+
+    var app = angular.module('myApp', ['module1']);
+    app.config(['myServiceProvider', function (myServiceProvider) {
+        console.log(myServiceProvider);
+    }]);
+    app.controller('mainCtrl', ['$scope', 'myService', function ($scope, myService) {
+        console.log(myService.say());
+    }]);
+    // 注意了！！！服务名字要是：myService，而在provider中那就不能使用 myService 了，而是 myServiceProvider ！！！！！！
+
+</script>
+</html>

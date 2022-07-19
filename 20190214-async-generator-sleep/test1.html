@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 【具体的请直接看，es6的介绍】
+
+        // 模拟其他语言中的 sleep
+        const sleep = (timeountMS) => new Promise((resolve, rejected) => {
+            setTimeout(resolve, timeountMS);
+        });
+        const p = (async () => {
+            // 声明立即执行的 async 函数表达式
+            // 正常情况下，await命令后面是一个 Promise 对象，返回该对象的结果。如果不是，就直接返回对应的值
+            // async函数返回一个 Promise 对象，可以使用then方法添加回调函数。
+            // 当函数执行的时候，一旦遇到await就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。
+
+            // 【因为要用 promise 作为 await 的参数并立即返回这个 promise】
+            // 【而且只有当该 promise 的状态变为 resolved 时，才会继续进入到async函数中继续执行】
+            // 【任何一个await语句后面的 Promise 对象变为reject状态，那么整个async函数都会中断执行】
+
+            for (var i = 0; i < 5; i++) {
+                await sleep(1000); // 这里加上then也行的
+                console.log(new Date, i);
+            }
+            await sleep(1000);
+            console.log(new Date, i);
+        })();
+        p.then(() => console.log('~~~~~~~~ 1')); // 什么时候打印？说明了什么
+        console.log('~~~~~~~~ 2')
+
+
+        // async函数内部return语句返回的值，会成为then方法回调函数的参数。
+        async function f() {
+            return 'hello world';
+        }
+        f().then(v => console.log(v)); // "hello world"
+
+        // async函数返回的 Promise 对象，必须等到内部所有await命令后面的 Promise 对象执行完，才会发生状态改变，
+        // 除非遇到return语句或者抛出错误。也就是说，只有async函数内部的异步操作执行完，才会执行then方法指定的回调函数。
+
+        async function getTitle(url) {
+            let response = await fetch(url);
+            let html = await response.text();
+            return html.match(/<title>([\s\S]+)<\/title>/i)[1];
+        }
+        getTitle('https://tc39.github.io/ecma262/').then(console.log) // "ECMAScript 2017 Language Specification"
+
+        // 有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个await放在try...catch结构里面
+        // 这样不管这个异步操作是否成功，第二个await都会执行
+        async function f() {
+            try {
+                await Promise.reject('出错了');
+            } catch (e) {
+            }
+            return await Promise.resolve('asyc 内部有 reject 也不中断');
+        }
+        f().then(v => console.log(v));
+    </script>
+</body>
+
+</html>

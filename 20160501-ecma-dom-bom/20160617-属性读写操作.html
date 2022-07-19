@@ -1,0 +1,56 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>html 属性操作</title>
+<script>
+ window.onload = function (){
+  var oBtn=document.getElementById('btn1');
+  var oText=document.getElementById('text1');
+  var oSelect=document.getElementById('select1');
+  var oImg=document.getElementById('img1');
+  var oP=document.getElementById('p1');
+  
+  oBtn.onclick=function (){
+ 
+
+    //alert( oSelect.value  + '在' + oText.value);  字符相加
+	//oBtn.value = 'button';
+	//oText.value = oBtn.value;
+	//oText.value = oSelect.value;
+	//oImg.src=oText.value;
+	oP.innerHTML = oText.value;
+	
+  };
+  
+  
+  
+ };
+	
+	
+	
+	
+	
+</script>
+
+
+</head>
+<body>
+ <input id="text1" value="文本框"> 
+ <select id="select1" >
+   <option value="北京" >北京</option>
+   <option value="上海" >上海</option>
+   <option value="杭州" >杭州</option>
+ </select>
+
+ <input id="btn1" type="button" value="按钮"/>
+ <br/>
+ <img id="img1" src="img/1.jpg" width=300px/>
+ <p id="p1">这是一段文字</p>
+
+
+
+
+
+</body>
+</html>

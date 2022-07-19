@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../js/angular-1.5.8.min.js"></script>
+<body>
+    <parent>
+        <div child></div>
+    </parent>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.directive('parent', function () {
+        return {
+            restrict:'E',
+            replace:true,
+//            这是一种做法，template中嵌套
+//            template:'<div><h1>I am parent !</h1><p></p><div child></div></div>',
+//            另一种做法，在指令中嵌套，配置transclude:true，并在template中设置ng-include
+            transclude:true,
+            template:'<div><h1>I am parent !</h1><div ng-transclude></div></div>',
+            controller:function ($scope) {
+                this.name='PARENT';
+                $scope.age=20;
+            }
+        };
+    });
+    app.directive('child', function () {
+        return {
+            restrict:'EA',
+            replace:true,
+            require:'^?parent',
+            template:'<h2>I am child !</h2>',
+            link:function (scope, element, attr, reController) {
+//                只能获取到其他模块中的this上的数据
+                console.log(reController);
+
+            }
+        };
+    });
+</script>
+</html>

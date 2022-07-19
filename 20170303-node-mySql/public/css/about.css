@@ -1,0 +1,282 @@
+.abt-banner{
+    width:100%;
+    height:660px;
+    background:url(../images/about/about1.jpg);
+    background-position:50% 50%;
+    position:relative;
+}
+.opacity{
+    background:rgba(246,96,45,0.8);
+}
+.opacity2{
+    background:rgba(246,96,45,0.94);
+}
+.white{
+    background:white;
+}
+.main_secparttittle{
+    width: 80%;
+    padding: 25px 10% 15px;
+    height: 50px;
+}
+.line_line,.line_sectittle{
+    float:left;
+}
+.line_line{
+    width:30%;
+    border-top:1px solid #9b9b9b;
+    margin-top: 9px;
+    height:0;
+    float:left;
+}
+.line_sectittle{
+    width:36%;
+    margin:0 2%;
+    float:left;
+}
+.line_sectittle img{
+    width: 16%;
+    float:left;
+}
+.line_sectittle h2{
+    width: 66%;
+    color: #4c4c4c;
+    text-align: center;
+    margin-top: -10px;
+    display: inline-block;
+    float:left;
+}
+.font-white{
+    color:white;
+}
+.black{
+    background:rgba(60,61,66,0.8);
+}
+.red1{
+    width:224px;
+    height:204px;
+    margin-top:94px;
+    margin-left:calc(50% - 160px);
+    position:relative;
+    padding:50px;
+}
+.fenge-about{
+    width:100%;
+    padding:20px 0;
+}
+.fenge-about .fengex{
+    width:20%;
+    height:100px;
+}
+.red1 p{
+    width: 100%;
+    line-height: 68px;
+    font-size: 48px;
+    /* border-bottom: 2px solid #fff; */
+    text-align: center;
+    opacity: 2;
+    color: #fff;
+    position: relative;
+}
+.abt-banner .des{
+    width:100%;
+    height:100px;
+    text-align:center;
+    color:#fff;
+    background:#3c3d42;
+    opacity: 0.8;
+    position:absolute;
+    bottom:0;
+    font-size:14px;
+    padding:10px 0;
+}
+.abt-banner .des p{
+    margin-left:15%;
+    width:70%;
+    line-height: 25px;
+
+}
+.black1,.red1-0,.red1-1,.red1-2,.red1-3{
+    position:absolute;
+}
+.black1{
+    width:90px;
+    height:90px;
+    left:-20px;
+    top:-20px;
+}
+.red1-0{
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+}
+.red1-1{
+    width: 124px;
+    height: 121px;
+    left: 288px;
+    top: 269px;
+}
+.red1-2{
+    width:90px;
+    height:76px;
+    left:-36px;
+    top:280px;
+}
+.red1-3{
+    width: 73px;
+    height: 63px;
+    left: 393px;
+    top: 229px;
+}
+.abt-dingwei{
+    width:100%;
+    height:510px;
+}
+.abt2{
+    width:100%;
+    height:50%;
+    background: url(../images/about/about2.jpg);
+    background-position:50% 50%;
+    background-size: cover;
+}
+.abt2-1,.abt2-2,.abt2-3{
+    width:20%;
+    height:100%;
+    float:left;
+}
+.abt2-4{
+    width:40%;
+    height:100%;
+    float:left;
+}
+.abt2 .tit{
+    text-align: center;
+    width:60%;
+    height:25%;
+    margin-top:25%;
+    margin-left:20%;
+    font-size:48px;
+    font-weight:bold;
+}
+.abt2 .des{
+    text-align: center;
+    width:60%;
+    height:25%;
+    margin-left:20%;
+    font-size: 14px;
+}
+.abt-team{
+    width:100%;
+    background:url(../images/about/about3.jpg);
+    background-size: cover;
+}
+.abt-team img{
+    width:100%;
+    opacity: 0.8;
+}
+.abt-wenhua{
+    width:100%;
+    /*background:url(../images/about/about4.png);*/
+    background-size: cover;
+}
+.yuan0{
+    width:400px;
+    height:400px;
+    border-radius:550px;
+    position:relative;
+    margin:90px auto;
+    background:#f6602d;
+    opacity: 0.9;
+}
+.yuan-bg{
+    width:100%;
+    height:100%;
+    position: absolute;
+    left:0;
+    top:0;
+    background:url("../images/about/map-bg.png") no-repeat;
+    background-size: 95%;
+    background-position:center;
+    z-index:-1;
+}
+.yuan1{
+    width:18.18%;
+    height:18.18%;
+    border-radius:100%;
+    position:absolute;
+    background:#f6602d;
+    left:-25%;
+    top:10%;
+}
+.yuan2{
+    width:26%;
+    height:26%;
+    border-radius:100%;
+    position:absolute;
+    background:#f6602d;
+    left:-42%;
+    top:50%;
+}
+.yuan3{
+    width:22%;
+    height:22%;
+    border-radius:100%;
+    position:absolute;
+    background:#f6602d;
+    left:126%;
+    top:29.5%;
+}
+.yuan4{
+    width:33%;
+    height:33%;
+    border-radius:100%;
+    position:absolute;
+    background:#f6602d;
+    left:96%;
+    top:68.6%;
+}
+.yuan0 .tit{
+    width:50px;
+    height:80px;
+    display: block;
+    font-weight:bold;
+    position:absolute;
+    top:calc(50% - 40px);
+    left:calc(50% - 25px);
+    color:white;
+}
+.yuan0 .geng{
+    font-size: 12px;
+}
+.yuan0 .tit-big{
+    font-size: 30px;
+}
+.yuan0 .des{
+    width:135px;
+    display: block;
+    text-align: center;
+    line-height:26px;
+    position:absolute;
+}
+.yuan0 .des{
+    font-size: 12px;
+    font-weight:bold;
+}
+.yuan0 .yuan1 .des{
+    left:-150px;
+    top:20px;
+}
+.yuan0 .yuan2 .des{
+    left:calc(50% - 70px);
+    top:110%;
+}
+.yuan0 .yuan3 .des{
+    left:calc(50% - 70px);
+    bottom:110%;
+}
+.yuan0 .yuan4 .des{
+    left:110%;
+    bottom:10%;
+}
+

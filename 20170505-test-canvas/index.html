@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Animation</title>
+    <style>
+        body{
+            /*background-color: black*/
+        }
+        canvas{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <p id="textContainer"></p>
+    <canvas id="myCanvas" width="800" height="1000"></canvas>
+
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/tween.js"></script>
+    <script>
+
+        var FontSize = 12;
+        var FontColor = "#fff";
+        var canvas = document.getElementById( "myCanvas");
+        var ctx = canvas.getContext( "2d");
+
+
+
+
+
+
+        function writeAnimation( contentArr, x , y){
+            var time = 5 * 1000;
+            var text = contentArr[ parseInt( Math.random() * 100) % contentArr.length];
+
+            ctx.font = FontSize + "px 微软雅黑";
+            var textWidth = ctx.measureText( text).width;
+
+
+            var count = 0;
+            var _speed = 1.5;
+            requestAnimationFrame( _animate);
+
+            function _animate() {
+                ctx.clearRect( 0, y - FontSize, 1000, FontSize * 1.5);
+                var textStyle = ctx.createLinearGradient( x, y, x + Tween.Cubic.easeOut( count, textWidth/10, textWidth, 100) , y + FontSize);
+                var colorStop = Tween.Cubic.easeOut( count, 0, 1, 100);
+                textStyle.addColorStop( colorStop > 1 ? 1 : colorStop, FontColor);
+                textStyle.addColorStop( 1, "transparent");
+                ctx.fillStyle = textStyle;
+                ctx.fillText( text, x, y);
+                if( count >= 100){
+                    count = 0;
+                    cancelAnimationFrame( _animate);
+                    setTimeout( function () {
+                        text = contentArr[ parseInt( Math.random() * 100) % contentArr.length];
+                        textWidth = ctx.measureText( text).width;
+                        requestAnimationFrame( _animate);
+                    } , ( Math.random() * 10 % 2)*1000)
+                } else {
+                    count += _speed;
+                    requestAnimationFrame( _animate);
+                }
+            }
+        }
+
+
+        $.ajax({
+            url: "js/text.json",
+            data: "",
+            dataType: "json",
+            success: function ( data ) {
+
+//                document.getElementById( "textContainer").innerHTML = data.content;
+                writeAnimation( data.content, 50 , FontSize * 2);
+                setTimeout( function () {
+                    writeAnimation( data.content, 50 , FontSize * 10);
+                }, 550);
+                setTimeout( function () {
+                    writeAnimation( data.content, 50 , FontSize * 20);
+                }, 290);
+                setTimeout( function () {
+                    writeAnimation( data.content, 50 , FontSize * 30);
+                }, 777);
+            },
+            error: function ( e ) {
+                console.log( e);
+            }
+        })
+
+
+    </script>
+</body>
+</html>

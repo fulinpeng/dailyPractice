@@ -1,0 +1,827 @@
+    body{
+        margin: 0px;
+        padding: 0px;
+        font-size: 0px;
+        font-family: "微软雅黑";
+    }
+    *{
+        transition:all .2s linear
+    }
+    .iconfont{
+        font-family:"iconfont" !important;
+        font-size:16px;font-style:normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .clu_s1{
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .clu_banner{
+        position: relative;
+        width: 100%;
+    }
+    .clu_banner>img{
+        width: 100%;
+    }
+    .clu_rebtn>a{
+        color: #f9f9f9;
+    }
+    .r_star{
+        position: absolute;
+        top:  150px;
+        right: 20px;
+        font-size: 14px;
+        color: #797979;
+    }
+    .clu_size{
+        margin-top: 10px;
+        font-size: 12px!important;
+    }
+    .clu_name{
+        font-size: 14px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    .r_star span{
+        margin-left: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition:all .2s linear
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .clu_retitx1:nth-child(1){
+        cursor: pointer;
+    }
+    .r_color{
+        color: #f26031;
+    }
+    .r_star span:hover{
+        color: #f26031;
+    }
+    .clu_zhemu{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: rgba(0,0,0,0.4);
+        cursor: pointer;
+    }
+    .clu_zhemuys1{
+        background-color: rgba(255,255,255,0.2);
+    }
+    .clu_zhemuys2{
+        background-color: rgba(242, 96, 49, 0.8);
+    }
+    .clu_ztext>p{
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .clu_about>img{
+        height: 100%;
+    }
+
+    .clu_nowactive{
+        width: 100%;
+    }
+    .clu_autoactive{
+        width: 100%;
+        height: 350px;
+    }
+    .clu_autoactive2{
+        background-color:#f26031 ;
+        width: 100%;
+        height: 150px;
+    }
+
+    .clu_activeImg>img{
+        width: 100%;
+    }
+    .clu_zhemuy1{
+        background-color: rgba(242, 96, 49, 0.7);
+    }
+    .clu_activeTextlei{
+        width: 90%;
+        margin: 60px auto;
+        color: gray;
+    }
+    .clu_line2{
+        width: 150px;
+        height: 5px;
+        background-color: #f26031;
+    }
+
+    .clu_zhemutext .line{
+        width: 0;
+    }
+    .clu_zhemutext:hover .line{
+        transition:all .3s linear;
+        width: 80%;
+    }
+    .clu_zhemutext:hover p{
+        opacity: 1;
+    }
+    .clu_zhemutext>p{
+        text-align: center;
+        margin: 20px;
+        opacity: 0;
+        transition:all .3s linear
+    }
+    .clu_are{
+        width: 200px;
+        height: 100px;
+        border: 5px solid #F5F3F4;
+        margin: 0px auto;
+    }
+    .clu_are>p{
+        text-align: center;
+        margin: 20px;
+    }
+    .clu_textare{
+        width: 80%;
+        height: 50px;
+        font-size: 0px;
+        margin: 0px auto;
+    }
+    .clu_text2{
+        width: 30%;
+        height: 50px;
+        margin-top: 50px;
+        font-size: 20px;
+        color: #F5F3F4;
+        border: 1px solid black;
+        text-align: center;
+        line-height: 50px;
+        display: inline-block;
+        transition:all .2s linear
+    }
+    .clu_textactive{
+        background-color: #434449;
+    }
+    .clu_textactive>a{
+        text-decoration: underline ;
+    }
+    .clu_text2:hover{
+        background-color: #3c3d42;
+    }
+    .clu_text2>a{
+        color: #FFFFFF;
+    }
+    .clu_text2>a:hover{
+        color: #FFFFFF;
+    }
+    .clu_text2>a:focus{
+        color: #FFFFFF;
+    }
+    .clu_reply{
+        width: 95%;
+        height: 50px;
+        margin: 0 auto;
+        font-size: 0px;
+        margin-top: 6px;
+        border: 1px solid #3c3d42;
+        border-left: transparent;
+        border-right: transparent;
+        overflow: hidden;
+    }
+    .clu_reply>div{
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+    }
+    .clu_rylogo{
+        font-size: 18px;
+    }
+    .clu_ryre{
+        width: 400px;
+        font-size: 16px;
+        padding: 0px 5px;
+    }
+    .clu_rynu{
+        width: 100px;
+        font-size: 12px;
+    }
+    .clu_ryus{
+        font-size: 14px;
+        width: 100px;
+    }
+    .clu_rydate{
+        font-size: 12px;
+    }
+    .clu_auac{
+        overflow: hidden;
+        width: 100%;
+        height: 200px;
+        background-color: gray;
+    }
+    .clu_austbtn{
+        background-color: #f26031;
+        border: 1px solid #c9522a;
+        color: #fff;
+        overflow: hidden;
+        width: 200px;
+        height: 60px;
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 60px;
+        transition: all .25s ease-in-out;
+        margin: 30px auto;
+        cursor: pointer;
+    }
+    .clu_austbtn:hover{
+        background-color: #ff6c3d;
+        border: 1px solid #f26031;
+        color: #fff;
+    }
+    .clu_text3{
+        font-size: 40px;
+        text-align: center;
+        padding: 20px 0;
+        color: #F5F3F4;
+    }
+    .clu_text4{
+        width: 80%;
+        margin: 0 auto;
+        padding-top: 20px;
+        font-size: 16px;
+        text-align: center;
+        color: #F5F3F4;
+        text-indent:2em;
+    }
+    .clu_aumargin{
+        margin-top: 50px;
+    }
+
+    .clu_ap2{
+        position: relative;
+        width:90%;
+        height: 90%;
+        border: 1px solid black;
+        margin: 0 auto;
+        top: 10px;
+        font-size: 0px;
+        cursor: default;
+    }
+    .clu_ap2>div{
+        float: left;
+    }
+    .clu_ap1img{
+        width: 29%;
+        padding: 5px;
+        cursor: pointer;
+    }
+    .clu_ap1img img{
+        border: 2px solid black;
+        width: 100%;
+        height: auto;
+    }
+    .clu_ap1content{
+        width: 68%;
+        height: 100%;
+        margin-top: 10px;
+    }
+    .clu_ztext{
+        width: 100%;
+        margin-top: 250px;
+        color:#F5F3F4;
+        font-size: 60px;
+    }
+    .clu_ap1{
+        width: 80%;
+        height: 250px;
+        background-color: grey;
+        margin: 0 auto;
+    }
+    .clu_aptxt1{
+        font-size: 16px;
+        height: 60px;
+        color: #F5F3F4;
+    }
+    .clu_aptxt2{
+        font-size: 12px;
+        color: #F5F3F4;
+        display: inline-block;
+        padding-left: 10px;
+    }
+    .clu_aph{
+        color: #FFFFFF;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    .clu_about{
+        position: relative;
+        width: 30%;
+        height: 500px;
+        float: left;
+        background-color: gray;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+    .clu_active{
+        width: 69.7%;
+        height: 500px;
+        float: left;
+        background-color: white;
+        border: 1px solid black;
+        cursor: default;
+    }
+    .clu_activeText{
+        width: 50%;
+        height: 250px;
+        float: left;
+    }
+    .clu_activeImg{
+        position: relative;
+        width: 50%;
+        height: 250px;
+        float: left;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    #r_langlu{
+        cursor: pointer;
+    }
+    #r_shequ{
+        cursor: pointer;
+    }
+    .clu_zhemutext{
+        width: 100%;
+        margin-top: 100px;
+        color:#F5F3F4;
+        font-size: 20px;
+    }
+    .clu_h1{
+        font-size: 30px;
+        color: #000000;
+    }
+    .clu_retop{
+        height: 30px;
+        font-size: 14px;
+        color: #FFFFFF;
+        line-height: 30px;
+        background-color: #5b5b5b;
+        cursor: default;
+    }
+    .clu_retop>div{
+        display:inline-block;
+    }
+    .clu_retoplogo{
+        width: 15%;
+        border-right: 1px solid white;
+        padding-right: 5px;
+        text-align: right;
+    }
+    .clu_retopwz{
+        width: 84%;
+    }
+    .clu_retopwz span{
+        padding-left: 10px;
+    }
+    .clu_retitle{
+        width: 85%;
+        margin: 20px auto;
+    }
+    .clu_retitle>div{
+        display: inline-block;
+    }
+    .clu_retitlogo{
+        width: 60px;
+        vertical-align:top;
+    }
+    .clu_retitlogo img{
+        width: 100%;
+    }
+    .clu_titxt{
+        margin-top: 20px;
+        height: 40px;
+    }
+    .clu_titxt>div{
+        /*display:inline-block;*/
+        padding-right: 20px;
+    }
+    .clu_retitx1{
+        text-align: center;
+        font-size: 14px;
+
+        color: rgb(181, 180, 171);
+    }
+    .clu_retitx1>a{
+        color: rgb(181, 180, 171);
+    }
+    .clu_rebtn{
+        font-size: 16px;
+        float:right;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+    .clu_rezhuti{
+        width: 85%;
+        margin: 40px auto 10px;
+        font-size: 0px;
+        border-top: 1px solid #696969;
+        color: #000;
+    }
+    .clu_rezhuti>div{
+        display: inline-block;
+    }
+    .clu_requleft{
+        width: 10%;
+        vertical-align: top;
+    }
+    .clu_userlogo{
+        margin-top: 20px;
+        width: 80px;
+        height: 80px;
+        vertical-align: top;
+        overflow: hidden;
+        border: 5px solid #ffffff;
+        outline: 1px solid #bcbcbc;
+    }
+    .clu_userlogo img{
+        height: 100%;
+
+    }
+    .clu_requctn{
+        position: relative;
+        width: 80%;
+        margin-left: 50px;
+    }
+    .clu_reuctntxt{
+        margin-top: 20px;
+        font-size: 16px;
+        text-indent: 2em;
+    }
+    .clu_answer{
+        margin: 80px auto 0px;
+        border-top: 1px solid #cacaca;
+        width: 100%;
+        height: 500px;
+        color: #FFFFFF;
+        font-size: 0px;
+
+    }
+    .clu_clwhite{
+        color: #f9f9f9;
+    }
+    .clu_anseraer>div{
+        display: inline-block;
+    }
+    .clu_anseraer{
+        width: 85%;
+        padding: 10px 0;
+        margin: 0 auto;
+    }
+    .clu_display{
+        display: block !important;
+    }
+    .clu_retxtare{
+        width: 70%;
+        margin-top: 20px;
+        margin-left: 50px;
+        font-size: 16px;
+        position: relative;
+    }
+    .clu_retxtare > form{
+        width: 100%;
+        height: 300px;
+    }
+    .clu_ltshou{
+        float: right;
+        margin-top: 10px;
+        margin-right: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        color: rgb(222, 148, 66);
+    }
+    .clu_ltshou:hover{
+        color: #000000;
+    }
+    .clu_btn{
+        margin-top: 10px;
+        width: 150px;
+        height: 55px;
+        line-height: 55px;
+    }
+    @media screen and (min-width: 1349px){
+        .clu_s1{
+            width: 1348px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+    }
+    @media screen and (min-width: 1280px) and ( max-width: 1348px) {
+        .clu_ztext{
+            width: 100%;
+            margin-top: 250px;
+            color:#F5F3F4;
+            font-size: 60px;
+        }
+        .clu_ap1{
+            width: 80%;
+            height: 180px;
+            background-color: grey;
+            margin: 0 auto;
+        }
+        .clu_aptxt1{
+            font-size: 16px;
+            height: 60px;
+            color: #F5F3F4;
+        }
+        .clu_aptxt2{
+            font-size: 12px;
+            color: #F5F3F4;
+            display: inline-block;
+            padding: 10px;
+        }
+        .clu_aph{
+            color:#FFFFFF;
+            font-size: 24px;
+        }
+        .clu_about{
+            position: relative;
+            width: 30%;
+            height: 500px;
+            float: left;
+            background-color: gray;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+        .clu_active{
+            width: 69.7%;
+            height: 500px;
+            float: left;
+            background-color: white;
+            border: 1px solid black;
+        }
+        .clu_activeText{
+            width: 50%;
+            height: 250px;
+            float: left;
+        }
+        .clu_activeImg{
+            position: relative;
+            width: 50%;
+            height: 250px;
+            float: left;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .clu_zhemutext{
+            width: 100%;
+            margin-top: 100px;
+            color:#F5F3F4;
+            font-size: 20px;
+        }
+        .clu_h1{
+            font-size: 30px;
+        }
+        .clu_text2{
+            width: 30%;
+            height: 50px;
+            margin-top: 50px;
+            font-size: 20px;
+            color: #F5F3F4;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 50px;
+            display: inline-block;
+            transition:all .2s linear
+        }
+        .clu_reply{
+            width: 95%;
+            height: 50px;
+            margin: 0 auto;
+            font-size: 0px;
+            margin-top: 6px;
+            border: 1px solid #3c3d42;
+            border-left: transparent;
+            border-right: transparent;
+            overflow: hidden;
+        }
+        .clu_reply>div{
+            display: inline-block;
+            height: 50px;
+            line-height: 50px;
+        }
+        .clu_rylogo{
+            font-size: 18px;
+        }
+        .clu_ryre{
+            width: 400px;
+            font-size: 16px;
+            padding: 0px 5px;
+        }
+        .clu_rynu{
+            width: 100px;
+            font-size: 12px;
+        }
+        .clu_ryus{
+            font-size: 14px;
+            width: 100px;
+        }
+        .clu_rydate{
+            font-size: 12px;
+        }
+        .clu_text3{
+            font-size: 40px;
+            text-align: center;
+            padding: 20px 0;
+            color: #F5F3F4;
+        }
+        .clu_text4{
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+            font-size: 16px;
+            text-align: center;
+            color: #F5F3F4;
+            text-indent:2em;
+        }
+        .clu_austbtn{
+            background-color: #f26031;
+            border: 1px solid #c9522a;
+            color: #fff;
+            overflow: hidden;
+            width: 200px;
+            height: 60px;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 60px;
+            transition: all .25s ease-in-out;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+        .clu_ltshou{
+            float: right;
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            color: rgb(222, 148, 66);
+        }
+    }
+    @media screen  and (max-width: 1170px) {
+        .clu_ztext{
+            width: 100%;
+            margin-top: 180px;
+            color:#F5F3F4;
+            font-size: 40px;
+        }
+        .clu_ap1{
+            width: 80%;
+            height: 140px;
+            background-color: grey;
+            margin: 0 auto;
+        }
+        .clu_aptxt1{
+            font-size: 14px;
+            height: 60px;
+            color: #F5F3F4;
+            padding-left: 10px;
+        }
+
+        .clu_aptxt2{
+            font-size: 12px;
+            color: #F5F3F4;
+            display: inline-block;
+            padding-left: 10px;
+        }
+        .clu_aph{
+            color:#FFFFFF;
+            padding-left: 10px;
+            font-size: 20px;
+        }
+        .clu_about{
+            position: relative;
+            width: 30%;
+            height: 370px;
+            float: left;
+            background-color: gray;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+        .clu_active{
+            width: 69.7%;
+            height: 370px;
+            float: left;
+            background-color: white;
+            border: 1px solid black;
+        }
+        .clu_activeText{
+            width: 50%;
+            height: 185px;
+            float: left;
+        }
+        .clu_activeImg{
+            position: relative;
+            width: 50%;
+            height: 185px;
+            float: left;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .clu_zhemutext{
+            width: 100%;
+            margin-top: 50px;
+            color:#F5F3F4;
+            font-size: 20px;
+        }
+        .clu_h1{
+            font-size: 20px;
+        }
+        .clu_text2{
+            width: 30%;
+            height: 40px;
+            margin-top: 40px;
+            font-size: 16px;
+            color: #F5F3F4;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 40px;
+            display: inline-block;
+            transition:all .2s linear
+        }
+        .clu_reply{
+            width: 95%;
+            height: 40px;
+            margin: 0 auto;
+            font-size: 0px;
+            margin-top: 10px;
+            border: 1px solid #3c3d42;
+            border-left: transparent;
+            border-right: transparent;
+            overflow: hidden;
+        }
+        .clu_reply>div{
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+        }
+        .clu_rylogo{
+            font-size: 16px;
+        }
+        .clu_ryre{
+            width: 400px;
+            font-size: 14px;
+            padding: 0px 5px;
+        }
+        .clu_rynu{
+            width: 100px;
+            font-size: 12px;
+        }
+        .clu_ryus{
+            font-size: 14px;
+            width: 100px;
+        }
+        .clu_rydate{
+            font-size: 12px;
+        }
+        .clu_text3{
+            font-size: 30px;
+            text-align: center;
+            padding: 20px 0;
+            color: #F5F3F4;
+        }
+        .clu_text4{
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            color: #F5F3F4;
+            text-indent:2em;
+        }
+        .clu_austbtn{
+            background-color: #f26031;
+            border: 1px solid #c9522a;
+            color: #fff;
+            overflow: hidden;
+            width: 180px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 50px;
+            transition: all .25s ease-in-out;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+        .clu_ltshou{
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            float: right;
+            color: rgb(222, 148, 66);
+        }
+        .clu_none{
+            display: none;
+        }
+    }

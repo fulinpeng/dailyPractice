@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*requestAnimationFrame：可替代 throttle ，函数需要重新计算和渲染屏幕上的元素时，
+    想保证动画或变化的平滑性，可以用它。注意：IE9 不支持。requestAnimationFrame 传递
+    一个参数到回调函数。它是一个以毫秒为单位的高分辨率时间戳。因此，我们可以使用
+    requestAnimationFrame 作为 setTimeout 的替代方法
+
+     requestAnimationFrame(code)，一般用于动画，与 setTimeout 方法类似，区别是
+     setTimeout 是用户指定的，而 requestAnimationFrame 是浏览器刷新频率决定的，
+     一般遵循 W3C 标准，它在浏览器每次刷新页面之前执行。
+
+    function render() {
+        // do something
+        window.requestAnimationFrame(render);
+    }
+
+    window.requestAnimationFrame(render);
+
+
+    取消requestAnimationFrame
+    cancelAnimationFrame
+
+    */
+
+    function throttle(fn, delat, context) {
+        if (!context) context=this;
+        var then = new Date();
+        return function() {
+            var args = arguments;
+            function repeat() {
+                var now=Date.now();
+                if (now - then >= delat) {
+                    fn.call(context, args);
+                    then = now;
+                }
+            }
+            requestAnimationFrame(repeat);
+        }
+    }
+    function log() {
+        console.log('foo');
+    }
+    window.onmousemove = throttle(log, 1000);
+
+
+</script>
+</body>
+</html>

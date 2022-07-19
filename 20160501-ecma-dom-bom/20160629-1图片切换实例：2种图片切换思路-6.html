@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	body{
+		background:#333;
+	}
+	#main{
+		width:400px;
+		height:500px;
+		margin:20px auto ;
+		position:relative;
+	}
+	#img{
+		width:400px;
+		height:500px;
+		
+	}
+	#tit{
+		width:400px;
+		heigth:30px;
+		line-height:30px;
+		text-align:center;
+		color:white;
+		background:#555;
+		position:absolute;
+		top:0;
+	}
+	#descript{
+		width:400px;
+		heigth:30px;
+		line-height:30px;
+		text-align:center;
+		color:white;
+		position:absolute;
+		bottom:0;
+		background:#555;
+	}
+	#ul{
+		width:30px;
+		height:auto ;
+		position:absolute;
+		right:-50px;
+		top:0;
+	}
+	#ul li{
+		width:30px;
+		height:30px;
+		float:left;
+		margin-bottom:10px;
+		background:#555;
+	}
+	#ul .active{
+		background:yellow;
+	}
+	
+	
+	
+</style>
+<script>
+	window.onload=function(){
+		//alert(1);
+		
+		var oImg=document.getElementById('img');
+		var oTit=document.getElementById('tit');
+		var oDescript=document.getElementById('descript');
+		var oUl=document.getElementById('ul');
+		var aLi=document.getElementsByTagName('li');
+		
+		var oOld='';
+		
+		var aSrc=['img/1.png','img/2.png','img/3.png','img/4.png'];
+		var aDescript=['知识一只老鹰','游戏美女图片','也是第三章美女图片','独眼钢铁侠'];
+		var num=0;
+	
+		//初始化
+		
+		oImg.src=aSrc[num];
+		oTit.innerHTML=num+1 +'/'+ aSrc.length;
+		oDescript.innerHTML=aDescript[num];
+		for (var i=0; i < aSrc.length; i++){
+			oUl.innerHTML +='<li></li>';
+		};
+		oOld=aLi[num];
+		oOld.className='active';
+		
+		for (var i=0; i<aLi.length; i++){
+			aLi[i].index=i;
+			aLi[i].onclick=function(){
+				oImg.src=aSrc[this.index];
+				oTit.innerHTML=this.index+1 +'/'+ aLi.length;
+				oDescript.innerHTML=aDescript[this.index];
+				
+				/*  //全部清空来给下一个class名，重新定义当前
+				for(var i=0; i<aLi.length; i++){
+					aLi[i].className='';
+				};
+				this.className='active';
+				*/
+				//清空上一个的class名，重新定义当前
+				oOld.className='';
+				this.className='active';
+				oOld=this;
+			};
+			
+			
+		};
+		
+		
+	};
+</script>
+
+</head>
+<body>
+<div id="main">
+	<img id="img" src=""/>
+	<p id="tit"></p>
+	<p id="descript"></p>
+	<ul id="ul">
+	</ul>
+</div>
+
+
+
+
+
+
+</body>
+</html>

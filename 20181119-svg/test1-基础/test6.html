@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #1A1A25;
+        }
+
+        .line_wrap path {
+            stroke-width: 2px;
+        }
+
+        .line_wrap .line {
+            fill: none;
+            stroke: #393853;
+        }
+
+        .line_wrap circle {
+            fill: #1A1A25;
+            stroke: #393853;
+        }
+
+        .line_wrap .arrow {
+            fill: #393853;
+        }
+
+        .line_wrap:hover path {
+            stroke: #42BFFD;
+        }
+
+        .line_wrap:hover circle {
+            fill: #42BFFD;
+            stroke: #42BFFD;
+        }
+
+        .line_wrap:hover .arrow {
+            fill: #42BFFD;
+            stroke: none;
+        }
+
+        .node {
+            fill: none;
+        }
+
+        .node .node_point {
+            fill: #1A1A29;
+            stroke: #393853;
+        }
+
+        .node .node_border {
+            fill: #141420;
+            stroke: #393853;
+        }
+
+        .node text {
+            fill: #dbe2ea;
+            dominant-baseline: middle;
+            text-anchor: middle;
+            font-size: 14px;
+        }
+
+        .node:hover .node_border {
+            stroke: #42BFFD;
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="link-svg" class="link_svg" width="100%" height="100%">
+        <g id="nodes-wrap" class="nodes-wrap">
+            <!-- <g class="node_wrap" transform="matrix( 1 0 0 1 0 0 )">
+                <circle cx="130" cy="100" r="5" fill="red" />
+                <circle cx="150" cy="100" r="5" fill="red" />
+                <circle cx="170" cy="100" r="5" fill="red" />
+                <circle cx="130" cy="140" r="5" fill="red" />
+                <circle cx="150" cy="140" r="5" fill="red" />
+                <circle cx="170" cy="140" r="5" fill="red" />
+                <path fill="black" stroke="black" d="M100,100 h102a5,5,0,0,1,5,5v30a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-30a5,5,0,0,1,5,-5z"></path>
+                <text x='150' y='120' fill='white' dominant-baseline="middle" text-anchor="middle">
+                    文字内容
+                </text>
+            </g> -->
+        </g>
+        <g id="lines-wrap" class="lines-wrap" transform="matrix( 1 0 0 1 0 0 )">
+            <!-- <g class="line_wrap">
+                <circle cx="130" cy="140" r="5" fill="black" />
+                <path fill="none" stroke="black" stroke-width="2" d="M130,140 A334,144,0,0,0,400,300">
+                </path>
+                <path fill="black" stroke="black" stroke-width="2" d="M400,300 l6,-7 l-12,0 z">
+                </path>
+            </g> -->
+        </g>
+    </svg>
+    <script>
+        const svg = document.getElementById('link-svg');
+        const linesWrap = svg.getElementById('lines-wrap');
+        const nodesWrap = svg.getElementById('nodes-wrap');
+        let nodes = []; // 装所有的节点
+        let documentEvent = {};
+        let linkId = 0; // 确定点与线绑定的唯一标识
+
+        let ARROW_IS_MOVE = false; // 为 true 时箭头正在随鼠标移动
+        let currentLine = null; // 当前正在移动的line
+
+        function arrowFllowMouse(e, target, type) {
+            ARROW_IS_MOVE = true;
+            currentLine = target;
+            let { start, end } = target.data.point;
+            let x1 = e.pageX;
+            let y1 = e.pageY;
+            let beginPos = {
+                ...start
+            };
+            if (type == 'arrow') {
+                beginPos = {
+                    ...end
+                };
+            }
+            function lineMousemove(e) {
+                let x2 = e.pageX;
+                let y2 = e.pageY;
+                let disx = x2 - x1;
+                let disy = y2 - y1;
+
+                target.data = {
+                    ...target.data,
+                    point: {
+                        start,
+                        end: {
+                            x: beginPos.x + disx,
+                            y: beginPos.y + disy
+                        }
+                    }
+                };
+
+                target.move();
+            }
+            function lineMouseup() {
+                document.removeEventListener('mousemove', lineMousemove);
+                document.removeEventListener('mouseup', lineMouseup);
+                documentEvent.lineMouseup = null;
+                documentEvent.lineMouseup = null;
+                setTimeout(() => {
+                    ARROW_IS_MOVE = false; // 该事件要最后添加
+                }, 0);
+            }
+            documentEvent.lineMousemove = lineMousemove;
+            documentEvent.lineMouseup = lineMouseup;
+            document.addEventListener('mousemove', lineMousemove);
+            document.addEventListener('mouseup', lineMouseup);
+        }
+
+        // 观察者，管理 input output 的连接情况
+        const observer = (function () {
+            let _message = {};
+            function regist(type, fn) {
+                if (_message[type] === undefined) {
+                    _message[type] = [fn];
+                } else {
+                    _message[type].push(fn);
+                }
+                return observer;
+            }
+            function fire(type, message) {
+                if (_message[type] === undefined) return;
+                let len = _message[type].length;
+                for (let i = 0; i < len; i++) {
+                    _message[type][i](message);
+                }
+                return observer;
+            }
+            function remove(type, fn) {
+                // remove的方法中，必须传入fn啊，不然你不知道删除哪一个方法
+                if (_message[type] === undefined) return;
+                let len = _message[type].length;
+                for (let i = len; i < 0; i--) {
+                    if (_message[type][i] === fn) {
+                        _message[type].splice(i, 1);
+                        break;
+                    }
+                }
+                return observer;
+            }
+            return {
+                regist,
+                fire,
+                remove,
+            }
+        })();
+
+        function Line(data) {
+            this.data = data;
+            this.wrap = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            this.arc = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+            this.arc.setAttribute('r', 5);
+            this.line = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.line.setAttribute('class', 'line');
+            this.arrow = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.arrow.setAttribute('class', 'arrow');
+            let arrowPos = this.data.point.end;
+            this.arrowAddEvent(this.arrow, { x: parseInt(arrowPos.x), y: parseInt(arrowPos.y) });
+        }
+
+        Line.prototype = {
+            constructor: Line,
+            init: function () {
+                this.setStyle();
+                this.setClass();
+                this.move();
+                this.wrap.appendChild(this.line);
+                this.wrap.appendChild(this.arc);
+                this.wrap.appendChild(this.arrow);
+            },
+            move: function () {
+                this.setLine();
+                this.setArc();
+                this.setArrow();
+            },
+            setStyle: function () {
+                let style = this.data.style || null;
+                if (!style) return;
+                for (let k in style) {
+                    this.wrap.setAttribute(k, style[k]);
+                }
+            },
+            setClass: function () {
+                let extraClass = `line_wrap ${this.data.extraClass || ''}`;
+                this.wrap.setAttribute('class', extraClass || '');
+            },
+            setLine: function () {
+                let { start, end } = this.data.point;
+                let disx = end.x - start.x;
+                let disy = end.y - start.y;
+                let r = 5;
+                if (disy < 20) {
+                    let { x: x1, y: y1 } = start;
+                    let { x: x2, y: y2 } = end;
+                    let k = Math.abs(disx / 2);
+                    let by = 20 + k / 2; // 纵轴上偏移至少40
+                    if (disx >= 20) {
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a5,5,0,0,0,5,5h${k - 10},${0}a5,5,0,0,0,5,-5v-${k},${-(Math.abs(y2 - y1) - 10 + 2 * by)}a5,5,0,0,1,5,-5h${k - 10},${0}a5,5,0,0,1,5,5L${x2},${y2}`);
+                    } else if (disx >= 0 && disx < 20) {
+                        r = k / 2;
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a${r},${r},0,0,0,${k},${0}v${0},${-(Math.abs(y2 - y1) + 2 * r + 2 * by)}a${r},${r},0,0,1,${k},${0}L${x2},${y2}`);
+                    } else if (disx < 0 && disx > -10) {
+                        r = k / 2;
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a${r},${r},0,0,1,${-k},${0}v${0},${-(Math.abs(y2 - y1) + 2 * r + 2 * by)}a${r},${r},0,0,0,${-k},${0}L${x2},${y2}`);
+                    } else if (disx <= -10) {
+                        this.line.setAttribute('d', `M${x1},${y1}v${0},${by}a5,5,0,0,1,-5,5h${-(k - 10)},${0}a5,5,0,0,1,-5,-5v-${k},${-(Math.abs(y2 - y1) - 10 + 2 * by)}a5,5,0,0,0,-5,-5h${-(k - 10)},${0}a5,5,0,0,0,-5,5L${x2},${y2}`);
+                    }
+                } else {
+                    if (disx >= 10) {
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a5,5,0,0,0,5,5h${disx - 10}a5,5,0,0,1,5,5L${end.x},${end.y}`);
+                    } else if (disx >= 0 && disx < 10) {
+                        r = parseInt(disx / 2);
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a${r},${r},0,0,0,${r},${r}h${disx - 2 * r}a${r},${r},0,0,1,${r},${r}L${end.x},${end.y}`);
+                    } else if (disx < 0 && disx > -10) {
+                        r = Math.abs(parseInt(disx / 2));
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a${r},${r},0,0,1,${-r},${r}h${disx + 2 * r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);
+                    } else if (disx <= -10) {
+                        this.line.setAttribute('d', `M${start.x},${start.y}v${(disy) / 2 - r}a${r},${r},0,0,1,${-r},${r}h${disx + 2 * r}a${r},${r},0,0,0,${-r},${r}L${end.x},${end.y}`);
+                    }
+                }
+            },
+            setArc: function () {
+                let point = this.data.point;
+                this.arc.setAttribute('cx', `${point.start.x}`);
+                this.arc.setAttribute('cy', `${point.start.y}`);
+            },
+            setArrow: function () {
+                let point = this.data.point;
+                this.arrow.setAttribute('d', `M${point.end.x},${point.end.y} l6,-7 l-12,0 z`);
+            },
+            arrowAddEvent: function (arrow, end) {
+                let _this = this;
+                arrow.addEventListener('click', function (e) {
+                    if (ARROW_IS_MOVE) return; // 箭头正在移动不能添加move事件
+                    arrowFllowMouse(e, _this, 'arrow');
+                });
+            }
+        }
+
+        function TextNode(data) {
+            this.data = data;
+            this.style = this.data.style || null;
+            this.extraClass = this.data.extraClass || '';
+            this.center = this.data.center;
+            this.input = this.data.input;
+            this.output = this.data.output;
+            this.text = this.data.text;
+            this.transform = this.data.transform;
+            // 用于存放生成的circle的实例，方便批量改变属性用
+            this.inputDom = [];
+            this.outputDom = [];
+
+            this.outputLineDom = []; // 用于存放点击后生成的line的实例，方便批量改变属性用
+            this.inputLineDom = []; // 用于存放input端点接受的line的实例，方便批量改变属性用
+
+            this.wrap = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+            this.g_path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+            this.g_path.setAttribute('class', 'node_border');
+            this.wrap.appendChild(this.g_path);
+            this.g_text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+            this.wrapAddEvent(this.wrap);
+        }
+        TextNode.prototype = {
+            constructor: TextNode,
+            init: function () {
+                this.setStyle();
+                this.setClass();
+                this.move();
+                this.hasInit = true;
+            },
+            move: function () {
+                this.calcCirclePos(this.input.length || 0, 'input');
+                this.calcCirclePos(this.output.length || 0, 'output');
+                if (!this.hasInit) this.creatCircle();
+                this.setPath();
+                this.setCircle();
+                this.setText();
+                this.setLineDom();
+            },
+            // 通过中心点生成 input 和 output 左边点
+            calcCirclePos: function (len, type) {
+                let c = this.center;
+                if (type == 'input') {
+                    // 通过节点的中心点左侧的端点坐标
+                    let lp = {
+                        x: c.x - (len * 2 - 1) * 10 / 2,
+                        y: c.y - 20
+                    };
+                    for (let i = 0; i < len; i++) {
+                        this.input[i].x = lp.x + (i * 4 + 1) * 5;
+                        this.input[i].y = lp.y;
+                    }
+                } else if (type == 'output') {
+                    // 通过节点的中心点左侧的端点坐标
+                    let lp = {
+                        x: c.x - (len * 2 - 1) * 10 / 2,
+                        y: c.y + 20
+                    };
+                    for (let i = 0; i < len; i++) {
+                        this.output[i].x = lp.x + (i * 4 + 1) * 5;
+                        this.output[i].y = lp.y;
+                    }
+                }
+            },
+            setStyle: function () {
+                let style = this.style;
+                for (let k in style) {
+                    this.wrap.setAttribute(k, style[k]);
+                }
+            },
+            setClass: function () {
+                this.wrap.setAttribute('class', `node ${this.extraClass || ''}`);
+            },
+            setPath: function () {
+                this.g_path.setAttribute('d', `M${this.center.x - 90},${this.center.y - 20} h180 a20,20,0,0,1,0,40 h-180 a20,20,0,0,1,0,-40 z`);
+            },
+            creatCircle: function () {
+                for (let i = 0; i < this.input.length; i++) {
+                    let pos = this.input[i];
+                    let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    g_circle.setAttribute('class', 'node_point');
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                    g_circle.setAttribute('r', pos.r || 5);
+                    g_circle.setAttribute('type', this.input[i].type);
+                    this.inputCricleAddEvent(this, g_circle, this.input[i], pos);
+                    this.wrap.appendChild(g_circle);
+                    this.inputDom.push(g_circle);
+                }
+                for (let i = 0; i < this.output.length; i++) {
+                    let pos = this.output[i];
+                    let g_circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+                    g_circle.setAttribute('class', 'node_point');
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                    g_circle.setAttribute('r', pos.r || 5);
+                    g_circle.setAttribute('type', this.output[i].type);
+                    this.outputCricleAddEvent(this, g_circle, this.output[i], pos);
+                    this.wrap.appendChild(g_circle);
+                    this.outputDom.push(g_circle);
+                }
+            },
+            setCircle: function () {
+                for (let i = 0; i < this.input.length; i++) {
+                    let pos = this.input[i];
+                    let g_circle = this.inputDom[i];
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                }
+                for (let i = 0; i < this.output.length; i++) {
+                    let pos = this.output[i];
+                    let g_circle = this.outputDom[i];
+                    g_circle.setAttribute('cx', pos.x);
+                    g_circle.setAttribute('cy', pos.y);
+                }
+            },
+            setText: function () {
+                this.g_text.setAttribute('x', this.center.x);
+                this.g_text.setAttribute('y', this.center.y);
+                this.g_text.innerHTML = this.text.text;
+                this.wrap.appendChild(this.g_text);
+            },
+            inputCricleAddEvent: function (target, circleDom, inputType, circlePos) {
+                circleDom.addEventListener('mouseover', function () {
+                    if (ARROW_IS_MOVE && !inputType.hasLink) {
+                        let lineType = currentLine.data.type;
+                        if (lineType == inputType.type) {
+                            console.log('绑定成功', inputType);
+                            // 变颜色 取消document上的move事件 并绑定
+
+                            circleDom.setAttribute('fill', lineType); // 没起作用
+                            inputType.hasLink = true;
+                            inputType.linkId = linkId;
+                            target.inputLineDom.push(currentLine);
+
+                            currentLine.data.point.end.x = circlePos.x;
+                            currentLine.data.point.end.y = circlePos.y;
+                            currentLine.init();
+
+                            document.removeEventListener('mousemove', documentEvent.lineMousemove);
+                            document.removeEventListener('mouseup', documentEvent.lineMouseup);
+                            documentEvent.lineMousemove = null;
+                            documentEvent.lineMouseup = null;
+                        } else {
+                            console.log('类型不符合，不能绑定', inputType);
+                        }
+                    } else {
+                        console.log('已经绑定', inputType);
+                    }
+                });
+            },
+            outputCricleAddEvent: function (target, circleDom, pointType, circlePos) {
+                linkId = Date.parse(new Date());
+                const line = new Line({
+                    extraClass: '',
+                    style: {},
+                    point: {
+                        start: circlePos,
+                        end: circlePos,
+                    },
+                    type: pointType.type,
+                    linkId : linkId
+                });
+                pointType.hasLink = true;
+                pointType.linkId = linkId;
+                linesWrap.appendChild(line.wrap);
+                circleDom.addEventListener('click', function (e) {
+                    line.init();
+                    arrowFllowMouse(e, line, 'circle');
+                });
+                target.outputLineDom.push(line);
+            },
+            setLineDom: function () {
+                for (let i = 0; i < this.inputLineDom.length; i++) {
+                    for (let j = 0; j < this.input.length; j++) {
+                        let line = this.inputLineDom[i];
+                        let input = this.input[j];
+                        if (input.hasLink && input.type == line.data.type && input.linkId == line.data.linkId) { // 该端点已绑定并且该端点类型和line是一样的才move
+                            line.data.point.end.x = this.input[j].x; // 为什么用j来判断呢，因为j对应input
+                            line.data.point.end.y = this.input[j].y;
+                            line.move();
+                        }
+                    }
+                }
+                for (let i = 0; i < this.outputLineDom.length; i++) {
+                    let line = this.outputLineDom[i];
+                    line.data.point.start.x = this.output[i].x;
+                    line.data.point.start.y = this.output[i].y;
+                    line.move();
+                }
+            },
+            wrapAddEvent: function () {
+                let target = this;
+                this.wrap.addEventListener('mousedown', function (e) {
+                    let { x = 0, y = 0 } = target.data.center;
+                    // console.log('mousedown', x, y, target.data.transform);
+                    let x1 = e.pageX;
+                    let y1 = e.pageY;
+                    function nodeMousemove(e) {
+                        let x2 = e.pageX;
+                        let y2 = e.pageY;
+                        let disx = x2 - x1;
+                        let disy = y2 - y1;
+                        target.data.center.x = x + disx;
+                        target.data.center.y = y + disy;
+                        // console.log('nodeMousemove', target.data.transform);
+                        target.move();
+                    }
+                    function nodeMouseup() {
+                        document.removeEventListener('mousemove', nodeMousemove);
+                        document.removeEventListener('mouseup', nodeMouseup);
+                    }
+                    document.addEventListener('mousemove', nodeMousemove);
+                    document.addEventListener('mouseup', nodeMouseup);
+                });
+            }
+        }
+
+        const node1 = new TextNode({
+            style: {
+            },
+            extraClass: '',
+            center: { x: 190, y: 120 },
+            input: [
+                {
+                    type: 'yellow',
+                    hasLink: false
+                },
+                {
+                    type: 'red',
+                    hasLink: false
+                },
+                {
+                    type: 'green',
+                    hasLink: false
+                },
+            ],
+            output: [
+                {
+                    type: 'yellow',
+                    hasLink: false
+                },
+                {
+                    type: 'red',
+                    hasLink: false
+                },
+                {
+                    type: 'green',
+                    hasLink: false
+                },
+            ],
+            text: {
+                text: '0文本内容'
+            },
+            transform: {}
+        });
+        node1.init();
+        nodesWrap.appendChild(node1.wrap);
+        nodes.push(node1);
+
+        const node2 = new TextNode({
+            style: {
+            },
+            extraClass: '',
+            center: { x: 300, y: 400 },
+            input: [
+                {
+                    type: 'yellow',
+                    hasLink: false
+                },
+                {
+                    type: 'red',
+                    hasLink: false
+                },
+                {
+                    type: 'green',
+                    hasLink: false
+                },
+            ],
+            output: [
+                {
+                    type: 'yellow',
+                    hasLink: false
+                },
+                {
+                    type: 'red',
+                    hasLink: false
+                },
+                {
+                    type: 'green',
+                    hasLink: false
+                },
+            ],
+            text: {
+                text: '1文本内容'
+            },
+            transform: {}
+        });
+        node2.init();
+        nodesWrap.appendChild(node2.wrap);
+        nodes.push(node2);
+
+
+
+
+
+    </script>
+</body>
+
+</html>

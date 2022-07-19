@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #msg li{
+            width:30%;
+            position:relative;
+        }
+        #msg li span{
+            color:brown;
+            cursor:pointer;
+            position:absolute;
+            right:-40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="msg_head">
+        消息总数：<span id="msg_num">0</span>
+    </div>
+    <ul id="msg">
+
+    </ul>
+    <div class="add">
+        <textarea name="" id="text_area" cols="30" rows="10"></textarea>
+        <input id="submit" type="button" value="提交">
+    </div>
+</body>
+<script>
+    // 创建一个观察者
+    const observer = (function () {
+        let _message = {};
+        function regist(type, fn) {
+            if (_message[type] === undefined) {
+                _message[type] = [fn];
+            } else {
+                _message[type].push(fn);
+            }
+            return observer;
+        }
+        function fire(type, message) {
+            if (_message[type] === undefined) return;
+            let len = _message[type].length;
+            for (let i = 0; i < len; i++) {
+                _message[type][i](message);
+            }
+            return observer;
+        }
+        function remove(type, fn) {
+            // remove的方法中，必须传入fn啊，不然你不知道删除哪一个方法
+            if (_message[type] === undefined) return;
+            let len = _message[type].length;
+            for (let i = len; i < 0; i--) {
+                if (_message[type][i] === fn) {
+                    _message[type].splice(i, 1);
+                    break;
+                }
+            }
+            return observer;
+        }
+        return {
+            regist,
+            fire,
+            remove,
+        }
+    })();
+    // observer.regist('color', function (data) {
+    //     console.log('color is : ', data.color);
+    // });
+    // observer.fire('color', {
+    //     color : 'red'
+    // });
+    // observer.remove('color');
+
+    // 下面要做一个留言板：可以发布、展示、删除
+
+    // 外观模式定义一个选择元素的快捷方法
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    // A开发者
+    // 注册发布模块(将)
+    (function () {
+        function addMsg(msg) {
+            let text = msg.text,
+                ul = $('msg'),
+                li = document.createElement('li'),
+                span = document.createElement('span');
+            li.innerHTML = text;
+            span.innerHTML = '删除';
+            span.onclick = function () {
+                console.log('删除')
+                ul.removeChild(li);
+                observer.fire('changeMsgNum', {
+                    num: -1
+                });
+            }
+            li.appendChild(span);
+            ul.appendChild(li);
+        }
+        observer.regist('addMsg', addMsg);
+    })();
+
+    // B开发者
+    // 更改消息数目
+    (function () {
+        function changeMsgNum(msg) {
+            let num = msg.num;
+            let now = $('msg_num').innerHTML;
+            $('msg_num').innerHTML = (parseInt(now) || 0) + num;
+        }
+        observer.regist('changeMsgNum', changeMsgNum)
+            .regist('addMsg', changeMsgNum);
+    })();
+
+    // C开发者
+    // 发布消息，展示并修改总数
+    (function (e) {
+        $('submit').onclick = function () {
+            let text = $('text_area');
+            if (text.value === '') return alert('请填写内容');
+            observer.fire('addMsg', {
+                text: text.value,
+                num: 1,
+            });
+            text.value = ''; // 文本域置空
+        }
+    })();
+
+    // 这样可以模块化开发，完全解耦了
+
+</script>
+
+</html>

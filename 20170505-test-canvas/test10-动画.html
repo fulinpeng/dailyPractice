@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #main{
+            width:50px;
+            height:50px;
+            background:red;
+        }
+    </style>
+</head>
+<body>
+<div id="btn">
+    <button>开始</button>
+    &nbsp;&nbsp;
+    <button>停止</button>
+</div>
+<div id="main"></div>
+<script>
+    const main=document.getElementById('main');
+    const btn=document.getElementsByTagName('button');
+
+    (function setAnimate() {
+        let lastTime=0;
+        if (!window.requestAnimationFrame) {
+            window.requestAnimationFrame = function (callback) {
+                const currTime = new Date().getTime();
+                const timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                const id = window.setTimeout(function () {
+                    callback(currTime + timeToCall);
+                }, timeToCall);
+                lastTime = currTime + timeToCall;
+                return id;
+            };
+        }
+        if (!window.cancelAnimationFrame) {
+            window.cancelAnimationFrame = function (id) {
+                clearTimeout(id);
+            };
+        }
+    })()
+
+    const arrtimer=[];
+    function animate() {
+        const speed=10;
+        const width=parseInt(getStyle(main, 'width'))+speed;
+        main.style.width=width+'px';
+        if (width<=1280){
+            main.style.width=width+'px';
+            arrtimer.push(requestAnimationFrame(animate));
+        }
+    }
+    function getStyle(obj, attr){
+        return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+    }
+    function cleartimer() {
+        arrtimer.map((e)=>{
+            cancelAnimationFrame(e);
+        })
+    }
+    btn[0].onclick=function () {
+        cleartimer();
+        main.style.width='50px';
+        requestAnimationFrame(animate);
+    }
+    btn[1].onclick=function () {
+        cleartimer()
+//        也可以换成:
+//        arrtimer.map((e)=>{
+//            clearTimeout(e);
+//        })
+    }
+</script>
+</body>
+</html>

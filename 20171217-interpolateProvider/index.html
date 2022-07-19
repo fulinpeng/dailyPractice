@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular-1.5.8.min.js"></script>
+</head>
+<body ng-controller="mainCtroller">
+    <input type="text" ng-model="body">
+    <!---------------------这里要用[[ ]]了-------------------->
+    <p>[[bodyText]]</p>
+</body>
+<script>
+    var app=angular.module('myApp', []);
+    app.config(['$interpolateProvider', '$logProvider', function ($interpolateProvider, $logProvider) {
+
+        /////////////////$interpolateProvider///////////////////
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+
+        /////////////////$logProvider///////////////////
+        $logProvider.debugEnabled(false);
+
+    }]);
+    app.controller('mainCtroller', ['$scope', '$log', function ($scope, $log) {
+
+        $scope.$watch('body', function (newBody) {
+            if (newBody) {
+                $scope.bodyText=newBody;
+            }
+        });
+
+        /////////////////$logProvider///////////////////
+        $log.debug('debug');
+
+
+    }]);
+</script>
+</html>

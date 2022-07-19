@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-4拖拽函数封装+磁性吸附</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#div1{
+		width:100px;
+		height:100px;
+		background:red;
+		position:absolute;
+	}
+	#img{
+		width:100px;
+		height:100px;
+		left:150px;
+		position:absolute;
+	}
+	#div2{
+		width:100px;
+		height:100px;
+		background:green;
+		position:absolute;
+		top:200px;
+		left:300px;
+	}
+	
+</style>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById('img');
+	var oDiv1=document.getElementById('div1');
+	
+	
+	drag(oImg);
+	drag(oDiv1);
+	
+	function drag( obj ){
+	obj.onmousedown=function(ev){
+		if(this.setCapture){
+			this.setCapture();
+		};
+		
+		var ev=ev || event;
+		var disX=ev.clientX - this.offsetLeft;
+		var disY=ev.clientY - this.offsetTop;
+		
+
+		
+		document.onmousemove=function(ev){
+			var ev=ev || event;
+			var x=ev.clientX - disX;
+			var y=ev.clientY - disY;	
+			if(x < 100){
+				x=0;
+			}else if(x > document.documentElement.clientWidth - obj.offsetWidth){
+				x=document.documentElement.clientWidth - obj.offsetWidth;
+			}else if(y < 0){
+				y=0;
+			}else if(y > document.documentElement.clientHeight - obj.offsetHeight){
+				y=document.documentElement.clientHeight - obj.offsetHeight;
+			};
+			
+			obj.style.left=x+'px';
+			obj.style.top=y+'px';
+		};
+		document.onmouseup=function(){
+			document.onmouseup=document.onmousemove=null;
+			if(this.releaseCapture){
+				this.releaseCapture();
+			};
+		};
+		return false;
+	};
+	};
+};
+	
+	
+	
+
+
+</script>
+</head>
+<body style="height:2000px;">
+<div id="div1" ></div>
+<img id="img" src="img/mouse.jpg"/>
+<div id="div2" ></div>
+
+</body>
+</html>

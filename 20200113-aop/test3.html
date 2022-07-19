@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // express中间件写法：express中间件写法:
+        // var express=require('express');
+        // var app=express();
+
+        // app.use(function (req, res, next) {
+        //     console.log('数据统计');
+        //     next();//执行权利传递给
+        // });
+        // app.use(function (req, res, next) {
+        //     console.log('日志统计');
+        //     next();
+        // });
+
+        // app.get('/', function (req, res, next) {
+        //     res.send('Hello World!');
+        // });
+
+        // app.listen(3000); //整个请求处理过程就是先数据统计、日志统计，最后返回一个Hello World！
+
+
+        function Middleware() {
+            this.cache=[];
+        }
+        // Middleware通过数组缓存中间件
+        Middleware.prototype.use=function (fn) {
+            if (typeof fn!=='function') {
+                throw 'middleware must be a function';
+            }
+            this.cache.push(fn);
+            return this;
+        }
+
+        Middleware.prototype.next=function (fn) {
+            if (this.middlewares&&this.middlewares.length>0) {
+                var ware=this.middlewares.shift();
+                // 为什么要用 call 和 bind ???
+                // ware最好也用call保证ware函数体能拿到Middleware的实例this
+                // 但next如果不用bind的话，下一次的next执行是window，next函数内部的this也指的window，就会停止执行
+                ware.call(this, this.next.bind(this));
+            }
+        }
+        Middleware.prototype.handleRequest=function () {//执行请求
+            this.middlewares=this.cache.map(function (fn) {//复制
+                return fn;
+            });
+            this.next();
+        }
+        var middleware=new Middleware();
+        middleware.use(function (next) {
+            console.log(1); next(); console.log('1结束');
+        });
+        middleware.use(function (next) {
+            console.log(2); next(); console.log('2结束');
+        });
+        middleware.use(function (next) {
+            console.log(3); console.log('3结束');
+        });
+        middleware.use(function (next) {
+            console.log(4); next(); console.log('4结束');
+        });
+        middleware.handleRequest();
+        //输出结果：
+        //1
+        //2
+        //3
+        //3结束
+        //2结束
+        //1 结束
+
+        // 可以看出：每一个中间件执行权利传递给下一个中间件并等待其结束以后又回到当前并做别的事情
+
+    </script>
+</body>
+
+</html>

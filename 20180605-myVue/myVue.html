@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-modle="name"/>{{name}}
+        <input type="text" v-modle="age"/>{{age}}
+        <span></span>{{name}}
+    </div>
+    <script>
+        function Vue(option) {
+            this.data = option.data;
+            var data = this.data;
+            observe(data, this);
+            var el = option.el;
+            var dom = new Compile(this, document.getElementById(el));
+            document.getElementById(el).appendChild(dom);
+        }
+
+        function observe(data, vm) {
+            Object.keys(data).forEach(function(key) {
+                defineReactive(vm, key, data[key]);
+            });
+        }
+
+        function defineReactive(vm, key, val) {
+            var dep = new Dep();
+            Object.defineProperty(vm, key, {
+                get: function() {
+                    // console.log('get', val);
+                    if (Dep.target) {
+                        dep.addSub(Dep.target);
+                    }
+                    return val;
+                },
+                set: function(newVal) {
+                    if (newVal === val) return;
+                    // console.log('set', newVal);
+                    val = newVal;
+                    dep.notify();
+                },
+            });
+        }
+
+        function Compile(vm, node) {
+            if (node) {
+                var frag = this.nodeToFragment(vm, node);
+                return frag;
+            }
+        }
+        Compile.prototype = {
+            constructor: Compile,
+            nodeToFragment: function(vm, node) {
+                var _frag = document.createDocumentFragment();
+                var child;
+                while (child = node.firstChild) {
+                    this.compileElement(vm, child);
+                    _frag.append(child);
+                }
+                return _frag;
+            },
+            compileElement: function(vm, vnode) {
+                var reg = /\{\{(.+)\}\}/g;
+                if (vnode.nodeType === 1) {
+                    var attrs = vnode.attributes;
+                    for (var i = 0; i < attrs.length; i++) {
+                        if (attrs[i].nodeName === 'v-modle') {
+                            var name = attrs[i].nodeValue;
+                            new Watcher(vm, vnode, name, 'value');
+                            vnode.value = vm[name];
+                            vnode.addEventListener('input', function(e) {
+                                vm[name] = e.target.value;
+
+                            });
+                        }
+                    }
+                } else if (vnode.nodeType === 3) {
+                    // console.log(vnode.nodeValue);
+                    if (reg.test(vnode.nodeValue)) {
+                        var name = RegExp.$1.trim();
+                        new Watcher(vm, vnode, name, 'nodeValue');
+                        vnode.nodeValue = vm[name];
+                    }
+                }
+            }
+        }
+
+        function Watcher(vm, node, name, type) {
+            Dep.target = this;
+            this.vm = vm;
+            this.node = node;
+            this.name = name;
+            this.type = type;
+            this.update(); // 每个watcher只执行一次
+            Dep.target = null;
+        }
+        Watcher.prototype = {
+            constructor: Watcher,
+            update: function() {
+                this.get();
+                var batcher = new Batcher();
+                batcher.push(this);
+            },
+            get: function() {
+                this.value = this.vm[this.name];
+            },
+            cb: function() {
+                this.get();
+                // console.log(this.value);
+                this.node[this.type] = this.value;
+            }
+        }
+
+        // 这是观察者列表
+        function Dep() {
+            this.subs = [];
+            setTimeout(()=>{
+                // 打印出来，全是dom
+                console.log('@@@Dep.subs', this.subs)
+            }, 1000);
+        }
+        Dep.prototype = {
+            constructor: Dep,
+            addSub: function(sub) {
+                this.subs.push(sub);
+            },
+            notify: function() {
+                this.subs.forEach((sub) => {
+                    // console.log(sub);
+                    sub.update();
+                    // sub.cb();
+                })
+            }
+        }
+
+        // Batcher 就是更新绑定过的数据，但是可以直接调用sub.cb()嘛，这里显得多此一举，不知道该怎么理解？？？
+        // 这是一个队列，现在懂了嘛
+        function Batcher() {
+            this.reset();
+        }
+        Batcher.prototype = {
+            constructor: Batcher,
+            reset: function() {
+                this.has = {};
+                this.queue = [];
+                this.waiting = false;
+            },
+            push: function(job) {
+                if (!this.has[job.name]) {
+                    this.queue.push(job);
+                    this.has[job.name] = job;
+                    if (!this.waiting) {
+                        this.waiting = true;
+                        setTimeout(() => {
+                            this.flush();
+                        });
+                    }
+                }
+            },
+            flush: function() {
+                this.queue.forEach((job) => {
+                    job.cb();
+                });
+                this.reset();
+            }
+        }
+
+        var vm = new Vue({
+            el: 'app',
+            data: {
+                name: 'flp',
+                age: 22,
+            }
+        });
+        // console.log(vm);
+
+        // 学习总结：
+        // 1. 这样封装一个MVVM库，感觉很简单、清晰、又实用，面向对象编程思想真牛
+        // 2. 也是一个很经典的设计模式运用实例
+        // 3. 整体架构再回顾一次：
+        //    1) defineReactive 里面重定义data每个字段的 setter 和 getter
+        //       并实现注册、更新 dep ，用来管理所有data字段对应的 dep
+        //       因为它是闭包函数，数据存活周期同Vue对象本身
+        //    2) compile 用来编译原来 #app 中的dom，返回真实dom
+        //       编译的同时注册 watcher 到 dep 中，给表单绑定事件函数等
+        //    3) watcher 保存了 key 的值、类型，提供更新的方法(DOM到data 或者 data到DOM)
+        //       同时， batcher 插件要在这里插入
+        //       watcher通过get方法来订阅(不知道，是不是对的哈...)
+        //       watcher更新值的时候，不是更新vue的data，是更新属性所在的dom上的具体值
+        //    4) dep 是个存放观察者的列表
+        //    5) batcher 相当于一个插件，将更新dom的操作移动到异步队列中去
+        //       同时 batcher 要维护当前哪些dom需要更新，当他们更新后要重置 batcher
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态规划计算斐波那契数列</title>
+</head>
+
+<body>
+    <script>
+        var start, end, res;
+
+        // 递归
+        function recurFib(n) {
+            if (n<=2) {
+                return 1;
+            }
+            var res=recurFib(n-1)+recurFib(n-2);
+            return res;
+        }
+
+        start=Date.now();
+        res=recurFib(40); // 改为 50 就卡死了😂
+        end=Date.now();
+        console.log('   递归结果：', res, '用时：', end-start);
+
+        // 动态规划
+        // 1. 归纳子问题
+        // 2. 实现需要迭代执行的部分(子问题)
+        // 3. 计算边界条件
+        function dynFib(n) {
+            var arr=[0, 1, 1];
+            if (n<=2) {
+                return arr[n]
+            }
+            for (var i=3;i<=n;i++) {
+                arr[i]=arr[i-1]+arr[i-2]
+            }
+            return arr[n];
+        }
+
+        start=Date.now();
+        res=dynFib(1000000);
+        end=Date.now();
+        console.log('动态规划结果：', res, '用时：', end-start); // 25ms
+
+        // 迭代(动态规划升级版)
+        function iterFib(n) {
+            var last=1, nextLast=1, res=1;
+            for (var i=3;i<=n;i++) {
+                res=last+nextLast;
+                last=nextLast;
+                nextLast=res;
+            }
+            return res;
+        }
+
+        start=Date.now();
+        res=iterFib(1000000);
+        end=Date.now();
+        console.log('迭代结果：', res, '用时：', end-start); // 10ms
+
+        function recurFib(n) {
+            if (n<2) return 1;
+            var stack=[1, 1];
+            var num=3;
+            while (num<=n) {
+                var [one, two]=stack;
+                stack.shift();
+                stack.push(one+two);
+                num++;
+            }
+            return stack[1];
+        }
+
+        start=Date.now();
+        res=recurFib(1000000);
+        end=Date.now();
+        console.log('迭代结果：', res, '用时：', end-start); // 20ms，可能做了栈的操作
+
+    </script>
+</body>
+
+</html>

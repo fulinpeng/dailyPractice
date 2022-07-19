@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>论坛</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../css/luntan.css"/>
+    <link rel="stylesheet" href="../../css/base.css"/>
+
+</head>
+<body>
+@@include("../include/header.html")
+<div class="l_left">
+    <ul class="l_menu">
+        <li class="l_active"><span class="iconfont">&#xe600;</span><a href="#">&nbsp; 技术交流</a></li>
+        <li><span class="iconfont">&#xe606;</span><a href="#">&nbsp; 我要吐槽</a></li>
+        <li><span class="iconfont">&#xe64e;</span><a href="#">&nbsp; 美丽回忆</a></li>
+    </ul>
+    <div class="l_line1"></div>
+    <div class="l_img">
+        <img src="../../images/recycle.jpg" alt=""/>
+    </div>
+</div>
+<div class="l_right">
+    <div class="l_titie">
+        <div class="l_text1 inline">技术交流</div>
+        <div class="l_text2 inline"><span class="l_text2" id="tzsum"></span>&nbsp;帖子</div>
+        <div class="l_text2 inline" id="l_date"><span class="iconfont l_text2">&#xe67c;</span>&nbsp;2017-2-20</div>
+        <div class="ltbtn inline l_new">新主题</div>
+    </div>
+    <div class="l_content">
+
+    </div>
+    <div class="r_page" id="page"></div>
+</div>
+
+@@include("../include/footer.html")
+</body>
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/luntan.js"></script>
+</html>

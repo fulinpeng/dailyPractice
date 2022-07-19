@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function myAsync(genFn) {
+            return new Promise(function (resolve, reject) {
+                let gen = genFn();
+                function step(genNextFn) {
+                    let next = null;
+                    try {
+                        next = genNextFn();
+                    } catch (error) {
+                        return reject(error);
+                    }
+                    if (next.done) {
+                        return resolve(next.value);
+                    }
+                    Promise.resolve(next.value).then(function (v) {
+                        step(() => gen.next(v));
+                    }, function (e) {
+                        step(() => gen.throw(e));
+                    });
+                }
+                step(() => gen.next(undefined));
+            });
+        }
+
+        myAsync(function* () {
+            let res1 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(1), 1000);
+            });
+            let res2 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(2 + res1), 1000);
+            });
+            console.log('~~~~', res2);
+        });
+    </script>
+</body>
+
+</html>

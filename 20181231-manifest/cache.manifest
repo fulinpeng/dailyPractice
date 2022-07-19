@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# 2018-12-31 v1.0.1
+
+CACHE:
+index.html
+main.js
+1.jpg
+main.css
+
+NETWORK:
+*
+
+FALLBACK:
+/html5/ 404.html

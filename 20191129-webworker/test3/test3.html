@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>webworker</title>
+</head>
+
+<body>
+    <script>
+        function createWorker(f) {
+            var blob = new Blob(['(' + f.toString() + ')()']);
+            var url = window.URL.createObjectURL(blob);
+            var worker = new Worker(url);
+            return worker;
+        }
+
+        var pollingWorker = createWorker(function (e) {
+            var self = this;
+            function fetchData() {
+                fetch('https://jsonplaceholder.typicode.com/posts/1')
+                    .then(res => res.json())
+                    .then(function (res) {
+                        self.postMessage(res);
+                    })
+
+                setTimeout(fetchData, 2000)
+            }
+            fetchData();
+        });
+
+        pollingWorker.onmessage = function (event) {
+            console.log('res: ', event.data);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>模仿 短信发布</title>
+<style>
+  #content{
+    width:289px;
+	height:594px;
+	margin:20px auto 0;
+	overflow:hidden;
+	background:url("img/xinxi1.jpg");
+  }
+  #contenter{
+    width: 237px;
+    height: 422px;
+    margin-top: 83px;
+    margin-left: 23px;
+    border: 3px solid #000;
+  }
+  #main{
+    width:227px;
+	height:355px;
+	overflow:auto;
+	padding:10px 5px 5px 5px;
+	border-bottom:1px solid #f1f1f1;
+  }
+  #main2{
+    width:237px;
+	height:52px;
+	padding-top:10px;
+  }
+  #img{
+    width:30px;
+	height:30px;
+	display:block;
+	float:left;
+	margin-left:5px;
+    border-radius:5px ;
+	border: 2px solid #ccc;
+  }
+  #input{
+    width: 135px;
+    height: 30px;
+	margin-left:5px;
+	float:left;
+	border: 2px solid #ccc;
+    border-radius:5px;
+  }
+  #send{
+    width:50px;
+	height:30px;
+	float:left;
+	font-size:24px;
+  }
+  a{
+    text-decoration:none;
+	color:#000;
+  }
+  #cancel{
+    width:43px;
+	height:43px;
+	margin:15px auto;
+	border-radius:20px;
+  }
+  #cancel a{
+    width:43px;
+	height:43px;
+	display:block;
+  }
+  .me{
+    width:215px;
+	padding:5px 0;
+	height:auto ;
+	float:left;
+  }
+  .img1{
+    width:30px;
+	height:30px;
+	float:left;
+	margin-right:5px;
+  }
+  .p1{
+    margin:0;
+    max-width:180px;
+	float:left;
+	background-color:rgba(75, 239, 58, 0.59);
+  }
+  .you{
+    width:215px;
+	height:auto ;
+	padding:5px 0;
+	float:left;
+  }
+  .img2{
+    width:30px;
+	height:30px;
+	float:right;
+	margin-right:5px;
+  }
+  .p2{
+    margin:0;
+    max-width:180px;
+	float:right;
+	background-color:rgba(212, 200, 200, 0.45);
+  }
+</style>
+
+
+<script>
+ 
+ window.onload=function(){
+   var oMain=document.getElementById('main');
+   var oInput=document.getElementById('input');
+   var oSend=document.getElementById('send');
+   var oImg=document.getElementById('img');
+   var oCancel=document.getElementById('cancel');
+   var text='';
+   var yes=true;
+   
+   //初始化，执行头像是qq1，以you来发送；
+   oImg.src='img/qq2.png';
+   oSend.onclick=sendme;
+   
+   //添加内容的函数--me
+   function sendme(){
+     if(oInput.value==''){
+	   alert('请输入内容');
+	 }else{
+	   text +='<div class="me"><img class="img1" src="img/qq2.png" /><p  class="p1">说：' + oInput.value + '</p></div>';
+       oMain.innerHTML=text;
+     };
+	 
+     oInput.value='';
+   };
+
+   
+   //添加内容函数--you
+   function sendyou(){
+     if(oInput.value==''){
+	   alert('请输入内容！');
+	 }else{
+	   text +='<div class="you"><img class="img2" src="img/qq1.png" /><p class="p2">说：' + oInput.value + '</p></div>';
+	 };
+	 oInput.value='';
+     oMain.innerHTML=text;
+   };
+   
+   
+   //改变头像的函数
+   oImg.onclick=function (){
+     if(yes){
+	   oImg.src='img/qq1.png';
+	   oSend.onclick=sendyou;
+	   yes=false;
+	 }else{
+	   oImg.src='img/qq2.png';
+	   oSend.onclick=sendme;
+	   yes=true;
+	 };
+   };
+   //清除main中的多有东西；
+   oCancel.onclick=function(){
+     main.innerHTML='';
+   
+   };
+   
+   
+   
+ };
+  
+
+
+</script>
+</head>
+<body>
+   <p>1、父级元素的高不能自动适应，的原因是：没有设置float属性</p>
+   <p>2、超出父级元素的区域，显示滚动条，用：overflow:auto;</p>
+   <div id="content">
+     <div id="contenter">
+	   <div id="main">
+        <!--内容由js来填充-->
+	   </div>
+	   <div id="main2">
+	     <img id="img" src="img/qq1.png"/>
+	     <input type="text" id="input"/>
+		 <div id="send"><a href="javascript:;">发送</a></div>
+	   </div>
+	 </div>
+	 <div id="cancel"><a href="javascript:;"></a><div>
+   </div>
+   
+   
+   
+   
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+		background-color: #A8B4C6;
+	}
+	#btn{
+		text-align:center;
+		width:900px;
+		height:30px;
+		margin-bottom:10px;
+	}
+	#btn input{
+		margin-right:60px;
+	}
+	#body{
+		width:900px;
+		margin:10px auto 20px;
+	}
+	#main1{
+		width:400px;
+		height:300px;
+		float:left;
+		position:relative;
+	}
+	#jpg{
+		width:400px;
+		height:300px;
+		position:absolute;
+	}
+	#tit1{
+		width:400px;
+		line-height:30px;
+		text-align:center;
+		background:#666;
+		color:#fff;
+		position:absolute;
+		top:0;
+		filter:alpha(opacity:60);
+		opacity:0.6;
+	}
+	#detail1{
+		width:400px;
+		line-height:30px;
+		text-align:center;
+		background:#666;
+		color:#fff;
+		position:absolute;
+		bottom:0;
+		filter:alpha(opacity:50);
+		opacity:0.5;
+	}
+	#main2{
+		width:300px;
+		height:400px;
+		margin-left:40px;
+		float:left;
+		position:relative;
+	}
+	#png{
+		width:300px;
+		height:400px;
+		position:absolute;
+	}
+	#tit2{
+		width:300px;
+		line-height:30px;
+		text-align:center;
+		background:#666;
+		color:#fff;
+		position:absolute;
+		top:0;
+		filter:alpha(opacity:60);
+		opacity:0.6;
+	}
+	#detail2{
+		width:300px;
+		line-height:30px;
+		text-align:center;
+		background:#666;
+		color:#fff;
+		position:absolute;
+		bottom:0;
+		filter:alpha(opacity:60);
+		opacity:0.6;
+	}
+	
+</style>
+<script>
+	window.onload=function(){
+		var oJpg=document.getElementById('jpg');
+		var oPng=document.getElementById('png');
+		var oTit1=document.getElementById('tit1');
+		var oTit2=document.getElementById('tit2');
+		var oDetail1=document.getElementById('detail1');
+		var oDetail2=document.getElementById('detail2');
+		var oNext=document.getElementById('next');
+		var oPre=document.getElementById('pre');
+		
+		var aJpg=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'];
+		var aDetail1=['图片1.jpg','图片2.jpg','图片3.jpg','图片4.jpg'];
+		var num=0;
+		
+		var aPng=['img/1.png','img/2.png','img/3.png'];
+		var aDetail2=['图片1.png','图片2.png','图片3.png'];
+		var num2=0;
+		
+		//初始化
+		function fnJpg1(){
+		oJpg.src=aJpg[num];
+		oTit1.innerHTML=num+1 +'/'+ aJpg.length;
+		oDetail1.innerHTML=aDetail1[num];
+		};
+		fnJpg1();
+		//图片点击事件
+		function fnJpgOnclick(){
+			
+			num++;
+			
+			if(num==aJpg.length){
+				num=0;
+			};
+			fnJpg1();
+		};
+		oJpg.onclick=function(){
+			fnJpgOnclick();
+			
+		};
+		//图片切换到上一张
+		function fnJpgPre(){
+			num--;
+			if(num==-1){
+				num=aJpg.length-1;
+			};
+			oJpg.src=aJpg[num];
+			oTit1.innerHTML=num+1 +'/'+ aJpg.length;
+			oDetail1.innerHTML=aDetail1[num];
+
+		};
+		//上一组按钮点击事件
+		oPre.onclick=function(){
+			fnJpgPre();
+			fnPngPre();
+		};
+		//下一组按钮点击事件
+		oNext.onclick=function(){
+			fnJpgOnclick();
+			fnPngNext();
+		};
+		//初始化
+		function fnPng1(){
+			oPng.src=aPng[num2];
+			oTit2.innerHTML=num2+1 +'/'+ aPng.length;
+			oDetail2.innerHTML=aDetail2[num2];
+		};
+		fnPng1();
+		//图片点击事件
+		function fnPngNext(){
+			num2++;
+			if(num2==aPng.length){
+				num2=0;
+			};
+			fnPng1();
+		};
+		oPng.onclick=function(){
+			fnPngNext();
+			
+		};
+		//图片切换到上一张
+		function fnPngPre(){
+			num2--;
+			if(num2==-1){
+				num2=aPng.length-1;
+			};
+			fnPng1();
+		};
+	};
+</script>
+</head>
+<body>
+<div id="body">
+<div id="btn">
+<input id="pre" type="button" value="上一组"/>
+<input id="next" type="button" value="下一组"/>
+</div>
+	<div id="main1">
+		<img id="jpg" src=""/>
+		<span id="tit1"></span>
+		<p id="detail1"></p>
+	</div>
+	<div id="main2">
+		<img id="png" src=""/>
+		<span id="tit2"></span>
+		<p id="detail2"></p>
+	</div>
+	
+	
+	
+</div>
+</body>
+</html>

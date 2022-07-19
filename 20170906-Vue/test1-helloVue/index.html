@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .white{
+            background:green;
+            height:20px;
+        }
+        .yellow{
+            border:10px solid yellow;
+        }
+        .red{
+            color:red;
+        }
+    </style>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message }}</p>
+    </div>
+
+    <div id="app-2">
+      <span v-bind:title="message">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！
+      </span>
+    </div>
+
+    <div id="app-3">
+        <p v-if="seen">现在你看到我了</p>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+
+    <div id="app-7">
+        <ol>
+            <todo-item></todo-item>
+        </ol>
+    </div>
+
+    <div id="app-8">
+        <ol>
+            <todo-item
+                    v-for="item in groceryList"
+                    v-bind:key="item.id"
+                    v-bind:todo="item"
+            ></todo-item>
+        </ol>
+    </div>
+
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </div>
+
+    <div id="color" class="white"
+         v-bind:class="{ yellow: isyellow, 'red': isred }">
+        this is a paragraph！
+    </div>
+
+
+
+
+</body>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            message:'hello Vue!'
+        }
+    });
+
+    var app2 = new Vue({
+        el:'#app-2',
+        data:{
+            message:'页面加载于 ' + new Date().toLocaleString()
+        }
+    });
+
+    var app3 = new Vue({
+        el:'#app-3',
+        data:{
+            seen:1==1
+        }
+    });
+
+    var app4 = new Vue({
+        el:'#app-4',
+        data:{
+            todos:[
+                {text:111111111111},
+                {text:222222222222},
+                {text:333333333333},
+                {text:444444444444}
+            ]
+        }
+    });
+
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            message: 'Hello Vue.js!'
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    });
+
+    var app6 = new Vue({
+        el: '#app-6',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Vue.component('todo-item', {
+        template: '<li>这是个待办项</li>'
+    });
+    var app7 = new Vue({
+        el: '#app-7'
+    });
+
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    });
+    var app8 = new Vue({
+        el: '#app-8',
+        data: {
+            groceryList: [
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便其他什么人吃的东西' }
+            ]
+        }
+    });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello'
+        },
+        computed: {
+            reversedMessage: function () {
+                return this.message.split('').reverse().join('')
+            }
+        }
+    });
+    var vm10= new Vue({
+        el: '#color',
+        data: {
+            isyellow: true,
+            isred: true
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,115 @@
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+li,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  font-family: "Microsoft Yahei", sans-serif;
+  list-style: none;
+  cursor: default;
+}
+input,
+img {
+  margin: 0;
+  padding: 0;
+  border: 0 none;
+  outline-style: none;
+  vertical-align: bottom;
+}
+a,
+a:active,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #333;
+}
+
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+i {
+  font-style: normal;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 使用伪元素清除浮动 */
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: none;
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+label {
+  display: inline-block;
+  cursor: pointer;
+}
+body{
+  background: #eff3f6;
+  color: #333333;
+}
+
+@media screen and (max-width: 1024px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+  .visible-mobile {
+    display: initial !important;
+  }
+}
+.visible-mobile {
+  display: none;
+}
+
+.sig-ellipsis {
+  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.mul-ellipsis {
+  white-space: normal;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.v-visible {
+  visibility: visible !important;
+}
+.v-hidden {
+  visibility: hidden !important;
+}
+#root {
+  letter-spacing: 0;
+  font-size:0.14rem;
+}
+.display-none{
+  display: none;
+}

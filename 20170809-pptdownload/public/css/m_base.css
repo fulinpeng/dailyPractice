@@ -1,0 +1,91 @@
+
+body,ul,p,h1,h2,div,li,section{
+    padding:0;
+    margin:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul,li{
+    list-style:none;
+}
+html{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+body{
+    width: 100%;
+    height: 100%;
+    color:rgb(58,58,58);
+    font-size:0.16rem;
+    font-family: "Microsoft Yahei ui", "微软雅黑";
+}
+a{
+    text-decoration:none;
+}
+.clear::after{
+    content: "";
+    display:block;
+    height:0;
+    clear:both;
+}
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+footer{
+    width: 100%;
+    height: 100%;
+    background:#3a3e7a;
+    padding-top: 0.25rem;
+}
+footer .linkbox{
+    width:100%;
+    position:relative;
+}
+.linkbox .link-img{
+    width:100%;
+    float:left;
+    height:2.1rem;
+    background: url('../images/map.png') no-repeat center center;
+    background-size: 90% auto;
+}
+.linkbox .link-ul{
+    color:white;
+    float:right;
+    font-size:0.14rem;
+    line-height: 0.3rem;
+    text-align: right;
+    margin-right:5%;
+}
+.linkbox .link-ul li{
+    width:0.6rem;
+    border-bottom:1px solid #5a5d8f;
+}
+.linkbox .link-ul li:nth-child(1){
+    margin-bottom:0.1rem;
+    border-bottom:none;
+}
+.linkbox .link-ul li:nth-last-child{
+    border-bottom:none;
+}
+.linkbox .link-ul li a{
+    color:white;
+}
+.copyright{
+    margin: 0.2rem auto;
+    font-size: 0.12rem;
+    line-height: 0.2rem;
+    width: 90%;
+}
+.copyright p:nth-child(1){
+    color:#737377;
+}
+.copyright p:nth-child(2){
+    color:white;
+}
+
+
+

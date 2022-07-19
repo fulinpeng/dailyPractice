@@ -1,0 +1,1 @@
+module.exports = test => test.replace(/\.spec\.js$/, '.js')

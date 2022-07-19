@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-17-2正则-replace和|</title>
+
+<script>
+window.onload=function(){
+	var oText1=document.getElementById('text1');
+	var oText2=document.getElementById('text2');
+	var oBtn=document.getElementById('btn');
+	oBtn.onclick=function(){
+		var re=/们|我|的|是|他/g;
+		oText2.value=oText1.value.replace(re,'##');
+	};
+};
+</script>
+</head>
+<body>
+替换前<textarea id="text1" rows="6" cols="30"></textarea><br/>
+<input id="btn" type="button" value="替换"/><br/>
+替换后<textarea id="text2" rows="6" cols="30"></textarea><br/>
+
+</body>
+</html>

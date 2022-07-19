@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //封装前
+    var name = "foo"; //name是全局的，被暴露
+    i = 1; //全局的，没有var关键字声明的变量是全局的，与位置关系不大
+    function show() { //show 是全局的，被暴露
+        console.log("name->" + name, ++i);
+    }
+    show(); //i是全局的 2
+    show(); //3
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //封装后
+    //对外只暴露bar，使用闭包封装
+    var bar = function () {
+        var i = 1;
+        return {
+            name: "bar",
+            show: function () {
+                console.log("name->" + this.name, ++i);
+            }
+        };
+    };
+    var bar1 = bar();
+    bar1.show(); //2
+    bar1.show(); //3
+    var bar2 = bar();
+    bar2.show(); //2，因为被封装，且闭包，i是局部私有的
+
+</script>
+
+</html>

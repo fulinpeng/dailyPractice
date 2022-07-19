@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .imgbox {
+            width: 100%;
+            min-height: 150px;
+            margin: 20px 0;
+            border: 1px solid red;
+        }
+
+        .imgbox img {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="imgbox"><img data-original="../images/1.jpg"/></div>
+<div class="imgbox"><img data-original="../images/2.jpg"/></div>
+<div class="imgbox"><img data-original="../images/3.jpg"/></div>
+<div class="imgbox"><img data-original="../images/4.jpg"/></div>
+<div class="imgbox"><img data-original="../images/5.jpg"/></div>
+<div class="imgbox"><img data-original="../images/6.jpg"/></div>
+<div class="imgbox"><img data-original="../images/7.jpg"/></div>
+<div class="imgbox"><img data-original="../images/8.jpg"/></div>
+<div class="imgbox"><img data-original="../images/9.jpg"/></div>
+<div class="imgbox"><img data-original="../images/1.jpg"/></div>
+<div class="imgbox"><img data-original="../images/2.jpg"/></div>
+<div class="imgbox"><img data-original="../images/3.jpg"/></div>
+<div class="imgbox"><img data-original="../images/4.jpg"/></div>
+<div class="imgbox"><img data-original="../images/5.jpg"/></div>
+<div class="imgbox"><img data-original="../images/6.jpg"/></div>
+<div class="imgbox"><img data-original="../images/7.jpg"/></div>
+<div class="imgbox"><img data-original="../images/8.jpg"/></div>
+<div class="imgbox"><img data-original="../images/9.jpg"/></div>
+<div class="imgbox"><img data-original="../images/1.jpg"/></div>
+<div class="imgbox"><img data-original="../images/2.jpg"/></div>
+<div class="imgbox"><img data-original="../images/3.jpg"/></div>
+<div class="imgbox"><img data-original="../images/4.jpg"/></div>
+<div class="imgbox"><img data-original="../images/5.jpg"/></div>
+<div class="imgbox"><img data-original="../images/6.jpg"/></div>
+<div class="imgbox"><img data-original="../images/7.jpg"/></div>
+<div class="imgbox"><img data-original="../images/8.jpg"/></div>
+<div class="imgbox"><img data-original="../images/9.jpg"/></div>
+<div class="imgbox"><img data-original="../images/1.jpg"/></div>
+<div class="imgbox"><img data-original="../images/2.jpg"/></div>
+<div class="imgbox"><img data-original="../images/3.jpg"/></div>
+<div class="imgbox"><img data-original="../images/4.jpg"/></div>
+<div class="imgbox"><img data-original="../images/5.jpg"/></div>
+<div class="imgbox"><img data-original="../images/6.jpg"/></div>
+<div class="imgbox"><img data-original="../images/7.jpg"/></div>
+<div class="imgbox"><img data-original="../images/8.jpg"/></div>
+<div class="imgbox"><img data-original="../images/9.jpg"/></div>
+
+</body>
+<script>
+
+    var img = document.getElementsByTagName('img'),
+        n = 0;
+    function lazyload() {
+        var top = document.body.scrollTop + window.innerHeight,
+            imgTop;
+        for (var i = n; i < img.length; i++) {
+            imgTop = img[i].offsetTop;
+            if (imgTop <= top) {
+                img[i].src = img[i].getAttribute('data-original');
+                n = i;
+            }
+            console.log(n);
+        }
+        if (n == img.length - 1) {
+            onscroll = null;
+        }
+    }
+    //简单的节流函数
+    //func 要执行的函数
+    //delay 延迟
+    //time 在time时间内必须执行一次
+
+    function throttle(func, delay, time) {
+        var timeout,
+            startTime = new Date();
+        return function () {
+            var context = this,
+                args = arguments,
+                curTime = new Date();
+            clearTimeout(timeout);
+            // 如果达到了规定的触发时间间隔，触发 handler
+            if (curTime - startTime >= time) {
+                func.apply(context, args);
+                startTime = curTime;
+                // 没达到触发间隔，重新设定定时器
+            } else {
+                timeout = setTimeout(func, delay, context, args);
+            }
+        }
+    }
+    // 绑定到scroll事件上
+    window.addEventListener('scroll', throttle(lazyload, 500, 1000));
+    window.onload = throttle(lazyload, 500, 1000);
+
+
+</script>
+</html>

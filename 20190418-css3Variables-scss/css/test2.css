@@ -1,0 +1,305 @@
+@import url("http://fonts.googleapis.com/css?family=Droid+Sans");
+html,
+body,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #333;
+}
+
+.block {
+  text-align: center;
+}
+.block h1 {
+  color: #d94e37;
+}
+.rotate {
+  -webkit-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+}
+
+/* This CSS will print because %message-shared is extended. */
+.warning, .error, .success, .message {
+  padding: 10px;
+  margin: 10px;
+  color: #333;
+  background: gray;
+}
+
+.message_box {
+  display: flex;
+  flex-flow: wrap row;
+}
+
+.attention, .message {
+  font-size: 2em;
+}
+
+.success {
+  background: green;
+}
+
+.error {
+  background: red;
+}
+
+.warning {
+  background: yellow;
+}
+
+.container {
+  width: 100%;
+  overflow: hidden;
+}
+
+article[role=main] {
+  background: salmon;
+  float: left;
+  height: 100px;
+  width: 62.5%;
+}
+
+aside[role=complementary] {
+  background: seagreen;
+  float: right;
+  height: 100px;
+  width: 31.25%;
+}
+
+.funky {
+  font-family: fantasy;
+  font-size: 30em;
+  font-weight: bold;
+}
+
+#main {
+  width: 5em;
+}
+
+#sidebar {
+  width: 5em;
+}
+
+body.firefox .header:before {
+  content: "Hi, Firefox users!";
+  margin: 10px 15px 0 0;
+}
+
+p {
+  font: 10px/8px;
+  width: 500px;
+  width: 1;
+  height: 250px;
+  margin-left: 9px;
+  font: italic bold 10px/8px;
+}
+
+.p1 {
+  width: 7em;
+}
+
+p.foo {
+  border-color: blue;
+}
+
+.p2 {
+  font: 12px/30px;
+}
+
+.foo.bar .baz.bang .foo.bar .baz.bang, .foo.bar .baz.bang .bip.qux, .bip.qux .foo.bar .baz.bang, .bip.qux .bip.qux {
+  color: yellowgreen;
+}
+
+#main {
+  content: "First content";
+  new-content: "First time reference";
+}
+
+#main2 .example {
+  color: red;
+}
+
+.first, .second, .third {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+.second, .third {
+  border-width: 3px;
+}
+
+.third {
+  position: fixed;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+}
+
+a, #fake-links .link {
+  color: blue;
+}
+a:hover, #fake-links .link:hover {
+  text-decoration: underline;
+}
+
+p {
+  border: 1px solid;
+}
+
+p {
+  color: green;
+}
+
+.wrap .item-1 {
+  width: 2em;
+}
+.wrap .item-2 {
+  width: 4em;
+}
+.wrap .item-3 {
+  width: 6em;
+}
+
+.wrap2 .item-1 {
+  width: 2em;
+}
+.wrap2 .item-2 {
+  width: 4em;
+}
+
+.puma-icon {
+  background-image: url("/images/puma.png");
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+}
+
+.salamander-icon {
+  background-image: url("/images/salamander.png");
+}
+
+.puma-icon {
+  background-image: url("/images/puma.png");
+  border: 2px solid black;
+  cursor: default;
+}
+
+.sea-slug-icon {
+  background-image: url("/images/sea-slug.png");
+  border: 2px solid blue;
+  cursor: pointer;
+}
+
+.egret-icon {
+  background-image: url("/images/egret.png");
+  border: 2px solid white;
+  cursor: move;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+.wrap_while .item-6 {
+  width: 12em;
+}
+.wrap_while .item-4 {
+  width: 8em;
+}
+.wrap_while .item-2 {
+  width: 4em;
+}
+
+.page-title {
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff0000;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+p {
+  border-color: steelblue;
+  border-width: 1in;
+  border-style: dashed;
+}
+
+h1 {
+  border-color: steelblue;
+  border-width: 2in;
+  border-style: dashed;
+}
+
+.shadows {
+  -moz-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+}
+
+.primary {
+  color: #ff0000;
+  background-color: #00ff00;
+  border-color: #0000ff;
+}
+
+.secondary {
+  color: #00ff00;
+  background-color: #0000ff;
+  border-color: #ff0000;
+}
+
+* html #logo {
+  background-image: url(/logo.gif);
+}
+
+.colors {
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+
+#sidebar {
+  width: 300px;
+}
+#sidebar nav {
+  width: 100px;
+}
+
+#sidebar {
+  color: red;
+}
+
+#sidebar {
+  color: yellowgreen;
+}
+
+#sidebar {
+  color: steelblue;
+}
+
+#sidebar {
+  width: 14px;
+}
+
+/*# sourceMappingURL=test2.css.map */

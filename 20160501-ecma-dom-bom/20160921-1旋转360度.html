@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-21-1旋转360度.html</title>
+<style>
+img{margin:0 auto;position:absolute;top:10px;left:50px;}
+</style>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById('img1');
+	var aImg=document.getElementsByTagName('img');
+	var oLastImg=oImg;
+	var x=0;
+	var iSpeed=0;
+	var lastX=0;
+	var timer=null;
+	for(var i=1; i<77; i++){
+		var oNewImg=document.createElement('img');
+		oNewImg.src='img_360/miaov ('+i+').jpg';
+		oNewImg.style.display='none';
+		document.body.appendChild(oNewImg);
+	};
+	document.onmousedown=function(ev){
+		clearInterval(timer);
+		
+		oEv=ev || event;
+		disX=oEv.clientX-x;
+	
+		document.onmousemove=function(ev){
+			oEv=ev || event;
+			x=oEv.clientX-disX;
+			
+			xuanzhuan();
+			
+			iSpeed=x-lastX;
+			lastX=x;
+			
+			return false;
+		};
+		document.onmouseup=function(){
+			
+			timer=setInterval(function(){
+				document.title=iSpeed;
+				x+=iSpeed;
+				if(iSpeed>0){
+					iSpeed--;
+				}else if(iSpeed<0){
+					iSpeed++;
+				}else if(iSpeed==0){
+					clearInterval(timer);
+				};
+				xuanzhuan();
+			},30);
+			
+			document.onmouseup=document.onmousemove=null;
+		};
+		function xuanzhuan(){
+				var l=-parseInt(x/10);
+				//经典实例啊，不能有加减法，不然会出现l=77
+				if(l>0){
+					l=l%77;
+				}else{//如果x<0，则加上77加到它变成正数为止
+					l=l-Math.floor(l/77)*77;
+				};
+				//document.title=l;
+				//oImg.src='img_360/miaov ('+l+').jpg';
+				oLastImg.style.display='none';
+				aImg[l].style.display='block';
+				oLastImg=aImg[l];
+		};
+		return false;
+	};
+};
+
+</script>
+</head>
+<body>
+<img id="img1" src="img_360/miaov (0).jpg">
+
+</body>
+</html>

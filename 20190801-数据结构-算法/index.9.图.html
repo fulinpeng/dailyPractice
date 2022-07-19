@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图</title>
+</head>
+
+<body>
+    <script>
+        // 定义图
+        function Graph(v) {
+            this.vertices = v;  // 顶点的数量
+            this.edges = 0;
+            this.adj = []; // 顶点列表
+            this.marked = [];  // 标记顶点是否被访问过
+            for (var i = 0; i < this.vertices; ++i) {
+                this.adj[i] = [];  // 保存与顶点 i 相邻的顶点列表
+                this.marked[i] = false;
+            }
+            // this.pathTo = pathTo;
+            // this.hasPathTo = hashPathTo;
+            // this.edgeTo = [];
+        }
+        Graph.prototype = {
+            constructor: Graph,
+            // addEdge(A,B) 添加边，先查找顶点 A 的邻接表，将顶点 B 添加到列表中
+            // 然后再查找顶点 B 的邻接表，将顶点 A 加入列表
+            // 最后，将边数加 1
+            addEdge: function(v, w) {
+                this.adj[v].push(w);
+                this.adj[w].push(v);
+                this.edges++;
+            },
+            // 显示所有顶点及其相邻顶点列表
+            showGraph: function() {
+                for (var i = 0; i < this.vertices; ++i) {
+                    var str = '';
+                    str += i + " -> ";
+                    for (var j = 0; j < this.vertices; ++j) {
+                        if (this.adj[i][j] != undefined) {
+                            str += this.adj[i][j] + ' ';
+                        }
+                    }
+                    console.log(str);
+                }
+            },
+            // 深度优先搜索
+            // 从起始顶点开始追溯，直到到达最后一个顶点，然后回溯， 继续追溯下一条路径，直到到达最后的顶点，如此往复，直到没有路径为止。
+            // 当访问一个没有访问过的顶点时，将它标记为已访问，再递归地去访问在初始顶点的邻接表中其他没有访问过的顶点。
+            dfs: function(v) {
+                this.marked[v] = true;
+                if (this.adj[v] != undefined) {
+                    console.log("Visited vertex: " + v);
+                }
+                for (var w = 0; w < this.adj[v].length; w++) {
+                    if (!this.marked[w]) {
+                        this.dfs(w);
+                    }
+                }
+            },
+            // 广度优先搜索
+            // 从第一个顶点开始，尝试访问尽可能靠近它的顶点。本质上，这种搜索是逐层移动的，
+            // 首先检查最靠近第一个顶点的层，再逐渐向下移动到离起始顶点最远的层
+            bfs: function(s) {
+                var queue = [];
+                this.marked[s] = true;
+                queue.push(s); // 添加到队尾
+                while (queue.length > 0) {
+                    var v = queue.shift(); // 从队首移除
+                    if (v != undefined) {
+                        console.log("Visisted vertex: " + v);
+                    }
+                    for (var w of this.adj[v]) {
+                        if (!this.marked[w]) {
+                            this.marked[w] = true;
+                            queue.push(w);
+                        }
+                    }
+                }
+            },
+        };
+
+        //调用
+        g = new Graph(5);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 3);
+        g.addEdge(2, 4);
+        g.showGraph();
+        g.dfs(0);
+        console.log('````````````````````````````````````````````');
+        g.bfs(0);
+
+        // g.addEdge('A', 'B');
+        // g.addEdge('A', 'C');
+        // g.addEdge('B', 'D');
+        // g.addEdge('C', 'E');
+    </script>
+</body>
+
+</html>

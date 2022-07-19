@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-5-2滚动条控制div高度</title>
+<style>
+
+	#div1{
+		width:30px;
+		height:400px;
+		background:gray;
+		position:absolute;
+	}
+	#div2{
+		width:30px;
+		height:60px;
+		position:absolute;
+		top:0;
+		left:0;
+		background:yellow;
+	}
+	#div3{
+		width:300px;
+		
+		position:absolute;
+		left:60px;
+		background:#bfc;
+	}
+</style>
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	var oDiv2=document.getElementById('div2');
+	var oDiv3=document.getElementById('div3');
+	
+	oDiv2.onmousedown=function(ev){
+		var ev=ev || event;
+		var disY=ev.clientY - this.offsetTop;
+		
+		document.onmousemove=function(ev){
+			var ev=ev || event;
+			
+			var t=ev.clientY - disY;
+			var maxT=oDiv1.offsetTop + oDiv1.offsetHeight - oDiv2.offsetHeight;
+			if(t < 0){
+				t=0;
+			}else if(t > maxT){
+				t=maxT;
+			};
+			oDiv2.style.top=t + 'px';
+			
+			
+			oDiv3.style.height=470 * t / maxT + 'px';
+		};
+		
+		document.onmouseup=function(){
+			document.onmousemove=document.onmouseup=null;
+		};
+	};
+	
+	
+	
+};
+	
+	
+	
+</script>
+</head>
+<body >
+
+<div id="div1" >
+	<div id="div2" ></div>
+</div>
+<div id="div3" ></div>
+</body>
+</html>

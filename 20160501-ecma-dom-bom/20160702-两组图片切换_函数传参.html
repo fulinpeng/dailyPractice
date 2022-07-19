@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>切图，精简代码</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	body{
+		background:#333;
+	}
+	.main{
+		width:400px;
+		height:500px;
+		margin-top:20px ;
+		position:relative;
+		margin-right:60px;
+		float:left;
+	}
+	.main img{
+		width:400px;
+		height:500px;
+	}
+	.main span{
+		width:400px;
+		heigth:30px;
+		line-height:30px;
+		text-align:center;
+		color:white;
+		background:#555;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+	.main p{
+		width:400px;
+		heigth:30px;
+		line-height:30px;
+		text-align:center;
+		color:white;
+		position:absolute;
+		bottom:0;
+		background:#555;
+	}
+	.main ul{
+		width:30px;
+		height:auto ;
+		position:absolute;
+		right:-50px;
+		top:0;
+	}
+	.main ul li{
+		width:30px;
+		height:30px;
+		float:left;
+		margin-bottom:10px;
+		background:#555;
+	}
+	.main ul .active{
+		background:yellow;
+	}
+</style>
+<script>
+	window.onload=function(){
+		fnTab('main1','onclick',['img/1.png','img/2.png','img/3.png','img/4.png'],['知识一只老鹰','游戏美女图片','也是第三章美女图片','独眼钢铁侠']);
+		fnTab('main2','onmouseover',['img/2.png','img/3.png','img/4.png'],['游戏美女图片','也是第三章美女图片','独眼钢铁侠']);
+		
+		//上面的参数都要加引号的，不然不运行
+	};
+	
+	function fnTab(id,evt,aSrc,aDescript){
+		var oMain=document.getElementById(id);		//这里不要在用引号了，因为参数中有引号
+		var oImg=oMain.getElementsByTagName('img')[0];
+		var oTit=oMain.getElementsByTagName('span')[0];
+		var oDescript=oMain.getElementsByTagName('p')[0];
+		var oUl=oMain.getElementsByTagName('ul')[0];
+		var aLi=oUl.getElementsByTagName('li');
+		
+		var oOld='';
+		var num=0;
+	
+		//初始化
+		for (var i=0; i < aSrc.length; i++){
+			oUl.innerHTML +='<li></li>';
+		};
+		oOld=aLi[num];
+		function fnTab(){
+			oImg.src=aSrc[num];
+			oTit.innerHTML=num+1 +'/'+ aSrc.length;
+			oDescript.innerHTML=aDescript[num];
+			aLi[num].className='active';
+		};
+		fnTab();
+		for (var i=0; i<aLi.length; i++){
+			aLi[i].index=i;
+			aLi[i][evt]=function(){
+				num=this.index;
+				oOld.className='';
+				fnTab();
+				oOld=this;
+			};
+		};	
+	};
+</script>
+</head>
+<body>
+<div id="main1" class="main">
+	<img src=""/>
+	<span></span>
+	<p></p>
+	<ul>
+	</ul>
+</div>
+<div id="main2" class="main">
+	<img src=""/>
+	<span></span>
+	<p></p>
+	<ul>
+	</ul>
+</div>
+
+
+
+
+
+</body>
+</html>

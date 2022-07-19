@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二叉查找树</title>
+</head>
+
+<body>
+    <script>
+
+        // 二叉查找树
+
+        function Node(data, left, right) { // 创建节点
+            this.data = data;
+            this.left = left;
+            this.right = right;
+            this.show = show
+        }
+
+        function show() { // 显示树的数据
+            return this.data
+        }
+
+        function BST() { // 二叉查找树类
+            this.root = null;
+        }
+
+        BST.prototype = {
+            constructor: BST,
+            insert: function (data) { // 向树中插入数据
+                // 是不平衡的树
+                var n = new Node(data, null, null)
+                if (this.root == null) {
+                    this.root = n;
+                } else {
+                    var current = this.root;
+                    var parent;
+                    while (true) {
+                        parent = current
+                        if (data < current.data) {
+                            current = current.left;
+                            if (current == null) {
+                                parent.left = n;
+                                break;
+                            }
+                        } else {
+                            current = current.right;
+                            if (current == null) {
+                                parent.right = n;
+                                break;
+                            }
+                        }
+                    }
+                }
+            },
+            getMin: function () {
+                let minNode = null;
+                const getmin = (node) => {
+                    if (node.left) {
+                        getmin(node.left);
+                    } else {
+                        minNode = node;
+                    }
+                };
+                getmin(this.root);
+                // 注意 return 的位置
+                return minNode
+            },
+            getMax: function () {
+                let maxNode = null;
+                const getmax = (node) => {
+                    if (node.right) {
+                        getmax(node.right);
+                    } else {
+                        maxNode = node;
+                    }
+                };
+                getmax(this.root);
+                return maxNode
+            },
+            // 递归直查
+            findNode: function (value) {
+                let relNode = null;
+                // 笔记20191107：有些递归只需要一个循环就可以替代，而有些递归的改写需要循环+栈
+                // 循环的时间复杂度和空间复杂度都要优于递归，但递归的优越性在于条理清晰，可读性强，
+                // 比较适宜于问题本身是递归性质的、用循环难于解决的问题。在二者都不难的情况下，
+                // 一般都是优先选用循环来解决问题的。
+                const findnode = (node) => {
+                    if (value > node.data) {
+                        if (node.right) {
+                            findnode(node.right)
+                        } else {
+                            relNode = `${value}不存在`;
+                        }
+                    } else if (value < node.data) {
+                        if (node.left) {
+                            findnode(node.left)
+                        } else {
+                            relNode = `${value}不存在`;
+                        }
+                    } else {
+                        relNode = node;
+                    }
+                };
+                findnode(this.root);
+                return relNode
+            },
+            // 中序遍历递归算法
+            inOrder: function (callback) {
+                let res = null;
+                const inOrderNode = (node, callback) => {
+                    if (node !== null) {
+                        inOrderNode(node.left, callback);
+                        /************** 处理逻辑 start *************/
+                        // 此处用来添加处理逻辑的，其余部分是用来遍历整个二叉树的
+                        // 把每个节点的值传出去，让callback去处理
+                        callback(node.data, node);
+                        /************** 处理逻辑 end *************/
+                        inOrderNode(node.right, callback)
+                    }
+                };
+                inOrderNode(this.root, callback);
+            },
+        }
+
+        var data = new BST();
+        data.insert(3);
+        data.insert(5);
+        data.insert(7);
+        data.insert(4);
+        data.insert(8);
+        data.insert(2);
+        data.insert(0);
+        data.insert(1);
+
+        console.log('data:', data);
+        console.log('findNode:', data.findNode(5));
+        let res = [];
+        data.inOrder((val, node) => {
+            if (val == 5) console.log('value为5的节点：', node);
+            res.push(val);
+        })
+        console.log('inOrder:', res);
+
+
+
+    </script>
+</body>
+
+</html>

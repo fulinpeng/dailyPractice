@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>用for找啊找啊找元素！！</title>
+
+
+<script>
+window.onload=function(){
+  var oUl=document.getElementById('list');
+  var aUl=oUl.getElementsByTagName('ul');
+  var len=aUl.length;
+  var aLi=null;
+  
+  for (var i=0;i<len;i++){
+    aLi=aUl[i].getElementsByTagName('li');//这里有个i忘了写了，弄了半天；
+	for (var j=0; j<aLi.length;j++){
+	  aLi[j].style.border='1px solid red';
+	};
+  };
+  
+};
+</script>
+
+
+</head>
+
+<body>
+
+  <ul id="list">
+  <li><ol><li>no</li><li>no</li><li>no</li></ol></li>
+    <li>
+	  <h2>我的好友</h2>
+	  <ul>
+	    <li>德玛西亚</li>
+	    <li>乐景德瑞</li>
+	    <li>大崩溃哦</li>
+	    <li>阿拉一颗</li>
+	  </ul>
+	</li>
+    <li>
+	  <h2>朋友</h2>
+	  <ul>
+	    <li>德玛人格</li>
+	    <li>付款人德瑞</li>
+	    <li>容易哭</li>
+	  </ul>
+	</li>
+    <li>
+	  <h2>家人</h2>
+	  <ul>
+	    <li>德调节西亚</li>
+	    <li>威尔和宽容</li>
+	    <li>二预科</li>
+	    <li>而退额</li>
+	  </ul>
+	</li>
+	<li><ol><li>no</li><li>no</li><li>no</li></ol></li>
+    <li>
+	  <h2>陌生人</h2>
+	  <ul>
+	    <li>福伊特</li>
+	    <li>是特意</li>
+	    <li>软件天然</li>
+	    <li>问题也</li>
+	  </ul>
+	</li>
+	<li><ol><li>no</li><li>no</li><li>no</li></ol></li>
+  </ul>
+
+</body>
+</html>

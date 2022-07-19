@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../20170911-jquery-read/jquery-1.10.2__read.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" id="txt">
+    <p id="show-txt"></p>
+</div>
+<script>
+    var obj = {};
+    Object.defineProperty(obj, 'txt', {
+        get: function () {
+            return obj
+        },
+        set: function (newValue) {
+            document.getElementById('txt').value = newValue;
+            document.getElementById('show-txt').innerHTML = newValue;
+        }
+    });
+    document.addEventListener('change', function (e) {
+        obj.txt = e.target.value
+    })
+</script>
+<h1>
+    要做的事：
+</h1>
+<h2>
+    打电话回去
+</h2>
+<h2>
+    整理面试清单
+</h2>
+<h2>
+    做作业
+</h2>
+</body>
+</html>

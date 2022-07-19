@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var MP = (function () {
+            let PENDING = 'PENDING';
+            let FULFILLED = 'FULFILLED';
+            let REJECTED = 'REJECTED';
+
+            function isFun(fn) {
+                return typeof fn == 'function'
+            }
+
+            let _MP = function (syncFn) {
+                this.status = PENDING;
+                // 用户定义的成功、失败回调函数，放在defers里面的，等异步结束才调用
+                this.defers = [];
+                // 调用new Promise就会先执行syncFn，开始进行异步处理
+                // setTimeout 确保了then方法被先执行，syncFn的调用被放到了异步队列会后执行
+                setTimeout(syncFn.bind(null, this.onResolve.bind(this), this.onRejected.bind(this)), 0);
+                // onResolve/onRejected 是用户来调用，不是promise内部调用的
+                // onResolve/onRejected 不是全等于 then 函数传进来的函数
+                // 调用resolve/rejected，实际上调用的是promise内部的onResolve/onRejected，更像是一个代理
+            }
+            _MP.resolve = function (data) {
+                return new _MP((resolve)=>{resolve(data)})
+            }
+
+            _MP.prototype = {
+                constructor: _MP,
+                then: function (resolve, rejected) {
+                    // 将resolve, rejected函数【注册】到defers中等待异步执行成功后调用
+                    var o = {
+                        resolve,
+                        rejected,
+                        mp: new _MP(()=>{}), // 这里必须是一个永远不会被resolve的promise
+                        // 因为这个promise不需要被resolve，对应的操作被下面提到的nextWP代替了
+                    }
+                    if (this.status == PENDING) {
+                        this.defers.push(o);
+                    } else {
+                        this.handle(o);
+                    }
+                    return o.mp
+                },
+                onResolve: function (data) {
+                    if (this.status == FULFILLED) return; // 避免用户多次调用resolve
+                    this.status = FULFILLED;
+                    this.data = data;
+                    this.done(this.defers);
+                },
+                onRejected: function (data) {
+                    if (this.status == REJECTED) return; // 避免用户多次调用rejected
+                    this.status = REJECTED;
+                    this.data = data;
+                    this.done(this.defers);
+                },
+                done: function (defers) {
+                    if (this.status != PENDING) defers.forEach(o => this.handle(o));
+                },
+                handle: function (o) {
+                    let {resolve, rejected} = o;
+                    let nextMP;
+                    switch (this.status) {
+                        case FULFILLED: {
+                            if (!isFun(resolve)) throw new Error('no resolve');
+                            nextMP = resolve(this.data);
+                        }
+                            break;
+                        case REJECTED: {
+                            if (!isFun(rejected)) throw new Error('no rejected');
+                            nextMP = rejected(this.data);
+                        }
+                            break;
+                        default: break;
+                    }
+                    // nextMP最终会是个promise，那怎么和then返回的那个空的promise产生联系，好让下个then来链式呢???
+                    // 下一个then的真正的宿主是那个o.mp，它的defers才是装的下次resolve/rejected的回调
+                    // 代码执行到这里，then方法应该早已返回了o.mp，怎么办，
+                    // 怎么把新的promise的数据传给已经返回出去的对象???
+                    // 又怎么把返出去的那个promsie的defers拿过来接收这个数据???
+                    // 替换给之前返回出去的那个promise的defers就能联系上了【这里再体会下】
+                    // nextMP这里有两种情况：
+                    //  1. nextMP为promise，它有自己的syncFn会在异步成功(最快是下次事件循环)时调用resolve
+                    //     这里得提前替换替换defers，以备then执行时将resolve/rejected添加给nextMP.defers，那值怎么???
+                    //  2. nextMP为非promise，封装成promise，调用resolve回调，传入值就行
+                    // 上面说了：值怎么???
+                    // nextMP它只是为了在异步成功后执行syncFn函数'(resolve)=>{resolve(data)}'而已，从而执行了它的onResolve接收到了data
+                    // 然而nextMP的then方法没有被调用，也就是自己的defers里面没得resolve/rejected函数
+                    // 那就"偷取"之前返回的那个o.mp的defers😂就能达到目的了
+                    // 当nextMP在异步成功后调用onResolve时，有了自己的data也有了"偷"来的defers，就执行done
+                    // 结果呢，defers装的是返回的那个o.mp的then注册的回调，完美收关🍻
+                    if (!(nextMP instanceof _MP)) {
+                        let data = nextMP;
+                        nextMP = _MP.resolve(data);
+                    }
+                    nextMP.defers = o.mp.defers;
+                },
+            };
+            return _MP;
+        })();
+
+        var o = new MP(function (resolve) {
+            // 只以第一次的为准
+            setTimeout(() => {
+                resolve('哈哈，第一次异步数据有了！--setTimeout');
+            }, 100);
+            resolve('哈哈，第一次异步数据有了！');
+        });
+        o.then(function (data) {
+            console.log('第一个promse：', data);
+            return new MP(function (resolve, rejected) {
+                setTimeout(() => {
+                    rejected('呵呵，第二次异步的错误数据！');
+                }, 500);
+            });
+        })
+        .then(null, function (data) {
+            console.log('第二个promse：', data);
+            return '这不是promise，嘿嘿！';
+            // 再次强调下：这个return是rsolve的，不是then方法的。。。这个值赋给了p的
+        })
+        .then(function (data) {
+            console.log('第三个：', data);
+        });
+
+        // 启发：
+        // return的那个值在下个函数中调用，可以这样来封装
+        // 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .more{
+            width: 90%;
+            text-align: center;
+            margin: 5% 5%;
+        }
+        #time{
+            text-align: right;
+            margin: 5% 3%;
+        }
+        .bacgrundclor{
+            width:100%;
+            background: white;
+            border-radius: 10px;
+            height: 580px;
+        }
+        a{
+            color: #13895f;
+        }
+        .button1{
+            margin-bottom: 5%;
+            width: 100%;
+            text-align: left;
+        }
+        .button1 button{
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+   <div class="bacgrundclor">
+       &nbsp;
+       <div class="more">
+           <h1 class="col-sm-12 col-xs-12"><span class="glycolor glyphicon glyphicon-align-left"></span>&nbsp;<%=n_title%></h1>
+           <hr/>
+           <div class="button1">
+               <button onclick="setfont('+')">+</button>
+               <button onclick="setfont('-')">-</button>
+           </div>
+           <p id="p1" style="font-size: 16px"><%=n_detail%></p>
+           <div id="time">
+               <h4><%=n_name%></h4>
+               <p><%=n_date%></p>
+           </div>
+       </div>
+   </div>
+<script>
+    var P=document.getElementById("p1");
+    var size=parseInt(P.style.fontSize);
+    console.log(P);
+    function setfont(str){
+        if(str=="+"){
+            size++;
+            if(size>=30){
+                size=30
+            }
+        }
+        else if(str=="-"){
+            size--;
+            if(size<=12){
+                size=12
+            }
+        }
+        P.style.fontSize=size+"px"
+    }
+</script>
+</body>
+</html>

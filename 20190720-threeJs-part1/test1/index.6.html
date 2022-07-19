@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="../js/three.min.js"></script>
+    <script>
+        function init() {
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 设置Canvas元素宽高
+            renderer.setSize(800, 400);
+            // 清除画面的颜色(将背景色设置为黑色)
+            renderer.setClearColor(0xffffff);
+            // 将渲染器对应的Canvas元素添加到body中
+            document.body.appendChild(renderer.domElement);
+
+            // 场景
+            var scene = new THREE.Scene();
+
+            // 照相机
+            // 参数: left right top bottom near far
+            var camera = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100);
+            camera.position.set(0, -25, 0);
+            // 相机看向
+            camera.lookAt(new THREE.Vector3(0, 0, 0));
+            scene.add(camera);
+
+            // 需要一个几何体
+            var geometry = new THREE.Geometry(); // 几何体里面有个vertices变量，可以用来存放点
+            // 点
+            var p1 = new THREE.Vector3(-100, 0, 100);
+            var p2 = new THREE.Vector3();
+            p2.set(100, 0, -100);
+            // 添加到几何体
+            geometry.vertices.push(p1);
+            geometry.vertices.push(p2);
+
+            // 线条的材质，使用THREE.LineBasicMaterial类型来定义
+            var material = new THREE.LineBasicMaterial({
+                vertexColors: true, // 使用顶点颜色
+            });
+            // NoColors: 0,
+            // FaceColors: 1,
+            // VertexColors: 2,
+
+            // 为两个顶点添加颜色
+            // geometry中colors表示顶点的颜色，必须在材质中vertexColors等于THREE.VertexColors时，geometry.colors才有效
+            // 如果vertexColors等于THREE.NoColors时，颜色就没有效果了。那么就会去取材质中color的值，这个很重要
+            var color1 = new THREE.Color(0x444444),
+                color2 = new THREE.Color(0xFF0000);
+            
+            // 将两个颜色添加到几何体中
+            geometry.colors.push(color1, color2);
+
+            // 定义一条线
+            var line = new THREE.Line(geometry, material, THREE.LineSegments);
+
+            scene.add(line);
+
+            // 渲染
+            renderer.render(scene, camera);
+
+        }
+        window.onload = function () {
+            init();
+        }
+    </script>
+</body>
+
+</html>

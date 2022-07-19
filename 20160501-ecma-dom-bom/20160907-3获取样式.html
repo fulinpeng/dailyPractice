@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-7-3获取样式</title>
+<style>
+
+	div{
+		width:100px;
+		height:60px;
+		border:1px solid black; 
+		margin-top:20px;
+		left:0;
+		background:red;
+		
+	}
+	
+</style>
+<script>
+
+function getStyle(obj,attr){
+	if(obj.currentStyle){
+		return obj.currentStyle[attr];
+	}else{
+		return getComputedStyle(obj,false)[attr];
+	};
+};
+
+var aDiv=document.getElementsByTagName('div');
+setInterval(function(){
+	aDiv[0].style.width=parseInt(getStyle(aDiv[0],'width')) - 1 +'px';
+},30);
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div ></div>
+<div></div>
+<div></div>
+<div></div>
+
+</body>
+</html>

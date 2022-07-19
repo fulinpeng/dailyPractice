@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>黑客帝国文字下落</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        #divList {
+            width: 100%;
+            height: 660px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .divText {
+            position: absolute;
+        }
+
+        .divText span {
+            display: block;
+            font-weight: bold;
+        }
+    </style>
+    <script src="../js/jquery-2.2.0.min.js"></script>
+</head>
+<body>
+<div id="divList">
+
+</div>
+<script>
+    var w=$(document.body).width();
+    console.log(w);
+    function rand(min, max) {
+        return min + Math.round(Math.random() * (max - min));
+    }
+    function add() {
+        var x = rand(0, w);
+        var html = '<div class="divText" style="left:' + x + 'px; bottom:500px;">';
+        var color = [];
+        for (var i = 1; i < 17; i++) {
+            var f = i.toString(16);
+            color.push('0' + f + '0');
+        }
+
+        var fontSize = rand(9, 24);
+        for (var i = 1; i < 17; i++) {
+            var c = rand(33, 127);
+            var c = String.fromCharCode(c);
+           html += '<span class="s' + i + '" style="color:#' + color[i - 1] + '; font-size:' + fontSize + 'px; text-shadow:0px 0px 10px #' + color[i - 1] + ';">' + c + '</span>';
+        }
+        html += '</div>';
+        $('#divList').append(html);
+    }
+    function run() {
+        add();
+        $('.divText').each(function () {
+            var y = parseInt($(this).css('bottom'));
+            y -= $(this).find('span').eq(0).height();
+            $(this).css('bottom', '' + y + 'px');
+            if (y + $(this).height() <= 0) {
+                $(this).remove();
+                return;
+            }
+            $(this).find('span').each(function () {
+                var c = rand(33, 127);
+                var c = String.fromCharCode(c);
+                $(this).html(c);
+            });
+        });
+        window.setTimeout(run, 100);
+    }
+    run();
+</script>
+</body>
+</html>

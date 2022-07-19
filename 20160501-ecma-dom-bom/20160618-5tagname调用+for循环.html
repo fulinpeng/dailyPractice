@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>butagname调用</title>
+<script>
+  window.onload=function(){
+  
+    var oBody=document.body;
+	var oBtn=document.getElementById('btn');
+    var str=oBody.innerHTML;
+    
+
+	oBtn.onclick=function(){
+	  for( i=0;i<1000;i++ ){
+	    str+='<input type="button" value="按钮"/>';
+	  };
+	  oBody.innerHTML=str;
+	};
+  };
+
+</script>
+
+
+
+</head>
+
+<body>
+
+  <pre>
+    var oUl=document.getElementById('list');  这是静态，找到的是一个元素
+    var aLi=oUl.getElementsByTagName('li');  这是动态，找到的是一个元素集合,注意有个‘s’
+    var oBody=document.body;  对于整个页面只有一个的元素可以直接这样写；
+  </pre>
+  <input  id="btn" type="button" value="按钮"/>
+
+
+</body>
+</html>

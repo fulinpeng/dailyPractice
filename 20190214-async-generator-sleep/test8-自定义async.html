@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function myAsync(genFn) {
+            return new Promise(function (resolve, rejected) {
+                let gen = genFn();
+                function step(genNext) {
+                    // 如果要做容错处理，genNext就不能再调用step中执行了，得dia到step内部用try...catch
+                    if (genNext.done) {
+                        resolve(genNext.value);
+                    } else {
+                        Promise.resolve(genNext.value).then((value) => {
+                            step(gen.next(value));
+                        });
+                    }
+                }
+                step(gen.next());
+            });
+        }
+        myAsync(function *() {
+            let res1 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(1), 1000);
+            });
+            console.log('~~~res1', res1);
+            let res2 = yield res1 + 2;
+            console.log('~~~res2', res2);
+            let res3 = yield new Promise(function (resolve) {
+                setTimeout(() => resolve(3 + res2), 1000);
+            });
+            console.log('~~~res3', res3);
+        });
+    </script>
+</body>
+
+</html>

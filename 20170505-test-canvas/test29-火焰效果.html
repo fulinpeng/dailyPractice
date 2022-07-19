@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <title>火焰效果</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            /*background:black;*/
+        }
+        
+        #canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript">
+        window.onload = function() {
+            var canvasCover = document.getElementById("canvas");
+            var ctx = canvasCover.getContext("2d");
+            var W = window.innerWidth,
+                H = window.innerHeight;
+            canvasCover.width = W;
+            canvasCover.height = H;
+
+            var mouse = {},
+                arr = [],
+                count = 100;
+
+            function setMouse(e) {
+                mouse.x = e.pageX;
+                mouse.y = e.pageY;
+            }
+
+            function particles() {
+                if (mouse.x && mouse.y) {
+                    this.location = {
+                        x: mouse.x,
+                        y: mouse.y
+                    };
+                } else {
+                    this.location = {
+                        x: W / 2,
+                        y: H / 2
+                    };
+                }
+                this.radius = 10 + Math.random() * 20;
+                this.speed = {
+                    x: Math.random() * 5 - 2.5,
+                    y: Math.random() * 10 - 15
+                };
+                this.life = 10 + Math.random() * 20;
+                this.restLife = this.life;
+                this.r = Math.round(Math.random() * 255);
+                this.g = Math.round(Math.random() * 255);
+                this.b = Math.round(Math.random() * 255);
+                this.a = Math.round(this.restLife / this.life * 100) / 100;
+            }
+            for (var i = 0; i <= count; i++) {
+                var p = new particles();
+                arr.push(p);
+            }
+            canvasCover.addEventListener('mousemove', setMouse, false);
+
+            function draw() {
+                //下面这块代码要放在这里，不能放在for循环中，否则只有一个泡泡出现
+                ctx.globalCompositeOperation = "source-over";
+                ctx.fillStyle = "black";
+                ctx.fillRect(0, 0, W, H);
+                ctx.globalCompositeOperation = "lighter";
+
+                for (var i = 0; i < arr.length; i++) {
+                    var p = arr[i];
+                    ctx.beginPath();
+                    ctx.arc(p.location.x, p.location.y, p.radius, 0, 2 * Math.PI);
+                    var gradient = ctx.createRadialGradient(p.location.x, p.location.y, 0, p.location.x, p.location.y, p.radius);
+                    gradient.addColorStop(0, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.a + ")");
+                    gradient.addColorStop(0.5, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", " + p.a + ")");
+                    gradient.addColorStop(1, "rgba(" + p.r + ", " + p.g + ", " + p.b + ", 0)");
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    p.location.x += p.speed.x;
+                    p.location.y += p.speed.y;
+                    p.a = Math.round((--p.restLife) / p.life * 100) / 100;
+                    p.radius--;
+                    if (p.rest_life <= 0 || p.radius <= 0) {
+                        arr[i] = new particles();
+                    }
+                }
+            }
+            setInterval(draw, 86);
+
+
+        }
+    </script>
+</body>
+
+</html>

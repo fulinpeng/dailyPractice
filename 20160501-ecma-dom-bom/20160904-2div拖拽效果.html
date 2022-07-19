@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-4-2div拖拽效果</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#div1{
+		width:100px;
+		height:100px;
+		background:red;
+		position:absolute;
+	}
+	#div2{
+		width:100px;
+		height:100px;
+		background:green;
+		position:absolute;
+		top:200px;
+		left:300px;
+	}
+	
+</style>
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	
+	oDiv1.onmousedown=function(ev){
+		var ev=ev || event;
+		var disX=ev.clientX - this.offsetLeft;
+		var disY=ev.clientY - this.offsetTop;
+			
+		document.onmousemove=function(ev){//为什么是document，因为避免速度快了出了div1就不执行了
+			var ev=ev || event;
+			
+			oDiv1.style.left=ev.clientX - disX +'px';
+			oDiv1.style.top=ev.clientY - disY +'px';
+			//alert(11);
+		};
+		document.onmouseup=function(){//为什么是document，移到div2上了，松鼠标事件不停止
+			document.onmousemove=document.onmouseup=null;//为什么是document，同上,再清除onmouseup函数
+		};
+	};
+	
+	
+	
+	
+	
+	
+};
+
+
+</script>
+</head>
+<body style="height:2000px;">
+
+<div id="div1" ></div>
+<div id="div2" ></div>
+
+</body>
+</html>

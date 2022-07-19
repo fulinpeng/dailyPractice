@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style type="text/css">
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+
+            text-align: center;
+            font-size: 0;
+        }
+
+        .box::before {
+            display: inline-block;
+            vertical-align: middle;
+            content: '';
+            height: 100%;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <img
+                src="https://ss1.baidu.com/70cFfyinKgQFm2e88IuM_a/forum/pic/item/242dd42a2834349b406751a3ceea15ce36d3beb6.jpg">
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Test Web worker</title>
+    <script type="text/JavaScript">
+        // 在 Web Workers 中使用postMessage和onmessage
+        function init(){
+            var worker = new Worker('compute.js');
+            //event 参数中有data属性，就是子线程中返回的结果数据
+            worker.onmessage= function (event) {
+                console.log(event);
+                // 把子线程返回的结果添加到div上
+                document.getElementById("result").innerHTML += event.data+"<br/>";
+            };
+        }
+    </script>
+</head>
+<body onload="init()">
+<div id="result"></div>
+</body>
+</html>

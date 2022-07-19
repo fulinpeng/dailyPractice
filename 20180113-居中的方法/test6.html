@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /*display:-webkit-flex和display:-webkit-box的区别是啥？有人说没区别，仅是各阶段草案命名：
+        - W3C 2009年第1次草案：[display:box;](https://www.w3.org/TR/2009/WD-css3-flexbox-20090723/)
+        - W3C 2011年第2次草案：[display:flexbox | inline-flexbox;](https://www.w3.org/TR/2011/WD-css3-flexbox-20110322/)
+        - W3C 2012年第5次草案及以后的候选推荐标准：[display:flex | inline-flex;](https://www.w3.org/TR/2012/WD-css3-flexbox-2012*/
+        .parent{
+            height:300px;
+            background: #c4e015;
+            display:-webkit-box;
+            -webkit-box-pack: center;  /*实现容器内容垂直居中*/
+            -webkit-box-align: center;  /*实现容器内的内容水平居中*/
+            -webkit-box-orient: vertical; /*容器内的元素垂直排列，默认水平*/
+        }
+        .child{
+            width:200px;
+            height:100px;
+            background: #069f27;
+            border:1px dashed white;
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div class="child"></div>
+    <div class="child"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<div id="o-detail">订单详情</div>
+<div class="o-sale">交易单号：<span id="o_inid"><%=indentList.in_id%></span></div>
+<div class="o-state">
+    <% if(indentList.in_state==2){%>
+    <% indentList.in_state='已支付'%>
+    <% }else if(indentList.in_state==1){%>
+    <% indentList.in_state='未支付'%>
+    <% }else if(indentList.in_state==3){%>
+    <% indentList.in_state='已完成'%>
+    <% }%>
+    <div>交易状态：<span><%=indentList.in_state%></span></div>
+    <div class="o-state1">
+        <% if(indentList.in_bynumber==null){%>
+        <div>交易金额：<span><%=indentList.in_acnumber*indentList.a_price%>元</span></div>
+        <div>未发货</div>
+        <%}else{%>
+        <div>交易金额：<span><%=indentList.in_bynumber*indentList.b_price%>元</span></div>
+        <div>未发货</div>
+        <%}%>
+    </div>
+</div>
+<div class="o-jiantou">
+    <div class="o-circle o-circlef"></div>
+    <div class="o-arrows"></div>
+    <div class="o-circle"></div>
+    <div class="o-arrows"></div>
+    <div class="o-circle"></div>
+    <div class="o-arrows"></div>
+    <div class="o-circle"></div>
+</div>
+<div class="o-step">
+    <p id="o-stepfp">我的购物车</p>
+    <p>确认订单信息</p>
+    <p>确认支付</p>
+    <p>选择支付方式</p>
+</div>
+<div id="o_uname" style="display: none"><%=indentList.u_name%></div>

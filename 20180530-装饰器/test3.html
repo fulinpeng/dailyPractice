@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 函数执行时间计算
+    function log(func) {
+        return function(...args) {
+            const start = Date.now();
+            let result = func(...args);
+            const used = Date.now() - start;
+            console.log(`call ${func.name} (${args}) used ${used} ms.`);
+            return result;
+        };
+    }
+
+    function calculate(times) {
+        let sum = 0;
+        let i = 1;
+        while (i < times) {
+            sum += i;
+            i++;
+        }
+        return sum;
+    }
+
+    runCalculate = log(calculate);
+    let result = runCalculate(100000);
+    console.log(result);
+</script>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bg {
+            width: 500px;
+            height: 300px;
+            position: relative;
+            margin: 100px auto auto;
+        }
+        
+        .bg p {
+            text-align: center;
+            line-height: 300px;
+            font-size: 40px;
+            font-weight: bolder;
+        }
+        
+        #canvas1 {
+            text-align: center;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <p>谢 谢 惠 顾</p>
+        <canvas id="canvas1" width="500" height="300"></canvas>
+    </div>
+</body>
+<script>
+    var c = document.getElementById("canvas1");
+    var div = document.getElementsByClassName("bg")[0];
+    var cvs = c.getContext("2d");
+    cvs.fillStyle = "gray";
+    cvs.fillRect(0, 0, c.width, c.height);
+
+    c.onmousedown = function(e) {
+        var even = e || window.event;
+        var pageX = even.clientX - div.offsetLeft;
+        var pageY = even.clientY - div.offsetTop;
+        document.onmousemove = function(e) {
+            var even = e || window.event;
+            pageX = even.clientX - div.offsetLeft;
+            pageY = even.clientY - div.offsetTop;
+            cvs.clearRect(pageX, pageY, 20, 20);
+            document.onmouseup = function() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+    };
+</script>
+
+</html>

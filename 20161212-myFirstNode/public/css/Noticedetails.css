@@ -1,0 +1,90 @@
+
+
+body{
+    background: #efefef!important;
+}
+.glycolor{
+    color:#39ADB4;
+}
+h1{
+    text-align: center;
+}
+h3{
+    margin: 0px;
+}
+.adjust{
+    width: 80%;
+    margin: 10px 10% ;
+}
+.notice1 .remove{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #d7d7d7;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+}
+.notice1 .remove:hover{
+    background: #39adb4;
+}
+    .notice1{
+        border-radius: 10px;
+        width: 46%;
+        margin:2% 2%;
+        float: left;
+        background:#EFEFEF;
+        position: relative;
+        height: 150px;
+    }
+    .details{
+        width: 100%;
+        /*padding: 0 5%;*/
+    }
+    .Title{
+        width: 100%;
+        overflow: hidden;
+        padding-bottom:40px;
+    }
+    .Title div:nth-child(1){
+        text-align: center;
+    }
+    .paging{
+       float: right;
+       margin: 0 8%;
+
+    }
+    .more{
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        color: #0086b3;
+        left:85%;
+        bottom:10%;
+    }
+    .notice1 .img1{
+        width: 70px;
+        height:70px;
+        border-radius: 35px;
+        overflow: hidden;
+        /*border: 1px solid red;*/
+        position: relative;
+        z-index: 1;
+        top: -10px;
+        left: -10px;
+
+    }
+
+.fullbox{
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+    padding: 10px 30px 30px;
+}
+

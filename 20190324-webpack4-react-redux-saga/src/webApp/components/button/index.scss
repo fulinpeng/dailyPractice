@@ -1,0 +1,17 @@
+.button-wrap {
+  line-height: 0.32rem;
+  font-size:0.14rem;
+  display: inline-block;
+  button {
+    display: inline-block;
+    padding:0.05rem 0.2rem;
+    white-space: nowrap;
+    background-image: none;
+    border: 0.01rem solid transparent;
+    border-radius: 0.02rem;
+    color: white;
+    background: #2875e8;
+    outline: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>7
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // pipeline：前一个函数的输出是后一个函数的输入
+
+        // 简易版：
+        const plus1 = a => a + 1;
+        const mult2 = a => a * 2;
+        const result=mult2(plus1(5));
+        console.log(result);
+
+        // 封装版：
+        const pipeline = (...funcs) =>{
+            console.log(funcs);
+            return val => funcs.reduce((a, b) => b(a), val); // 第二个参数是初始值
+        }
+        
+        const addThenMult = pipeline(plus1, mult2);
+        console.log(addThenMult(5));
+        
+
+        
+    </script>
+</body>
+
+</html>

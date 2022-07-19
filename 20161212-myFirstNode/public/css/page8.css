@@ -1,0 +1,49 @@
+.h1{
+  text-align: center;
+}
+.mytitle2>div{
+    font-weight: bolder;
+    padding: 0 0 10px;
+}
+.framebox{
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+    padding: 5px 30px 30px;
+}
+.myform2btn{
+    font-size:14px!important;
+    padding: 3px 5px;
+    margin-top: 0!important;
+}
+.mytitle2>textarea{
+    width: 80%;
+}
+.mytitle3>input{
+    padding: 0;
+}
+.mytitle4{
+    margin-top: 15px;
+}
+.mytitle4>input{
+    width: 80%;
+}
+.glyphicon{
+    color: #39ADB4;
+}
+
+.myform2{
+    /*width: 80%;*/
+    margin-left: 18%;
+    /*border:1px solid black;*/
+}
+.form-group>textarea{
+    color: gray;
+}
+.mytitle>input{
+  width: 80%;
+}
+.btn{
+    margin-top: 2%;
+}

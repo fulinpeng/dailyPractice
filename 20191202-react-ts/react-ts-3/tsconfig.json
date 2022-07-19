@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true, // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "baseUrl": "src", // 解析非相对模块名的基准目录
+        // 模块名到基于 baseUrl的路径映射的列表
+        "paths": {
+            "@/*": [
+                "*"
+            ],
+            "JS/*": [
+                "js/*"
+            ],
+        },
+    },
+    "include": [
+        "./src/*"
+    ],
+    "exclude": [
+        "node_modules",
+    ]
+}
+
+// {
+//     "compilerOptions": {
+//         "sourceMap": true,
+//         "module": "commonjs",
+//         "esModuleInterop": true, // 允许从没有设置默认导出的模块中默认导入
+//         "resolveJsonModule": true,
+//         "experimentalDecorators": true,
+//         "target": "es5",
+//         "jsx": "react",
+//         "lib": [
+//             "dom",
+//             "es6"
+//         ]
+//     },
+//     "include": [
+//         "src"
+//     ],
+//     "compileOnSave": false
+// }

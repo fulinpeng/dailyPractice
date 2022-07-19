@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="../js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <table class="table table-striped" id="table-test">
+        <tr>
+            <th>姓名</th>
+            <th>工作</th>
+        </tr>
+        <tr>
+            <td>老李</td>
+            <td>前端</td>
+        </tr>
+        <tr>
+            <td>老阳</td>
+            <td>前端</td>
+        </tr>
+        <tr>
+            <td>老景</td>
+            <td>前端</td>
+        </tr>
+    </table>
+</body>
+<script>
+
+    // 写法一：
+
+    $('#table-test td').click(function (e) {
+        e.stopPropagation();
+        var oldVal=$(this).text();
+        var newVal='<input value="'+oldVal+'"/>';
+        $(this).html(newVal);
+
+        $('#table-test td').on('click','input', function (e) {
+            e.stopPropagation();
+            console.log(this);
+        })
+        
+        $('#table-test td').on('keyup','input', function (e) {
+            e.stopPropagation();
+            if (e.keyCode==13) {
+            console.log(this);
+                var me=$(this);
+                me.parent().html(me.val());
+            }
+        })
+    })
+    
+    // 写法二：上面这种写法和下面这种效果一样的
+
+    // $('#table-test td').click(function (e) {
+    //     e.stopPropagation();
+    //     var oldVal=$(this).text();
+    //     var newVal='<input value="'+oldVal+'"/>';
+    //     $(this).html(newVal);
+        
+    //     $('#table-test td input').on('click', function (e) {
+    //         e.stopPropagation();
+    //         console.log(this);
+    //     })
+    //     $('#table-test td input').on('keyup', function (e) {
+    //         e.stopPropagation();
+    //         console.log(this);
+    //         if (e.keyCode==13) {
+    //             var me=$(this);
+    //             me.parent().html(me.val());
+    //         }
+    //     })
+    // })
+
+    // 写法三
+
+    // (function ($) {
+    //     var tableTest={ //命名空间，装所有的变量和方法
+    //         init:function (params) {
+    //             var self=this;
+    //             self.render();
+    //             self.bind();
+    //         },
+    //         render:function () {
+    //             var self=this;
+    //             self.test=$('#table-test td');
+    //         },
+    //         bind:function () {
+    //             var self=this;
+    //             self.test.on('click', $.proxy(self, 'doTestClick'));
+    //             self.test.on('keyup','input', $.proxy(self['doTestKeyup'], self));
+    //         },
+    //         doTestClick:function (e) {
+    //             var dom=$(e.target);
+    //             var oldVal=dom.text();
+    //             var newVal='<input value="'+oldVal+'"/>';
+    //             dom.html(newVal);
+    //         },
+    //         doTestKeyup:function (e) {
+    //             var dom=$(e.target);
+    //             if (e.keyCode==13) {
+    //                 dom.parent().html(dom.val());
+    //             }
+    //         }
+    //     };
+    //     tableTest.init();
+    //     experts=tableTest;
+    // })(jQuery)
+
+</script>
+</html>

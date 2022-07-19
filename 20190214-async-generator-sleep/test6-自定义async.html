@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // async 函数就是将 Generator 函数和自动执行器，包装在一个函数里
+        function fn(args) {
+            return spawn(function* () {
+                let value1 = yield new Promise(function (resolve) {
+                    setTimeout(() => resolve('1'), 1000);
+                });
+
+                console.log('~~~~ value1异步结束', value1);
+
+                let value2 = yield new Promise(function (resolve) {
+                    setTimeout(() => resolve('2'), 1000);
+                });
+
+                console.log('~~~~ value2异步结束', value2);
+            });
+        }
+        function spawn(genF) {
+            // 为什么用promise，还不是因为async函数的执行结果是一个promise...
+            return new Promise(function (resolve, reject) {
+                const gen = genF();
+                // 下面是一个 genarator 的任务执行器(就是一个递归)
+                function step(nextF) {
+                    let next;
+                    try {
+                        next = nextF(); // 就是执行 gen.next()
+                        // console.log('next', next);
+                    } catch (e) {
+                        return reject(e);
+                    }
+                    if (next.done) {
+                        // 普通函数的结束用 return ，promise的结束用 return resolve() 或者 reject
+                        // 递归一定得 return ，记得啊
+                        return resolve(next.value);
+                    }
+                    // 没有结束的话就继续调用next方法，这里就是个递归调用【学到了吗，promise递归】
+                    // 为什么这里还用 Promise.resolve 呢？因为要异步啊，还是立即执行的resolve状态的promise
+                    // 可以用 Timeout 吗？不好，因为 Promise 更方便值的传递
+                    // step参数为什么是个函数？
+                    // 为了在上面去执行，执行这个函数才调用下一次的next方法【学到了吧】
+                    // 为了铺获错误
+                    Promise.resolve(next.value).then(function (v) {
+                        // console.log('then', v);
+                        step(function () { return gen.next(v); });
+                    }, function (e) {
+                        step(function () { return gen.throw(e); }); // gen.throw(e) 抛出错误
+                    });
+                }
+                step(function () { return gen.next(undefined); }); // 首次调用step，next 传值 undefined
+            });
+        }
+        fn();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="test1" data-img="imgimg" data-input="inputinput" data-form="formform"></div>
+<script>
+    var test1=document.getElementById('test1');
+    var data=test1.dataset;
+    console.log(typeof data)
+    delete test1.dataset['img'];
+    test1.dataset['img']='xixixiixix';
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-3表格操作</title>
+<style>
+	#div1{
+		width:100px;
+		height:100px;
+		background:red;
+		position:absolute;
+	}
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	
+	document.onmousemove=function( ev){
+		var ev=ev || event;
+		var scrollTop=document.documentElement.scrollTop || document.body.scrollTop;
+		oDiv.style.top=ev.clientY + scrollTop + 'px';
+		oDiv.style.left=ev.clientX + 'px';
+	};
+		
+		
+};
+</script>
+</head>
+<body style="height:1000px;">
+<div id="div1">
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<html lang="en-US">
+<canvas id="myCanvas" width=500px height=500px></canvas>
+<canvas id="myCanvas2" width=500px height=500px></canvas>
+
+<script>
+
+    var myCanvas = document.getElementById("myCanvas");
+    var context = myCanvas.getContext("2d");
+    //创建五角星
+    var shape = {};
+    shape.star = function(l)
+    {
+        var rad1 = Math.sin(0.4*Math.PI);     //sin(72)
+        var rad2 = Math.cos(0.4*Math.PI);     //cos(72)
+        var rad3 = Math.sin(0.2*Math.PI);     //sin(36)
+        var rad4 = Math.cos(0.2*Math.PI);     //cos(36)
+
+        with(context)
+        {
+            moveTo(0,-l*rad1);
+            lineTo(l*rad2,0);
+            lineTo(l+l*rad2,0);
+            lineTo(l*rad2+2*l*rad2*rad2,l*rad3);
+            lineTo(l*rad4,2*l*rad1*rad1-l*rad1+l*rad3);
+            lineTo(0,2*l*rad1*rad1-l*rad1);
+            lineTo(-l*rad4,2*l*rad1*rad1-l*rad1+l*rad3);
+            lineTo(-l*rad2-2*l*rad2*rad2,l*rad3);
+            lineTo(-l-l*rad2,0);
+            lineTo(-l*rad2,0);
+            lineTo(0,-l*rad1);
+        }
+    }
+
+    function addZero(string){return string.length == 2 ? string : '0' + string;}
+
+    //随机颜色
+    function toRGB(redValue, greenValue, blueValue)
+    {
+        rgbR = addZero(redValue.toString(16)),
+            rgbG = addZero(greenValue.toString(16)),
+            rgbB = addZero(blueValue.toString(16));
+        var rgb = "#" + rgbR + rgbG + rgbB;
+        return rgb;
+    }
+    context.translate(250,100);
+
+    for(var i=0;i< 50;i++)
+    {
+        context.beginPath();
+        context.scale(0.95,0.95);
+        context.rotate(Math.PI/8);
+        context.translate(70,-25);
+        shape.star(50);
+        //Math.random()返回的是0~~~1之间的数 所以乘以256
+        context.fillStyle = toRGB(parseInt(Math.random()*256),
+            parseInt(Math.random()*256),parseInt(Math.random()*256));
+        context.fill();
+    }
+
+
+
+
+
+
+
+
+
+    var myCanvas2 = document.getElementById("myCanvas2");
+    var cvs = myCanvas2.getContext("2d");
+    cvs.translate(250,100);
+    for (var i=0; i<50; i++){
+        cvs.translate(40,20);
+        cvs.rotate(Math.PI/10);
+        cvs.scale(0.95,0.95);
+        cvs.fillStyle=setColor();
+        stars();
+    }
+    //随机颜色
+    function setColor() {
+        var color="rgba("+Math.round(255*Math.random())+","+Math.round(255*Math.random())+","+Math.round(255*Math.random())+",1)";
+        return color;
+    }
+    //五角星
+    function stars(){
+        var R=40;
+        var r=16;
+        cvs.beginPath();
+        cvs.moveTo(R*Math.sin(36*0*Math.PI/180),R*Math.cos(36*0*Math.PI/180));
+        cvs.lineTo(r*Math.sin(36*1*Math.PI/180),r*Math.cos(36*1*Math.PI/180));
+        cvs.lineTo(R*Math.sin(36*2*Math.PI/180),R*Math.cos(36*2*Math.PI/180));
+        cvs.lineTo(r*Math.sin(36*3*Math.PI/180),r*Math.cos(36*3*Math.PI/180));
+        cvs.lineTo(R*Math.sin(36*4*Math.PI/180),R*Math.cos(36*4*Math.PI/180));
+        cvs.lineTo(r*Math.sin(36*5*Math.PI/180),r*Math.cos(36*5*Math.PI/180));
+        cvs.lineTo(R*Math.sin(36*6*Math.PI/180),R*Math.cos(36*6*Math.PI/180));
+        cvs.lineTo(r*Math.sin(36*7*Math.PI/180),r*Math.cos(36*7*Math.PI/180));
+        cvs.lineTo(R*Math.sin(36*8*Math.PI/180),R*Math.cos(36*8*Math.PI/180));
+        cvs.lineTo(r*Math.sin(36*9*Math.PI/180),r*Math.cos(36*9*Math.PI/180));
+        cvs.closePath();
+        cvs.fill();
+    }
+</script>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	#list{
+		width:240px;
+		margin:10px auto;
+		border:1px solid #333;
+	}
+	#list h2{
+		height:30px;
+		font-size:20px;
+		text-indent:20px;
+		line-height:30px;
+		background:url('img/ico1.gif') no-repeat 4px 9px;
+		background-color:yellow;
+		border-bottom:1px solid #333;
+	}
+	#list .active{
+		background:url('img/ico2.gif') no-repeat 4px 9px;
+		background-color:#6ff;
+	}
+	#list ul{
+		display:none;
+	}
+	#list ul li{
+		height:24px;
+		text-indent:24px;
+		border-bottom:1px solid #333;
+	}
+	#list ul .hover{
+		background-color:#f8f;
+	}
+	
+</style>
+<script>
+	window.onload=function(){
+		var oList=document.getElementById('list');
+		var aH2=oList.getElementsByTagName('h2');
+		var aUl=oList.getElementsByTagName('ul');
+		var len=aUl.length;//alert(1);
+		var aLi=null;//要弄一个空的，不然不行
+		var arrLi=[];
+		for (var i=0;i<len;i++){
+			aH2[i].index=i;
+			aH2[i].onclick=function(){
+				if(this.className===''){
+					aUl[this.index].style.display='block';
+					this.className='active';//这里要用this，不是aH2[this.index]
+				}else{
+					aUl[this.index].style.display='none';
+					this.className='';
+				};
+			};
+		};
+		for(var i=0; i<len; i++){
+			 aLi=aUl[i].getElementsByTagName('li');
+			for(var j=0;j<aLi.length;j++){
+				arrLi.push(aLi[j]);//是把所有ul下的li加到arrLi中去共i*j个li，自己看视频
+			};
+		};//这都是为了找元素
+		for(var i=0;i<arrLi.length;i++){
+			arrLi[i].onclick=function(){
+				for(var i=0;i<arrLi.length;i++){
+					arrLi[i].className='';//先把所有的className都清空
+				};
+				this.className='hover';//在给当前的Li添加className
+			};
+		};
+	};
+</script>
+
+</head>
+<body>
+<pre >要注意格式啊，点‘.’老是被忘记；
+			aH2[i].index=i;
+			aH2[i].onclick=function(){
+				aUl[this.index].style.display='block';
+</pre >
+
+<ul id="list">
+	<li>
+		<h2>我的好友</h2>
+		<ul>
+			<li >张三</li>
+			<li>张谷歌</li>
+			<li>张我人</li>
+			<li>张䏃</li>
+			<li>张移机</li>
+		</ul>
+	</li>
+	<li>
+		<h2>企业好友</h2>
+		<ul>
+			<li>张三</li>
+			<li>张二爷</li>
+			<li>张万映</li>
+			<li>张也</li>
+			<li>张如同</li>
+		</ul>
+	</li>
+	<li>
+		<h2>目生人</h2>
+		<ul>
+			<li>张5页4 </li>
+			<li>张以人田</li>
+			<li>张而同样</li>
+		</ul>
+	</li>
+
+
+</ul>
+</body>
+</html>

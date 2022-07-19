@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <form>
+            <input type="text" ng-bind="count" />
+            <button type="button" ng-click="increment">increment</button>
+        </form>
+        <div ng-bind="count">
+        </div>
+    </div>
+    <script>
+
+        // https://zhuanlan.zhihu.com/p/24990192
+
+        function Scope() {
+            this.$$watchers = [];         // 该数组用于保存各数据变量的监听器
+        }
+
+        // # 监听器的结构
+        // {
+        //     name: name,                              //数据变量名
+        //     last: '',                                //数据变量旧值
+        //     newVal: exp,                             //返回数据变量新值的函数
+        //     listener: listener || function () { }    //监听回调函数，变量"脏"时触发
+        // }
+
+        // # 成员函数$watch
+        // 该函数用于创建监听器并绑定至当前作用域
+
+        Scope.prototype.$watch = function (name, exp, listener) {
+            this.$$watchers.push({
+                name: name,
+                last: '',
+                newVal: exp,
+                listener: listener || function () { }
+            })
+        };
+
+        // 对监视器的新旧值进行对比，当新旧值不同时，调用listener函数进行相应操作，并将旧值更新为新值。
+        // 它将不断重复这一过程，直到所有数据变量的新旧值相等
+        // 下面是简单的实现：
+        // Scope.prototype.$digest = function () {
+        //     var dirty = true;
+        //     while (dirty) {
+        //         dirty = false;
+        //         var watchers = this.$$watchers;
+        //         for (var i = 0; i < watchers.length; i++) {
+        //             var newVal = watchers[i].newVal();
+        //             var oldVal = watchers[i].last;
+        //             if (newVal !== oldVal) {
+        //                 dirty = true;
+        //                 watchers[i].listener(oldVal, newVal);
+        //                 watchers[i].last = newVal;
+        //             }
+        //         }
+        //     }
+        // };
+
+        // 为了将新的数据变量反映到DOM上，我们需要在$digest流程中加入对DOM的更新操作（仅实现了包含ng-bind的DOM更新）
+        Scope.prototype.$digest = function () {
+            var bindList = document.querySelectorAll("[ng-bind]"); //获取所有含ng-bind的DOM节点
+            var dirty = true;
+            while (dirty) {
+                dirty = false;
+                var watchers = this.$$watchers;
+                for (var i = 0; i < watchers.length; i++) {
+                    var newVal = watchers[i].newVal();
+                    var oldVal = watchers[i].last;
+
+                    if (newVal !== oldVal) {
+                        dirty = true;
+                        watchers[i].listener(oldVal, newVal);
+                        watchers[i].last = newVal;
+                        for (var j = 0; j < bindList.length; j++) {
+                            // 获取DOM上的数据变量的名称
+                            var modelName = bindList[j].getAttribute("ng-bind");
+                            // 数据变量名相同的DOM才更新
+                            if (modelName == watchers[i].name) {
+                                if (bindList[j].tagName == "INPUT") {
+                                    // 更新input的输入值
+                                    bindList[j].value = this[modelName];
+                                } else {
+                                    // 更新非交互式DOM的值
+                                    bindList[j].innerHTML = this[modelName];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        window.onload = function () {
+            // 创建一个作用域，并绑定两个数据：
+            var $scope = new Scope();
+            $scope.count = 1;
+            $scope.increment = function () {
+                this.count++;
+            };
+            // 执行一次$digest来进行初始化
+            $scope.$digest();
+
+            // # 解析ng指令
+            
+            // ng-click （下面这段代码应该写到 $digest 里面去吧？？有点没看懂为嘛要写在这里）
+            var bindList = document.querySelectorAll("[ng-click]");
+            for (var i = 0; i < bindList.length; i++) {
+                bindList[i].onclick = (function (index) {
+                    return function () {
+                        $scope[bindList[index].getAttribute("ng-click")]();
+                        $scope.$digest(); // 调用函数时触发$digest
+                    }
+                })(i)
+            }
+            
+            // ng-bind
+            var inputList = document.querySelectorAll("input[ng-bind]");
+            for (var i = 0; i < inputList.length; i++) {
+                inputList[i].addEventListener("input", (function (index) {
+                    return function () {
+                        $scope[inputList[index].getAttribute("ng-bind")] = inputList[index].value;
+                        $scope.$digest(); // 调用函数时触发$digest
+                    }
+                })(i));
+            }
+
+            // 绑定数据
+            // 执行$watch将一个Scope中的数据变量添加至作用域的监视器数组中
+            for (var key in $scope) {
+                // 非函数数据才进行绑定
+                if (key != "$$watchers" && typeof $scope[key] != "function") {
+                    $scope.$watch(key, (function (index) { // 闭包保护key，做为局部变量
+                        return function () {
+                            return $scope[index];
+                        }
+                    })(key))
+                }
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

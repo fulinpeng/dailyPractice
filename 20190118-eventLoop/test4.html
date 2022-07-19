@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .outer {
+            background: #D4D4D4;
+            padding: 25px;
+            width: 92px;
+            margin: 0 auto;
+        }
+
+        .inner {
+            background: #ADADAD;
+            padding: 46px;
+            width: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div class="inner"></div>
+    </div>
+    <script>
+
+        // Let's get hold of those elements
+        var outer = document.querySelector('.outer');
+        var inner = document.querySelector('.inner');
+
+        // Let's listen for attribute changes on the
+        // outer element
+        new MutationObserver(function () {
+            console.log('mutate');
+        }).observe(outer, {
+            attributes: true
+        });
+
+        // Here's a click listener…
+        function onClick() {
+            console.log('click');
+
+            setTimeout(function () {
+                console.log('timeout');
+            }, 0);
+
+            Promise.resolve().then(function () {
+                console.log('promise');
+            });
+
+            outer.setAttribute('data-random', Math.random());
+        }
+
+        // …which we'll attach to both elements
+        inner.addEventListener('click', onClick);
+        outer.addEventListener('click', onClick);
+
+        // js调用click事件（不通过浏览器，直接走 js stack 来调用）
+        inner.click();
+    </script>
+</body>
+
+</html>

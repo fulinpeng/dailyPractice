@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-2ClassName的添加</title>
+
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	addClass(oDiv1,'box1');
+	
+	function addClass(obj,cn){
+		//如果原来没有class
+		if(obj.className==''){
+			obj.className=cn;
+		}else{
+		//如果原来有class
+			var arr=obj.className.split(' ');
+			var index=arrIndexof(arr , cn);
+			if(index == -1){
+			//如果原来有class，不包含box1
+				obj.className +=' ' +cn;
+			};
+			//如果原来有class，含有box1,
+			//那就不用else了，什么都不做
+		};
+		function arrIndexof(arrn , cnn){//判断并返回值的函数，这个函数不能放在else中了、、、、、、、、找了一上午错误、、、、、、、、、、、、、、、、、、
+			for(var i=0; i<arrn.length; i++){
+				if(arrn[i]==cnn){
+					return i;//如果原来有class，含有box1,返回‘i’
+				};//这里不能再加else了，不包含box1、、、、、、、、、、、、、、、、找了一上午错误、、、、、、、、、、、、、、、、、、、、
+			};
+			return -1;//这是函数的返回值，要卸载函数中，别写在if中、、、、、、、、、、、、、、、、找了一上午错误、、、、、、、、、、、、、、、、、、、、
+		};
+	};
+
+};
+</script>
+</head>
+<body>
+<div id="div1" class="box box3 box1 boxa">div1</div>
+
+</body>
+</html>

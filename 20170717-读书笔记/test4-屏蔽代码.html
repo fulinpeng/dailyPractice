@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="clear()">
+<div oncopy="return false">这是正文内容</div>
+<script>
+    function clear() {//只能在ie中生效
+        var sourse=document.body.innerHTML;
+        document.open();
+        document.write('代码已经被屏蔽');
+        document.close();
+        document.title='看不到源代码';
+        document.body.innerHTML=sourse;
+    }
+</script>
+</body>
+</html>

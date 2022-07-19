@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<canvas id="myCanvas" width=1000px height=600px></canvas>
+<script>
+    var myCanvas = document.getElementById("myCanvas");
+    var cvs = myCanvas.getContext("2d");
+    function  polygon(obj) {console.log(obj)
+        for(var i=0; i<=obj.n; i++){
+            var angle=Math.PI*2/obj.n*i;
+            if(i==0){
+                cvs.moveTo(obj.startx+obj.r*Math.sin(angle),obj.starty+obj.r*Math.cos(angle));
+            }else{
+                cvs.lineTo(obj.startx+obj.r*Math.sin(angle),obj.starty+obj.r*Math.cos(angle));
+            }
+        }
+        cvs.closePath();
+        cvs.stroke();
+        cvs.fillStyle=obj.color;
+        cvs.fill();
+    }
+    polygon({
+        'startx':100,
+        'starty':100,
+        'r':30,
+        'n':3,
+        'color':"#BF0628"
+    });
+    polygon({
+        'startx':200,
+        'starty':100,
+        'r':30,
+        'n':4,
+        'color':"#BF0628"
+    });
+    polygon({
+        'startx':300,
+        'starty':100,
+        'r':30,
+        'n':7,
+        'color':"#EBC41F"
+    });
+    polygon({
+        'startx':400,
+        'starty':100,
+        'r':30,
+        'n':10,
+        'color':"#EBC41F"
+    });
+    polygon({
+        'startx':500,
+        'starty':100,
+        'r':30,
+        'n':10,
+        'color':"pink"
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html> <head>
+    <meta charset="gbk">
+    <title>实现的遮罩动画</title>
+</head>
+<body></body>
+<script>
+    var cImg=document.createElement("canvas");
+    cImg.width=600;
+    cImg.height=300;
+    cImg.style.position="absolute";
+    cImg.style.left="calc(50% - 300px)";
+    cImg.style.top="calc(50% - 150px)";
+    document.body.appendChild(cImg);
+    var cvsImg=cImg.getContext("2d");
+    var img=new Image();
+    img.src="./images/zzx.png";
+    cvsImg.drawImage(img,0,0);
+
+
+    var c=document.createElement("canvas");
+    c.width=600;
+    c.height=300;
+    c.style.position="absolute";
+    c.style.left="calc(50% - 300px)";
+    c.style.top="calc(50% - 150px)";
+    document.body.appendChild(c);
+    var cvs=c.getContext("2d");
+
+
+
+    var arcX=100;
+    var arcY=100;
+    var arcR=50;
+    var speedX=Math.random()*10+7;
+    var speedY=Math.random()*10+5;
+
+    function drawShadow() {
+        cvs.clearRect(0,0,c.width,c.height);
+        cvs.globalCompositeOperation="source-over";
+        cvs.fillStyle="black";
+        cvs.fillRect(0,0,c.width,c.height);
+        cvs.globalCompositeOperation="destination-out";
+        cvs.beginPath();
+        cvs.arc(arcX,arcY,arcR,0,2*Math.PI);
+        cvs.fill();
+    }
+    function move() {
+        if (arcX+speedX+arcR>c.width||arcX+speedX-arcR<0){
+            speedX=-speedX;
+        }
+        if (arcY+speedY+arcR>c.height||arcY+speedY-arcR<0){
+            speedY=-speedY;
+        }
+        arcX+=speedX;
+        arcY+=speedY;
+    }
+
+    setInterval(function () {
+        drawShadow();
+        move();
+    },50)
+
+
+
+</script>
+</html>

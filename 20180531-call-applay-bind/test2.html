@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // call、apply 可以就像代数一样去理解。。。
+        window.xxx = function () {
+            console.log(arguments);
+        }
+        Function.prototype.apply.call(xxx, undefined, [1.75, 2, 3]);
+        // 上面这个怎么理解：下面这个解释很帅
+        // Function.prototype.apply 看成一个函数 fnApply，反正就是一个函数嘛，fnApply 后面又有个call，相当于fnApply再用call的形式执行
+        // Function.prototype.apply.call(xxx, undefined, [1.75,2,3]) ==> xxx.fnApply(undefined, [1.75,2,3]) ==>
+        // ==重点==：上面说了把Function.prototype.apply 看成一个函数 fnApply，所以fnApply就相当于（什么哦，就是）大Function构造函数原型上的apply函数的引用 ==>
+        // xxx.apply(undefined, [1.75,2,3]) ==> undefined.xxx(1.75,2,3);
+        // ==> window.xxx(1.75,2,3)
+
+        // 上面的理解应该是对的吧
+        // var aArgs = Array.prototype.slice.call(arguments, 1);
+
+        // 实现 console.log
+        var console = window.console || {
+            log: function () {}
+        };
+        var log = console.log;
+        console.log = function (tips, message) {
+            Function.prototype.apply.call(log, console, arguments);
+            // Function.prototype.call.call(log, console, arguments);
+            // Function.prototype.call.apply(log, [console, arguments]);
+
+            // 传统方式
+            // var args=[].slice.call(arguments);
+            // log.apply(console,args);
+        }
+        console.log("测试", "This is test"); // 测试 This is test
+
+        // 详细说明见：https://blog.csdn.net/bluesky1215/article/details/76273398
+        // 分析：
+        // 该怎么理解Function.prototype.apply.call(log,console,arguments);呢
+        // 首先可以将Function.prototype.apply看成一个整体-->fApply (和apply的功能一模一样)
+        // fApply.call(log,console,arguments);
+        // 那么将此句翻译一下
+        // log.fApply(console,arguments);
+        // 然后再翻译一下,你就懂了吧,就是一个普通方法调用了
+        // console.log(arguments);
+
+
+        var f1 = function () {
+            console.log(1)
+        };
+        var f2 = function () {
+            console.log(2)
+        };
+        Function.prototype.call.call(Function.prototype.call, f2) //2
+        Function.prototype.call.call(f1, f2); //1
+        Function.prototype.call.call(f1); //1
+        Function.prototype.call.apply(f1); //1
+
+        var c =() => {}
+        c.call.apply(f1); // 1
+        c.call.apply(f2); // 2
+
+        // 总结使用方法:
+        // XXX可以是call或者是apply, child一定是parent可指向的对象
+
+        // Function.prototype.XXX.call(child, parent, arguments || array);
+        // Function.prototype.XXX.apply(child, [parent, arguments || array]);
+
+    </script>
+</body>
+
+</html>

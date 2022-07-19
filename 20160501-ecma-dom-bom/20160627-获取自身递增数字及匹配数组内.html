@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>获取自身递增数字及匹配数组内！</title>
+<style>
+
+input{
+  float:left;
+}
+</style>
+
+<script>
+window.onload = function (){
+	var aBtn=document.getElementsByTagName('input');
+
+	var arr=['A','B','C','D'];
+	for( var i=0; i<aBtn.length; i++){
+	//for( var i=0; i<aBtn.length; i++;){
+		aBtn[i].num=0;
+		aBtn[i].onclick=function (){
+			//this.value='arr[num]';
+			this.value = arr[ this.num ];
+			this.num++;
+			if( this.num === arr.length ){
+				this.num = 0;
+			}
+		};
+	};
+};
+
+
+
+
+</script>
+
+
+
+</head>
+
+<body>
+<p>
+   1、有两处错误，上面那处非常致命：<pre> for ( v a r i = 0; i < a Btn. le ngt h; i + + ; ) { </pre>,哪里错了？最后那个没有分号；<br/>
+   2、那处错误自己看，错误行是注释好了。
+</p>
+
+<input type="button" value="0"/>
+<input type="button" value="0"/>
+<input type="button" value="0"/>
+
+
+
+
+
+
+</body>
+</html>

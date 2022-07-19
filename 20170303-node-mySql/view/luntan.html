@@ -1,0 +1,13 @@
+
+<% ltdata.forEach(function(data){%>
+    <% data.s_time=data.s_time.toLocaleDateString()%>
+<div class="l_reply">
+    <div class="l_rylogo iconfont inline">&#xe6bc;</div>
+    <div class="l_ryre inline"><a href="reply.do?&shtitle=<%=data.s_name%>"><%=data.s_name%></a></div>
+    <div class="l_rynu inline l_text3">
+        <div class="iconfont">&#xe654;&emsp;</div>
+    </div>
+    <div class="l_ryus inline"><%=data.u_name%></div>
+    <div class="l_rydate inline"><%=data.s_time%></div>
+</div>
+<%})%>

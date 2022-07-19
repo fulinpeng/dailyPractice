@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .div1 #mycircle {
+            stroke-width: 5;
+            stroke: #f00;
+            fill: #ff0;
+        }
+
+        .div1 #mycircle:hover {
+            stroke: #090;
+            fill: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 如果 SVG 代码直接写在 HTML 网页之中，它就成为网页 DOM 的一部分，可以直接用 DOM 操作 -->
+    <div class="div1">
+        <svg id="mysvg" width="300" height="300">
+            <circle id="mycircle" cx="150" cy="150" r="50" />
+        </svg>
+    </div>
+    <script>
+        var mycircle = document.getElementById('mycircle');
+        mycircle.addEventListener('click', function (e) {
+            console.log('circle clicked');
+            if (mycircle.getAttribute('r') == 60) {
+                mycircle.setAttribute('r', 50);
+            } else {
+                mycircle.setAttribute('r', 60);
+            }
+        }, false);
+    </script>
+
+    <!-- 使用<object>、<iframe>、<embed>标签插入 SVG 文件，可以获取 SVG DOM -->
+    <!-- 用<img>标签插入 SVG 文件，就无法获取 SVG DOM -->
+    <div class="div2">
+
+    </div>
+    <script>
+        // var svgObject = document.getElementById('object').contentDocument;
+        // var svgIframe = document.getElementById('iframe').contentDocument;
+        // var svgEmbed = document.getElementById('embed').getSVGDocument();
+    </script>
+
+    <!-- 由于 SVG 文件就是一段 XML 文本，因此可以通过读取 XML 代码的方式，读取 SVG 源码 -->
+    <!-- 使用XMLSerializer实例的serializeToString()方法，获取 SVG 元素的代码    -->
+    <div class="div3" id="svg-container">
+        <svg id="div3-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="500"
+            height="440">
+            <!-- svg code -->
+        </svg>
+    </div>
+    <script>
+        // var svgString = new XMLSerializer().serializeToString(document.querySelector('div3-svg'));
+    </script>
+
+    <!-- SVG 图像转为 Canvas 图像 -->
+    <div class="div4">
+        <canvas id="div4-canvas"></canvas>
+    </div>
+    <script>
+        var img = new Image();
+        var svg = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+
+        var DOMURL = 'https://www.baidu.com/img/baidu_jgylogo3.gif';
+        var url = DOMURL.createObjectURL(svg);
+
+        img.onload = function () {
+            var canvas = document.getElementById('div4-canvas');
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+        };
+        img.src = url;
+    </script>
+</body>
+
+</html>

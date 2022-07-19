@@ -1,0 +1,98 @@
+body{
+    font-family: "微软雅黑 ";
+    background-color: #EFEFEF;
+}
+h1{
+    text-align: center;
+}
+.fullbox {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+    padding: 5px 30px 30px;
+}
+.glycolor{
+    color:#39ADB4;
+}
+.data-contexte{
+    width: 100%;
+    margin: 0 auto;
+}
+.data-tabhead{
+    background-color: #39ADB4;
+    color: #ffffff;
+}
+.data-tableRadius{
+    border-radius: 10px 10px 0 0 ;
+}
+.data-tabhead>tr>td{
+    padding: 10px 0;
+}
+.data-edit{
+    cursor: pointer;
+    width: 80%;
+    /*height: 30px;*/
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #DDDDDD;
+    transition: all .2s linear
+}
+.data-edit:hover{
+    background-color: #55B8BE;
+    color: #ffffff;
+}
+.data-SD{
+    line-height: 30px;
+    cursor: pointer;
+}
+.data-SD:hover{
+    color: #39ADC4;
+}
+.data-bw{
+    width: 100px;
+    float: left;
+    margin-top: 50px;
+    background:#39ADB4;
+    color:white;
+    border-radius:5px;
+    padding:5px 10px;
+}
+.data-bw:hover{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
+.data-star{
+    color: red;
+}
+.data-pointer{
+    cursor: pointer;
+}
+.data-secr{
+    padding: 30px 0px;
+}
+.data-divpage{
+    cursor: default;
+}
+.data-divpage>span{
+    display: inline-block;
+    border: 1px solid #CCCCCC;
+    cursor: pointer;
+}
+.data-divpage>a{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    border: 1px solid #CCCCCC;
+    color: #000000;
+    cursor: pointer;
+}
+.data-divpage>span:hover{
+    color: #55B8BE;
+}
+.data-divpage>a:hover{
+    color: #55B8BE;
+}

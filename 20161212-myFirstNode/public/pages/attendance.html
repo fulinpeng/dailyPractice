@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../js/layer/mobile/need/layer.css"/>
+    <link rel="stylesheet" href="../js/layer/skin/default/layer.css"/>
+    <link rel="stylesheet" href="../css/attendance.css"/>
+</head>
+<body class="container-fluid">
+<!-- Modal -->
+<div class="fullbox">
+    <h1 class="col-sm-12 col-xs-12"><span class="glycolor glyphicon glyphicon-align-left"></span>&nbsp;出勤情况</h1>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">学生请假详情</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>学生姓名</label>
+                        <input type="email" class="form-control stuName"  placeholder="请输入姓名"><span class="namewarning"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>入园时间</label>
+                        <input type="text" class="form-control inSchool"  placeholder="请输入入园时间"><span class="inwarning"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>离园时间</label>
+                        <input type="text" class="form-control outSchool"  placeholder="请输入请假日期"><span class="outwarning"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary mybtn">提交</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="mainvisible container mymenu">
+        <!--出入园时间-->
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 class="col-lg-12 col-md-12 col-sm-12"><span>一年三班</span>今日出入园时间</h3>
+                <p class="col-lg-12 col-md-12 col-sm-12 mydescribe">仅显示当天该班级的出勤情况，查询其他班级、日期请点击其它查询</p>
+        </div>
+
+        <div class="mytablediv col-lg-12 col-md-12 col-sm-12">
+            <table class="mytable table-responsive ">
+                <tr class="first_tr">
+                    <td>日期</td>
+                    <td>姓名</td>
+                    <td>入园时间</td>
+                    <td>离园时间</td>
+                    <td>邮件推送</td>
+                    <td>状态</td>
+                    <td>修改</td>
+                    <td>删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td>异常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">已推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+                <tr>
+                    <td>2016/12/14</td>
+                    <td class="name">张文</td>
+                    <td class="inschool">07:50</td>
+                    <td class="outschool">17:00</td>
+                    <td class="sent"><a href="#">邮件推送</a></td>
+                    <td>正常</td>
+                    <td class="reset" data-toggle="modal" data-target="#myModal">修改</td>
+                    <td class="deltable">删除</td>
+                </tr>
+            </table>
+        </div>
+        <div class="container-fluid myfooter">
+            <div class="row">
+                <div class="col-md-8 hidden-sm">
+                </div>
+                <div class="col-md-2 hidden-sm">
+                </div>
+                <nav class="col-md-3 col-sm-12">
+                    <ul class="pagination pagination-sm pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-1">
+        </div>
+    </div>
+</div>
+
+<script src="../js/laydate/laydate.js"></script>
+<script src="../js/jquery-3.1.1.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/layer/layer.js"></script>
+<script src="../js/attendance.js"></script>
+
+</body>
+</html>

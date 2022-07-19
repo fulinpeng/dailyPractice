@@ -1,0 +1,183 @@
+body{
+	background:#666;
+}
+ul,p{
+	padding:0;
+	margin:0;
+}
+li{
+	list-style:none;
+}
+.play{
+	width:400px;
+	height:430px;
+	margin:50px auto 0;
+	background:#999;
+}
+.big_pic{
+	width:400px;
+	height:320px;
+	overflow:hidden;
+	position:relative;
+	top:0;
+	left:0;
+}
+.big_pic li{
+	width:400px;
+	height:320px;
+	overflow:hidden;
+	position:absolute;
+	top:0;
+	left:0;
+}
+.big_pic li img{
+	width:400px;
+	height:320px;
+}
+.big_btn{
+	width:400px;
+	height:320px;
+	position:relative;
+	top:-320px;
+	left:0;
+}
+.big_btn .pre{
+	width:60px;
+	height:60px;
+	font-size:50px;
+	font-weight:bold;
+	line-height:60px;
+	text-align:ceter;
+	position:absolute;
+	top:130px;
+	left:10px;
+	font-size:50px;
+	font-weight:bold;
+	line-height:60px;
+	text-align:ceter;
+	color:#fff;
+	cursor:pointer;
+	z-index:3001;
+	filter:alpha(opacity:0);
+	opacity:0;
+}
+.big_btn .next{
+	width:60px;
+	height:60px;
+	font-size:50px;
+	font-weight:bold;
+	line-height:60px;
+	text-align:ceter;
+	color:#fff;
+	position:absolute;
+	top:130px;
+	right:10px;
+	font-size:50px;
+	font-weight:bold;
+	line-height:60px;
+	text-align:ceter;
+	color:#fff;
+	cursor:pointer;
+	z-index:3001;
+	filter:alpha(opacity:0);
+	opacity:0;
+}
+.big_btn .mark_left{
+	width:200px;
+	height:320px;
+	display:block;
+	position:absolute;
+	z-index:3000;
+	left:0;
+	cursor:pointer;
+	background:red;
+	filter:alpha(opacity:0);
+	opacity:0;
+}
+.big_btn .mark_right{
+	width:200px;
+	height:320px;
+	display:block;
+	position:absolute;
+	z-index:3000;
+	left:200px;
+	cursor:pointer;
+	background:red;
+	filter:alpha(opacity:0);
+	opacity:0;
+}
+.big_btn .text{
+	position:absolute;
+	left:10px;
+	top:295px;
+	color:#fff;
+	line-height:25px;
+	font-size:16px;
+	z-index:3001;
+	filter:alpha(opacity:60);
+	opacity:0.6;
+}
+.big_btn .length{
+	position:absolute;
+	right:10px;
+	top:295px;
+	color:#fff;
+	line-height:25px;
+	font-size:16px;
+	z-index:3001;
+	filter:alpha(opacity:60);
+	opacity:0.6;
+}
+.big_btn .bg{
+	width:400px;
+	height:25px;
+	background:#000;
+	filter:alpha(opacity:40);
+	opacity:0.4;
+	position:absolute;
+	top:295px;
+	z-index:3000;
+}
+.small_pic{
+	width:380px;
+	height:94px;
+	position:relative;
+	top:-310px;
+	left:0;
+	overflow:hidden;
+	padding:0 10px;
+}
+.small_pic ul{
+	height:94px;
+	position:absolute;
+	top:0;
+	left:0;
+	padding:0 10px;
+}
+.small_pic li{
+	width:120px;
+	height:94px;
+	float:left;
+	padding-right:10px;
+	filter:alpha(opacity:60);
+	opacity:0.6;
+}
+.small_pic img{
+	width:120px;
+	height:94px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

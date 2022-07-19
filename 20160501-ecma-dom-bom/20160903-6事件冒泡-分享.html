@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-3事件冒泡-分享</title>
+<style>
+*{
+	margin:0;
+	padding:o;
+}
+	#div1{
+		width:100px;
+		height:200px;
+		top:70px;
+		left:-100px;
+		background:red;
+		position:absolute;
+	}
+	#div2{
+		width:20px;
+		height:70px;
+		padding:0 5px;
+		font-weight:bold;
+		color:red;
+		background:yellow;
+		position:absolute;
+		top:70px;
+		right:-30px;
+	}
+</style>
+<script>
+window.onload=function(){
+	
+	var oDiv1=document.getElementById('div1');
+	var oDiv2=document.getElementById('div2');
+	
+	oDiv1.onmouseover=function hidden(){//有事件冒泡的存在，所以现在点击‘div2’也可以触发hidden()函数
+		oDiv1.style.left='0';
+	};
+	oDiv1.onmouseout=function show(){
+		oDiv1.style.left='-100px';
+	};
+};
+</script>
+</head>
+<body>
+
+<div id="div1" >
+	<div id="div2">分享到</div>
+</div>
+
+</body>
+</html>

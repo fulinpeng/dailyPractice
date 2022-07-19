@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <button class="praise_btn">
+            <span class="praise_text">点赞</span>
+        </button>
+    </div>
+    <script>
+        var praiseBtn = document.querySelector('.praise_btn');
+        var praiseText = document.querySelector('.praise_btn .praise_text');
+        var isPraise = false;
+        praiseBtn.addEventListener('click', () => {
+            console.log(praiseText);
+            isPraise = !isPraise;
+            if (isPraise) {
+                praiseText.innerHTML = '取消';
+            } else {
+                praiseText.innerHTML = '点赞';
+            }
+        }, false);
+    </script>
+</body>
+</html>

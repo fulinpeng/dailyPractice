@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*在现代浏览器中，帧速率为60fps是流畅性能的目标，给定我们16.7ms
+    的时间预算用于响应一些事件所有需要的更新。如果你曾经使用mousemove
+    事件，你会知道产生mousemove事件的数量每秒可以超过60次。那么每次的
+    执行间隔就会小于16.7，而如果我们的回调比较复杂，需要16.7ms甚至更多
+    的时间，那就会，一次回调还没运行完，又来了下一次，这不是乱了？
+    所以要节流，保证回调每次正常执行，虽然不能减少dom事件执行的频率，但是
+    我们可以减少事件函数执行的频率。*/
+
+//    var delta = 1000;
+//    var then = 0;
+//    function log() {
+//        console.log('foo');
+//    }
+//    function throttledLog() {
+//        var now = Date.now();
+//        if (now - then >= delta) {
+//            log();
+//            then = now;
+//        }
+//    }
+//    window.onmousemove = throttledLog;
+
+
+
+//    我们可以用 fps替换delta
+//    var fps = 60;
+//    var then = 0;
+//    function log() {
+//        console.log('foo');
+//    }
+//    function throttledLog() {
+//        var now = Date.now();
+//        if (1000 / (now - then) <= fps) {
+//            log();
+//            then = now;
+//        }
+//    }
+//    window.onmousemove = throttledLog;
+
+
+
+//    通过使用setTimeout，检查状态变化来判断是否执行
+//    var delta = 1000;
+//    var safe = true;
+//    function log() {
+//        console.log('foo');
+//    }
+//    function throttledLog() {
+//        if (safe) {
+//            log();
+//            safe = false;
+//            setTimeout(function() {
+//                safe = true;
+//            }, delta);
+//        }
+//    }
+//    window.onmousemove = throttledLog;
+
+
+
+</script>
+</body>
+</html>

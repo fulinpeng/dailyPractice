@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-6-2运动框架-分享到</title>
+<style>
+
+	#div1{
+		width:100px;
+		height:200px;
+		top:50px;
+		left:-100px;
+		background:#ccc;
+		position:absolute;
+	}
+	#div1 span{
+		width:20px;
+		height:60px;
+		position:absolute;
+		background:yellow;
+		left:100px;
+		top:70px;
+		color:red;
+		line-height:20px;
+		font-size:16px;
+		text-align:center;
+	}
+</style>
+<script>
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		
+		oDiv.onmouseover=function(){
+			startMove(oDiv,0);
+		};
+		oDiv.onmouseout=function(){
+			startMove(oDiv,-100);
+		};
+	};
+	
+	var timer=null;
+	function startMove(obj,iTarget){
+		
+		clearInterval(timer);
+		iSpeed=obj.offsetLeft>=iTarget ? -10 : 10;
+
+		timer=setInterval(function(){
+			if(obj.offsetLeft==iTarget){
+				clearInterval(timer);
+			}else{
+				obj.style.left=obj.offsetLeft + iSpeed + 'px';
+			};
+		},30);
+	};
+	
+	
+	
+	
+	
+	
+</script>
+</head>
+<body style="height:1000px;">
+
+<div id="div1" >
+
+	<span>分享到</span>
+
+</div>
+
+</body>
+</html>

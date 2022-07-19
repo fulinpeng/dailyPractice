@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>作业9-11运动框架运用</title>
+<link rel="stylesheet" type="text/css" href="css/playimages.css"/>
+<script src="js/move.js"></script>
+<script>
+window.onload=function(){
+	var oPlayimages=document.getElementById('playimages');
+	var oPre=getByClass(oPlayimages,'pre')[0];
+	var oNext=getByClass(oPlayimages,'next')[0];
+	var oMarkLeft=getByClass(oPlayimages,'mark_left')[0];
+	var oMarkRight=getByClass(oPlayimages,'mark_right')[0];
+	
+	var oLength=getByClass(oPlayimages,'length')[0];
+	
+	var oBigUl=getByClass(oPlayimages,'big_pic')[0];
+	var aBigLi=oBigUl.getElementsByTagName('li');
+	var oSmallUl=getByClass(oPlayimages,'small_pic')[0].getElementsByTagName('ul')[0];
+	var aSmallLi=oSmallUl.getElementsByTagName('li');
+	
+	var iNow=0;
+	var iMinZindex=1;
+	fnTab();//预执行
+	
+	oSmallUl.style.width=aSmallLi.length*aSmallLi[0].offsetWidth+'px';
+	
+	//左右按钮
+	oMarkLeft.onmouseover=oPre.onmouseover=function(){
+		startMove(oPre,'opacity',100);
+	};
+	oMarkRight.onmouseover=oNext.onmouseover=function(){
+		startMove(oNext,'opacity',100);
+	};
+	oMarkLeft.onmouseout=function(){
+		startMove(oPre,'opacity',0);
+	};
+	oMarkRight.onmouseout=function(){
+		startMove(oNext,'opacity',0);
+	};
+	//小图改变透明度
+	for(var i=0; i<aSmallLi.length; i++){
+		aSmallLi[i].index=i;
+		
+		aSmallLi[i].onmouseover=function(){
+			startMove(this,'opacity',100);
+		};
+		aSmallLi[i].onmouseout=function(){
+			if(this.index != iNow){
+				startMove(this,'opacity',60);
+			};
+		};
+		
+		aSmallLi[i].onclick=function(){
+			if(iNow==this.index)return;//（很精髓）这个解决了重复点击做同样的事
+			iNow=this.index;//放在当前函数的最前面
+			fnTab();
+		}
+	};
+	
+	//播放效果
+	function fnTab(){
+		for(var j=0; j<aSmallLi.length; j++){
+			startMove(aSmallLi[j],'opacity',60);//这里不能用this了，要用xxxj
+		};
+		startMove(aSmallLi[iNow],'opacity',100);
+		
+		oLength.innerHTML=iNow+1+'/'+aSmallLi.length;
+		
+		aBigLi[iNow].style.zIndex=iMinZindex++;//.style.zIndex
+		aBigLi[iNow].style.height=0;
+		startMove(aBigLi[iNow],'height',oBigUl.offsetHeight);//offsetHeight没有style
+		
+		
+		if(iNow==0){
+			startMove(oSmallUl,'left',0);
+		}else if(iNow==aSmallLi.length-1){
+			startMove(oSmallUl,'left',-(iNow-2)*aSmallLi[0].offsetWidth);
+		}else{
+			startMove(oSmallUl,'left',-(iNow-1)*aSmallLi[0].offsetWidth);
+		};
+	};
+
+	
+	oPre.onclick=function(){
+		iNow--;
+		iNow=iNow==-1 ? aSmallLi.length-1 : iNow;
+		fnTab();
+	};
+	oNext.onclick=function(){
+		iNow++;
+		iNow=iNow==aSmallLi.length ? 0 : iNow;
+		fnTab();
+	};
+	
+	//自动播放
+	var timer=null;
+	timer=setInterval(function(){
+		iNow++;//加了之后再进函数，否则刷新网页，第一步执行两次
+		iNow=iNow==aSmallLi.length ? 0 : iNow;
+		fnTab();
+	},3000);
+};
+	
+	
+	
+	
+	
+</script>
+</head>
+<body>
+<div id="playimages" class="play">
+	
+	<ul class="big_pic">
+		<li style="z-index:1;"><img src="img/1.jpg"/></li>
+		<li><img src="img/2.jpg"/></li>
+		<li><img src="img/3.jpg"/></li>
+		<li><img src="img/4.jpg"/></li>
+		<li><img src="img/5.jpg"/></li>
+		<li><img src="img/6.jpg"/></li>
+	</ul>
+	
+	<div class="big_btn">
+		<div class="pre"><</div>
+		<div class="next">></div>
+		
+		<div class="text">加载图片说明...</div>
+		<div class="length">计算图片数量...</div>
+		
+		<a class="mark_left" href="javascript:;"></a>
+		<a class="mark_right" href="javascript:;"></a>
+		<div class="bg"></div>
+	</div>
+	<div class="small_pic">
+		<ul>
+			<li style="filter:100;opacity:1;"><img src="img/1.jpg"/></li>
+			<li><img src="img/2.jpg"/></li>
+			<li><img src="img/3.jpg"/></li>
+			<li><img src="img/4.jpg"/></li>
+			<li><img src="img/5.jpg"/></li>
+			<li><img src="img/6.jpg"/></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

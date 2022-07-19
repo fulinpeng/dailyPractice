@@ -1,0 +1,165 @@
+.people-panel {
+  margin: 0.3rem 0.4rem 0;
+  padding-left: 0.8rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 0.01rem solid #ebebeb;
+  .user-pic {
+    width: 0.65rem;
+    height: 0.65rem;
+    overflow: hidden;
+    border-radius: 0.65rem;
+    margin-left: -0.8rem;
+    float: left;
+    img {
+      width: 100%;
+    }
+  }
+  .user-name-tags {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .user-name {
+      font-size: 0.26rem;
+      color: #333333;
+      letter-spacing: -0.0062rem;
+      line-height: 0.37rem;
+      flex:1;
+    }
+    .user-tags {
+      font-size: 0.14rem;
+      color: #333333;
+      letter-spacing: 0;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      position: relative;
+      flex:3;
+      display: flex;
+      justify-content: flex-end;
+      span {
+        margin-right: 0.05rem;
+        padding: 0 0.05rem;
+        display: inline-block;
+        background: #e0f2ff;
+        border-radius: 0.02rem;
+        margin-bottom: 0.05rem;
+        &:nth-last-child(1) {
+          margin-right: 0;
+        }
+      }
+      .add-tag{
+        position: absolute;
+        right:0;
+        top: 0.03rem;
+        width: 0.14rem;
+        height: 0.14rem;
+        background: url("../../images/tag.png") no-repeat;
+        background-size: cover;
+        cursor: pointer;
+        visibility: hidden;
+      }
+      .add-tag-model{
+        position: absolute;
+        right:0;
+        top:0.3rem;
+        width:4.36rem;
+        padding:0.1rem;
+        background: #FFFFFF;
+        box-shadow: 0 0.03rem 0.07rem 0 rgba(21,41,75,0.30);
+        border-radius: 0.02rem;
+        .title{
+          line-height: 0.3rem;
+          font-size: 0.14rem;
+          color: #999999;
+          letter-spacing: 0;
+        }
+      }
+    }
+  }
+  .user-info {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0.1rem 0;
+    .info {
+      margin-right: 0.2rem;
+      padding-left: 0.25rem;
+      font-size: 0.16rem;
+      color: #999999;
+      letter-spacing: 0;
+    }
+    .tel {
+      background: url("../../images/tel.png") no-repeat;
+      background-size: 0.2rem 0.2rem;
+      background-position: left center;
+    }
+    .adress {
+      background: url("../../images/adress.png") no-repeat;
+      background-size: 0.2rem 0.2rem;
+      background-position: left center;
+    }
+    .country {
+      background: url("../../images/country.png") no-repeat;
+      background-size: 0.2rem 0.2rem;
+      background-position: left center;
+    }
+  }
+  .user-tags-mobile {
+    font-size: 0.14rem;
+    color: #333333;
+    letter-spacing: 0;
+    position: relative;
+    flex:3;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    span {
+      margin-right: 0.05rem;
+      padding: 0 0.05rem;
+      display: inline-block;
+      background: #e0f2ff;
+      border-radius: 0.02rem;
+      margin-bottom: 0.05rem;
+      &:nth-last-child(1) {
+        margin-right: 0;
+      }
+    }
+  }
+  .user-desc {
+    font-family: PingFangSC-Regular;
+    font-size: 0.16rem;
+    color: #333333;
+    letter-spacing: 0;
+    margin-top: 0.1rem;
+  }
+  .more span {
+    cursor: pointer;
+  }
+  .bottom-tools{
+    height:0.16rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    visibility: hidden;
+    span {
+      margin-left: 0.15rem;
+      width: 0.14rem;
+      height: 0.14rem;
+      cursor: pointer;
+    }
+    .btn-edit {
+      background: url("../../images/edit.png") no-repeat;
+      background-size: cover;
+    }
+    .btn-delete {
+      background: url("../../images/delete.png") no-repeat;
+      background-size: cover;
+    }
+  }
+  &:hover {
+    .user-tags .add-tag{
+      visibility: visible;
+    }
+    .bottom-tools {
+      visibility: visible;
+    }
+  }
+}

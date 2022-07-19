@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .table_class{
+            width:100%;
+        }
+        .table_class tr,th,td{
+            border: 1px solid rgb(229,229,229);
+        }
+        .table_class td input,select{
+            display: inline-block;
+            width: 100%;
+            border:none;
+            outline: none;
+
+        }
+        .table_class td button{
+            display: inline-block;
+            border-radius:3px;
+        }
+    </style>
+</head>
+<body>
+    <table class="table_class"  cellspacing="0" cellpadding="0">
+        <thead>
+            <th>分类</th>
+            <th>字段名称</th>
+            <th>参考类型</th>
+            <th>参考长度</th>
+            <th>小数位</th>
+            <th>来源方式</th>
+            <th>是否必须有数据</th>
+            <th>字段说明</th>
+            <th>字段顺序</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select name="" id="">
+                        <option value="">基础</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                </td>
+                <td><input type="text" value="second_areaid"></td>
+                <td>
+                    <select name="" id="">
+                        <option value="">begint</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    </td>
+                <td><input type="text" value="12"></td>
+                <td><input type="text" value="0"></td>
+                <td>
+                    <select name="" id="">
+                            <option value="">ture</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                        </select>
+                </td>
+                <td><input type="text" value="true"></td>
+                <td><input type="text" value="市州ID"></td>
+                <td><input type="text" value="7"></td>
+                <td>
+                    <button>+</button>
+                    <button>X</button>
+                    <button>||</button>
+                    <button>||</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

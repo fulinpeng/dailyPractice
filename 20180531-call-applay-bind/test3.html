@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 摘自MDN 为不支持 bind 的浏览器做兼容
+        // 感觉下面这个理解了，那就是真的理解了原型。。。
+        if (Function.prototype.bind) {
+            Function.prototype.bind = function (oThis) { // 调用bind方法的函数对象里面的this需要永久都是oThis
+                if (typeof this !== "function") {
+                    // closest thing possible to the ECMAScript 5 internal IsCallable function
+                    throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+                }
+
+                var aArgs = Array.prototype.slice.call(arguments, 1),
+                    fToBind = this, // this指调用bind方法那个函数(永远记住bind是函数Function的实例方法)
+                    fNOP = function () {},
+                    fBound = function () {
+                        console.log('fBound', this === oThis); // 为true时，this是调用bind方法的函数的宿主
+                        // 这里的this取决于被谁调用，这里this有可能是window
+
+                        var target = this instanceof fNOP && oThis ?
+                            this : // 如果this是调用bind方法的函数的宿主，那...找的就是你，给我绑定！！！
+                            oThis || window // 上面this不是宿主，那就无奈地绑定到oThis上，如果oThis不存在就绑到window上
+                        return fToBind.apply(target, aArgs.concat(Array.prototype.slice.call(arguments)));
+                    };
+
+                // console.log('fToBind', fToBind);
+
+                fNOP.prototype = this.prototype; // 将调用bind方法那个函数的原型赋给 fNOP的原型
+                fBound.prototype = new fNOP(); // 新函数的原型是空对象，该空对象的 __proto__ 指向 调用bind方法那个函数的原型
+
+                // 虽然看懂了，但是不知道别人为啥子这么做？？？弄得这么复杂，为了什么？？？
+                //    目的：新函数的原型还原成老函数的原型
+                //    这样以来，调用bind方法后，还能把返回的函数当做构造函数
+                //    很好，既然这样，就明白了吧？不这样的话就 fBound.prototype.__proto__=this.prototype 这样也是可以的
+
+                // 1、fBound是还可以继续执行的，他必须是个函数
+                // 2、这个要返回的函数fBound的this在实际运用时调用bind时就保存下来，以后就不会变了
+                // 总结出一种技巧：当调用一个方法要将此时的某些东西存起来，就这样，，，好像不对头，下次再看
+
+                return fBound;
+            };
+        }
+        var o = {
+            num: 1
+        };
+
+        // var fn = function fn(num) {
+        //     this.num = num;
+        // };
+        // var fn1 = fn.bind(o, 20);
+        // fn1(); // window
+        // console.log(o);
+
+        var o2 = {
+            num: 1
+        };
+        o2.fn = (function fn(num) {
+            this.num = num;
+        }).bind(o2)
+        o2.fn(20); // o2
+        console.log(o2);
+
+    </script>
+</body>
+
+</html>

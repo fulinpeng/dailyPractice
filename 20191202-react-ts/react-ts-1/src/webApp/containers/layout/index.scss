@@ -1,0 +1,10 @@
+
+.layout-box {
+  height: 100%;
+  .ant-layout {
+    height: 100%;
+  }
+  .ant-layout-header,.ant-layout-sider-children {
+    color: white;
+  }
+}
