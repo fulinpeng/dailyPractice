@@ -1,0 +1,97 @@
+.la-pay{
+font-size: 18px;
+border-bottom: 1px solid  #DADADA;
+height: 50px;
+line-height:50px;
+text-indent:25px;
+font-family: 微软雅黑;
+background:  #fafafa;
+color: black;
+}
+.la-main{
+    width: 100%;
+    margin-top: 15px;
+    font-size: 20px;
+    background: white;
+}
+.la-main1{
+    width: 73%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid #DADADA;
+    padding-bottom: 20px;
+}
+.la-last{
+    text-indent: 2em;
+    height: 50px;
+    color: #f26031;
+    line-height: 50px;
+}
+.la-choice{
+    text-indent: 2.5em;
+    font-size: 18px;
+     height: 80px;
+    line-height: 80px;
+}
+.la-choicex{
+    border: 1px solid #dadada;
+    height: 90px;
+    line-height: 90px;
+    position: relative;
+}
+.la-choicex>span img{
+    margin-top: 30px;
+    margin-left: 60px;
+}
+#la-input{
+    position: absolute;
+    left: 20px;
+    top:40px;
+    width: 3%;
+    height: 13px;
+}
+#la-input1{
+    position: absolute;
+    top:45px;
+    left: 25%;
+    width: 3%;
+    height: 13px;
+}
+#la-input2{
+    position: absolute;
+    top:45px;
+    left: 47%;
+    width: 3%;
+    height: 13px;
+}
+.la-address{
+    border: 1px solid #f26031 ;
+    text-indent: 3em;
+    margin-top: 10px;
+    font-size: 14px;
+    height:60px;
+    line-height: 60px;
+}
+.la-cash1{
+    font-size: 18px;
+}
+.la-cash2{
+    color: #f26031;
+    font-size: 20px;
+}
+.la-cash{
+    margin-left: 75%;
+    margin-top: 20px;
+}
+.la-btn{
+    margin-left:75%;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 30px;
+    background: #f26031;
+    border: none;
+    color:white;
+}
+.lastpayart{
+    padding: 30%;
+}

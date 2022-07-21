@@ -1,0 +1,10 @@
+body .layer-ext-yourskin .layui-layer-title{
+    background-color: #f26031;
+}
+body .layui-ext-yourskin .layui-layer-btn{
+}
+body .layui-ext-yourskin .layui-layer-btn a{
+    background-color: #f26031;
+    color: #FFFFFF;
+    font-size: 14px;
+}

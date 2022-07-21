@@ -3,7 +3,6 @@
 .idea/*
 .cache/
 
-**/dist
 **/package-lock.json
 
 20220319-vuepress

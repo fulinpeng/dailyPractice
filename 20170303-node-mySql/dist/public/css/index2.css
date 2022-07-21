@@ -1,0 +1,519 @@
+
+.re-font{
+    font-size:48px!important;
+}
+.shade-black{
+    background:#3c3d42;
+    -webkit-transform:rotate(-45deg);
+    overflow: hidden;
+}
+.shade-right-s{
+    position:absolute;
+    right:0;
+    transform-origin:100% 0%;
+    z-index: 2;
+}
+.shade-right-s .line{
+    width:24px;
+    height:1100px;
+    position:absolute;
+    top:0;
+    right:500px;
+    background:#3c3d42;
+}
+.shade-right-s .line .line1{
+    width:10px;
+    height:300px;
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:2px solid #bababa;
+}
+.shade-right-s .line .line2{
+    width:10px;
+    height:1100px;
+    position:absolute;
+    top:200px;
+    right:0;
+    border-right:2px solid #bababa;
+}
+.shade-o{
+    background-color:rgba(60,61,66,0.4);
+}
+.shade-right-b{
+    position:absolute;
+    right:0;
+    transform-origin:100% 0%;
+    z-index:1;
+}
+.shade-left{
+    position:absolute;
+    top:1000px;
+    right:100%;
+    transform-origin:100% 0%;
+    z-index: 1;
+}
+.shade-bg{
+      width:100%;
+      height:1200px;
+      background:#f9f9f9;
+      position:absolute;
+      left:0;
+      top:0;
+      z-index: 0;
+  }
+.banner{
+    width:100%;
+    /*height:690px;*/
+    /*background:url("../images/index/banner1.jpg") no-repeat fixed;*/
+    /*background-position: 50% 20%;*/
+    /*background-size:100%;*/
+    position:relative;
+    overflow: hidden;
+}
+#video{
+    width:110%;
+    height:110%;
+    /*max-height:100%;*/
+    display: block;
+    vertical-align: baseline;
+    /*position:fixed;*/
+    top:-10px;
+    left:0;
+    position:absolute;
+    z-index: -10;
+}
+.banner .tit{
+    width:100%;
+    height:100%;
+    /*background:url("../images/index/2017-white.png") no-repeat;*/
+    background-size: cover;
+    z-index: 2;
+    padding-top:60px;
+}
+.reg_username{
+    float: left;
+    width: 20%;
+    height:18px;
+    border: 1px solid red;
+    font-size: 10px;
+   margin-top:7%;
+}
+.banner .tit-login-reg{
+    width:100%;
+    height:100%;
+    /*background:url("../images/index/2017-login-reg.png") no-repeat;*/
+    background-size: cover;
+    z-index: 2;
+
+}
+
+.group-login-reg{
+    width:50%;
+    margin-left: 20%;
+}
+.login-reg-btn{
+    margin-top: 20px;
+}
+.bg-white-btn{
+    margin-top: 34px;
+    height:30px;
+    line-height: 30px!important;
+}
+.bg-motal-btn{
+    margin-top:3px;
+    height:30px;
+    line-height: 30px!important;
+}
+.login_bg{
+    background-image: url("../images/login_bg%20(1).jpg");
+    background-position: center;
+}
+.ltbtn1{
+    background-color: #b7b7b8 !important;
+    border: 1px solid #b7b7b8!important;
+}
+.group-login-reg .bg-white{
+    float:left;
+    width:40%;
+    margin-right:10px;
+    /*background:#fff;*/
+    font-size: 16px;
+}
+.reg-username>span{
+color: transparent !important;
+}
+.reg-username>div{
+    color: #f26132 !important; ;
+}
+.reg-pwd{
+    height:18px;
+    width:60%;
+    border: 1px solid red;
+}
+
+
+.group-login-reg span{
+    display: inline-block;
+    padding:5px;
+    height:30px;
+    color:#f26031;
+    line-height: 30px;
+}
+.group-login-reg input{
+    width:100%;
+    display: inline-block;
+    height:30px!important;
+    line-height: 30px;
+    background:#fff;
+    border:none;
+    color:#bababa;
+    font-size: 16px;
+    padding:auto 10px!important;
+}
+.group-login-reg input:focus{
+    outline: none;
+    color:#bababa;
+    padding:auto 10px!important;
+}
+.about{
+    width:100%;
+    position:relative;
+    overflow: hidden;
+}
+.top-about{
+    z-index: -15;
+    position:relative;
+    opacity: 0;
+    height:0;
+}
+.club{
+    width:100%;
+    height:2607px;
+    position:relative;
+    overflow: hidden;
+}
+.part-top{
+    width:100%;
+    height:60px;
+    background:#fff;
+    overflow: hidden;
+    position: relative;
+    z-index:5;
+}
+.product{
+    width:100%;
+    position:relative;
+    overflow: hidden;
+}
+.map{
+    width:100%;
+    height:860px;
+    position:relative;
+    overflow: hidden;
+}
+.show-top-tit{
+    font-size:48px;
+    color:#f26031;
+    position:absolute;
+    z-index: 2;
+}
+.show-top-des{
+    width:210px;
+    position:absolute;
+    z-index: 2;
+}
+.show-top-des p{
+    font-size:16px;
+    color:white;
+}
+.show-top-des p span{
+    color:#f26031;
+    font-size:18px;
+}
+.shade-right-b .line{
+    width:1100px;
+    height:24px;
+    background: #3c3d42;
+    position: absolute;
+    top: 900px;
+}
+.shade-right-b .line .line1{
+    background:#3c3d42;
+    width:1100px;
+    height:10px;
+    margin-left: 200px;
+    border-top:2px solid #bababa;
+
+}
+.shade-right-b .line .line2{
+    background:#3c3d42;
+    width:300px;
+    height:10px;
+    border-bottom:2px solid #bababa;
+}
+.shade-left .line{
+    width:1100px;
+    height:104px;
+    background: #3c3d42;
+    position: absolute;
+    bottom: 400px;
+    right:0;
+    transform-origin:100% 100%;
+    -webkit-transform:rotate(-45deg);
+}
+.shade-left .line .line1{
+    right: 550px;
+    background: #3c3d42;
+    width: 1000px;
+    height: 50px;
+    border-top: 2px solid #bababa;
+    position: absolute;
+    top: 0;
+}
+.shade-left .line .line2{
+    background:#3c3d42;
+    width:120px;
+    height:50px;
+    border-bottom:2px solid #bababa;
+    position:absolute;
+    right:0;
+    bottom:0;
+}
+.tit-left{
+    width:216px;
+    position: absolute;
+    top:1250px;
+    left:160px;
+    z-index: 2;
+}
+.tit-left p{
+    width: 48px;
+    height:200px;
+    padding:30px 60px 30px 0;
+    color:#f26031;
+    font-size:48px;
+    float:left;
+}
+.tit-left .p-left{
+}
+.tit-left .p-right{
+    margin-top: 150px;
+
+}
+.show-center{
+    position:absolute;
+    transform-origin:50% 50%;
+    transform:rotate(45deg);
+    z-index: 2;
+}
+.show-center .plate{
+    float:left;
+}
+.show-center .plate-gray{
+    background:#f2f2f2;
+}
+.show-center .plate-black{
+    background:#343539;
+    opacity:0.7;
+}
+.plate .content{
+    transform-origin:50% 50%;
+    transform:rotate(-45deg);
+}
+.plate .content p{
+    text-align:center;
+    line-height: 25px;
+}
+.plate .content .tit{
+    font-size:14px;
+    color:white;
+}
+.plate-gray .content .tit{
+    color:#3c3d42;
+}
+.plate-left{
+    border-right:1px solid #bababa;
+}
+.plate-right{
+    border-left:1px solid #bababa;
+}
+.plate .content .des{
+    font-size:16px;
+    font-weight:bold;
+    color:#f26031;
+}
+.show-center .circle{
+    width:60px;
+    height:60px;
+    position:absolute;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+    background:#f26031;
+    border-radius:60px;
+}
+.show-center .circle a{
+    width:40px;
+    height:40px;
+    text-align:center;
+    font-size:14px;
+    line-height:20px;
+    margin:10px;
+    color:white;
+    display:block;
+    transform-origin:50% 50%;
+    transform:rotate(-45deg);
+}
+.show-img{
+    position:absolute;
+}
+.show-img-right{
+    transform-origin:0% 0%;
+    transform:rotate(45deg);
+}
+.show-img .img{
+    height:100%;
+    float:left;
+    overflow:hidden;
+    position:relative;
+}
+.show-img-right .img{
+    /*width:33.333%;*/
+    width:50%;
+}
+.show-img-left .img{
+    width:33.3333%;
+}
+.show-img .img:before{
+    content:"";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background:#000;
+    opacity:0.1;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index: 1;
+}
+.show-img .img:hover:before{
+    opacity:0;
+}
+.show-img .img img{
+    transform-origin:50% 50%;
+    transform:rotate(-45deg);
+}
+.show-img-left{
+    transform-origin: 100% 0%;
+    transform: rotate(-45deg);
+    z-index:1;
+}
+.show-img-left .img img{
+    transform:rotate(45deg);
+}
+.shade-white{
+    background:#fff;
+    position:absolute;
+    z-index: 1;
+}
+.white-left{
+    transform-origin:100% 100%;
+    transform:rotate(-45deg);
+}
+.white-right{
+    bottom:0;
+    transform-origin:0% 100%;
+    transform:rotate(45deg);
+}
+.map-img{
+    width:100%;
+    position:relative;
+}
+#reg_despwd{
+    height:20px;
+}
+
+/*.map-img{*/
+    /*width:100%;*/
+    /*position:relative;*/
+    /*background:url("../images/index/road1.png");*/
+/*}*/
+.map-img:before{
+    content:"";
+    display: block;
+    width:100%;
+    height:100%;
+    background:url("../images/index/road1.png");
+    /*opacity:0.4;*/
+    position:absolute;
+    top:0;
+    left:0;
+}
+.word ul li{
+    background:#c6c7c9;
+    margin-top:10px;
+}
+.word ul .active{
+    background:#f26031;
+}
+.white-right .word ul li a{
+    display: block;
+    width:100%;
+    height:100%;
+    text-align: center;
+    color:white;
+    font-size:48px;
+    font-weight:bold;
+    transform-origin:50% 50%;
+    transform:rotate(-45deg);
+}
+.map-tit{
+    position:absolute;
+ }
+
+/*右侧页面导航*/
+.point{
+    width:20px;
+    height:200px;
+    position: fixed;
+    top:calc(50% - 100px);
+    right:10px;
+    z-index: 100;
+    /*background:red;*/
+}
+.point ul{
+    width:100%;
+    height:100%;
+}
+.point ul li{
+    width:100%;
+    height:16.666667%;
+}
+.point ul li a{
+    width:15px;
+    height:15px;
+    border:3px solid #fff;
+    border-radius: 15px;
+    background:#f26031;
+    display: block;
+}
+.point ul li a:hover{
+    background:#bababa;
+    -webkit-transition: all 0.3s linear;
+}
+.point ul li .active{
+    background:#3c3d42;
+}
+#logindes{
+    height:25px;
+    width:60%;
+    text-align: left;
+    color: #f26031;
+    }
+.tit-login-reg input,.tit-login-reg button{
+    border-radius: 3px;
+}
+.tit-login-reg input{
+    text-indent:1em;
+    color: #6c6c6c!important;
+}

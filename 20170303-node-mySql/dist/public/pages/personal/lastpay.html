@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/base.css"/>
+    <link rel="stylesheet" href="../../css/last-pay.css"/>
+    <link rel="stylesheet" href="../../css/personal.css"/>
+    <link rel="stylesheet" href="../../css/bootstrap.css"/>
+</head>
+<body>
+<section class="la-main">
+    <div class="la-main1">
+        <div class="la-pay">订单支付</div>
+        <div class="la-last">
+            最后一步，请尽快支付！
+        </div>
+        <div class="la-address">
+            <span>收货信息：</span>
+            <span class="lastpayname">*帅</span>
+            &nbsp;
+            <span class="lastpayaddress">四川省-成都市-高新区吉庆路二号</span>
+            <!--<span>135****1333</span>-->
+        </div>
+        <div>
+            <div class="la-choice">选择支付方式</div>
+            <div class="la-choicex">
+                <input type="radio"  name=pay id="la-input" checked="checked"/>
+                <span><img src="../../images/personal/312.jpg" alt=""/></span>
+                <input type="radio" name=pay id="la-input1"/>
+                <span><img src="../../images/personal/]4WB(MO.png" alt=""/></span>
+                <input type="radio"  name=pay id="la-input2"/>
+                <span><img src="../../images/personal/$WX.png" alt=""/></span>
+            </div>
+            <div class="la-cash">
+                <span class="la-cash1">应付金额：</span>
+                <span class="la-cash2">299元</span>
+            </div>
+            <!--<button class="la-btn ltbtn">立即支付</button>-->
+            <button type="button" class="la-btn ltbtn"  onclick="successpay1()">立即支付</button>
+
+        </div>
+
+    </div>
+</section>
+<div class="pr_main_nav_2">
+    <div><a href="personal-main.html">我的中心</a></div>
+    <div><a href="information.html">我的信息</a></div>
+    <div><a href="personal-ind.html">我的订单</a></div>
+    <div><a href="activity.html">我的活动</a></div>
+    <div><a href="address.html">我的地址</a></div>
+    <div style="margin-left: 0px;"><a href="pr_shoppingCar.html">购物车</a></div>
+    <div id="pr_main_nav_logo"></div>
+</div>
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/personal-main.js"></script>
+<!--<script src="../../js/personal-adress.js"></script>-->
+<script>
+    window.onload=function(){
+        var layer;
+        layui.use(['layer'], function(){
+            layer=layui.layer;
+            layer.config({
+                extend: 'myskin/style.css' //加载您的扩展样式
+                ,skin:"layui-ext-yourskin"
+            });
+        });
+        var price=sessionStorage.getItem("price");
+        var address=sessionStorage.getItem("address");
+        var newname=sessionStorage.getItem("newname");
+        $(".la-cash2").html(price+"元")
+        $(".lastpayaddress").html(address);
+        $(".lastpayname").html(newname);
+    }
+    function successpay1(){
+        layer.alert(" 你的订单已支付成功！3秒后跳转到个人中心！");
+        setTimeout(successpay,3000);
+    }
+    function successpay(){
+        var list=sessionStorage.getItem("arrid");
+        var newlist=JSON.parse(list);
+        console.log(newlist)
+        $.ajax({
+            type:"post",
+            url:"inserintoindent.do",
+            async:false,
+            data:{newlist:newlist},
+            success:function(data){
+                window.location.href="personal-ind.html"
+            }
+        })
+    }
+</script>
+</body>
+</html>

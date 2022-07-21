@@ -1,0 +1,204 @@
+body{
+    font-size: 0px;
+}
+.l_left{
+    width: 20%;
+    height: 590px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+.l_right{
+    width: 80%;
+    height: 590px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+ul{
+    margin: 0px;
+    padding: 0px;
+}
+ul>li{
+    padding: 10px 0;
+    width: 75%;
+    transition:all .3s linear
+}
+ul>li:hover{
+    color: #f26031;
+    border-bottom: 2px solid #f26031;
+}
+ul>li:hover a{
+    color: #f26031;
+}
+a{
+    color: #848484;
+    font-size: 16px;
+    letter-spacing: 2px;
+    line-height: 25px;
+    text-decoration: none;
+    transition:all .3s linear
+}
+.l_menu{
+    margin: 50px 10px 0 80px;
+}
+.l_line1{
+    position: absolute;
+    height: 300px;
+    width: 2px;;
+    right: 0px;
+    top: 50px;
+    background-color: #e5e5e5;
+}
+.l_text1{
+    font-size: 14px;
+    color: #000;
+}
+.l_text2{
+    font-size: 12px;
+    color: #a1a1a1;
+}
+.inline{
+    display: inline-block;
+}
+.l_titie{
+    margin-top: 30px;
+    padding: 10px;
+}
+.l_titie>div{
+    padding: 10px;
+}
+.l_reply{
+    width: 80%;
+    height: 30px;
+    margin-left: 20px;
+    line-height: 20px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+.l_rylogo{
+    margin-left: 10px;
+    font-size: 16px;
+    color: #000000;
+}
+.l_ryre{
+    margin-left: 10px;
+    font-size: 16px;
+    color: #000;
+    width: 380px;
+    cursor: pointer;
+}
+.l_rynu{
+    margin-left: 50px;
+    color: #000;
+}
+.l_ryus{
+    margin-left: 50px;
+    font-size: 14px;
+    width: 50px;
+    color: #000;
+}
+.l_rydate{
+    margin-left: 20px;
+    font-size: 12px;
+    color: #000;
+}
+.l_page{
+    position: relative;
+    padding: 20px;
+    width: 85%;
+    font-size: 14px;
+    color: #000;
+    border-top: 1px solid #959595;
+    margin-left: 10px ;
+    bottom: 0px;
+    text-align: center;
+}
+.l_page>span{
+    border: 1px solid #000000;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    cursor: pointer;
+}
+.l_page>div{
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.l_input{
+    width: 50px;
+    height: 18px;
+}
+.l_active{
+    color: #f26031;
+    border-bottom: 2px solid #f26031;
+}
+.l_active>a{
+    color: #f26031;
+}
+.l_img{
+    position: absolute;
+    width: 80%;
+    bottom: 40px;
+    left: 20px;
+    overflow: hidden;
+}
+.l_img>img{
+    width: 400px;
+    margin-left: -50px;
+}
+.l_text3{
+    color: #a1a1a1;
+    line-height: 14px;
+}
+.l_text3>div{
+    font-size: 14px;
+}
+.l_new{
+    font-size: 12px;
+    line-height: 20px !important;
+    height: 20px;
+    float: right;
+    margin-right: 200px;
+}
+.r_page{
+    position: absolute;
+    bottom: 15px;
+    left: 30px;
+}
+@media screen and (max-width: 1170px){
+    ul>li{
+        padding: 10px 0;
+        width: 100%;
+        transition:all .3s linear
+    }
+    .l_ryre{
+         font-size: 14px;
+         width: 240px;
+     }
+    .l_rydate{
+        margin-left: 10px;
+        font-size: 10px;
+    }
+    .l_ryus{
+        position: relative;
+        margin-left: 30px;
+        font-size: 14px;
+    }
+    .l_text3{
+        font-size: 12px;
+        color: #a1a1a1;
+        line-height: 14px;
+    }
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/pr_shoppingCar.css"/>
+    <link rel="stylesheet" href="../../css/base.css"/>
+    <link rel="stylesheet" href="../../css/personal-main.css"/>
+
+    <script src="../../js/jquery-3.1.1.min.js"></script>
+    <script>
+        window.onload=function(){
+            loadData_Pr_shoppingCar_bike();
+            loadData_Pr_shoppingCar_pei();
+            var arrid=JSON.stringify(arrId);
+            sessionStorage.setItem("arrid",arrid);
+        }
+        var sum_shuliang=0;
+        var sum_price=0;
+        var userName=sessionStorage.getItem("username");
+        var arrId=[];
+        var box_html;
+        function loadData_Pr_shoppingCar_bike(){
+            box_html = "";
+            sum_shuliang=0;
+            sum_price=0;
+            arrId=[];
+            $.ajax({
+                url:'loadData_Pr_shoppingCar_bike.do',
+                type:'post',
+                dataType:'json',
+                async:false,
+                data:{userName:userName},
+                success:function(data){
+                    for (var i =0; i< data.length; i++){
+                        box_html+=
+                        "<div class='pr_shoppingCar_detail'>"+
+                                "<div class='pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common1_sp'>" +
+                        "</div>"+
+                                "<div class='pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common12'>" +
+                        "<img src='"+data[i].pc_src+"/"+data[i].pc_name+"' alt=''/></div>"+
+                                "<div class='pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common13'>" +
+                        "<a href=''>狼途-"+data[i].b_name+"</a></div>"+
+                        "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common21'><a href='javascript:;' attr='"+data[i].in_id+"' onclick='deleteShopCar(this)'>删除</a></div>"+
+                                "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common22'>"+data[i].xiaoji+"</div>"+
+                                "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common23'>"+data[i].in_bynumber+"</div>"+
+                                "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detai2_common1_sp pr_shoppingCar_detail_common24'>"+data[i].b_price+"</div>"+
+                                "</div>";
+                        sum_shuliang+=data[i].in_bynumber;
+                        sum_price+=data[i].xiaoji;
+                        arrId.push(data[i].in_id)
+                    };
+//                    $(".pr_shoppingCar_detail_box").html(box_html);
+                    $(".pr_shoppingCar_footer").html("<div><span>¥"+sum_price+"</span><span>商品金额：</span></div>")
+                    $(".pr_shoppingCar_last_sd").html("<div><a href='pay.html'><button class='ltbtn'>去结算</button></a></div>"+
+                        "<div>商品应付总额：<span>¥"+sum_price+"</span></div>"+
+                        "<div>共 <span>"+sum_shuliang+"</span>件商品</div>");
+                }
+            })
+        }
+        function loadData_Pr_shoppingCar_pei(){
+            $.ajax({
+                url:'loadData_Pr_shoppingCar_pei.do',
+                type:'post',
+                dataType:'json',
+                async:false,
+                data:{userName:userName},
+                success:function(data){
+                    for (var i =0; i< data.length; i++){console.log(data)
+//                        box_html+=$(".pr_shoppingCar_detail_box").html();
+                        box_html+=
+                        "<div class='pr_shoppingCar_detail'>"+
+                                "<div class='pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common1_sp'>" +
+                        "</div>"+
+                                "<div class='pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common12'>" +
+                        "<img src='"+data[i].pc_src+"/"+data[i].pc_name+"' alt=''/></div>"+
+                                "<div class='pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common13'>" +
+                        "<a href=''>狼途-"+data[i].a_name+"</a></div>"+
+                        "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common21'><a href='javascript:;' attr='"+data[i].in_id+"' onclick='deleteShopCar(this)'>删除</a></div>"+
+                                "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common22'>"+data[i].xiaoji+"</div>"+
+                                "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common23'>"+data[i].in_acnumber+"</div>"+
+                                "<div class='pr_shoppingCar_detail_common2 pr_shoppingCar_detai2_common1_sp pr_shoppingCar_detail_common24'>"+data[i].a_price+"</div>"+
+                                "</div>";
+                        sum_shuliang+=data[i].in_acnumber;
+                        sum_price+=data[i].xiaoji;
+                        arrId.push(data[i].in_id);
+                    };
+                    $(".pr_shoppingCar_detail_box").html(box_html);
+                    $(".pr_shoppingCar_footer").html("<div><span>¥"+sum_price+"</span><span>商品金额：</span></div>")
+                    $(".pr_shoppingCar_last_sd").html("<div><a href='pay.html'><button class='ltbtn'>去结算</button></a></div>"+
+                        "<div>商品应付总额：<span>¥"+sum_price+"</span></div>"+
+                        "<div>共 <span>"+sum_shuliang+"</span>件商品</div>");
+                }
+            })
+        }
+        function deleteShopCar(obj){
+            var in_id=parseInt($(obj).attr("attr"));
+            $.ajax({
+                url:"deleteShopCar.do",
+                type:'post',
+                dataType:'json',
+                async:'true',
+                data:{in_id:in_id},
+                success:function(data){
+                    loadData_Pr_shoppingCar_bike();
+                    loadData_Pr_shoppingCar_pei();
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+<link rel="stylesheet" href="../../css/base.css"/>
+<header id="header">
+    <div class="logo">
+        <img src="../../images/index/langtu-logo-img-white.png" alt=""/>
+    </div>
+    <div class="menu">
+        <div id="navFlag" class="menu-a">
+            <div class="navFlagone"></div>
+            <div class="navFlagtwo"></div>
+            <div class="navFlagthree"></div>
+            <div class="navFlagfour"></div>
+            <div class="navFlagfive"></div>
+        </div>
+        <div class="nav-shade"></div>
+        <ul class="nav">
+            <li class="guanbi"><div>&#xe6d8;</div></li>
+            <li class="active"><a href="../../index.html">首页</a><span></span></li>
+            <li><a href="../../pages/store/store-index.html">商城</a><span></span></li>
+            <li><a href="../../pages/club/julebu.html">俱乐部</a><span></span></li>
+            <li><a href="../../pages/router/line.html">路线推荐</a><span></span></li>
+            <li><a href="../../pages/serve/mantain.html">服务</a><span></span></li>
+            <li><a href="../../pages/about/about.html">关于</a><span></span></li>
+            <li><a href="../../pages/personal/personal-main.html">个人中心</a><span></span></li>
+            <li id="hlogin"><a href="../../pages/login-reg/login.html">登录</a><span></span></li>
+            <li><a href="../../pages/login-reg/reg.html">注册</a><span></span></li>
+        </ul>
+    </div>
+</header>
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script src="../../js/login-reg.js"></script>
+<div class="pr_main_nav_2">
+    <div style="margin-left: 0px;"><a href="personal-main.html">我的中心</a></div>
+    <div style="margin-left: 0px;"><a href="information.html">我的信息</a></div>
+    <div style="margin-left: 0px;"><a href="personal-ind.html">我的订单</a></div>
+    <div style="margin-left: 0px;"><a href="activity.html">我的活动</a></div>
+    <div style="margin-left: 0px;"><a href="address.html">我的地址</a></div>
+    <div style="margin-left: 0px;"><a href="pr_shoppingCar.html">购物车</a></div>
+
+    <div id="pr_main_nav_logo" style="margin-left: 0px; display: block;"> &gt; </div>
+</div>
+<section class="pr_shoppingCar_section">
+    <div>
+        <div class="pay_main_ft_line_2 clear pay_main_ft_line_2_1">
+            <!--<div class="pay_section_logo"><img src="../../images/index/langtu-logo.png" alt=""/></div>-->
+            <div class="pay_section_logo_r">
+                <div class="pay_section_logo_r_top clear">
+                    <div class="pay_section_logo_r_common pay_section_logo_r_common1"></div>
+                    <div class="not_pay_section_logo_r_common not_pay_section_logo_r_common1"></div>
+                    <div class="pay_section_logo_r_common pay_section_logo_r_common1"></div>
+                    <div class="not_pay_section_logo_r_common not_pay_section_logo_r_common2"></div>
+                    <div class="pay_section_logo_r_common pay_section_logo_r_common1"></div>
+                    <div class="not_pay_section_logo_r_common"></div>
+                    <div class="pay_section_logo_r_common"></div>
+                </div>
+                <div class="pay_section_logo_r_under clear">
+                    <div>选择支付方式</div>
+                    <div>确认支付</div>
+                    <div>确认订单信息</div>
+                    <div>我的购物车</div>
+                </div>
+            </div>
+        </div>
+        <div class="pr_shoppingCar">
+            <div>
+                <!--<input type="radio"/>-->
+            </div>
+            <!--<div>狼途发货</div>-->
+            <div>
+                <div class="pr_shoppingCar_head pr_special">狼途价(元)</div>
+                <div class="pr_shoppingCar_head">数量</div>
+                <div class="pr_shoppingCar_head">小计(元)</div>
+                <div class="pr_shoppingCar_head">操作</div>
+                <div style="clear: both"></div>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="pr_shoppingCar_detail_box">
+            <!--<div class="pr_shoppingCar_detail">-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common1_sp"><input type="radio"/></div>-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common12"><img src="../../images/20121.jpg" alt=""/></div>-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common13"><a href="">狼途山地自行车</a></div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common21">留</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common22">1999.00</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common23">1</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detai2_common1_sp pr_shoppingCar_detail_common24">1999.00</div>-->
+            <!--</div>-->
+            <!--<div class="pr_shoppingCar_detail">-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common1_sp"><input type="radio"/></div>-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common12"><img src="../../images/20121.jpg" alt=""/></div>-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common13"><a href="">狼途登山</a></div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common21">留</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common22">1999.00</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common23">1</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detai2_common1_sp pr_shoppingCar_detail_common24">1999.00</div>-->
+            <!--</div>-->
+            <!--<div class="pr_shoppingCar_detail">-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common1_sp"><input type="radio"/></div>-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common12"><img src="../../images/20121.jpg" alt=""/></div>-->
+                <!--<div class="pr_shoppingCar_detail_common1 pr_shoppingCar_detail_common13"><a href="">山地自行车链条</a></div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common21">留</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common22">1999.00</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detail_common23">1</div>-->
+                <!--<div class="pr_shoppingCar_detail_common2 pr_shoppingCar_detai2_common1_sp pr_shoppingCar_detail_common24">1999.00</div>-->
+            <!--</div>-->
+        </div>
+        <div class="pr_shoppingCar_footer">
+            <!--<div><span>¥0.00</span><span>商品金额：</span></div>-->
+        </div>
+        <div class="pr_shoppingCar_last">
+            <div class="pr_shoppingCar_last_ft">
+                <!--<div><input type="radio"/>&nbsp;全选</div>-->
+                <!--<div class="go_on_shopping"><a href="">继续购物</a></div>-->
+                <!--<div class="pr_clearCar">清空选中商品</div>-->
+            </div>
+            <div class="pr_shoppingCar_last_sd">
+                <!--<div><button class="ltbtn">去结算</button></div>-->
+                <!--<div>商品应付总额：<span>¥0.00</span></div>-->
+                <!--<div>共 <span>10 </span>件商品</div>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../../js/personal-main.js"></script>
+</body>
+</html>

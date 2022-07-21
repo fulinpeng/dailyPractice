@@ -1,0 +1,321 @@
+.pay_section{
+    color: black;
+    margin-bottom: 30px;
+    font-family: 微软雅黑;
+}
+.pay_main_ft_line_2{
+    margin-bottom: 30px;
+}
+.pay_section_logo{
+    width: 200px;
+    height: 25px;
+    float: left;
+    margin-left: 10px;
+}
+.pay_section_logo img{
+    width: 200px;
+    height: 25px;
+}
+.pay_section_logo_r{
+    float: right;
+    margin-right: 3.63%;
+}
+.pay_section_logo_r_under{
+    margin-top: 2px;
+    /*margin-right: 1%;*/
+}
+.pay_section_logo_r_under div{
+    color: black;
+    float: right;
+    font-size: 11px;
+    color: #9B9B9B;
+}
+.pay_section_logo_r_under div:nth-child(1){
+    margin-left: 15px;
+}
+.pay_section_logo_r_under div:nth-child(2){
+    margin-left: 45px;
+}
+.pay_section_logo_r_under div:nth-child(3){
+    margin-left: 43px;
+}
+.pay_section_logo_r_common{
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    border-color: #72C551;
+    background: #72C551;
+}
+.pay_section_logo_r_common1{
+    border-color: #9B9B9B;
+    background: #9B9B9B;
+}
+.pay_section_logo_r_top div{
+    float: right;
+}
+.not_pay_section_logo_r_common{
+    border-bottom: 2px solid #72C551;
+    width: 100px;
+    margin-top: 5px;
+}
+.not_pay_section_logo_r_common1{
+    border-bottom: 2px solid #9B9B9B;
+}
+.not_pay_section_logo_r_common2{
+    border-bottom: 2px solid #9B9B9B;
+}
+
+
+
+.pay_main{
+    width: 74%;
+    margin: 0 auto;
+    margin-top: 37px;
+    font-family: 微软雅黑;
+}
+.pay_head{
+    font-weight: bolder;
+    color: black;
+    font-family: 微软雅黑;
+    margin-left:48px;
+}
+.pay_address_common{
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: 微软雅黑;
+    margin-left: 50px;
+}
+.pay_address{
+    border: 1px solid rgba(242,96,49,0.3);
+    width: 23%;
+    height: 100px;
+    float: left;
+    margin-left: 1%;
+    position: relative;
+    cursor: pointer;
+    font-family: 微软雅黑;
+}
+.pay_address:hover{
+    border: 1px solid rgba(242,96,49,1);
+}
+.pay_address_default{
+    border: 1px solid rgba(242,96,49,1);
+    margin-left: 0;
+}
+.pay_address2{
+    position: absolute;
+    color: black;
+    top: 0;
+    right: 0;
+    color: #D4D2D3;
+    font-family: 微软雅黑;
+    font-size: 13px;
+}
+.pay_address_ftLine{
+    margin-top: 10px;
+    color: black;
+    margin-left: 10px;
+    font-family: 微软雅黑;
+}
+.pay_address_ftLine div{
+    float: left;
+    color: black;
+    font-family: 微软雅黑;
+    font-size: 3px;
+}
+.pay_address_ftLine div:nth-child(2){
+    color: red;
+    margin-right: 20px;
+    font-family: 微软雅黑;
+}
+.pay_address_line{
+    width: 95%;
+    border: 1px solid #00ffff;
+    margin: 0 auto;
+    font-family: 微软雅黑;
+    opacity: 0.1;
+    margin-top: 5px;
+}
+.pay_address_detail{
+    font-size: 13px;
+    color: black;
+    margin-left: 10px;
+    width: 95%;
+    font-family: 微软雅黑;
+    margin-top: 5px;
+}
+.pay_address_common_under{
+    margin-left: 87.5%;
+    font-size: 13px;
+    float: left;
+    font-family: 微软雅黑;
+}
+.pay_address_common_under a{
+    color: red;
+    text-decoration: none;
+    font-family: 微软雅黑;
+}
+.show_all_address_box{
+    height:40px;
+    line-height:40px;
+}
+.show_all_address{
+    margin-top: 15px;
+    font-size: 13px;
+    font-family: 微软雅黑;
+    float: left;
+}
+.show_all_address a{
+    color: red;
+    text-decoration: none;
+    font-family: 微软雅黑;
+}
+
+.confirm_ind{
+    width: 74%;
+    margin: 0 auto;
+    margin-top: 40px;
+    font-family: 微软雅黑;
+}
+.confirm_ind div{
+    color: black;
+    font-family: 微软雅黑;
+}
+.confirm_ind .confirm_ind_title{
+    font-weight: bolder;
+    margin-left: 50px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head{
+    width: 815px;
+    margin: 0 auto;
+    margin-top: 25px;
+    font-family: 微软雅黑;
+}
+.lagntubike{
+    font-size: 13px;
+    float: left;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head div{
+    float: left;
+    font-size: 13px;
+    text-align: center;
+    border-bottom: 1px solid rgba(155,155,155,0.5);
+    margin-left: 5px;
+    font-family: 微软雅黑;
+    padding-bottom: 5px;
+}
+.confirm_ind_head div:nth-child(1){
+    width: 255px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head div:nth-child(2){
+    width: 180px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head div:nth-child(3){
+    width: 115px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head div:nth-child(4){
+    width: 110px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head div:nth-child(5){
+    width: 124px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head_detail div:nth-child(1) div{
+    float: left;
+    margin-left: 10px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head_detail div:nth-child(2) div{
+    margin-left: 10px;
+    font-family: 微软雅黑;
+}
+.confirm_ind_head_detail{
+    width: 815px;
+    margin: 0 auto;
+    margin-top: 15px;
+    /*margin-left: 20px;*/
+    font-family: 微软雅黑;
+}
+.confirm_ind_head_detail_pic{
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+.confirm_ind_head_detail_pic img{
+    width: 40px;
+    height: 40px;
+}
+.confirm_ind_head_detai_attr div{
+    width: 100%;
+    font-size: 13px;
+    font-family: 微软雅黑;
+}
+
+
+.confirm_ind_head_detail div:nth-child(1){
+    float: left;
+    /*margin-top: 5px;*/
+}
+.confirm_ind_head_detail div:nth-child(2){
+    width: 180px;
+    float: left;
+}
+.confirm_ind_head_detail div:nth-child(3){
+    width: 115px;
+    float: left;
+    text-align: center;
+}
+.confirm_ind_head_detail div:nth-child(4){
+    width: 110px;
+    float: left;
+    text-align: center;
+}
+.confirm_ind_head_detail div:nth-child(5){
+    width: 124px;
+    float: left;
+    text-align: center;
+}
+.confirm_ind_head_detail div:nth-child(4) option{
+    color: black;
+    font-family: 微软雅黑;
+}
+.confirm_ind_total{
+    margin-top: 40px;
+    margin-left: 83.5%;
+    color: red;
+}
+.confirm_ind_total span:nth-child(1){
+    color:black;
+    font-family: 微软雅黑;
+}
+.confirm_ind_total span:nth-child(2){
+    color:red;
+    font-size: 20px;
+    font-family: 微软雅黑;
+}
+.confirm_ind button{
+    color: white;
+    background: #F26031;
+    width:145px;
+    height: 50px;
+    border: none;
+    margin-left: 81.5%;
+    margin-top: 3px;
+}
+@media (max-width: 1024px) {
+    .confirm_ind_total{
+        margin-left: 85%;
+    }
+    .confirm_ind button{
+        margin-left: 87%;
+    }
+    .pay_address2{
+        display: none;
+    }
+}

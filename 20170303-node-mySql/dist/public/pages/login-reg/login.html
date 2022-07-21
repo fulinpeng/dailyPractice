@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../../css/base2.css"/>
+    <link rel="stylesheet" href="../../css/index2.css"/>
+    <link rel="stylesheet" href="../../css/base.css"/>
+</head>
+<body class="login_bg">
+<header id="header">
+    <div class="logo">
+        <img src="../../images/index/langtu-logo-img-white.png" alt=""/>
+    </div>
+    <div class="menu">
+        <div id="navFlag" class="menu-a">
+            <div class="navFlagone"></div>
+            <div class="navFlagtwo"></div>
+            <div class="navFlagthree"></div>
+            <div class="navFlagfour"></div>
+            <div class="navFlagfive"></div>
+        </div>
+        <ul class="nav">
+            <li class="active"><a href="../../index.html">首页</a><span></span></li>
+            <li><a href="../../pages/store/store-index.html">商城</a><span></span></li>
+            <li><a href="../../pages/club/julebu.html">俱乐部</a><span></span></li>
+            <li><a href="../../pages/router/line.html">路线推荐</a><span></span></li>
+            <li><a href="../../pages/serve/mantain.html">服务</a><span></span></li>
+            <!--<li><a href="../../pages/about/about.html">关于</a><span></span></li>-->
+            <li><a href="../../pages/personal/personal-main.html">个人中心</a><span></span></li>
+            <li><a href="../../pages/login-reg/login.html">登录</a><span></span></li>
+            <li><a href="../../pages/login-reg/reg.html">注册</a><span></span></li>
+        </ul>
+        <div class="nav-shade"></div>
+    </div>
+</header>
+<section id="header2">
+    <div class="banner">
+        <div class="tit tit-login-reg">
+            <div class="group-login-reg clear">
+                <div class="bg-white">
+                    <span>用户名:</span><input type="text" id="login_username"/>
+                </div>
+            </div>
+            <div class="group-login-reg clear">
+                <div class="bg-white">
+                    <span>密码:</span><input type="password" id="login_pwd"/>
+                </div>
+                <div class="bg-white">
+                <button class="ltbtn bg-white-btn" data-toggle="modal" data-target="#myModal" style=" margin-top: 32px" >忘记密码</button>
+                </div>
+                <div class="bg-white">
+                    <div id="logindes"></div>
+                </div>
+            </div>
+
+            <!--<div class="group-login-reg clear">-->
+                <!--<div class="bg-white">-->
+                    <!--<span>电话号码:</span><input type="text"/>-->
+                <!--</div>-->
+                <!--<div class="bg-white">-->
+                    <!--<button class="ltbtn bg-white-btn">发送验证码</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="group-login-reg clear">-->
+                <!--<div class="bg-white">-->
+                    <!--<span>验证码:</span><input type="text"/><br/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="group-login-reg login-reg-btn clear">
+                <button class="ltbtn" onclick="loginindex()">登录</button>
+                <button class="ltbtn ltbtn1" onclick="forgetindex()">注销</button>
+            </div>
+
+        </div>
+        <div class="shade-black shade-right-s"></div>
+    </div>
+</section>
+<!--<footer id="footer" class="footer clear">-->
+    <!--<div class="footmain clear">-->
+        <!--<div class="foot-left">-->
+            <!--<label>Name:</label><br/>-->
+            <!--<input type="text"/><br/>-->
+            <!--<label>Email:</label><br/>-->
+            <!--<input type="text"/><br/>-->
+            <!--<label>留言:</label><br/>-->
+            <!--<textarea name=""></textarea><br/>-->
+            <!--<button class="ltbtn">提交</button>-->
+        <!--</div>-->
+        <!--<div class="foot-center">-->
+            <!--<img src="../../images/index/langtu-logo-img.png" alt=""/>-->
+        <!--</div>-->
+        <!--<div class="foot-right">-->
+            <!--<div class="content">-->
+                <!--<p class="tit">Telephone</p>-->
+                <!--<p class="des">028-256 456</p>-->
+            <!--</div>-->
+            <!--<div class="content">-->
+                <!--<p class="tit">Email</p>-->
+                <!--<p class="des">956325@langtu.co</p>-->
+            <!--</div>-->
+            <!--<div class="content">-->
+                <!--<p class="tit">Address</p>-->
+                <!--<p class="des">-->
+                    <!--成都市：武侯区青羊街123号<br/>-->
+                    <!--上海：武侯区青羊街123号<br/>-->
+                    <!--广州市：武侯区青羊街123号<br/>-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="footrights">-->
+        <!--Made By BaiJie118部项目四组.Web Design Manchester 2017,All Rights Reserved.-->
+    <!--</div>-->
+<!--</footer>-->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">忘记密码</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="login_forname" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="login_forname" placeholder="请输入注册的用户名">
+                        </div>
+                        <div class="col-lg-4" id="login_checkforname" style="height:30px;color: #f26031;line-height:40px">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_fortel" class="col-sm-2 control-label">手机</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="login_fortel" placeholder="请输入绑定的手机号码">
+                        </div>
+                        <div class="ltbtn  col-sm-3" id="login_foridenti">发送验证码</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_identi" class="col-sm-2 control-label">验证码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="login_identi" placeholder="请输入验证码" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_forpwd" class="col-sm-2 control-label">新的密码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="login_forpwd" placeholder="请输入新的密码" onblur="checkpwd1()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_forpwdsure" class="col-sm-2 control-label">密码确认</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="login_forpwdsure" placeholder="再确认一次新密码" onblur="checkpwd1()" >
+                        </div>
+                        <div class="col-sm-4" id="login_checkforpwd" style="height:30px;color: #f26031;line-height:40px">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default ltbtn" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary ltbtn" onclick="login_updata()" >提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/jquery-3.1.1.min.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/login-reg.js"></script>
+</body>
+</html>
