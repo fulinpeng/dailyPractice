@@ -1,14 +1,13 @@
-
 /*
 用多种方法实现：
 F(0) = 0;
 F(1) = 1;
 F(n) = F(n - 1) + F(n - 2);
 */
-// 迭代（基础版本）
+// 递归（基础版本）
 function fibonacci(n) {
     if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2)
+    return fibonacci(n - 1) + fibonacci(n - 2);
 }
 // 加缓存
 function fibonacci2(n) {
@@ -20,7 +19,7 @@ fibonacci2.res = [0, 1];
 
 // 递归改为迭代
 function fib3(n) {
-    if (n < 0) throw new Error('输入的数字不能小于0');
+    if (n < 0) throw new Error("输入的数字不能小于0");
     let f0 = 0,
         f1 = 1,
         curFib = f0;
@@ -37,7 +36,7 @@ function fib3(n) {
 
 // 尾递归
 function fib4(n) {
-    if (n < 0) throw new Error('输入的数字不能小于0');
+    if (n < 0) throw new Error("输入的数字不能小于0");
     if (n < 2) return n;
     function _fib(n, a, b) {
         if (n === 0) return a;
