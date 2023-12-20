@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bg {
+            background-color: rgb(216, 214, 214);
+        }
+
+        .wrapper {
+            display: grid;
+            /*  声明了三列，宽度分别为 200px 100px 200px */
+            grid-template-columns: 200px 100px 200px;
+            grid-gap: 5px;
+            /*  声明了两行，行高分别为 50px 50px  */
+            grid-template-rows: 50px 50px;
+        }
+
+        .wrapper-1 {
+            display: grid;
+            grid-gap: 5px;
+            /*  2行，而且行高都为 50px  */
+            /*  只设置了两行，但实际的数量会超出两行，超出的行高会以 grid-auto-rows 算 */
+            grid-template-rows: repeat(2, 80px);
+            grid-template-columns: 200px 100px 200px;
+            grid-auto-rows: 50px;
+        }
+
+        .wrapper-3 {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 200px 1fr 2fr;
+            grid-template-columns: 1fr 1fr 2fr;
+            grid-auto-rows: 50px;
+        }
+
+        .wrapper-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr minmax(800px, 2fr);
+            /*// 第三列最小800，有剩余空间按照各自的fr进行等比分配*/
+            grid-gap: 5px;
+            grid-auto-rows: 50px;
+        }
+
+        /* // grid-template-areas 属性用于定义区域，一个区域由一个或者多个单元格组成，一般这个属性跟网格元素的 grid-area 一起使用 */
+        .wrapper-areas-1 {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-areas: ". header  header""sidebar content content""sidebar content content";
+            grid-auto-rows: 100px;
+            color: #444;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+        }
+
+        .content {
+            grid-area: content;
+        }
+
+        .header {
+            grid-area: header;
+        }
+
+        /* // grid-auto-flow 属性精确指定在网格中被自动布局的元素怎样排列，默认的放置顺序是"先行后列"，即先填满第一行，再开始放入第二行 */
+        .wrapper-auto-flow {
+            display: grid;
+            grid-template-columns: 1fr 2fr 3fr;
+            grid-auto-flow: row;
+            grid-gap: 5px;
+            grid-auto-rows: 50px;
+            grid-auto-flow: row dense;
+            /*尽可能填满表格，下面的会顶上去*/
+        }
+
+        .wrapper-auto-flow .six {
+            grid-column-start: span 2;
+            /* 列合并*/
+            grid-row-start: span 2;
+            /*  行合并*/
+        }
+
+        .wrapper-column {
+            display: grid;
+            grid-template-columns: 1fr 2fr 3fr;
+            grid-auto-flow: row;
+            grid-gap: 5px;
+            grid-auto-rows: 50px;
+            grid-auto-flow: column;
+            /*  反转x/y轴*/
+
+        }
+
+        .wrapper-column .six {
+            grid-column-start: span 2;
+            /*  列合并*/
+            grid-row-start: span 2;
+            /*  行合并*/
+        }
+
+        .justify-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 5px;
+            grid-auto-rows: 50px;
+            /* // align-items: end; // 垂直方向 start | end | center | stretch(默认) */
+            /* // justify-items: end; // 水平方向 start | end | center | stretch(默认) */
+            place-items: start end;
+            /* // 复合属性 垂直方向 水平方向 */
+
+        }
+
+        .justify-items .item {
+            border: 1px solid black;
+            font-size: 14px;
+        }
+
+        .justify-content {
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            grid-gap: 5px;
+            grid-auto-rows: 50px;
+            /* // align-content: end; // 垂直方向 start(默认) | end | center | stretch | space-around | space-between | space-evenly */
+            /* // justify-content: end; // 水平方向 start(默认) | end | center | stretch | space-around | space-between | space-evenly */
+            justify-content: space-between;
+            /* // place-items: start end; // 复合属性 垂直方向 水平方向 */
+
+        }
+
+        .justify-content .item {
+            border: 1px solid black;
+            font-size: 14px;
+        }
+
+        .grid-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            grid-auto-rows: minmax(100px, auto);
+        }
+
+        .grid-column .one {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            background: #19CAAD;
+        }
+
+        .grid-column .two {
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 2;
+            /*   如果有重叠，就使用 z-index */
+            z-index: 1;
+            background: #8CC7B5;
+        }
+
+        .grid-column .three {
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 1;
+            grid-row-end: 4;
+            background: #D1BA74;
+        }
+
+        .grid-column .four {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 5;
+            background: #BEE7E9;
+        }
+
+        .grid-column .five {
+            grid-column-start: 2;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 5;
+            background: #E6CEAC;
+        }
+
+        .grid-column .six {
+            grid-column: 3;
+            grid-row: 4;
+            background: #ECAD9E;
+        }
+
+        .auto-fit {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+            grid-gap: 10px;
+            grid-auto-rows: 50px;
+        }
+
+        .one {
+            background: #19CAAD;
+        }
+
+        .two {
+            background: #8CC7B5;
+        }
+
+        .three {
+            background: #D1BA74;
+        }
+
+        .four {
+            background: #BEE7E9;
+        }
+
+        .five {
+            background: #E6CEAC;
+        }
+
+        .six {
+            background: #ECAD9E;
+        }
+
+        .seven {
+            background: #c7c8a1;
+        }
+
+        .eight {
+            background: #bacafc;
+        }
+
+        .nine {
+            background: #ffdcf7;
+        }
+
+        .item {
+            text-align: center;
+            font-size: 200%;
+            color: #fff;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    最小200，有剩余空间均分：grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    <div class="bg auto-fit">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    指定item的位置:grid-column-start、grid-column-end / grid-row-start grid-row-end，复合属性：grid-column / grid-row
+    <div class="bg grid-column">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div>align-content: end; // 垂直方向 start(默认) | end | center | stretch | space-around | space-between | space-evenly
+    </div>
+    <div>ustify-content: end; // 水平方向 start(默认) | end | center | stretch | space-around | space-between | space-evenly
+    </div>
+    <div>place-items: start end; // 复合属性 垂直方向 水平方向</div>
+    <div class="bg justify-content">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+        <div class="seven item">seven</div>
+        <div class="eight item">eight</div>
+        <div class="nine item">nine</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div>align-items: end; // 垂直方向 start | end | center | stretch(默认)</div>
+    <div>justify-items: end; // 水平方向 start | end | center | stretch(默认)</div>
+    <div>place-items: start end; // 复合属性 垂直方向 水平方向</div>
+    <div class="bg justify-items">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+        <div class="seven item">seven</div>
+        <div class="eight item">eight</div>
+        <div class="nine item">nine</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div> grid-auto-flow: column; // 反转x/y轴</div>
+    <div class="bg wrapper-column">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+        <div class="seven item">seven</div>
+        <div class="eight item">eight</div>
+        <div class="nine item">nine</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>item上：grid-column-start: span 2; // 列合并</div>
+    <div>item上：grid-row-start: span 2; // 行合并</div>
+    <div>grid-auto-flow 属性精确指定在网格中被自动布局的元素怎样排列，默认的放置顺序是"先行后列"，即先填满第一行，再开始放入第二行</div>
+    <div>grid-auto-flow: row dense; // 尽可能填满表格，下面的会顶上去</div>
+    <div class="bg wrapper-auto-flow">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+        <div class="seven item">seven</div>
+        <div class="eight item">eight</div>
+        <div class="nine item">nine</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>grid-template-columns: 1fr 1fr minmax(800px, 2fr); // 第三列最小800，有剩余空间按照各自的fr进行等比分配</div>
+    <div>grid-gap: 5px;</div>
+    <div>grid-auto-rows: 50px;</div>
+    <div class="bg wrapper-4">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    隐式网格：只设置了两行，但实际的数量会超出两行，超出的行高会以 grid-auto-rows 算
+    <div class="bg wrapper-1">
+        <div class="one item">One</div>
+        <div class="two item">Two</div>
+        <div class="three item">Three</div>
+        <div class="four item">Four</div>
+        <div class="five item">Five</div>
+        <div class="six item">Six</div>
+        <div class=" item">seven</div>
+        <div class=" item">eight</div>
+        <div class=" item">nine</div>
+        <div class=" item">ten</div>
+        <div class=" item">eleven</div>
+        <div class=" item">twelve</div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>grid-template-areas 属性用于定义区域，一个区域由一个或者多个单元格组成，一般这个属性跟网格元素的 grid-area 一起使用</div>
+    <div>grid-template-columns: repeat(1fr);<br />
+        grid-template-areas: ". header header" "sidebar content content" "sidebar content content" 定义了三行</div>
+    <div class="bg wrapper-areas-1">
+        <div class="item one sidebar">sidebar</div>
+        <div class="item two content">content</div>
+        <div class="item three header">header</div>
+    </div>
+</body>
+
+</html>
