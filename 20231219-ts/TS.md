@@ -1,26 +1,45 @@
-#### 实现Omit<T, K>
-
-```ts
-interface Todo {
-    title: string;
-    text: string;
-    description: string;
-    completed: boolean;
-}
-type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type TodoPreview = MyOmit<Todo, "description" | "title">;
-const todo: TodoPreview = {
-    text: "",
-    completed: false,
-};
-```
-
 ####  类型别名和接口之间的区别
 - 在大多数情况下你可以在它们之间自由选择
 - 类型不能添加新的属性，不能再次定义
 - interface可以extends，type用&
 - interface可以多次定义来添加属性，type创建后不能更改
+- type 是别名，后面跟类型，interface是接口后面跟接口值
+    ```ts
+    type Name = string; // 跟类型
+    type Resolver = () => string; // 跟类型
 
+    // 跟接口值
+    interface Res = {
+        name: Name,
+        resolver: Resolver
+    }
+    ```
+#### declare
+- declare 关键字可以描述以下类型。
+    - 变量（const、let、var 命令声明）
+    - type 或者 interface 命令声明的类型
+    - class
+    - enum
+    - 函数（function）
+    - 模块（module）
+    - 命名空间（namespace）
+    - declare 关键字的重要特点是，它只是通知编译器某个类型是存在的，不用给出具体实现。
+- declare 只能用来描述已经存在的变量和数据结构，不能用来声明新的变量和数据结构
+- 同样，所有 declare 语句都不会出现在编译后的文件里面
+- 只能在全局使用
+#### 函数重载
+- 函数重载与参数个数和参数类型/排列顺序有关
+- 不关注返回值
+```ts
+function showPerson(name: string): void;
+function showPerson(age: number): void;
+function showPerson(play: () => void): void;
+function showPerson(...args) {
+    console.log(args);
+    // 根据函数类型和数量作出不同的行为
+}
+showPerson(22);
+```
 #### 非空断言
 ```ts
 const aa: null | number = null;
@@ -372,3 +391,100 @@ greet(Base); // err:: 抽象类不能实例化
 
     cats.boris;
     ```
+- Exclude<T, K>
+    - 实现Exclude<T, K>
+    ```ts
+    type MyExclude<T, K> = T extends K ? never : T;
+    type T0 = MyExclude<"a" | "b" | "c", "a">;
+    ```
+
+- Pick<T, K>
+    - 实现Pick<T, K>
+    ```ts
+    interface Todo {
+        title: string;
+        description: string;
+        completed: boolean;
+    }
+    
+    // type TodoPreview = Pick<Todo, "title" | "completed">;
+    type MyPick<T, K extends keyof T> = {
+        [P in K]: T[P];
+    };
+    
+    const todo: TodoPreview = {
+        title: "Clean room",
+        completed: false,
+    };
+    
+    ```
+- Omit<T, K>
+    - 实现Omit<T, K>
+    ```ts
+    interface Todo {
+        title: string;
+        text: string;
+        description: string;
+        completed: boolean;
+    }
+    // 和Pick相反
+    type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+    type TodoPreview = MyOmit<Todo, "description" | "title">;
+    const todo: TodoPreview = {
+        text: "",
+        completed: false,
+    };
+    ```
+- NonNullable<T>
+    - 返回一个类型，不包含空类型
+    ```ts
+    type MyNonNullable<T> = T extends null ? never : T;
+    type T0 = MyNonNullable<string | number | undefined | null | never>; // string | number
+    ```
+- Parameters<F>
+    - 返回F函数的参数列表
+    ```ts
+    declare function f1(arg: { a: number; b: string }): void;
+    // 实现Parameters
+    type MyParameters<F> = F extends (...args: infer R) => any ? R : any;
+    type T0 = Parameters<() => string>; // type T0 = []
+    type T1 = MyParameters<(s: string) => void>; // type T1 = [s: string]
+    ```
+- ConstructorParameters<T>
+    - T为 `typeof 类`
+    ```ts
+    class C {
+        constructor(a: number, b: string) {}
+    }
+    type MyConstructorParameters<C> = C extends (...args: infer R) => any ? R : never;
+    type T3 = ConstructorParameters<typeof C>; // typeof C 返回 constructor 类型
+    type Params = MyConstructorParameters<typeof C>;
+    ```
+- ThisParameterType<T>
+    - 获取函数参数列表中的this
+    - T 是 `typeof 函数`
+```ts
+function toHex(this: Number) {
+    return this.toString(16);
+}
+type MyThisParameterType<T> = T extends (this: infer R, ...rest: any[]) => any ? R : unknown;
+// typeof toHex 是： (this: Number) => string
+function numberToString(n: MyThisParameterType<typeof toHex>) {
+    return toHex.apply(n);
+}
+```
+#### any unknown never void null undefined
+- any，跳过所有ts检查，可以随便赋值跟js变量一样
+    - any可以赋值给任何类型
+    - 也可以接收任何类型
+- unknown是更安全的any，在任何any适用的场景，都应该优先使用unknown
+    - unknown类型只能赋值给unknown类型
+    - 可以接收任何类型
+- never是ts底层类型
+    - 一个函数永远不会有返回值，或只会抛出错误的函数，返回值类型用never
+- void其实可以理解为null和undefined的联合类型
+    - 一般表示函数没有return语句 // （函数体不是死循环，且能执行到最后）
+- null/undefined
+    - null类型指的是js的null的类型
+    - undefined类型指的是js的undefined的类型
+    - 开启`--strictNullChecks`后，null/undefined类型只能接受unknown/any类型
