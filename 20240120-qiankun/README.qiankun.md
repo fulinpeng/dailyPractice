@@ -51,11 +51,137 @@ CSS Modules、Scoped CSS 或 Shadow DOM
 5. **localstorage**
 
 #### 怎么实现应用懒加载与预加载
+1. 根据路由自动懒加载
+2. 配置prefetch:true 自动预加载
+
+   也可以自定义预加载，比如鼠标悬停到入口链接时就开始预加载
 
 #### 公共库/工具函数等怎么公用
+1. 挂载主应用window上，子应Webpack 配置 externals排除掉公共的库
+2. 打包成 `umd` 格式，并通过 `cdn` 或 `npm` 共享给各个微应用
+3. 在微应用注册时，通过 `props` 将公共库或工具函数传递下去
+4. webpack5联邦模块
 
-#### 发布子应用文件的hash会更改，要重新配置入口吗
+### 示例
+### 项目结构
+```
+/qiankun-react-example
+├── /main-app
+│   ├── index.html
+│   ├── main.js
+│   └── ... (其他文件)
+├── /sub-app
+│   ├── package.json
+│   ├── src
+│   │   ├── App.js
+│   │   └── index.js
+│   └── public
+│       └── index.html
+```
 
-#### 生命周期有什么用
+### 主应用 (`main-app/main.js`)
+主应用使用 `qiankun` 来加载子应用。
+```javascript
+import { registerMicroApps, start } from 'qiankun';
 
-#### 与iframe的微前端架构相比qiankun微前端架构有哪些不同和优缺点
+registerMicroApps([
+  {
+    name: 'sub-app', // 子应用名称
+    entry: '//localhost:3001', // 子应用入口地址
+    container: '#subapp-container', // 渲染子应用的 DOM 容器
+    activeRule: '/sub', // 激活子应用的规则
+  },
+]);
+
+start();
+```
+
+### 子应用 (`sub-app/src/App.js`)
+在子应用中实现生命周期钩子。
+```javascript
+import React from 'react';
+
+let appInstance = null;
+
+// 初始化
+export async function bootstrap() {
+  console.log('子应用初始化');
+}
+
+// 挂载
+export async function mount(props) {
+  console.log('子应用挂载');
+  appInstance = <App />;
+  render(appInstance, props.container);
+}
+
+// 卸载
+export async function unmount() {
+  console.log('子应用卸载');
+  render(null); // 卸载 React 组件
+}
+
+// 渲染函数
+function render(AppComponent, container = document.getElementById('subapp-container')) {
+  ReactDOM.render(AppComponent, container);
+}
+
+// 主应用组件
+function App() {
+  return (
+    <div>
+      <h1>子应用内容</h1>
+      <button onClick={() => alert('按钮被点击了！')}>点击我</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### 子应用 HTML (`sub-app/public/index.html`)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sub App</title>
+</head>
+<body>
+  <div id="subapp-container"></div>
+  <script src="./index.js"></script>
+</body>
+</html>
+```
+
+### 子应用入口 (`sub-app/src/index.js`)
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { bootstrap, mount, unmount } from './App';
+
+// 这里直接启动子应用
+bootstrap();
+mount({
+  container: document.getElementById('subapp-container'),
+});
+
+// 确保卸载函数在 window.unmount 中可用
+window.unmount = unmount;
+```
+
+### 主应用 HTML (`main-app/index.html`)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main App</title>
+</head>
+<body>
+  <h1>主应用</h1>
+  <div id="subapp-container"></div>
+  <script src="./main.js"></script>
+</body>
+</html>
+```
