@@ -1,3 +1,7 @@
+### 启动
+```js
+sudo mongod --dbpath /usr/local/data/db/
+```
 ### 1. 连接到数据库
 连接到数据库：
 ```js
@@ -19,10 +23,6 @@ db
 
 ```js
 use otherDbName
-```
-查看当前数据库中有哪些集合（相当于 SQL 中的表）：
-```js
-show collections
 ```
 
 ### 2. 增加数据（Create）
@@ -138,13 +138,16 @@ db.users.stats();
 ```
 这将显示有关 `users` 集合的统计信息，例如文档数量、索引信息等。
 
----
+### 集合
 
-### 总结
+查看当前数据库中有哪些集合（相当于 SQL 中的表）：
+```js
+show collections
+```
 
-以下是 MongoDB 中的基本 CRUD 操作总结：
+删除集合
+```js
+db.users.drop();
 
-- **增（Create）**: 使用 `insertOne()` 或 `insertMany()` 来插入数据。
-- **查（Read）**: 使用 `find()` 或 `findOne()` 来查询数据。
-- **改（Update）**: 使用 `updateOne()` 或 `updateMany()` 来更新数据。
-- **删（Delete）**: 使用 `deleteOne()` 或 `deleteMany()` 来删除数据。
+db.getCollection("users").drop()
+```
