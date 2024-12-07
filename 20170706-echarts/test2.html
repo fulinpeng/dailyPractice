@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts: 平行于 X 轴的直线与价格显示</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        #chart {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+
+    <script>
+        const chart = echarts.init(document.getElementById('chart'));
+        // 基础 K 线图配置
+        const option = {
+            xAxis: {
+                type: 'category',
+                data: ['2024-10-25', '2024-10-26', '2024-10-27'], // 时间数据
+            },
+            yAxis: {
+                type: 'value',
+            },
+            series: [
+                {
+                    type: 'candlestick',
+                    data: [
+                        [20, 30, 10, 35],
+                        [40, 35, 30, 55],
+                        [50, 55, 40, 60],
+                    ], // K 线数据
+                },
+            ],
+            graphic: [], // 用来存放我们添加的图形
+        };
+
+        chart.setOption(option);
+
+        // 获取渲染后的 DOM
+        const chartDom = chart.getDom();
+        // 查找 canvas 元素
+        const canvas = chartDom.querySelector('canvas');
+        // 给 canvas 元素添加自定义的 class
+        if (canvas) {
+            canvas.classList.add('echarts-canvas');
+        }
+
+        let lineId = null; // 记录当前创建的直线的 ID
+        let textId = null; // 记录当前显示的价格文本的 ID
+
+        // 监听点击事件，点击后画直线
+        // chart.on('click', function (params) {
+        // chart.getZr() 获取canvas区域
+        chart.getZr().on('click', function (params) {
+
+            const zr = chart.getZr();  // 获取 ECharts 的 ZRender 实例
+            console.log("🚀 ~ file: test2.html:64 ~ zr:", zr)
+            // 获取点击位置
+            // const target = zr.getElementAtEvent(params.event);  // 获取点击的图形元素
+
+            const target = params.event.target
+            console.log("🚀 ~ file: test2.html:57 ~ target:", target)
+            const isChartElement = target && target instanceof HTMLCanvasElement && target.classList.contains('echarts-canvas');
+
+            // 如果没有点击到任何图表元素
+            if (isChartElement) {
+                console.log('Clicked on the blank area');
+                if (lineId) {
+                    // 如果已经存在直线，则删除它
+                    option.graphic = option.graphic.filter(item => item.id !== lineId && item.id !== textId);
+                }
+
+                // 获取点击位置对应的 X 和 Y 坐标
+                const x = params.event.offsetX;
+                const y = params.event.offsetY;
+
+                // 获取当前的 Y 轴的价格值
+                const yValue = chart.convertFromPixel({
+                    xAxisIndex: 0, // 指定使用哪个 X 轴进行转换
+                    yAxisIndex: 0  // 指定使用哪个 Y 轴进行转换
+                }, [0, y])[1];
+                console.log("🚀 ~ file: test2.html:66 ~ yValue:", yValue, chart.getWidth())
+
+                // 给直线和文字一个唯一的 ID
+                lineId = `line-${Date.now()}`;
+                textId = `text-${Date.now()}`;
+
+                // 添加一条 X 轴上的直线
+                option.graphic.push({
+                    type: 'line',
+                    id: lineId,
+                    shape: {
+                        x1: 0,
+                        y1: y,
+                        x2: chart.getWidth(),
+                        y2: y,
+                    },
+                    style: {
+                        stroke: '#ff0000',
+                        lineWidth: 2,
+                    },
+                    draggable: true, // 启用拖拽
+                });
+
+                // 添加显示价格的文字
+                option.graphic.push({
+                    type: 'text',
+                    id: textId,
+                    x: chart.getWidth() / 2,  // 文字位置居中
+                    y: yValue,  // 设置为yValue的偏移
+                    style: {
+                        text: `${yValue.toFixed(2)}`,  // 显示当前价格
+                        fill: 'pink',  // 白色文字
+                        font: '14px sans-serif',  // 字体样式
+                        textAlign: 'center',  // 文字水平居中
+                        textVerticalAlign: 'middle',  // 文字垂直居中
+                    },
+                    draggable: true,  // 启用拖拽
+                });
+
+                chart.setOption(option); // 更新图表
+            } else {
+                console.log('Clicked on an element');
+            }
+        });
+
+        // 监听拖拽事件
+        chart.on('graphicElementDrag', function (params) {
+            const line = params.target;
+            const text = chart.getGraphicById(textId);
+
+            // 更新直线和文字的坐标
+            const newY = line.shape.y1;
+
+            option.graphic = option.graphic.map(item => {
+                if (item.id === line.id) {
+                    return {
+                        ...item,
+                        shape: {
+                            ...item.shape,
+                            y1: newY,
+                            y2: newY,
+                        },
+                    };
+                }
+                if (item.id === text.id) {
+                    return {
+                        ...item,
+                        shape: {
+                            ...item.shape,
+                            y: newY - 10, // 文字与直线保持距离
+                        },
+                    };
+                }
+                return item;
+            });
+
+            chart.setOption(option);
+        });
+    </script>
+</body>
+
+</html>

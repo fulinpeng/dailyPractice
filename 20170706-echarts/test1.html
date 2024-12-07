@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts K 线图示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        #chart {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+
+    <script>
+        // 初始化图表实例
+        const chart = echarts.init(document.getElementById('chart'));
+
+        // 基础 K 线图配置
+        const option = {
+            xAxis: {
+                type: 'category',
+                data: ['2024-10-25', '2024-10-26', '2024-10-27'], // 时间数据
+            },
+            yAxis: {
+                type: 'value',
+            },
+            series: [
+                {
+                    type: 'candlestick',
+                    data: [
+                        [20, 35, 10, 40],
+                        [40, 35, 30, 55],
+                        [50, 55, 40, 60],
+                    ], // K 线数据
+                },
+            ],
+            graphic: [
+                {
+                    // 自定义矩形图形
+                    type: 'rect',
+                    id: 'custom-rect',
+                    shape: {
+                        x: 150,
+                        y: 150,
+                        width: 50,
+                        height: 50,
+                    },
+                    style: {
+                        fill: 'pink',
+                    },
+                    draggable: true, // 开启拖拽
+                },
+            ],
+        };
+
+        chart.setOption(option);
+
+        // 监听拖拽事件
+        chart.on('graphicElementDrag', function (params) {
+            const position = chart.convertFromPixel(
+                { xAxisIndex: 0, yAxisIndex: 0 },
+                [params.target.x, params.target.y]
+            );
+            console.log(`Dragged element to: x=${position[0]}, y=${position[1]}`);
+        });
+
+        // 添加一个基于数据点的自定义圆形
+        const dataIndex = 1; // 数据点索引
+        const dataValue = [40, 35, 30, 60]; // 数据值
+        const position = chart.convertToPixel(
+            { xAxisIndex: 0, yAxisIndex: 0 },
+            [dataIndex, dataValue[1]]
+        );
+
+        option.graphic.push({
+            type: 'circle',
+            id: 'data-point-circle',
+            shape: { cx: position[0], cy: position[1], r: 20 },
+            style: { fill: 'blue' },
+            draggable: true,
+        });
+
+        chart.setOption(option);
+    </script>
+</body>
+
+</html>

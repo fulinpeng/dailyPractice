@@ -1,0 +1,36 @@
+{
+  "name": "20241004-ssr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:server": "node server/server.js",
+    "start:client": "webpack serve --config webpack.client.js --mode development",
+    "start": "npm-run-all -p start:server start:client",
+    "build:server": "webpack --config webpack.server.js --mode production",
+    "build:client": "webpack --config webpack.client.js --mode production",
+    "build": "npm-run-all build:server build:client",
+    "clean": "rimraf dist",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "express": "^4.21.1",
+    "isomorphic-fetch": "^3.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.1",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/register": "^7.25.9",
+    "nodemon": "^3.1.7"
+  }
+}
