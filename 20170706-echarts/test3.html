@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts: 平行于 X 轴的直线与价格显示</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <!-- <script src="./data/res-vegas.js"></script> -->
+    <!-- <script src="./data/res-bbk.js"></script> -->
+    <!-- <script src="./data/res-emama-crossover.js"></script> -->
+    <!-- <script src="./data/res-highesthigh-lowestlow.js"></script> -->
+    <script src="./data/rest-nmacd-marsi.js"></script>
+    <script src="./data/eth-4h.js"></script>
+    <style>
+        #chart {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+
+    <script>
+        const chart = echarts.init(document.getElementById('chart'));
+
+        const upColor = "#98f0b0";
+        const upBorderColor = "#98f0b0";
+        const downColor = "#f19f9f";
+        const downBorderColor = "#f19f9f";
+
+        // Each item: open，close，lowest，highest
+        function splitData (rawData) {
+            const categoryData = [];
+            const values = [];
+            for (var i = 0; i < rawData.length; i++) {
+                categoryData.push(rawData[i].splice(0, 1)[0]);
+                values.push(rawData[i]);
+            }
+            return {
+                categoryData: categoryData,
+                values: values,
+            };
+        }
+        function calculateMA (dayCount) {
+            var result = [];
+            for (var i = 0, len = data0.values.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push("-");
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += +data0.values[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+        let data0 = splitData(data.map(v => [v.openTime, v.open, v.close, v.low, v.high, v.closeTime]))
+
+        const markArea = openHistory.map((t, i) => {
+            return [
+                {
+                    coord: [t, openPriceHistory[i]],
+                    itemStyle: {
+                        color: trendHistory[i] === 'up' ? 'green' : "red",
+                        opacity: 0.8,
+                    },
+                },
+                {
+                    coord: [closeHistory[i], closePriceHistory[i]],
+                },
+            ]
+        })
+
+        console.log(markArea)
+
+        const markPointData = openHistory.map((t, i) => {
+            let value = trendHistory[i] === 'up' ? (closePriceHistory[i] - openPriceHistory[i]).toFixed(2) : (openPriceHistory[i] - closePriceHistory[i]).toFixed(2)
+            return {
+                name: "Mark",
+                coord: [t, openPriceHistory[i]],
+                value,
+                itemStyle: {
+                    color: trendHistory[i] === 'up' ? 'greenyellow' : "orangered",
+                },
+                symbol: value > 0 ? 'pin' : 'triangle',
+                symbolRotate: value > 0 ? 90 : -90,
+                symbolOffset: value > 0 ? [0, 0] : ['-50%', 0],
+            }
+        })
+        var option = {
+            title: {
+                text: "eth-4h",
+                left: 0,
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross",
+                },
+            },
+            legend: {
+                data: ["4h", "MA144", "MA169"],
+            },
+            grid: {
+                left: "10%",
+                right: "10%",
+                bottom: "15%",
+            },
+            xAxis: {
+                type: "category",
+                data: data0.categoryData,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                splitLine: { show: false },
+                min: "dataMin",
+                max: "dataMax",
+            },
+            yAxis: {
+                scale: true,
+                splitArea: {
+                    show: true,
+                },
+            },
+            dataZoom: [
+                {
+                    type: "inside",
+                    start: 50,
+                    end: 100,
+                },
+                {
+                    show: true,
+                    type: "slider",
+                    top: "90%",
+                    start: 50,
+                    end: 100,
+                },
+            ],
+            series: [
+                {
+                    name: "4h",
+                    type: "candlestick",
+                    data: data0.values,
+                    itemStyle: {
+                        color: upColor,
+                        color0: downColor,
+                        borderColor: upBorderColor,
+                        borderColor0: downBorderColor,
+                    },
+                    markPoint: {
+                        label: {
+                            formatter: function (param) {
+                                return param != null ? Math.round(param.value) + "" : "";
+                            },
+                        },
+                        data: [
+                            {
+                                name: "Mark",
+                                coord: ["2013/5/31", 2300],
+                                value: 2300,
+                                itemStyle: {
+                                    color: "rgb(41,60,85)",
+                                },
+                            },
+                        ],
+                        tooltip: {
+                            formatter: function (param) {
+                                return param.name + "<br>" + (param.data.coord || "");
+                            },
+                        },
+                    },
+                    markArea: {
+                        data: [
+                            ...markArea,
+                        ],
+                        label: {
+                            show: false,
+                        },
+                    },
+                    markPoint: {
+                        // label: {
+                        //     formatter: function (param) {
+                        //         return param != null ? Math.round(param.value) + "" : "";
+                        //     },
+                        // },
+                        data: markPointData,
+                        // tooltip: {
+                        //     formatter: function (param) {
+                        //         return param.name + "<br>" + (param.data.coord || "");
+                        //     },
+                        // },
+                    },
+                },
+                {
+                    name: "MA144",
+                    type: "line",
+                    data: calculateMA(144),
+                    smooth: true,
+                    symbol: 'none',
+                    lineStyle: {
+                        opacity: 0.5,
+                    },
+                },
+                {
+                    name: "MA169",
+                    type: "line",
+                    symbol: 'none',
+                    data: calculateMA(169),
+                    smooth: true,
+                    lineStyle: {
+                        opacity: 0.5,
+                    },
+                },
+            ],
+        };
+
+
+        chart.setOption(option);
+
+        // 获取渲染后的 DOM
+        const chartDom = chart.getDom();
+        // 查找 canvas 元素
+        const canvas = chartDom.querySelector('canvas');
+        // 给 canvas 元素添加自定义的 class
+        if (canvas) {
+            canvas.classList.add('echarts-canvas');
+        }
+
+
+    </script>
+</body>
+
+</html>
