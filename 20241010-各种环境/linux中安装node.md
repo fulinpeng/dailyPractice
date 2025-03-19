@@ -31,7 +31,7 @@ export NVM_DIR="$HOME/.nvm"
 nvm install v16.20.2
 ```
 
-安装 Node.js 后，通常 npm 会自动随 Node.js 一起安装。如果需要手动配置 npm 的软连接，可以按照以下步骤进行：
+Node.js 安装后，通常 npm 会自动随 Node.js 一起安装。如果需要手动配置 npm 的软连接，可以按照以下步骤进行：
 为了确保 `/usr/bin/node` 正确指向 nvm 安装的 Node.js 可执行文件，我们可以使用符号链接手动设置路径。以下步骤会帮助你创建一个指向 nvm 安装路径的符号链接：
 
 1. **找到 nvm 安装的 Node.js 路径：**
